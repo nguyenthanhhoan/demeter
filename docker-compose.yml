@@ -1,0 +1,56 @@
+proxy:
+  image: jwilder/nginx-proxy:latest
+  ports:
+    - "80:80"
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
+
+db:
+  image: postgres:9.5.4 # Heroku PostgreSQL Version
+  ports:
+    - "5432:5432" # Bind host port 5432 to PostgreSQL port 5432
+  volumes_from:
+    - dbdata
+  environment:
+    LC_ALL: C.UTF-8
+    POSTGRES_PASSWORD: HowCanYouGuess
+
+dbdata:
+  image: postgres:9.5.4
+  command: /bin/echo PostgreSQL Data Container
+
+redis:
+  image: redis
+
+cache:
+  image: memcached
+
+web:
+  build: .
+  # command: bundle exec unicorn -E development -c config/unicorn.rb
+  command: npm run start
+  # command: node_modules/.bin/ng serve --port=4200
+  ports:
+    - "8080:8080"
+    - "4200:4200"
+  volumes:
+    - .:/rails
+  env_file: .env.web
+  links:
+    - db
+    - redis
+    - cache
+
+worker:
+  build: .
+  entrypoint: /rails/entry.sh
+  volumes:
+    - .:/rails
+  env_file: .env.web
+  environment:
+    SECRET_KEY_BASE: abcdefg
+    RAILS_ENV: development
+  links:
+    - db
+    - redis
+    - cache
