@@ -23,6 +23,10 @@ export const routes: Routes = [
         ]
     },
 
+    {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
+
+    {path: '**', redirectTo: 'miscellaneous/error404'}
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {useHash: true});
