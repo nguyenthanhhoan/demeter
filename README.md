@@ -1,24 +1,18 @@
-# README
+# DEMETER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. QUICK START:
 
-Things you may want to cover:
+* Install https://docs.docker.com/docker-for-mac/
+* Clone this repos
+* `docker-compose build`
+* `npm i`
+* `docker-compose run web rails db:setup`
+* `docker-compose run web rails db:seed:init`
+* `docker-compose up`
 
-* Ruby version
+2. INFORMATION:
 
-* System dependencies
+* Default admin email: `admin@example.com`
+* Default admin password: `123456`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+That's all. Now try `http://localhost:4200` on your browser ;)
