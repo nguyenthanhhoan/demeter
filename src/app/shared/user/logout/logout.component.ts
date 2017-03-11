@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {NotificationService} from "../../utils/notification.service";
+import { LocalStorageService } from '../../utils/localstorage.service';
 
 declare var $:any;
 
@@ -18,7 +19,8 @@ declare var $:any;
 export class LogoutComponent implements OnInit {
 
   constructor(private router: Router,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService,
+              private localStorageService: LocalStorageService) { }
 
   showPopup(){
     this.notificationService.smartMessageBox({
@@ -34,7 +36,8 @@ export class LogoutComponent implements OnInit {
   }
 
   logout(){
-      this.router.navigate(['/auth/login'])
+    let user = this.localStorageService.remove('user');
+    this.router.navigate(['/auth/login']);
   }
 
   ngOnInit() {
