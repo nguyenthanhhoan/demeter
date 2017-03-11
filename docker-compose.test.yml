@@ -27,21 +27,27 @@ cache:
 
 web:
   build: .
-  command: npm run dev -s
+  command: npm run start
   ports:
     - "8080:8080"
-    - "8079:8079"
+    - "4200:4200"
   volumes:
     - .:/rails
+  env_file: .env.web
+  links:
+    - db
+    - redis
+    - cache
+
+worker:
+  build: .
+  entrypoint: /rails/entry.sh
+  volumes:
+    - .:/rails
+  env_file: .env.web
   environment:
-    - SECRET_KEY_BASE=please_enter_here
-    - RAILS_ENV=development
-    - S3_BUCKET_NAME=please_enter_here
-    - S3_ACCESS_KEY=please_enter_here
-    - S3_SECRET_ACCESS_KEY=please_enter_here
-    - AWS_REGION=please_enter_here
-    - STRIPE_PUBLISHABLE_KEY=please_enter_here
-    - STRIPE_SECRET_KEY=please_enter_here
+    SECRET_KEY_BASE: abcdefg
+    RAILS_ENV: test
   links:
     - db
     - redis
