@@ -7,6 +7,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from "./shared/layout/app-layouts/main-layout.component";
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {ModuleWithProviders} from "@angular/core";
+import { AuthGuard } from './+auth/auth-guard.service';
 
 export const routes: Routes = [
     {
@@ -20,7 +21,8 @@ export const routes: Routes = [
                 path: 'home',
                 loadChildren: 'app/+home/home.module#HomeModule'
             },
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
 
     {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},

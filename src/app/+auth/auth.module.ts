@@ -7,9 +7,8 @@ import { AuthComponent } from './auth.component';
 @NgModule({
   imports: [
     CommonModule,
-
-    routing,
+    routing
   ],
-  declarations: [ AuthComponent]
+  declarations: [ AuthComponent ]
 })
 export class AuthModule { }

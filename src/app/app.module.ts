@@ -15,11 +15,15 @@ import { AppState, InternalStateType } from './app.service';
 // Core providers
 import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
+import { AuthGuard } from './+auth/auth-guard.service';
+import { AuthService } from './+auth/auth.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  AuthGuard,
+  AuthService
 ];
 
 type StoreType = {
@@ -43,8 +47,6 @@ type StoreType = {
 
     CoreModule,
     SmartadminLayoutModule,
-
-
 
     routing
   ],
