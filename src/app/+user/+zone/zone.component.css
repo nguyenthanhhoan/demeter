@@ -1,0 +1,76 @@
+.user-header {
+  height: 60px;
+  background-color: #40403D;
+  color: #E6E6E6;
+}
+
+.button-group-right {
+  height: 60px;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-button {
+  list-style: none;
+  display: inline-block;
+  padding: 19px 5px;
+  font-size: 16px;
+  color: #C0C0C0;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: #fff;
+}
+
+/**
+ * Project Summary
+ **/
+
+.project-summary .container {
+  background-color: #F5F3EB;
+  height: 200px;
+  margin-top: 50px;
+  padding: 25px;
+}
+
+.project-img, .project-info, .seperator {
+  float: left;
+}
+
+.project-img {
+  max-width: 200px;
+  height: 100%;
+}
+
+.project-img img {
+  max-height: 100%;
+}
+
+.project-info {
+  margin-left: 25px;
+}
+
+.project-name {
+  color: #006837;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}
+
+.weather-icon {
+  width: 40px;
+}
+
+.project-data {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.seperator {
+  border-left: 2px dashed #ccc;
+  height: 150px;
+  margin: 0 25px;
+}
