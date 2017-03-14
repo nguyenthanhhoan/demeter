@@ -57,6 +57,7 @@ var data = {
 })
 export class ZoneComponent implements OnInit {
   chart: Chart;
+  zones: any[];
 
   constructor(private localStorageService: LocalStorageService,
               private router: Router) { 
@@ -64,6 +65,28 @@ export class ZoneComponent implements OnInit {
       type: 'Line',
       data: data['Line']
     };
+
+    this.zones = [{
+      image: "assets/img/cau-dat/strawberry.png",
+      name: "Strawberry farm",
+      percent: "40%",
+      startDate: "15/03/2017",
+      endDate: "01/03/2018",
+      location: "Dalat, Vietnam",
+      surface: "0.3 ha",
+      worker: "3",
+      id: "St01"
+    }, {
+      image: "assets/img/cau-dat/tomato.png",
+      name: "Tomato",
+      percent: "80%",
+      startDate: "15/03/2017",
+      endDate: "01/03/2018",
+      location: "Dalat, Vietnam",
+      surface: "0.5 ha",
+      worker: "3",
+      id: "St02"
+    }]
   }
 
   ngOnInit() {

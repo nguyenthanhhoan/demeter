@@ -164,38 +164,42 @@
     </div>
 
     <div class="page-content col-md-8">
-      <div class="demeter-pane">
+      <div class="content-header">
+        <div class="demeter-title">List of Zones</div>
+        <button class="demeter-btn create-btn primary pull-right">Create Zone</button>
+      </div>
+      <div *ngFor="let zone of zones" class="demeter-pane">
         <div class="row">
           <div class="col-md-3">
-            <img class="img-responsive" src="assets/img/cau-dat/strawberry.png" />
+            <img class="img-responsive" src="{{zone.image}}" />
             <button class="demeter-btn detail-btn primary">Detail</button>
           </div>
           <div class="col-md-9">
             <p class="demeter-title">
-              Strawberry farm
+              {{zone.name}}
             </p>
             <div class="zone-status-group">
-              <span class="status-percent">100%</span>
+              <span class="status-percent">{{zone.percent}}</span>
               <div class="green-bar-wrapper">
-                <div class="green-bar" style="width: 100px;"></div>
+                <div class="green-bar" [style.width]="zone.percent"></div>
               </div>
               <div class="date-time-wrapper">
                 <div class="start-date pull-left">
                   <p class="date-label">Start date</p>
-                  <p>15/03/2017</p>
+                  <p>{{zone.startDate}}</p>
                 </div>
                 <div class="end-date pull-right">
                   <p class="date-label">End date</p>
-                  <p>01/03/2018</p>
+                  <p>{{zone.endDate}}</p>
                 </div>
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="line-info">
-              <p><b>Location: </b>Dalat, Vietnam</p>
-              <p><b>Surface: </b>0.3 ha</p>
-              <p><b>Worker: </b>03</p>
-              <p><b>ID: </b>St01</p>
+              <p><b>Location: </b>{{zone.location}}</p>
+              <p><b>Surface: </b>{{zone.surface}}</p>
+              <p><b>Worker: </b>{{zone.worker}}</p>
+              <p><b>ID: </b>{{zone.surface}}</p>
             </div>
           </div>
         </div>
