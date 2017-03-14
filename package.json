@@ -36,7 +36,7 @@
   "dependencies": {
     "@angular/common": "^2.3.1",
     "@angular/compiler": "^2.3.1",
-    "@angular/core": "^2.3.1",
+    "@angular/core": "^2.4.9",
     "@angular/forms": "^2.3.1",
     "@angular/http": "^2.3.1",
     "@angular/platform-browser": "^2.3.1",
@@ -54,6 +54,7 @@
     "bootstrap-tagsinput": "^0.7.1",
     "bootstrap-timepicker": "^0.5.2",
     "chart.js": "2.3.0",
+    "chartist": "^0.10.1",
     "clockpicker": "0.0.7",
     "clone": "~2.0.0",
     "core-js": "^2.4.1",

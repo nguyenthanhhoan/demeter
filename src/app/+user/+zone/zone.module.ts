@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmartadminModule } from "../../shared/smartadmin.module";
+import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 
 import { zoneRouting } from './zone.routing';
 import { ZoneComponent } from "./zone.component";
@@ -9,7 +10,8 @@ import { ZoneComponent } from "./zone.component";
   imports: [
     CommonModule,
     zoneRouting,
-    SmartadminModule
+    SmartadminModule,
+    ChartistModule
   ],
   declarations: [ZoneComponent]
 })
