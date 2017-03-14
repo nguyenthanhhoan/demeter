@@ -30,25 +30,43 @@
       <div class="project-data">
         <p>
           <i class="fa fa-map-marker" aria-hidden="true"></i>
-          <b>Location: </b>Dalat, Vietnam
+          Location: <span class="font-light">Dalat, Vietnam</span>
         </p>
         <p>
           <i class="fa fa-crop" aria-hidden="true"></i>
-          <b>Surface: </b>225 ha
+          Surface: <span class="font-light">225 ha</span>
         </p>
         <p>
           <i class="fa fa-users" aria-hidden="true"></i>
-          <b>Worker: </b>200
+          Worker: <span class="font-light">200</span>
         </p>
         <p>
           <i class="fa fa-th" aria-hidden="true"></i>
-          <b>Zone: </b>3
+          Zone: <span class="font-light">3</span>
         </p>
       </div>
     </div>
     <div class="seperator">
     </div>
     <div class="weather-chart">
+      <div class="metrics">
+        <div class="metric active">
+          <div class="value">25</div>
+          <div class="metric-label">Temp(°C)</div>
+        </div>
+        <div class="metric">
+          <div class="value">88</div>
+          <div class="metric-label">Humidity(%)</div>
+        </div>
+        <div class="metric">
+          <div class="value">85</div>
+          <div class="metric-label">Rain(%)</div>
+        </div>
+        <div class="metric">
+          <div class="value">25</div>
+          <div class="metric-label">Wind(km/h)</div>
+        </div>
+      </div>
       <x-chartist
         [data]="chart.data"
         [type]="chart.type"
@@ -59,3 +77,119 @@
     </div>
   </div>
 </summary>
+
+<div class="container">
+  <div class="section-separator"></div>
+</div>
+
+<div class="container main-container">
+  <div class="row">
+    <div class="sidebar col-md-4">
+      <div class="menu-group">
+        <div class="menu-group-title title-1">
+          Monitoring & Control
+        </div>
+        <ul>
+          <li>Camera System</li>
+          <li>Data realtime</li>
+          <li>Control</li>
+        </ul>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-title title-2">
+          Crop Management
+        </div>
+        <ul>
+          <li>Production Plan</li>
+          <li>OKR</li>
+          <li>Tasks</li>
+          <li>Season</li>
+          <li>Weather</li>
+          <li>Warning</li>
+          <li>Document</li>
+          <li>Human</li>
+          <li>Daily Report</li>
+        </ul>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-title title-3">
+          Finance
+        </div>
+        <ul>
+          <li>Sale</li>
+          <li>Expense</li>
+          <li>Control</li>
+          <li>Company Finances</li>
+          <li>Monthly Finances</li>
+          <li>Transaction</li>
+        </ul>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-title title-4">
+          Resources
+        </div>
+        <ul>
+          <li>People</li>
+          <li>Fields</li>
+          <li>Machinery</li>
+          <li>Inventory</li>
+          <li>Document</li>
+        </ul>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-title title-5">
+          Report
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-title title-6">
+          Setting
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content col-md-8">
+      <div class="demeter-pane">
+        <div class="row">
+          <div class="col-md-3">
+            <img class="img-responsive" src="assets/img/cau-dat/strawberry.png" />
+            <button class="demeter-btn detail-btn primary">Detail</button>
+          </div>
+          <div class="col-md-9">
+            <p class="demeter-title">
+              Strawberry farm
+            </p>
+            <div class="zone-status-group">
+              <span class="status-percent">100%</span>
+              <div class="green-bar-wrapper">
+                <div class="green-bar" style="width: 100px;"></div>
+              </div>
+              <div class="date-time-wrapper">
+                <div class="start-date pull-left">
+                  <p class="date-label">Start date</p>
+                  <p>15/03/2017</p>
+                </div>
+                <div class="end-date pull-right">
+                  <p class="date-label">End date</p>
+                  <p>01/03/2018</p>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="line-info">
+              <p><b>Location: </b>Dalat, Vietnam</p>
+              <p><b>Surface: </b>0.3 ha</p>
+              <p><b>Worker: </b>03</p>
+              <p><b>ID: </b>St01</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
