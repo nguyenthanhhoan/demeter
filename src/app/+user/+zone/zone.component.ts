@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from "@angular/router";
 import * as Chartist from 'chartist';
+import { LocalStorageService } from '../../shared/utils/localstorage.service';
 
 import {
   ChartType,
@@ -57,7 +58,8 @@ var data = {
 export class ZoneComponent implements OnInit {
   chart: Chart;
 
-  constructor() { 
+  constructor(private localStorageService: LocalStorageService,
+              private router: Router) { 
     this.chart = {
       type: 'Line',
       data: data['Line']
@@ -65,6 +67,11 @@ export class ZoneComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  logout(){
+    let user = this.localStorageService.remove('user');
+    this.router.navigate(['/auth/login']);
   }
 
 }
