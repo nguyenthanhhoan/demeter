@@ -1,0 +1,16 @@
+.project-image-holder {
+  border: 1px solid #ccc;
+  height: 207px;
+  width: 207px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.image-label {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.google-map-container {
+  height: 400px;
+}

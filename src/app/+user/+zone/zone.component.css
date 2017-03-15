@@ -1,32 +1,3 @@
-.container {
-  max-width: 1000px;
-}
-
-.user-header {
-  height: 60px;
-  background-color: #40403D;
-  color: #E6E6E6;
-}
-
-.button-group-right {
-  height: 60px;
-  margin: 0;
-  padding: 0;
-}
-
-.icon-button {
-  list-style: none;
-  display: inline-block;
-  padding: 19px 5px;
-  font-size: 16px;
-  color: #C0C0C0;
-  cursor: pointer;
-}
-
-.icon-button:hover {
-  color: #fff;
-}
-
 /**
  * Project Summary
  **/

@@ -15,8 +15,12 @@ import { AppState, InternalStateType } from './app.service';
 // Core providers
 import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
+import {UserLayoutModule} from "./+user/shared/layout/layout.module";
 import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
+
+// Application modules
+import { ProjectModule } from './+user/+project/project.module';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -47,8 +51,9 @@ type StoreType = {
 
     CoreModule,
     SmartadminLayoutModule,
-
-    routing
+    UserLayoutModule,
+    routing,
+    ProjectModule
   ],
   exports: [
   ],
@@ -59,7 +64,5 @@ type StoreType = {
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef, public appState: AppState) {}
-
-
 }
 

@@ -65,6 +65,9 @@ body {
 /**
  * Demeter style
  **/
+.user-side .container {
+  max-width: 1000px;
+}
 
 .demeter-btn {
   border: none;
@@ -156,9 +159,20 @@ body {
   margin-top: -38px;
 }
 
+.demeter-container {
+  background-color: #F5F3EB;
+  margin-top: 50px;
+  padding: 25px;
+}
+
 /**
  * Utilities.
  **/
 .font-light {
   font-weight: 200;
+}
+
+.control-label {
+  text-transform: uppercase;
+  text-align: left;
 }

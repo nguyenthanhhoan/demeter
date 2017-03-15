@@ -10,6 +10,8 @@ import {UserLayoutComponent} from './shared/layout/app-layouts/user-layout.compo
 import {ModuleWithProviders} from "@angular/core";
 import { AuthGuard } from './+auth/auth-guard.service';
 
+import { ProjectFormComponent } from './+user/+project/form/project-form.component';
+
 export const routes: Routes = [
     {
         path: '',
@@ -32,11 +34,15 @@ export const routes: Routes = [
         children: [
             {
                 path: '', redirectTo: 'zone', pathMatch: 'full'
-            },
-            {
+            }, {
                 path: 'zone',
                 loadChildren: 'app/+user/+zone/zone.module#ZoneModule'
-            },
+            }, {
+                path: 'project',
+                component: ProjectFormComponent 
+            }, { 
+                path: 'project/new', component: ProjectFormComponent 
+            }
         ]
     },
 

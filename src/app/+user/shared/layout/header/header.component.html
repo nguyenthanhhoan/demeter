@@ -1,0 +1,28 @@
+<header class="user-header">
+  <div class="container">
+    <ul class="button-group-right pull-right">
+      <li class="icon-button">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+      </li>
+      <li class="icon-button">
+        <i class="fa fa-bell-o" aria-hidden="true"></i>
+      </li>
+      <li class="icon-button">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+      </li>
+      <li class="icon-button dropdown" dropdown>
+        <span class="dropdown-toggle" dropdownToggle>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <i class="fa fa-angle-down"></i> 
+        </span>
+        <ul class="dropdown-menu pull-right">
+          <li>
+            <a (click)="logout()">
+              <i class="fa fa-sign-out"></i>&nbsp; Logout
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</header>

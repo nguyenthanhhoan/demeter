@@ -92,9 +92,4 @@ export class ZoneComponent implements OnInit {
   ngOnInit() {
   }
 
-  logout(){
-    let user = this.localStorageService.remove('user');
-    this.router.navigate(['/auth/login']);
-  }
-
 }
