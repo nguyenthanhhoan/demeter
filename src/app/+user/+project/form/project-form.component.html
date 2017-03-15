@@ -1,5 +1,8 @@
 <demeter-user-header></demeter-user-header>
 
+<div class="container demeter-container-title">
+  Create Projects:
+</div>
 <div class="container demeter-container">
   <div class="row">
     <form class="form-horizontal">
@@ -14,7 +17,7 @@
           <div class="form-group">
             <label class="col-md-5 control-label">Surface:</label>
             <div class="col-md-7">
-              <input class="form-control" type="text">
+              <input class="form-control" type="number">
               <p class="help-block">
                 ha
               </p>
@@ -23,13 +26,13 @@
           <div class="form-group">
             <label class="col-md-5 control-label">Labour:</label>
             <div class="col-md-7">
-              <input class="form-control" type="text">
+              <input class="form-control" type="number">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-5 control-label">Location:</label>
             <div class="col-md-7">
-              <input class="form-control" type="text">
+              <input class="form-control" type="text" disabled>
               <p class="help-block">
                 Select Gmap
               </p>
@@ -38,6 +41,7 @@
         </div>
         <div class="col-md-6">
           <div class="project-image-holder">
+            <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
             <p class="image-label help-block">Image</p>
           </div>
         </div>
@@ -45,8 +49,23 @@
     </form>
 
     <div class="col-md-12">
-      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-      <div class="google-map-container" id="google-map-container"></div>
+      <div class="col-md-1 col-padding-map"></div>
+      <div class="col-md-1 col-map">
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div class="google-map-container" id="google-map-container"></div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="button-group pull-right">
+        <button class="demeter-btn create-btn">
+          Create
+        </button>
+
+        <button class="demeter-btn danger">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>

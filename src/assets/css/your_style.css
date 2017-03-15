@@ -71,7 +71,7 @@ body {
 
 .demeter-btn {
   border: none;
-  padding: 7px;
+  padding: 7px 20px;
   text-transform: uppercase;
   font-size: 15px;
 }
@@ -85,8 +85,36 @@ body {
   background-color: #525d4f;
 }
 
+.demeter-btn.danger {
+  background-color: #E27270;
+  color: #fff;
+}
+
+.demeter-btn.danger:hover {
+  background-color: #c15553;
+}
+
 .demeter-btn.create-btn {
   background-color: #377869;
+  color: #fff;
+  position: relative;
+  padding-right: 30px;
+}
+
+.demeter-btn.create-btn:hover {
+  background-color: #256153;
+}
+
+.demeter-btn.create-btn:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: url(../img/cau-dat/icon/plus.png) no-repeat 0 0;
+  top: 12px;
+  right: 11px;
+  position: absolute;
+  display: inline-block;
+  background-size: cover;
 }
 
 .demeter-btn.detail-btn {
@@ -161,8 +189,19 @@ body {
 
 .demeter-container {
   background-color: #F5F3EB;
-  margin-top: 50px;
   padding: 25px;
+}
+
+.demeter-container-title {
+  margin-top: 50px;
+  height: 100px;
+  background-color: #40403D;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  padding-top: 35px;
+  padding-left: 40px;
 }
 
 /**
