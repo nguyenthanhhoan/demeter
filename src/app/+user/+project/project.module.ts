@@ -7,6 +7,8 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import { HeaderModule } from '../shared/layout/header/header.module';
 
 import { ProjectFormComponent } from './form/project-form.component';
+import { ProjectListComponent } from './list/project-list.component';
+import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 
 @NgModule({
   imports: [
@@ -14,10 +16,12 @@ import { ProjectFormComponent } from './form/project-form.component';
     SmartadminModule,
     DropdownModule,
     ChartistModule,
-    HeaderModule
+    HeaderModule,
+    ProjectSummaryModule
   ],
   declarations: [
-    ProjectFormComponent
+    ProjectFormComponent,
+    ProjectListComponent
   ]
 })
 export class ProjectModule { }

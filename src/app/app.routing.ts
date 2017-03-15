@@ -11,6 +11,7 @@ import {ModuleWithProviders} from "@angular/core";
 import { AuthGuard } from './+auth/auth-guard.service';
 
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
+import { ProjectListComponent } from './+user/+project/list/project-list.component';
 
 export const routes: Routes = [
     {
@@ -39,7 +40,7 @@ export const routes: Routes = [
                 loadChildren: 'app/+user/+zone/zone.module#ZoneModule'
             }, {
                 path: 'project',
-                component: ProjectFormComponent 
+                component: ProjectListComponent 
             }, { 
                 path: 'project/new', component: ProjectFormComponent 
             }

@@ -1,64 +1,8 @@
 <demeter-user-header></demeter-user-header>
-<summary class="project-summary">
-  <div class="container">
-    <div class="project-img">
-      <img src="assets/img/cau-dat/cau-dat-farm.png" />
-    </div>
-    <div class="project-info">
-      <div class="project-title">
-        <img class="weather-icon" src="assets/img/cau-dat/weather.png" />
-        <label class="project-name">CAUDATFARM</label>
-      </div>
-      <div class="project-data">
-        <p>
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          Location: <span class="font-light">Dalat, Vietnam</span>
-        </p>
-        <p>
-          <i class="fa fa-crop" aria-hidden="true"></i>
-          Surface: <span class="font-light">225 ha</span>
-        </p>
-        <p>
-          <i class="fa fa-users" aria-hidden="true"></i>
-          Worker: <span class="font-light">200</span>
-        </p>
-        <p>
-          <i class="fa fa-th" aria-hidden="true"></i>
-          Zone: <span class="font-light">3</span>
-        </p>
-      </div>
-    </div>
-    <div class="seperator">
-    </div>
-    <div class="weather-chart">
-      <div class="metrics">
-        <div class="metric active">
-          <div class="value">25</div>
-          <div class="metric-label">Temp(°C)</div>
-        </div>
-        <div class="metric">
-          <div class="value">88</div>
-          <div class="metric-label">Humidity(%)</div>
-        </div>
-        <div class="metric">
-          <div class="value">85</div>
-          <div class="metric-label">Rain(%)</div>
-        </div>
-        <div class="metric">
-          <div class="value">25</div>
-          <div class="metric-label">Wind(km/h)</div>
-        </div>
-      </div>
-      <x-chartist
-        [data]="chart.data"
-        [type]="chart.type"
-        [options]="chart.options"
-        [responsiveOptions]="chart.responsiveOptions"
-        [events]="chart.events">
-      </x-chartist>
-    </div>
-  </div>
-</summary>
+
+<div class="container no-padding">
+  <app-project-summary></app-project-summary>
+</div>
 
 <div class="container">
   <div class="section-separator"></div>

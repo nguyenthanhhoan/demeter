@@ -1,0 +1,80 @@
+.project-summary {
+  background-color: #F5F3EB;
+  height: 200px;
+  margin-top: 50px;
+  padding: 25px;
+}
+
+.project-img, .project-info, .seperator {
+  float: left;
+}
+
+.project-img {
+  max-width: 200px;
+  height: 100%;
+}
+
+.project-img img {
+  max-height: 100%;
+}
+
+.project-info {
+  margin-left: 25px;
+}
+
+.project-name {
+  color: #006837;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}
+
+.weather-icon {
+  width: 40px;
+}
+
+.project-data {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.seperator {
+  border-left: 2px dashed #ccc;
+  height: 150px;
+  margin: 0 0 0 50px;
+}
+
+.weather-chart {
+  float: right;
+  width: 45%;
+}
+
+.chart-wrapper {
+  height: 140px;
+}
+
+.weather-chart .metric { 
+  width: 24%;
+  padding: 0 1rem;
+  display: inline-block;
+}
+
+.weather-chart .value,
+.weather-chart .metric-label {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.weather-chart .value {
+  font-size: 2rem;
+}
+
+.weather-chart .metric-label {
+  font-size: 1rem;
+}
+
+.weather-chart .metric.active {
+  color: #00a885;
+}

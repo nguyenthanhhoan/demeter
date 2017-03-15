@@ -6,6 +6,7 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 
+import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { zoneRouting } from './zone.routing';
 import { ZoneComponent } from "./zone.component";
 
@@ -16,7 +17,8 @@ import { ZoneComponent } from "./zone.component";
     SmartadminModule,
     DropdownModule,
     ChartistModule,
-    HeaderModule
+    HeaderModule,
+    ProjectSummaryModule
   ],
   declarations: [ZoneComponent]
 })

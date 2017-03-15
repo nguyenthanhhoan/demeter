@@ -204,6 +204,12 @@ body {
   padding-left: 40px;
 }
 
+.demeter-list-container {
+  background-color: #DFDFDF;
+  padding: 40px;
+}
+
+
 /**
  * Utilities.
  **/
