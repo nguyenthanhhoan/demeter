@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from "@angular/router";
 import * as Chartist from 'chartist';
 
@@ -12,14 +12,59 @@ declare var google: any;
 
 @Component({
   selector: 'project-form',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './project-form.component.html',
   styleUrls: ['./project-form.component.css']
 })
 export class ProjectFormComponent implements OnInit {
 
   map: any;
+  project: any;
+
+  validatorOptions = {
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+      name: {
+        group: '.form-group',
+        validators: {
+          notEmpty: {
+            message: 'The name is required'
+          }
+        }
+      },
+      surface: {
+        group: '.form-group',
+        validators: {
+          notEmpty: {
+            message: 'The surface is required'
+          }
+        }
+      },
+      labour: {
+        group: '.form-group',
+        validators: {
+          notEmpty: {
+            message: 'The labour is required'
+          }
+        }
+      },
+      location: {
+        group: '.form-group',
+        validators: {
+          notEmpty: {
+            message: 'The location is required'
+          }
+        }
+      }
+    }
+  }
   constructor(private router: Router,
-              private googleAPI: GoogleAPI) { 
+              private googleAPI: GoogleAPI,
+              private ref: ChangeDetectorRef) { 
 
     googleAPI.doSomethingGoogley().then(() => {
       var mapProp = {
@@ -28,14 +73,26 @@ export class ProjectFormComponent implements OnInit {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(document.getElementById("google-map-container"), mapProp);
-      this.initAutocomplete(map);
+      this.initAutocomplete(map, this.project, this.ref);
     });
+
+    this.project = {
+      name: '',
+      surface: '',
+      labour: '',
+      location: ''
+    };
+
+    //TODO: Refactor later
+    setInterval(() => {
+      this.ref.markForCheck();
+    },1000);
   }
 
   ngOnInit() {
   }
 
-  initAutocomplete(map) {
+  initAutocomplete(map, project, changeDetectorRef) {
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
@@ -51,7 +108,8 @@ export class ProjectFormComponent implements OnInit {
     // [START region_getplaces]
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
-    searchBox.addListener('places_changed', function() {
+
+    google.maps.event.addListener(searchBox, 'places_changed', () => {
       var places = searchBox.getPlaces();
 
       if (places.length == 0) {
@@ -74,6 +132,11 @@ export class ProjectFormComponent implements OnInit {
           position: place.geometry.location
         }));
 
+        project.location = `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`;
+
+        //TODO: Not figure out while view not updated
+        changeDetectorRef.markForCheck();
+
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
@@ -84,6 +147,10 @@ export class ProjectFormComponent implements OnInit {
       map.fitBounds(bounds);
     });
     // [END region_getplaces]
+  }
+
+  onSubmit() {
+    console.log('onSubmit', this.project);
   }
 
 }
