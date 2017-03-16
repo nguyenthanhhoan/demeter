@@ -12,7 +12,9 @@ import { VoiceControlService } from '../shared/voice-control/voice-control.servi
 import { SoundService } from "../shared/sound/sound.service";
 
 import { throwIfAlreadyLoaded } from './guards/module-import-guard';
-import {VoiceRecognitionService} from "../shared/voice-control/voice-recognition.service";
+import { VoiceRecognitionService } from "../shared/voice-control/voice-recognition.service";
+
+import { ProjectService } from './services/project.service';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import {VoiceRecognitionService} from "../shared/voice-control/voice-recognition
     UserService,
     VoiceControlService,
     VoiceRecognitionService,
-    SoundService
+    SoundService,
+
+    ProjectService
   ]
 })
 export class CoreModule {

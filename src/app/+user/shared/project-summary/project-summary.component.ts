@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from "@angular/router";
 import * as Chartist from 'chartist';
 
@@ -56,6 +56,8 @@ var data = {
 })
 export class ProjectSummaryComponent implements OnInit {
   chart: Chart;
+  
+  @Input()
   project: any;
 
   constructor(private router: Router) { 
@@ -63,18 +65,11 @@ export class ProjectSummaryComponent implements OnInit {
       type: 'Line',
       data: data['Line']
     };
-    this.project = {
-      image: "assets/img/cau-dat/cau-dat-farm.png",
-      weatherIcon: "assets/img/cau-dat/weather.png",
-      name: "CAUDATFARM",
-      location: "Dalat, Vietnam",
-      surface: "225",
-      worker: "200",
-      zone: 3
-    }
   }
 
   ngOnInit() {
+    this.project.image = "assets/img/cau-dat/cau-dat-farm.png";
+    this.project.weatherIcon = "assets/img/cau-dat/weather.png";
   }
 
 }

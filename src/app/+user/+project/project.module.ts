@@ -8,7 +8,6 @@ import { SmartadminValidationModule } from "../../shared/forms/validation/smarta
 import { HeaderModule } from '../shared/layout/header/header.module';
 
 import { ProjectFormComponent } from './form/project-form.component';
-import { TestComponent } from './test/test.component';
 import { ProjectListComponent } from './list/project-list.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 
@@ -24,8 +23,7 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
   ],
   declarations: [
     ProjectFormComponent,
-    ProjectListComponent,
-    TestComponent
+    ProjectListComponent
   ]
 })
 export class ProjectModule { }

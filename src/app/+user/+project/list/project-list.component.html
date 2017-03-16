@@ -5,11 +5,11 @@
 </div>
 <div class="container demeter-list-container">
   <div class="button-group pull-right">
-    <button class="demeter-btn create-btn">
+    <button class="demeter-btn create-btn" (click)="goToCreate()">
       Create Project
     </button>
   </div>
-  <app-project-summary></app-project-summary>
-  <app-project-summary></app-project-summary>
-  <app-project-summary></app-project-summary>
+  <div *ngFor="let project of projects">
+    <app-project-summary [project]="project"></app-project-summary>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Http, Response, RequestOptions, Headers} from "@angular/http";
 
 import {config} from '../../shared/smartadmin.config';
 import {NotificationService} from "../../shared/utils/notification.service";
@@ -21,8 +21,11 @@ export class ApiService {
       .catch(this.handleError)
   }
 
-  public post(url, data): Observable<any>{
-    return this.http.post(this.getBaseUrl() + url, data)
+  public post(url, data): Observable<any> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.getBaseUrl() + url, JSON.stringify(data), options)
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
