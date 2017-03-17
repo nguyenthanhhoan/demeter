@@ -21,7 +21,11 @@ export class AuthService {
     this.apiService.post('login', {user: user}).subscribe(data => {
       this.localStorageService.store('user', data.user);
       // this.setCookie('XSRF-TOKEN', data.csrfToken, 2);
-      this.router.navigate(['/home']);
+      if (data.user.has_project) {
+        this.router.navigate(['/user/project']);
+      } else {
+        this.router.navigate(['/user/project/new']);
+      }
     });
   }
 

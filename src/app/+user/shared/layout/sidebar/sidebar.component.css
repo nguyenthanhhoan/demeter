@@ -1,0 +1,46 @@
+.sidebar .menu-group {
+  background-color: #F5F3EB;
+  margin-bottom: 5px;
+}
+
+.menu-group-title {
+  text-transform: uppercase;
+  color: #fff;
+  padding: 15px 0 15px 20px;
+  font-size: 15px;
+}
+
+.menu-group-title.title-1 {
+  background-color: #779362;
+}
+
+.menu-group-title.title-2 {
+  background-color: #677561;
+}
+
+.menu-group-title.title-3 {
+  background-color: #866D54;
+}
+
+.menu-group-title.title-4 {
+  background-color: #DC9561;
+}
+
+.menu-group-title.title-5 {
+  background-color: #B25D5D;
+}
+
+.menu-group-title.title-6 {
+  background-color: #726964;
+}
+
+.menu-group ul {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.menu-group ul li {
+  list-style: none;
+}

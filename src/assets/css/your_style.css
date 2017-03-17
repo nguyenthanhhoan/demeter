@@ -217,6 +217,10 @@ body {
   font-weight: 200;
 }
 
+.req-field {
+  color: #b94a48;
+}
+
 .control-label {
   text-transform: uppercase;
   text-align: left;

@@ -13,6 +13,7 @@ import { AuthGuard } from './+auth/auth-guard.service';
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
 import { ProjectListComponent } from './+user/+project/list/project-list.component';
 import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
+import { ZoneFormComponent } from './+user/+zone/form/zone-form.component';
 
 export const routes: Routes = [
     {
@@ -43,7 +44,10 @@ export const routes: Routes = [
                 path: 'project/new', component: ProjectFormComponent 
             }, {
                 path: 'project/:id',
-                component: ZoneListComponent 
+                component: ZoneListComponent
+            }, {
+                path: 'project/:id/zone/new',
+                component: ZoneFormComponent 
             }
         ]
     },

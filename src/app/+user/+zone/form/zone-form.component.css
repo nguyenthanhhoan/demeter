@@ -1,0 +1,50 @@
+.project-image-holder {
+  border: 1px solid #ccc;
+  height: 207px;
+  width: 207px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.image-label {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.upload-plus-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  display: block;
+  margin-top: 60px;
+}
+
+.google-map-container {
+  height: 400px;
+}
+
+#pac-input {
+  margin-top: 9px;
+  padding: 7px 5px;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #66afe9;
+}
+
+.col-padding-map {
+  width: 20%;
+}
+
+.col-map {
+  width: 80%;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+.demeter-btn.danger {
+  margin-left: 10px;
+}

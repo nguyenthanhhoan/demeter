@@ -1,0 +1,96 @@
+<demeter-user-header></demeter-user-header>
+
+<div class="container no-padding">
+  <app-project-summary></app-project-summary>
+</div>
+
+<div class="container">
+  <div class="section-separator"></div>
+</div>
+
+<div class="container main-container">
+  <div class="row">
+    <demeter-user-sidebar></demeter-user-sidebar>
+
+    <div class="page-content col-md-8">
+      <div class="content-header">
+        <div class="demeter-title">List of Zones</div>
+        <button class="demeter-btn create-btn primary pull-right">Create Zone</button>
+      </div>
+
+      <div class="container demeter-container">
+        <div class="row">
+          <form class="form-horizontal"
+            novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
+            (ngSubmit)="onSubmit()">
+            <fieldset>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-md-5 control-label">Project Name: <span class="req-field">*</span></label>
+                  <div class="col-md-7">
+                    <input class="form-control" type="text" 
+                      [(ngModel)]="project.name" name="name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-5 control-label">Surface: <span class="req-field">*</span></label>
+                  <div class="col-md-7">
+                    <input class="form-control" type="number"
+                      [(ngModel)]="project.surface" name="surface">
+                    <p class="help-block">
+                      ha
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-5 control-label">Labour: <span class="req-field">*</span></label>
+                  <div class="col-md-7">
+                    <input class="form-control" type="number"
+                      [(ngModel)]="project.labour" name="labour">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-5 control-label">Location: <span class="req-field">*</span></label>
+                  <div class="col-md-7">
+                    <input class="form-control" type="text"
+                      [(ngModel)]="project.location" name="location">
+                    <p class="help-block">
+                      Select Gmap
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="project-image-holder">
+                  <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
+                  <p class="image-label help-block">Image</p>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="col-md-1 col-padding-map"></div>
+                <div class="col-md-1 col-map">
+                  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                  <div class="google-map-container" id="google-map-container"></div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="button-group pull-right">
+                  <button class="demeter-btn create-btn" type="submit">
+                    Create
+                  </button>
+
+                  <button class="demeter-btn danger">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
