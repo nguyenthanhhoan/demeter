@@ -44,6 +44,7 @@
     "@angular/router": "^3.3.1",
     "@types/jquery": "^2.0.40",
     "@types/node": "^6.0.62",
+    "@types/chartist": "^0.9.34",
     "X-editable": "github:vitalets/x-editable",
     "bootstrap": "^3.3.7",
     "bootstrap-colorpicker": "^2.3.5",
