@@ -4,6 +4,7 @@ import { DropdownModule } from "ng2-bootstrap";
 import { SmartadminModule } from "../../shared/smartadmin.module";
 import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import { SmartadminValidationModule } from "../../shared/forms/validation/smartadmin-validation.module";
+import { SmartadminInputModule } from "../../shared/forms/input/smartadmin-input.module";
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
@@ -19,6 +20,7 @@ import { ZoneFormComponent } from "./form/zone-form.component";
     DropdownModule,
     ChartistModule,
     SmartadminValidationModule,
+    SmartadminInputModule,
     HeaderModule,
     SidebarModule,
     ProjectSummaryModule

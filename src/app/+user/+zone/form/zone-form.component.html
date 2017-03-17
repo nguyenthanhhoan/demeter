@@ -8,87 +8,199 @@
   <div class="section-separator"></div>
 </div>
 
-<div class="container main-container">
+<div class="container no-padding">
   <div class="row">
     <demeter-user-sidebar></demeter-user-sidebar>
 
     <div class="page-content col-md-8">
       <div class="content-header">
-        <div class="demeter-title">List of Zones</div>
-        <button class="demeter-btn create-btn primary pull-right">Create Zone</button>
+        <div class="demeter-title">Create Zone</div>
       </div>
 
-      <div class="container demeter-container">
-        <div class="row">
+      <div class="demeter-pane">
           <form class="form-horizontal"
-            novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
-            (ngSubmit)="onSubmit()">
-            <fieldset>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="col-md-5 control-label">Project Name: <span class="req-field">*</span></label>
-                  <div class="col-md-7">
-                    <input class="form-control" type="text" 
-                      [(ngModel)]="project.name" name="name">
-                  </div>
+          novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
+          (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-md-5 control-label">Zone Name <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="text" 
+                    [(ngModel)]="zone.name" name="name">
                 </div>
-                <div class="form-group">
-                  <label class="col-md-5 control-label">Surface: <span class="req-field">*</span></label>
-                  <div class="col-md-7">
-                    <input class="form-control" type="number"
-                      [(ngModel)]="project.surface" name="surface">
-                    <p class="help-block">
-                      ha
-                    </p>
-                  </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Zone ID <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.zone_id" name="zone_id">
                 </div>
-                <div class="form-group">
-                  <label class="col-md-5 control-label">Labour: <span class="req-field">*</span></label>
-                  <div class="col-md-7">
-                    <input class="form-control" type="number"
-                      [(ngModel)]="project.labour" name="labour">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-md-5 control-label">Location: <span class="req-field">*</span></label>
-                  <div class="col-md-7">
-                    <input class="form-control" type="text"
-                      [(ngModel)]="project.location" name="location">
-                    <p class="help-block">
-                      Select Gmap
-                    </p>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Start Date <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <div class="input-group">
+                    <input type="text" name="start_date" 
+                      placeholder="Select a date" 
+                      [(ngModel)]="zone.start_date"
+                      class="form-control datepicker"
+                      [saUiDatepicker]="{
+                        dateFormat: 'dd/mm/yy'
+                      }" >
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="project-image-holder">
-                  <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
-                  <p class="image-label help-block">Image</p>
+              <div class="form-group">
+                <label class="col-md-5 control-label">End Date <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <div class="input-group">
+                    <input type="text" name="end_date" 
+                      placeholder="Select a date" 
+                      [(ngModel)]="zone.end_date"
+                      class="form-control datepicker"
+                      [saUiDatepicker]="{
+                        dateFormat: 'dd/mm/yy'
+                      }" >
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Plant <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <select [(ngModel)]="zone.plant" class="form-control" name="plant">
+                    <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Quantity of Plant <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.quantity_of_plant" name="quantity_of_plant">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Production Type <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.production_type" name="production_type">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Estimate Yield <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.estimate_yield" name="estimate_yield">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Surface <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.surface" name="surface">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Type of Zone <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.type_of_zone" name="type_of_zone">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Growing Condition <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.growing_condition" name="growing_condition">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Ownership <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.ownership" name="ownership">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Labour <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.labour" name="labour">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Location: <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="text"
+                    [(ngModel)]="zone.location" name="location">
+                  <p class="help-block">
+                    Select Gmap
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="project-image-holder">
+                <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
+                <p class="image-label help-block">Image</p>
+              </div>
+              <div class="form-group-height"></div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Variety</label>
+                <div class="col-md-7">
+                  <select [(ngModel)]="zone.variety" class="form-control" name="variety">
+                    <option *ngFor="let variety of zone.plant.varieties" [ngValue]="variety">{{variety.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.unit" name="unit">
+                </div>
+              </div>
+              <div class="form-group-height"></div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.yield_unit" name="yield_unit">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <div class="col-md-7">
+                  <input class="form-control" type="number"
+                    [(ngModel)]="zone.surface_unit" name="surface_unit">
+                </div>
+              </div>
+            </div>
 
-              <div class="col-md-12">
-                <div class="col-md-1 col-padding-map"></div>
-                <div class="col-md-1 col-map">
-                  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                  <div class="google-map-container" id="google-map-container"></div>
-                </div>
+            <div class="col-md-12">
+              <div class="col-md-1 col-padding-map"></div>
+              <div class="col-md-1 col-map">
+                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                <div class="google-map-container" id="google-map-container"></div>
               </div>
+            </div>
 
-              <div class="col-md-12">
-                <div class="button-group pull-right">
-                  <button class="demeter-btn create-btn" type="submit">
-                    Create
-                  </button>
+            <div class="col-md-12">
+              <div class="button-group pull-right">
+                <button class="demeter-btn create-btn" type="submit">
+                  Create
+                </button>
 
-                  <button class="demeter-btn danger">
-                    Cancel
-                  </button>
-                </div>
+                <button class="demeter-btn danger">
+                  Cancel
+                </button>
               </div>
-            </fieldset>
-          </form>
-        </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
     </div>
   </div>

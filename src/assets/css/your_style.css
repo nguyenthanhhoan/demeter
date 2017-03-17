@@ -122,6 +122,12 @@ body {
   margin-top: 10px;
 }
 
+.demeter-pane {
+  background-color: #F5F3EB;
+  padding: 25px;
+  margin-bottom: 15px;
+}
+
 .demeter-title {
   color: #006837;
   font-size: 20px;
@@ -221,8 +227,12 @@ body {
   color: #b94a48;
 }
 
+.section-separator {
+  border-top: 1px solid #ccc;
+  margin: 30px -15px;
+}
+
 .control-label {
-  text-transform: uppercase;
   text-align: left;
 }
 

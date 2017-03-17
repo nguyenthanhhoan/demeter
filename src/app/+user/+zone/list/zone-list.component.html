@@ -8,14 +8,16 @@
   <div class="section-separator"></div>
 </div>
 
-<div class="container main-container">
+<div class="container no-padding">
   <div class="row">
     <demeter-user-sidebar></demeter-user-sidebar>
 
     <div class="page-content col-md-8">
       <div class="content-header">
         <div class="demeter-title">List of Zones</div>
-        <button class="demeter-btn create-btn primary pull-right">Create Zone</button>
+        <button 
+          class="demeter-btn create-btn primary pull-right"
+          routerLink="zone/new">Create Zone</button>
       </div>
       <div *ngFor="let zone of zones" class="demeter-pane">
         <div class="row">

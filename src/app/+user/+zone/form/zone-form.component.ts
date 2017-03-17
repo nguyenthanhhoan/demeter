@@ -22,7 +22,66 @@ declare var $: any;
 export class ZoneFormComponent implements OnInit {
 
   map: any;
-  project: any;
+  zone: any;
+
+  plants = [
+    { 
+      id: 1, 
+      name: 'Fruit Tree',
+      varieties: [
+        { id: 1, name: 'Almonds'},
+        { id: 2, name: 'Pistachios'},
+        { id: 3, name: 'Pomegrante'},
+        { id: 4, name: 'Mango'},
+        { id: 5, name: 'Apple'},
+        { id: 6, name: 'Lemon'},
+        { id: 7, name: 'Grape'},
+        { id: 8, name: 'Banana'},
+        { id: 9, name: 'Strawberry'},
+        { id: 10, name: 'Melon'}
+      ]
+    }, { 
+      id: 1, 
+      name: 'Vegetable',
+      varieties: [
+        { id: 1, name: 'Carrot'},
+        { id: 2, name: 'Potato'},
+        { id: 3, name: 'Tomato'},
+        { id: 4, name: 'Cucumber'},
+        { id: 5, name: 'Onion'},
+        { id: 6, name: 'Garlic'},
+        { id: 7, name: 'Spinach'},
+        { id: 8, name: 'Lettuce'},
+        { id: 9, name: 'Ginger'},
+        { id: 10, name: 'Eggplant'},
+        { id: 10, name: 'Cabbagge'}
+      ]
+    }, { 
+      id: 1, 
+      name: 'Flower',
+      varieties: [
+        { id: 1, name: 'Rose'},
+        { id: 2, name: 'Tulip'},
+        { id: 3, name: 'Daisy'},
+        { id: 4, name: 'Sunflower'},
+        { id: 5, name: 'Orchid'}
+      ]
+    }, { 
+      id: 1, 
+      name: 'Industrial Plant',
+      varieties: [
+        { id: 1, name: 'Coffee'},
+        { id: 2, name: 'Tea'},
+        { id: 3, name: 'Sugar Cane'},
+        { id: 4, name: 'Corn'},
+        { id: 5, name: 'Cotton'},
+        { id: 5, name: 'Soybean'}
+      ]},
+    { id: 1, 
+      name: 'Other',
+      varieties: []
+    }
+  ]
 
   validatorOptions = {
     feedbackIcons: {
@@ -71,14 +130,12 @@ export class ZoneFormComponent implements OnInit {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(document.getElementById("google-map-container"), mapProp);
-      this.initAutocomplete(map, this.project, this.ref);
+      this.initAutocomplete(map, this.zone, this.ref);
     });
 
-    this.project = {
+    this.zone = {
       name: '',
-      surface: '',
-      labour: '',
-      location: ''
+      plant: this.plants[0]
     };
 
     //TODO: Refactor later
@@ -151,12 +208,14 @@ export class ZoneFormComponent implements OnInit {
     var form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
     if (bootstrapValidator.isValid()) {
-      let submitProject:any = Object.assign({},this.project);
+      let submitZone:any = Object.assign({},this.zone);
       let user = this.localStorageService.retrieve('user');
-      submitProject.user_id = user.id;
-      this.projectService.post(submitProject).subscribe(data => {
-        this.router.navigate(['/user/project']);
-      });
+      submitZone.user_id = user.id;
+      // this.zoneService.post(submitZone).subscribe(data => {
+      //   this.router.navigate(['/user/project']);
+      // });
+
+
     }
   }
 

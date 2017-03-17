@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import * as Chartist from 'chartist';
 import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 
@@ -58,9 +58,11 @@ var data = {
 export class ZoneListComponent implements OnInit {
   chart: Chart;
   zones: any[];
+  project_id: number;
 
   constructor(private localStorageService: LocalStorageService,
-              private router: Router) { 
+              private router: Router,
+              private route: ActivatedRoute) { 
     this.chart = {
       type: 'Line',
       data: data['Line']
@@ -90,6 +92,7 @@ export class ZoneListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.project_id = +this.route.snapshot.params['id'];
   }
 
 }
