@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import * as Chartist from 'chartist';
-import { LocalStorageService } from '../../shared/utils/localstorage.service';
+import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 
 import {
   ChartType,
   ChartEvent
-} from '../../shared/graphs/chartist/chartist.component';
+} from '../../../shared/graphs/chartist/chartist.component';
 
 export interface Chart {
   type: ChartType;
@@ -52,10 +52,10 @@ var data = {
 
 @Component({
   selector: 'app-zone',
-  templateUrl: './zone.component.html',
-  styleUrls: ['./zone.component.css']
+  templateUrl: './zone-list.component.html',
+  styleUrls: ['./zone-list.component.css']
 })
-export class ZoneComponent implements OnInit {
+export class ZoneListComponent implements OnInit {
   chart: Chart;
   zones: any[];
 

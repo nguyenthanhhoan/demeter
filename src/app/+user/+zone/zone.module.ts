@@ -7,19 +7,17 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import { HeaderModule } from '../shared/layout/header/header.module';
 
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
-import { zoneRouting } from './zone.routing';
-import { ZoneComponent } from "./zone.component";
+import { ZoneListComponent } from "./list/zone-list.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    zoneRouting,
     SmartadminModule,
     DropdownModule,
     ChartistModule,
     HeaderModule,
     ProjectSummaryModule
   ],
-  declarations: [ZoneComponent]
+  declarations: [ZoneListComponent]
 })
 export class ZoneModule { }

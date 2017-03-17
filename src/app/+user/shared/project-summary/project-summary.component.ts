@@ -1,11 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import * as Chartist from 'chartist';
 
 import {
   ChartType,
   ChartEvent
 } from '../../../shared/graphs/chartist/chartist.component';
+
+import { ProjectService } from '../../../core/services/project.service';
 
 export interface Chart {
   type: ChartType;
@@ -60,7 +62,9 @@ export class ProjectSummaryComponent implements OnInit {
   @Input()
   project: any;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private projectService: ProjectService) { 
     this.chart = {
       type: 'Line',
       data: data['Line']
@@ -68,8 +72,21 @@ export class ProjectSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.project.image = "assets/img/cau-dat/cau-dat-farm.png";
-    this.project.weatherIcon = "assets/img/cau-dat/weather.png";
+    let id = +this.route.snapshot.params['id'];
+    if (id) {
+      this.project = {
+        image: "assets/img/cau-dat/cau-dat-farm.png",
+        weatherIcon: "assets/img/cau-dat/weather.png"
+      };
+      this.projectService.getOne(id).subscribe(data => {
+        Object.assign(this.project, data);
+      });
+    } else {
+      Object.assign(this.project, {
+        image: "assets/img/cau-dat/cau-dat-farm.png",
+        weatherIcon: "assets/img/cau-dat/weather.png"
+      });
+    }
   }
 
 }

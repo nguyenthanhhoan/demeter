@@ -21,6 +21,7 @@ import { AuthService } from './+auth/auth.service';
 
 // Application modules
 import { ProjectModule } from './+user/+project/project.module';
+import { ZoneModule } from './+user/+zone/zone.module';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -53,7 +54,8 @@ type StoreType = {
     SmartadminLayoutModule,
     UserLayoutModule,
     routing,
-    ProjectModule
+    ProjectModule,
+    ZoneModule
   ],
   exports: [
   ],

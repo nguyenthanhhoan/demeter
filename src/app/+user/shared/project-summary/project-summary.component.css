@@ -31,6 +31,7 @@
   margin-left: 5px;
   margin-bottom: 0px;
   width: 150px;
+  display: inline-block;
 }
 
 .weather-icon {
@@ -40,6 +41,11 @@
 .project-data {
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.project-data .icon-wrap {
+  display: inline-block;
+  width: 16px;
 }
 
 .project-name,

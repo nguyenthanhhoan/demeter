@@ -18,4 +18,8 @@ export class ProjectService {
   post (project): Observable<any[]> {
     return this.apiService.post(this.projectsUrl, {project: project});
   }
+
+  getOne (id): Observable<any[]> {
+    return this.apiService.fetch(`${this.projectsUrl}/${id}`);
+  }
 }

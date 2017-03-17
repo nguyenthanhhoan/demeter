@@ -5,23 +5,33 @@
   <div class="project-info">
     <div class="project-title">
       <img class="weather-icon" src="{{project.weatherIcon}}" />
-      <label class="project-name">{{project.name}}</label>
+      <a routerLink="/user/project/{{project.id}}" class="project-name">
+        {{project.name}}
+      </a>
     </div>
     <div class="project-data">
       <p>
-        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span class="icon-wrap">
+          <i class="demeter-icon location"></i>
+        </span>
         Location: <span class="font-light">{{project.location}}</span>
       </p>
       <p>
-        <i class="fa fa-crop" aria-hidden="true"></i>
+        <span class="icon-wrap">
+          <i class="demeter-icon surface"></i>
+        </span>
         Surface: <span class="font-light">{{project.surface}} ha</span>
       </p>
       <p>
-        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="icon-wrap">
+          <i class="demeter-icon labour"></i>
+        </span>
         Worker: <span class="font-light">{{project.labour}}</span>
       </p>
       <p>
-        <i class="fa fa-th" aria-hidden="true"></i>
+        <span class="icon-wrap">
+          <i class="demeter-icon zone"></i>
+        </span>
         Zone: <span class="font-light">{{project.zone}}</span>
       </p>
     </div>

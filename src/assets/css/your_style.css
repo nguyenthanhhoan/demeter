@@ -221,3 +221,32 @@ body {
   text-transform: uppercase;
   text-align: left;
 }
+
+.demeter-icon {
+  display: inline-block;
+  background-size: cover;
+}
+
+.demeter-icon.location {
+  width: 10px;
+  height: 16px;
+  background-image: url(../img/cau-dat/icon/location.png);
+}
+
+.demeter-icon.surface {
+  width: 13px;
+  height: 16px;
+  background-image: url(../img/cau-dat/icon/surface.png);
+}
+
+.demeter-icon.labour {
+  width: 13px;
+  height: 16px;
+  background-image: url(../img/cau-dat/icon/worker.png);
+}
+
+.demeter-icon.zone {
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/cau-dat/icon/zone.png);
+}
