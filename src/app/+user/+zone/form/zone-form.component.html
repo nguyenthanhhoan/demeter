@@ -33,17 +33,18 @@
               <div class="form-group">
                 <label class="col-md-5 control-label">Zone ID <span class="req-field">*</span></label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
+                  <input class="form-control"
                     [(ngModel)]="zone.zone_id" name="zone_id">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Start Date <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Start Date</label>
                 <div class="col-md-7">
                   <div class="input-group">
                     <input type="text" name="start_date" 
                       placeholder="Select a date" 
                       [(ngModel)]="zone.start_date"
+                      (valueChange)="zone.start_date=$event"
                       class="form-control datepicker"
                       [saUiDatepicker]="{
                         dateFormat: 'dd/mm/yy'
@@ -53,12 +54,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">End Date <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">End Date</label>
                 <div class="col-md-7">
                   <div class="input-group">
                     <input type="text" name="end_date" 
                       placeholder="Select a date" 
                       [(ngModel)]="zone.end_date"
+                      (valueChange)="zone.end_date=$event"
                       class="form-control datepicker"
                       [saUiDatepicker]="{
                         dateFormat: 'dd/mm/yy'
@@ -68,7 +70,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Plant <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Plant</label>
                 <div class="col-md-7">
                   <select [(ngModel)]="zone.plant" class="form-control" name="plant">
                     <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.name}}</option>
@@ -76,63 +78,67 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Quantity of Plant <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Quantity of Plant</label>
                 <div class="col-md-7">
                   <input class="form-control" type="number"
-                    [(ngModel)]="zone.quantity_of_plant" name="quantity_of_plant">
+                    [(ngModel)]="zone.plant_quantity" name="plant_quantity">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Production Type <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Production Type</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.production_type" name="production_type">
+                  <select [(ngModel)]="zone.production_type" class="form-control" name="production_type">
+                    <option *ngFor="let production_type of production_types" [ngValue]="production_type">{{production_type}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Estimate Yield <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Estimate Yield</label>
                 <div class="col-md-7">
                   <input class="form-control" type="number"
                     [(ngModel)]="zone.estimate_yield" name="estimate_yield">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Surface <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Surface</label>
                 <div class="col-md-7">
                   <input class="form-control" type="number"
                     [(ngModel)]="zone.surface" name="surface">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Type of Zone <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Type of Zone</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.type_of_zone" name="type_of_zone">
+                  <select [(ngModel)]="zone.zone_type" class="form-control" name="zone_type">
+                    <option *ngFor="let zone_type of zone_types" [ngValue]="zone_type">{{zone_type}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Growing Condition <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Growing Condition</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.growing_condition" name="growing_condition">
+                  <select [(ngModel)]="zone.growing_condition_type" class="form-control" name="growing_condition_type">
+                    <option *ngFor="let growing_condition_type of growing_condition_types" [ngValue]="growing_condition_type">{{growing_condition_type}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Ownership <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Ownership</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.ownership" name="ownership">
+                  <select [(ngModel)]="zone.ownership_type" class="form-control" name="ownership_type">
+                    <option *ngFor="let ownership_type of ownership_types" [ngValue]="ownership_type">{{ownership_type}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Labour <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Labour</label>
                 <div class="col-md-7">
                   <input class="form-control" type="number"
                     [(ngModel)]="zone.labour" name="labour">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Location: <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Location:</label>
                 <div class="col-md-7">
                   <input class="form-control" type="text"
                     [(ngModel)]="zone.location" name="location">
@@ -151,31 +157,34 @@
               <div class="form-group">
                 <label class="col-md-5 control-label">Variety</label>
                 <div class="col-md-7">
-                  <select [(ngModel)]="zone.variety" class="form-control" name="variety">
-                    <option *ngFor="let variety of zone.plant.varieties" [ngValue]="variety">{{variety.name}}</option>
+                  <select [(ngModel)]="zone.plant_variety" class="form-control" name="plant_variety">
+                    <option *ngFor="let plant_variety of zone.plant.varieties" [ngValue]="plant_variety">{{plant_variety.name}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Unit</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.unit" name="unit">
+                  <select [(ngModel)]="zone.plant_quantity_unit" class="form-control" name="plant_quantity_unit">
+                    <option *ngFor="let plant_quantity_unit of quantity_units" [ngValue]="plant_quantity_unit">{{plant_quantity_unit}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group-height"></div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Unit</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.yield_unit" name="yield_unit">
+                  <select [(ngModel)]="zone.estimate_yield_unit" class="form-control" name="estimate_yield_unit">
+                    <option *ngFor="let estimate_yield_unit of quantity_units" [ngValue]="estimate_yield_unit">{{estimate_yield_unit}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-5 control-label">Unit <span class="req-field">*</span></label>
+                <label class="col-md-5 control-label">Unit</label>
                 <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.surface_unit" name="surface_unit">
+                  <select [(ngModel)]="zone.surface_unit" class="form-control" name="surface_unit">
+                    <option *ngFor="let surface_unit of surface_units" [ngValue]="surface_unit">{{surface_unit}}</option>
+                  </select>
                 </div>
               </div>
             </div>

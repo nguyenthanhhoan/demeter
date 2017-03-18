@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import * as Chartist from 'chartist';
 
-import { ProjectService } from '../../../core/services/project.service';
+import { ZoneService } from '../../../core/services/zone.service';
 import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 import { GoogleAPI } from '../../../shared/integration/gloader';
 import {
@@ -83,6 +83,13 @@ export class ZoneFormComponent implements OnInit {
     }
   ]
 
+  quantity_units = ['kg', 'pieces']
+  production_types = ['conventinal', 'organic', 'intergrated']
+  surface_units = ['m2', 'ha']
+  zone_types = ['greenhouse', 'orchard', 'field crop', 'special']
+  growing_condition_types = ['soil', 'medium', 'hydroponic', 'aeroponic', 'aquaponic', 'other']
+  ownership_types = ['private', 'contract farming', 'rent']
+
   validatorOptions = {
     feedbackIcons: {
       valid: 'glyphicon glyphicon-ok',
@@ -98,19 +105,11 @@ export class ZoneFormComponent implements OnInit {
           }
         }
       },
-      surface: {
+      zone_id: {
         group: '.form-group',
         validators: {
           notEmpty: {
-            message: 'The surface is required'
-          }
-        }
-      },
-      labour: {
-        group: '.form-group',
-        validators: {
-          notEmpty: {
-            message: 'The labour is required'
+            message: 'The Zone ID is required'
           }
         }
       }
@@ -120,7 +119,8 @@ export class ZoneFormComponent implements OnInit {
               private googleAPI: GoogleAPI,
               private ref: ChangeDetectorRef,
               private localStorageService: LocalStorageService,
-              private projectService: ProjectService,
+              private zoneService: ZoneService,
+              private route: ActivatedRoute,
               private el:ElementRef) { 
 
     googleAPI.doSomethingGoogley().then(() => {
@@ -205,18 +205,30 @@ export class ZoneFormComponent implements OnInit {
   }
 
   onSubmit() {
+    let project_id = +this.route.snapshot.params['id'];
+    let user = this.localStorageService.retrieve('user');
+
     var form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
+    //TODO: Sometime the validate() fn from directive was not triggered
+    // Should trigger here!!!
+    bootstrapValidator.validate();
     if (bootstrapValidator.isValid()) {
       let submitZone:any = Object.assign({},this.zone);
-      let user = this.localStorageService.retrieve('user');
-      submitZone.user_id = user.id;
-      // this.zoneService.post(submitZone).subscribe(data => {
-      //   this.router.navigate(['/user/project']);
-      // });
-
-
+      submitZone.project_id = project_id;
+      this.transformSubmitZone(submitZone);
+      this.zoneService.post(user.id, project_id, submitZone).subscribe(data => {
+        this.router.navigate([`/user/project/${project_id}`]);
+      });
     }
   }
 
+  transformSubmitZone(zone) {
+    if (zone.plant) {
+      zone.plant = zone.plant.id;
+    }
+    if (zone.plant_variety) {
+      zone.plant_variety = zone.plant_variety.id;
+    }
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import * as Chartist from 'chartist';
+
+import { ZoneService } from '../../../core/services/zone.service';
 import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 
 import {
@@ -62,37 +64,25 @@ export class ZoneListComponent implements OnInit {
 
   constructor(private localStorageService: LocalStorageService,
               private router: Router,
-              private route: ActivatedRoute) { 
+              private route: ActivatedRoute,
+              private zoneService: ZoneService) {
     this.chart = {
       type: 'Line',
       data: data['Line']
     };
-
-    this.zones = [{
-      image: "assets/img/cau-dat/strawberry.png",
-      name: "Strawberry farm",
-      percent: "40%",
-      startDate: "15/03/2017",
-      endDate: "01/03/2018",
-      location: "Dalat, Vietnam",
-      surface: "0.3 ha",
-      worker: "3",
-      id: "St01"
-    }, {
-      image: "assets/img/cau-dat/tomato.png",
-      name: "Tomato",
-      percent: "80%",
-      startDate: "15/03/2017",
-      endDate: "01/03/2018",
-      location: "Dalat, Vietnam",
-      surface: "0.5 ha",
-      worker: "3",
-      id: "St02"
-    }]
   }
 
   ngOnInit() {
     this.project_id = +this.route.snapshot.params['id'];
+
+    let user = this.localStorageService.retrieve('user');
+    this.zoneService.getList(user.id, this.project_id).subscribe(data => {
+      data.forEach((zone) => {
+        zone.image = "assets/img/cau-dat/tomato.png";
+        zone.percent = "80%";
+      })
+      this.zones = data;
+    });
   }
 
 }

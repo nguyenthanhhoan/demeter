@@ -15,6 +15,7 @@ import { throwIfAlreadyLoaded } from './guards/module-import-guard';
 import { VoiceRecognitionService } from "../shared/voice-control/voice-recognition.service";
 
 import { ProjectService } from './services/project.service';
+import { ZoneService } from './services/zone.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { ProjectService } from './services/project.service';
     VoiceRecognitionService,
     SoundService,
 
-    ProjectService
+    ProjectService,
+    ZoneService
   ]
 })
 export class CoreModule {

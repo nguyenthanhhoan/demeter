@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, Output, EventEmitter, HostListener} from '@angular/core';
 
 declare var $:any;
 
@@ -7,15 +7,18 @@ declare var $:any;
 })
 export class UiDatepickerDirective implements OnInit {
 
-  @Input() saUiDatepicker:any;
+  private el: any;
 
-  constructor(private el:ElementRef) {
+  constructor(el:ElementRef) {
+    this.el = el.nativeElement;
   }
+  @Input() saUiDatepicker:any;
+  @Output() valueChange = new EventEmitter();
 
   ngOnInit() {
     let onSelectCallbacks = [];
     let saUiDatepicker = this.saUiDatepicker || {};
-    let element = $(this.el.nativeElement);
+    let element = $(this.el);
 
     if (saUiDatepicker.minRestrict) {
       onSelectCallbacks.push((selectedDate)=> {
@@ -30,17 +33,7 @@ export class UiDatepickerDirective implements OnInit {
 
     //Let others know about changes to the data field
     onSelectCallbacks.push((selectedDate) => {
-      element.triggerHandler("change");
-
-      let form = element.closest('form');
-
-      if (typeof form.bootstrapValidator == 'function') {
-        try {
-          form.bootstrapValidator('revalidateField', element);
-        } catch (e) {
-          console.log(e.message)
-        }
-      }
+      this.valueChange.emit(selectedDate);
     });
 
     let options = $.extend(saUiDatepicker, {
