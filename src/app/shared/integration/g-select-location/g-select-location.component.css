@@ -1,0 +1,13 @@
+#pac-input {
+  margin-top: 9px;
+  padding: 7px 5px;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #66afe9;
+}
+
+#google-map-container {
+  height: 100%;
+}

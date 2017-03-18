@@ -55,8 +55,7 @@
         <div class="col-md-12">
           <div class="col-md-1 col-padding-map"></div>
           <div class="col-md-1 col-map">
-            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-            <div class="google-map-container" id="google-map-container"></div>
+            <g-select-location [height]="'400px'" (onLocationUpdate)="updateLocation($event)"></g-select-location>
           </div>
         </div>
 

@@ -19,20 +19,6 @@
   margin-top: 60px;
 }
 
-.google-map-container {
-  height: 400px;
-}
-
-#pac-input {
-  margin-top: 9px;
-  padding: 7px 5px;
-  width: 300px;
-}
-
-#pac-input:focus {
-  border-color: #66afe9;
-}
-
 .col-padding-map {
   width: 20%;
 }

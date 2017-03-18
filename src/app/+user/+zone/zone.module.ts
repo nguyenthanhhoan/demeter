@@ -8,6 +8,7 @@ import { SmartadminInputModule } from "../../shared/forms/input/smartadmin-input
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
+import { IntegrationModule } from '../../shared/integration/integration.module';
 
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneListComponent } from "./list/zone-list.component";
@@ -21,6 +22,7 @@ import { ZoneFormComponent } from "./form/zone-form.component";
     ChartistModule,
     SmartadminValidationModule,
     SmartadminInputModule,
+    IntegrationModule,
     HeaderModule,
     SidebarModule,
     ProjectSummaryModule

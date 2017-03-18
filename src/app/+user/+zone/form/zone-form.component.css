@@ -19,20 +19,6 @@
   margin-top: 40px;
 }
 
-.google-map-container {
-  height: 400px;
-}
-
-#pac-input {
-  margin-top: 9px;
-  padding: 7px 5px;
-  width: 300px;
-}
-
-#pac-input:focus {
-  border-color: #66afe9;
-}
-
 .col-padding-map {
   width: 20%;
 }
@@ -47,11 +33,6 @@
 
 .form-group-height {
   height: 47px;
-}
-
-.project-image-holder {
-  
-
 }
 
 .form-group .control-label {
