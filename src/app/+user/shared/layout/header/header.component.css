@@ -22,3 +22,9 @@
 .icon-button:hover {
   color: #fff;
 }
+
+.back-btn {
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 15px;
+}

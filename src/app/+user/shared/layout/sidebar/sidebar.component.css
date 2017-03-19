@@ -10,6 +10,19 @@
   font-size: 15px;
 }
 
+.menu-icon, .menu-title-text {
+  display: inline-block;
+}
+
+.menu-icon {
+  width: 22px;
+  margin-right: 12px;
+}
+
+.menu-icon img {
+  max-width: 100%;
+}
+
 .menu-group-title.title-1 {
   background-color: #779362;
 }
