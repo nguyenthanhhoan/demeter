@@ -18,7 +18,9 @@ export class ApiService {
   public fetch(url): Observable<any>{
     return this.http.get(this.getBaseUrl() + url)
       .map(this.extractData)
-      .catch(this.handleError)
+      .catch(error => {
+        return this.handleError(error)
+      })
   }
 
   public post(url, data): Observable<any> {
@@ -46,15 +48,24 @@ export class ApiService {
   }
 
   private handleError(error:any) {
-    let msgObj = JSON.parse(error._body);
-    let message = msgObj.error || 'Service is temporarily unavailable';
-    this.notificationService.bigBox({
-      title: error.statusText,
-      content: message,
-      color: "#C46A69",
-      icon: "fa fa-warning shake animated",
-      number: "1",
-      timeout: 5000
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      errMsg = body.error || 'Service is temporarily unavailable';
+    } else {
+      let msgObj = JSON.parse(error._body);
+      let errMsg = msgObj.error || 'Service is temporarily unavailable';
+    }
+
+    setTimeout(() => {
+      this.notificationService.bigBox({
+        title: error.statusText,
+        content: errMsg,
+        color: "#C46A69",
+        icon: "fa fa-warning shake animated",
+        number: "1",
+        timeout: 5000
+      });
     });
     return Observable.throw(error);
   }
