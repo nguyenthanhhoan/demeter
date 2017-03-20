@@ -1,0 +1,36 @@
+<div class="demeter-pane">
+  <div class="row">
+    <div class="col-md-3 zone-image">
+      <img class="img-responsive" src="{{zone.image}}" />
+      <button class="demeter-btn detail-btn primary" *ngIf="isShowDetailButton">Detail</button>
+    </div>
+    <div class="col-md-9">
+      <p class="demeter-title">
+        {{zone.name}}
+      </p>
+      <div class="zone-status-group">
+        <span class="status-percent">{{zone.percent}}</span>
+        <div class="green-bar-wrapper">
+          <div class="green-bar" [style.width]="zone.percent"></div>
+        </div>
+        <div class="date-time-wrapper">
+          <div class="start-date pull-left">
+            <p class="date-label">Start date</p>
+            <p>{{zone.startDate}}</p>
+          </div>
+          <div class="end-date pull-right">
+            <p class="date-label">End date</p>
+            <p>{{zone.endDate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="line-info">
+        <p><b>Location: </b>{{zone.location}}</p>
+        <p><b>Surface: </b>{{zone.surface}}</p>
+        <p><b>Worker: </b>{{zone.worker}}</p>
+        <p><b>ID: </b>{{zone.zone_id}}</p>
+      </div>
+    </div>
+  </div>
+</div>

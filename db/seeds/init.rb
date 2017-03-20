@@ -4,6 +4,6 @@ admin = User.create({
 })
 
 caudatfarm = User.create({
-  email: 'caudatfarm@example.com',
+  email: 'caudatfarm@demeter.vn',
   password: '123456'
 })

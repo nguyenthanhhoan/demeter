@@ -61,12 +61,15 @@ body {
   font-family: "San Francisco", "Open Sans",Arial,Helvetica,Sans-Serif;
 }
 
-
 /**
  * Demeter style
  **/
 .user-side .container {
   max-width: 1000px;
+}
+
+.user-side .user-main {
+  margin-top: 50px;
 }
 
 .demeter-btn {
@@ -199,7 +202,6 @@ body {
 }
 
 .demeter-container-title {
-  margin-top: 50px;
   height: 100px;
   background-color: #40403D;
   font-size: 30px;

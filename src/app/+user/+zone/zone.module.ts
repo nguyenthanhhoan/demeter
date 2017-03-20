@@ -11,8 +11,10 @@ import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
 import { IntegrationModule } from '../../shared/integration/integration.module';
 
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
+import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { ZoneListComponent } from "./list/zone-list.component";
 import { ZoneFormComponent } from "./form/zone-form.component";
+import { ZoneSummaryComponent } from "./summary/zone-summary.component";
 
 @NgModule({
   imports: [
@@ -25,11 +27,13 @@ import { ZoneFormComponent } from "./form/zone-form.component";
     IntegrationModule,
     HeaderModule,
     SidebarModule,
-    ProjectSummaryModule
+    ProjectSummaryModule,
+    ZoneSummaryPaneModule
   ],
   declarations: [
     ZoneListComponent,
-    ZoneFormComponent
+    ZoneFormComponent,
+    ZoneSummaryComponent
   ]
 })
 export class ZoneModule { }

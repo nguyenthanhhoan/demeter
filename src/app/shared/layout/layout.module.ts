@@ -10,7 +10,6 @@ import {ShortcutComponent} from "./shortcut/shortcut.component";
 import {ToggleActiveDirective} from "../utils/toggle-active.directive";
 import {LayoutSwitcherComponent} from "./layout-switcher.component";
 import { MainLayoutComponent } from './app-layouts/main-layout.component';
-import { UserLayoutComponent } from './app-layouts/user-layout.component';
 import { EmptyLayoutComponent } from './app-layouts/empty-layout.component';
 import {RouterModule} from "@angular/router";
 import { AuthLayoutComponent } from './app-layouts/auth-layout.component';
@@ -38,7 +37,6 @@ import {UtilsModule} from "../utils/utils.module";
     ShortcutComponent,
     LayoutSwitcherComponent,
     MainLayoutComponent,
-    UserLayoutComponent,
     EmptyLayoutComponent,
     AuthLayoutComponent,
     RouteBreadcrumbsComponent

@@ -1,5 +1,3 @@
-<demeter-user-header></demeter-user-header>
-
 <div class="container no-padding">
   <app-project-summary></app-project-summary>
 </div>
@@ -23,12 +21,14 @@
         <div class="row">
           <div class="col-md-3">
             <img class="img-responsive" src="{{zone.image}}" />
-            <button class="demeter-btn detail-btn primary">Detail</button>
+            <button 
+              routerLink="zone/{{zone.id}}/summary"
+              class="demeter-btn detail-btn primary">Detail</button>
           </div>
           <div class="col-md-9">
-            <p class="demeter-title">
-              {{zone.name}}
-            </p>
+            <a routerLink="zone/{{zone.id}}/summary">
+              <p class="demeter-title">{{zone.name}}</p>
+            </a>
             <div class="zone-status-group">
               <span class="status-percent">{{zone.percent}}</span>
               <div class="green-bar-wrapper">
