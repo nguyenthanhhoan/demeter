@@ -79,6 +79,11 @@ body {
   font-size: 15px;
 }
 
+.demeter-btn.form-control-size {
+  height: 32px;
+  padding: 5px 20px;
+}
+
 .demeter-btn.primary {
   background-color: #677563;
   color: #fff;

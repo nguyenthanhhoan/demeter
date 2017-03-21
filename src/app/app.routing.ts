@@ -15,6 +15,7 @@ import { ProjectListComponent } from './+user/+project/list/project-list.compone
 import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
 import { ZoneFormComponent } from './+user/+zone/form/zone-form.component';
 import { ZoneSummaryComponent } from './+user/+zone/summary/zone-summary.component';
+import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.component';
 
 export const routes: Routes = [
     {
@@ -50,8 +51,12 @@ export const routes: Routes = [
                 path: 'project/:id/zone/new',
                 component: ZoneFormComponent 
             }, {
-                path: 'project/:project_id/zone/:id/summary',
-                component: ZoneSummaryComponent 
+                path: 'project/:project_id/zone/:id',
+                children: [{
+                  path: 'summary', component: ZoneSummaryComponent 
+                }, {
+                  path: 'history', component: ZoneHistoryComponent 
+                }]
             }
         ]
     },

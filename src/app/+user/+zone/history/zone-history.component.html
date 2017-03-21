@@ -1,0 +1,62 @@
+<div class="container no-padding">
+  <app-zone-summary-pane></app-zone-summary-pane>
+</div>
+
+<div class="container">
+  <div class="section-separator"></div>
+</div>
+
+<div class="container no-padding">
+  <div class="row">
+    <demeter-user-sidebar></demeter-user-sidebar>
+
+    <div class="page-content col-md-8">
+      <div class="content-header">
+        <div class="demeter-title">Data History</div>
+      </div>
+
+      <div class="demeter-pane">
+        <div class="form-horizontal filter-form">
+          <div class="form-group">
+            <label class="control-label date-label">Date: </label>
+            <div class="input-group date-input-group">
+              <input type="text" name="date" 
+                placeholder="Select a date" 
+                [(ngModel)]="filter.date"
+                (valueChange)="filter.date=$event"
+                class="form-control datepicker"
+                [saUiDatepicker]="{
+                  dateFormat: 'dd/mm/yy'
+                }" >
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+          <div class="form-group filter-form-group">
+            <label class="control-label from-label">From: </label>
+            <div class="input-group time-input-group">
+              <input class="form-control" smartClockpicker type="text" data-autoclose="true">
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            </div>
+            <label class="control-label to-label">To: </label>
+            <div class="input-group time-input-group">
+              <input class="form-control" smartClockpicker type="text" data-autoclose="true">
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            </div>
+            <button class="demeter-btn form-control-size primary pull-right">View</button>
+          </div>
+        </div>
+
+        <div *ngFor="let chart of charts">
+          <p>{{chart.title}}</p>
+          <x-chartist
+            [data]="chart.data"
+            [type]="chart.type"
+            [options]="chart.options"
+            [responsiveOptions]="chart.responsiveOptions"
+            [events]="chart.events">
+          </x-chartist>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

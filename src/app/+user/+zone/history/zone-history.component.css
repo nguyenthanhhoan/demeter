@@ -1,0 +1,29 @@
+.filter-form {
+  margin-bottom: 30px;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.date-label, .from-label, .to-label {
+  width: 40px;
+  text-align: left;
+  float: left;
+}
+
+.to-label {
+  width: 50px;
+  padding-left: 20px;
+}
+
+.date-input-group {
+  width: 250px;
+  float: left;
+}
+
+.time-input-group {
+  width: 100px;
+  float: left;
+}
