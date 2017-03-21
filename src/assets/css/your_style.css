@@ -125,12 +125,6 @@ body {
   margin-top: 10px;
 }
 
-.demeter-pane {
-  background-color: #F5F3EB;
-  padding: 25px;
-  margin-bottom: 15px;
-}
-
 .demeter-title {
   color: #006837;
   font-size: 20px;
@@ -201,6 +195,12 @@ body {
   padding: 25px;
 }
 
+.demeter-pane {
+  background-color: #F5F3EB;
+  padding: 25px;
+  margin-bottom: 15px;
+}
+
 .demeter-container-title {
   height: 100px;
   background-color: #40403D;
@@ -217,6 +217,19 @@ body {
   padding: 40px;
 }
 
+.demeter-panel-dark .panel-title {
+  height: 50px;
+  background-color: #40403D;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #fff;
+  padding-top: 12px;
+  padding-left: 20px;
+}
+
+.demeter-panel-dark .demeter-pane {
+  padding: 20px;
+}
 
 /**
  * Utilities.
@@ -265,4 +278,35 @@ body {
   width: 16px;
   height: 16px;
   background-image: url(../img/cau-dat/icon/zone.png);
+}
+
+/*
+ * Charting.
+ */
+.chart-wrapper {
+  height: 140px;
+}
+
+.weather-chart .metric { 
+  width: 24%;
+  padding: 0 1rem;
+  display: inline-block;
+}
+
+.weather-chart .value,
+.weather-chart .metric-label {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.weather-chart .value {
+  font-size: 2rem;
+}
+
+.weather-chart .metric-label {
+  font-size: 1rem;
+}
+
+.weather-chart .metric.active {
+  color: #00a885;
 }

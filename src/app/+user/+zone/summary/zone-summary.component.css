@@ -1,0 +1,61 @@
+.chart-wrapper {
+  height: 200px;
+}
+
+.weather-chart .value {
+  font-size: 3rem;
+}
+
+.weather-chart .metric-label {
+  font-size: 2rem;
+}
+
+/*
+ * Alarm Pane.
+ */
+.alarm-pane {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.alarm-pane li {
+  list-style: none;
+}
+
+.alarm-pane .alarm-content {
+  padding-left: 25px;
+}
+
+.alarm-pane .alarm-content p {
+  margin-bottom: 3px;
+}
+
+.alarm-pane .alarm-content p.time {
+  font-weight: 200;
+}
+
+.alarm-pane .text-highlight {
+  color: #006837;
+}
+
+/*
+ * Task table
+ */
+.upcoming-task-table .task-action,
+.upcoming-task-table .task-at,
+.upcoming-task-table .task-time {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.upcoming-task-table .task-action {
+  width: 100px;
+}
+
+.upcoming-task-table .task-at {
+  width: 50px;
+}
+
+.camera-wrapper {
+  width: 560px;
+  margin: 0 auto;
+}

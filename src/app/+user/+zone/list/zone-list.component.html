@@ -20,7 +20,9 @@
       <div *ngFor="let zone of zones" class="demeter-pane">
         <div class="row">
           <div class="col-md-3">
-            <img class="img-responsive" src="{{zone.image}}" />
+            <a routerLink="zone/{{zone.id}}/summary">
+              <img class="img-responsive" src="{{zone.image}}" />
+            </a>
             <button 
               routerLink="zone/{{zone.id}}/summary"
               class="demeter-btn detail-btn primary">Detail</button>

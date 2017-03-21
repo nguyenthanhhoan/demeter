@@ -68,31 +68,3 @@
   float: right;
   width: 45%;
 }
-
-.chart-wrapper {
-  height: 140px;
-}
-
-.weather-chart .metric { 
-  width: 24%;
-  padding: 0 1rem;
-  display: inline-block;
-}
-
-.weather-chart .value,
-.weather-chart .metric-label {
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.weather-chart .value {
-  font-size: 2rem;
-}
-
-.weather-chart .metric-label {
-  font-size: 1rem;
-}
-
-.weather-chart .metric.active {
-  color: #00a885;
-}
