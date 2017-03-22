@@ -16,6 +16,8 @@ import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
 import { ZoneFormComponent } from './+user/+zone/form/zone-form.component';
 import { ZoneSummaryComponent } from './+user/+zone/summary/zone-summary.component';
 import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.component';
+import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component';
+import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +58,13 @@ export const routes: Routes = [
                   path: 'summary', component: ZoneSummaryComponent 
                 }, {
                   path: 'history', component: ZoneHistoryComponent 
+                }, {
+                  path: 'camera',
+                  children: [{
+                    path: '', component: ZoneCameraComponent 
+                  }, {
+                    path: ':camera_id', component: ZoneCameraDetailComponent 
+                  }]
                 }]
             }
         ]

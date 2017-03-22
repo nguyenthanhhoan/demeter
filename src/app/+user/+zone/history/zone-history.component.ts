@@ -44,7 +44,6 @@ export class ZoneHistoryComponent implements OnInit {
     }
 
     let stats = this.initStat(30);
-    console.log('stats.labels', stats.labels);
     this.charts = [{
       title: stats.series.temp,
       type: 'Line',

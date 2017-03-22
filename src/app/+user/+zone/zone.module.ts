@@ -16,6 +16,8 @@ import { ZoneListComponent } from "./list/zone-list.component";
 import { ZoneFormComponent } from "./form/zone-form.component";
 import { ZoneSummaryComponent } from "./summary/zone-summary.component";
 import { ZoneHistoryComponent } from "./history/zone-history.component";
+import { ZoneCameraComponent } from "./camera/zone-camera.component";
+import { ZoneCameraDetailComponent } from "./camera/camera-detail/zone-camera-detail.component";
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { ZoneHistoryComponent } from "./history/zone-history.component";
     ZoneListComponent,
     ZoneFormComponent,
     ZoneSummaryComponent,
-    ZoneHistoryComponent
+    ZoneHistoryComponent,
+    ZoneCameraComponent,
+    ZoneCameraDetailComponent
   ]
 })
 export class ZoneModule { }
