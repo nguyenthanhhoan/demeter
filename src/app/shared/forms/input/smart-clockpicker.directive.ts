@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, Output, EventEmitter, HostListener} from '@angular/core';
 
 declare var $: any;
 
@@ -8,6 +8,7 @@ declare var $: any;
 export class SmartClockpickerDirective implements OnInit {
 
   @Input() smartClockpicker: any;
+  @Output() valueChange = new EventEmitter();
 
   constructor(private el:ElementRef) {
   }
@@ -20,9 +21,13 @@ export class SmartClockpickerDirective implements OnInit {
 
 
   render() {
-    $(this.el.nativeElement).clockpicker(this.smartClockpicker || {
+    let el = $(this.el.nativeElement);
+    el.clockpicker(this.smartClockpicker || {
       placement: 'top',
-      donetext: 'Done'
+      donetext: 'Done',
+      afterDone: () => {
+        this.valueChange.emit(el.val());
+      }
     });
   }
 

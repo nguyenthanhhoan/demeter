@@ -17,8 +17,42 @@
 
       <div class="demeter-pane">
         <div class="camera-item">
-          <app-camera src="{{camera.source}}"></app-camera>
-          <p class="camera-name">{{camera.name}}</p>
+          <app-camera [src]="camera.source" [live]="false" #cameracom></app-camera>
+        </div>
+
+        <div class="form-horizontal filter-form">
+          <div class="form-group">
+            <label class="control-label date-label">Date: </label>
+            <div class="input-group date-input-group">
+              <input type="text" name="date" 
+                placeholder="Select a date" 
+                [(ngModel)]="filter.date"
+                (valueChange)="filter.date=$event"
+                class="form-control datepicker"
+                [saUiDatepicker]="{
+                  dateFormat: 'dd/mm/yy'
+                }" >
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+          <div class="form-group filter-form-group">
+            <label class="control-label from-label">From: </label>
+            <div class="input-group time-input-group">
+              <input class="form-control" 
+                (valueChange)="filter.timeFrom=$event"
+                smartClockpicker type="text" data-autoclose="true">
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            </div>
+            <label class="control-label to-label">To: </label>
+            <div class="input-group time-input-group">
+              <input class="form-control" 
+                (valueChange)="filter.timeTo=$event"
+                smartClockpicker type="text" data-autoclose="true">
+              <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            </div>
+            <button class="demeter-btn form-control-size primary pull-right" 
+              (click)="cameracom.playback(filter)">Playback</button>
+          </div>
         </div>
       </div>
     </div>

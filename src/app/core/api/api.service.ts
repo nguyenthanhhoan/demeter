@@ -23,6 +23,14 @@ export class ApiService {
       })
   }
 
+  public fetchExternal(url): Observable<any>{
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(error => {
+        return this.handleError(error)
+      })
+  }
+
   public post(url, data): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
