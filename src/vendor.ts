@@ -9,6 +9,7 @@ import 'rxjs/add/operator/mergeMap';
 // Smartadmin Dependencies
 window['jQuery'] = require('jquery');
 window['$'] = window['jQuery'];
+window['flowplayer'] = require('flowplayer/dist/flowplayer.js');
 import 'jquery-ui-npm/jquery-ui.min.js'
 
 require('bootstrap/js/tooltip.js'); // required for X-editable
@@ -19,7 +20,7 @@ require('bootstrap/js/modal.js'); //
 
 window['moment'] = require('moment');
 
-import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
+// import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 
 require('smartadmin-plugins/notification/SmartNotification.min.js');
 

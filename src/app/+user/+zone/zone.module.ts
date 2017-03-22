@@ -9,9 +9,11 @@ import { SmartadminInputModule } from "../../shared/forms/input/smartadmin-input
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
 import { IntegrationModule } from '../../shared/integration/integration.module';
+import { CameraModule } from '../../shared/camera/camera.module';
 
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
+
 import { ZoneListComponent } from "./list/zone-list.component";
 import { ZoneFormComponent } from "./form/zone-form.component";
 import { ZoneSummaryComponent } from "./summary/zone-summary.component";
@@ -28,6 +30,7 @@ import { ZoneCameraDetailComponent } from "./camera/camera-detail/zone-camera-de
     SmartadminValidationModule,
     SmartadminInputModule,
     IntegrationModule,
+    CameraModule,
     HeaderModule,
     SidebarModule,
     ProjectSummaryModule,

@@ -20,19 +20,24 @@ export class ZoneCameraComponent implements OnInit {
   ngOnInit() {
     this.cameras = [{
       id: 1,
-      name: "Camera 1"
+      name: "Camera 1",
+      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
     }, {
       id: 1,
-      name: "Camera 2"
+      name: "Camera 2",
+      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
     }, {
       id: 1,
-      name: "Camera 3"
+      name: "Camera 3",
+      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
     }, {
       id: 1,
-      name: "Camera 4"
+      name: "Camera 4",
+      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
     }, {
       id: 1,
-      name: "Camera 5"
+      name: "Camera 5",
+      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
     }];
   }
 }

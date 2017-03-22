@@ -325,14 +325,6 @@ body {
 
 .camera-pic-holder {
   background-color:#E2E1DD;
-  height: 200px;
-  padding-top: 70px;
-}
-
-.camera-pic {
-  width: 100px;
-  margin: 0 auto;
-  display: block;
 }
 
 .camera-name {
