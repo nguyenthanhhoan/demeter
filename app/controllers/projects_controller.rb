@@ -41,7 +41,7 @@ class ProjectsController < BypassController
   private
 
     def project_params
-      params.require(:project).permit(:name, :surface, :labour, :location, :user_id)
+      params.require(:project).permit(:name, :surface, :labour, :location, :image, :user_id)
     end
 
     def get_project

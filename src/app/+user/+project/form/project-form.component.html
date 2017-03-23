@@ -45,9 +45,14 @@
         </div>
         <div class="col-md-6">
           <div class="project-image-holder">
-            <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
+            <a (click)="openSelectFile()">
+              <img src="assets/img/cau-dat/icon/plus-grey.png" class="upload-plus-icon"/>
+            </a>
             <p class="image-label help-block">Image</p>
           </div>
+          <input type="file" 
+            class="file-input hiddenfile"
+            (change)="fileChange($event)" accept="image/*">
         </div>
 
         <div class="col-md-12">

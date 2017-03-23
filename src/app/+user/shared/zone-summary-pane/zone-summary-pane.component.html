@@ -1,7 +1,8 @@
 <div class="demeter-pane">
   <div class="row">
     <div class="col-md-3 zone-image">
-      <img class="img-responsive" src="{{zone.image}}" />
+      <img class="img-responsive" 
+        src="{{zone.image?.thumb?.url || 'assets/img/cau-dat/cau-dat-farm.png'}}" />
       <button class="demeter-btn detail-btn primary" *ngIf="isShowDetailButton">Detail</button>
     </div>
     <div class="col-md-9">

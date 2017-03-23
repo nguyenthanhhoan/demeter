@@ -1,7 +1,7 @@
 <summary class="project-summary">
   <div class="project-img">
     <a routerLink="/user/project/{{project.id}}">
-      <img src="{{project.image}}" />
+      <img src="{{project.image?.thumb?.url || 'assets/img/cau-dat/cau-dat-farm.png'}}" />
     </a>
   </div>
   <div class="project-info">

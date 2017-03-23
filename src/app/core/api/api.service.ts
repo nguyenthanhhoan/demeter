@@ -42,6 +42,17 @@ export class ApiService {
       })
   }
 
+  public postFormData(url, formData): Observable<any> {
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.getBaseUrl() + url, formData, options)
+      .map(this.extractData)
+      .catch(error => {
+        return this.handleError(error);
+      })
+  }
+
   private getBaseUrl(){
     return location.protocol + '//' + location.hostname + (':8080') + '/'
   }

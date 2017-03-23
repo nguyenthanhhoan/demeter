@@ -27,15 +27,10 @@ export class ZoneSummaryPaneComponent implements OnInit {
     let project_id = +this.route.snapshot.params['project_id'];
     if (id) {
       this.zone = {
-        image: "assets/img/cau-dat/cau-dat-farm.png",
         percent: "80%"
       };
       this.zoneService.getOne(project_id, id).subscribe(data => {
         Object.assign(this.zone, data);
-      });
-    } else {
-      Object.assign(this.zone, {
-        image: "assets/img/cau-dat/cau-dat-farm.png"
       });
     }
   }

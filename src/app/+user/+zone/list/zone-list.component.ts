@@ -78,7 +78,6 @@ export class ZoneListComponent implements OnInit {
     let user = this.localStorageService.retrieve('user');
     this.zoneService.getList(user.id, this.project_id).subscribe(data => {
       data.forEach((zone) => {
-        zone.image = "assets/img/cau-dat/tomato.png";
         zone.percent = "80%";
       })
       this.zones = data;

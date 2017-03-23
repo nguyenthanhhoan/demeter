@@ -166,4 +166,16 @@ export class ZoneFormComponent implements OnInit {
   updateLocation(location) {
     this.zone.location = location;
   }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      this.zone.image = fileList[0];
+    }
+  }
+
+  openSelectFile() {
+    let file = $(this.el.nativeElement).find('.file-input');
+    file.trigger('click'); 
+  }
 }

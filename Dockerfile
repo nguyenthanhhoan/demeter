@@ -21,8 +21,6 @@ ENV S3_SECRET_ACCESS_KEY=please_enter_here
 ENV AWS_REGION=please_enter_here
 ENV S3_BUCKET_NAME=please_enter_here
 
-RUN bundle exec rake assets:precompile RAILS_ENV=production
-
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /var/tmp/*
 

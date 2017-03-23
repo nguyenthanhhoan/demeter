@@ -97,4 +97,16 @@ export class ProjectFormComponent implements OnInit {
     this.project.location = location;
   }
 
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      this.project.image = fileList[0];
+    }
+  }
+
+  openSelectFile() {
+    let file = $(this.el.nativeElement).find('.file-input');
+    file.trigger('click'); 
+  }
+
 }

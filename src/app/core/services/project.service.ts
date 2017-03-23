@@ -16,7 +16,14 @@ export class ProjectService {
   }
 
   post (project): Observable<any[]> {
-    return this.apiService.post(this.projectsUrl, {project: project});
+    let formData:FormData = new FormData();
+    formData.append('project[name]', project.name);
+    formData.append('project[surface]', project.surface);
+    formData.append('project[labour]', project.labour);
+    formData.append('project[location]', project.location);
+    formData.append('project[image]', project.image);
+    formData.append('project[user_id]', project.user_id);
+    return this.apiService.postFormData(this.projectsUrl, formData);
   }
 
   getOne (id): Observable<any[]> {

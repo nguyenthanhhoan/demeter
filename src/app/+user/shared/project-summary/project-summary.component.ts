@@ -60,7 +60,7 @@ export class ProjectSummaryComponent implements OnInit {
   chart: Chart;
   
   @Input()
-  project: any;
+  project: {};
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -75,7 +75,6 @@ export class ProjectSummaryComponent implements OnInit {
     let id = +this.route.snapshot.params['id'];
     if (id) {
       this.project = {
-        image: "assets/img/cau-dat/cau-dat-farm.png",
         weatherIcon: "assets/img/cau-dat/weather.png"
       };
       this.projectService.getOne(id).subscribe(data => {
@@ -83,7 +82,6 @@ export class ProjectSummaryComponent implements OnInit {
       });
     } else {
       Object.assign(this.project, {
-        image: "assets/img/cau-dat/cau-dat-farm.png",
         weatherIcon: "assets/img/cau-dat/weather.png"
       });
     }
