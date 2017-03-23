@@ -61,10 +61,9 @@ export class CameraComponent {
   playback(filter, camera) {
     let start = moment(`${filter.date} ${filter.timeFrom}`, "DD/MM/YYYY HH:mm");
     let end = moment(`${filter.date} ${filter.timeTo}`, "DD/MM/YYYY HH:mm");
-    let duration = start.diff(end, 'seconds');
+    let duration = end.diff(start, 'seconds');
     let starttime = start.format("YYYY-MM-DD HH:mm:ss");
 
-    
     let {channel} = camera;
     let hash = camera.playback_hash;
 
