@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318070241) do
+ActiveRecord::Schema.define(version: 20170323080313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cameras", force: :cascade do |t|
+    t.string   "camera_no"
+    t.string   "camera_name"
+    t.integer  "api",           default: 0
+    t.string   "live_hash"
+    t.string   "playback_hash"
+    t.string   "secret_id"
+    t.string   "channel"
+    t.string   "server"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.integer  "user_id"

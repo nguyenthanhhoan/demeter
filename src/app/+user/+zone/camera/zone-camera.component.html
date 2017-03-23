@@ -18,9 +18,9 @@
       <div class="demeter-pane">
         <div class="row">
           <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
-            <app-camera src="{{camera.source}}"></app-camera>
+            <app-camera [camera]="camera"></app-camera>
             <a routerLink="{{camera.id}}">
-              <p class="camera-name">{{camera.name}}</p>
+              <p class="camera-name">{{camera.camera_name}}</p>
             </a>
           </div>
         </div>

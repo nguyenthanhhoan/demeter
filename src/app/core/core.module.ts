@@ -16,6 +16,7 @@ import { VoiceRecognitionService } from "../shared/voice-control/voice-recogniti
 
 import { ProjectService } from './services/project.service';
 import { ZoneService } from './services/zone.service';
+import { CameraService } from './services/camera.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { ZoneService } from './services/zone.service';
     SoundService,
 
     ProjectService,
-    ZoneService
+    ZoneService,
+    CameraService
   ]
 })
 export class CoreModule {

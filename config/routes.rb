@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :zones
   end
+  resources :cameras
   
   as :user do
     post '/login' => 'sessions#create', :as => :user_session
