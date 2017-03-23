@@ -24,14 +24,15 @@ export class CameraComponent {
     if (this.live) {
       this.playLive();
     } else {
-      this.initPlayer('');
+      this.initPlayer('', false, true);
     }
   }
 
-  initPlayer(src) {
+  initPlayer(src, autoplay, splash?) {
     var cameraHolder = $(this.el.nativeElement).find('.camera-pic-holder');
     this.player = flowplayer(cameraHolder[0], {
-      splash: true,
+      autoplay: autoplay,
+      splash: splash,
       ratio: 9/16,
       clip: {
         live: true,
@@ -54,7 +55,7 @@ export class CameraComponent {
     let live_url = `${url}&channel=${channel}&server=${server}&secret_id=${secret_id}&hash=${live_hash}`;
     this.apiService.fetchExternal(live_url)
       .subscribe(data => {
-        this.initPlayer(data.src);
+        this.initPlayer(data.src, true);
       });
   }
 
