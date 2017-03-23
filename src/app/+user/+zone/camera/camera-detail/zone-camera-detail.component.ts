@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
+import { CameraService } from '../../../../core/services/camera.service';
+
 declare var flowplayer: any;
 
 @Component({
@@ -13,16 +15,18 @@ export class ZoneCameraDetailComponent implements OnInit {
   filter: any;
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private cameraService: CameraService) {
 
     this.filter = {};
   }
 
   ngOnInit() {
-    this.camera = {
-      name: "Camera 1",
-      source: "http://04c2.vp9.tv:2229/chn/DMT11/v.m3u8"
-    };
+    let camera_id = +this.route.snapshot.params['camera_id'];
+    this.cameraService.getOne(camera_id)
+    .subscribe(data => {
+      this.camera = data;
+    })
   }
 
 }

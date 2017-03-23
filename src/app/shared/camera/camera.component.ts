@@ -34,11 +34,13 @@ export class CameraComponent {
       splash: true,
       ratio: 9/16,
       clip: {
-        live: this.live
-      }, sources: [{ 
-        type: "application/x-mpegurl",
-        src: src
-      }]
+        live: true,
+        sources: [{
+          type: "application/x-mpegurl",
+          src: src
+          //Demo src: //nasatv-lh.akamaihd.net/i/NASA_101@319270/master.m3u8
+        }]
+      }
     });
   }
 
@@ -56,15 +58,18 @@ export class CameraComponent {
       });
   }
 
-  playback(filter) {
+  playback(filter, camera) {
     let start = moment(`${filter.date} ${filter.timeFrom}`, "DD/MM/YYYY HH:mm");
     let end = moment(`${filter.date} ${filter.timeTo}`, "DD/MM/YYYY HH:mm");
     let duration = start.diff(end, 'seconds');
-
     let starttime = start.format("YYYY-MM-DD HH:mm:ss");
-    let url = "http://demeter.cam9.tv/admin/api/playback/?action=playback&channel=DMT11";
-    let hash = "c67c1d93865b094d83342761d41be0e8950f7d5ff26606cc78509533dc3b04cc";
-    let playbackUrl = `${url}&starttime=${starttime}&duration=${duration}&hash=${hash}&secret_id=1`;
+
+    
+    let {channel} = camera;
+    let hash = camera.playback_hash;
+
+    let url = "http://demeter.cam9.tv/admin/api/playback/?action=playback";
+    let playbackUrl = `${url}&channel=${channel}&starttime=${starttime}&duration=${duration}&hash=${hash}&secret_id=1`;
     this.apiService.fetchExternal(playbackUrl)
       .subscribe(data => {
         this.player.unload();
