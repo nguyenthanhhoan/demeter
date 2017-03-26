@@ -338,3 +338,11 @@ body {
   margin-top: 10px;
   font-size: 15px;
 }
+
+/*
+ * Upload
+ */
+.upload-plus-icon {
+  background: transparent url(../img/cau-dat/icon/plus-grey.png) no-repeat 0 0;
+  background-size: contain;
+}

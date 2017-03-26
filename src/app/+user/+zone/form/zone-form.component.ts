@@ -172,10 +172,23 @@ export class ZoneFormComponent implements OnInit {
     if(fileList.length > 0) {
       this.zone.image = fileList[0];
     }
+    this.readURL(event.target);
   }
 
   openSelectFile() {
     let file = $(this.el.nativeElement).find('.file-input');
     file.trigger('click'); 
+  }
+
+  readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.upload-preview').css('background-image', 'url('+e.target['result'] +')');
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 }
