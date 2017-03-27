@@ -75,14 +75,14 @@ export class ProjectSummaryComponent implements OnInit {
     let id = +this.route.snapshot.params['id'];
     if (id) {
       this.project = {
-        weatherIcon: "assets/img/cau-dat/weather.png"
+        weatherIcon: "assets/img/cau-dat/weather-icon/sunny.svg"
       };
       this.projectService.getOne(id).subscribe(data => {
         Object.assign(this.project, data);
       });
     } else {
       Object.assign(this.project, {
-        weatherIcon: "assets/img/cau-dat/weather.png"
+        weatherIcon: "assets/img/cau-dat/weather-icon/sunny.svg"
       });
     }
   }
