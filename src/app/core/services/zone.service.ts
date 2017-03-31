@@ -10,11 +10,11 @@ export class ZoneService {
 
   constructor (private apiService: ApiService) {}
 
-  getList (user_id, project_id): Observable<any[]> {
-    return this.apiService.fetch(`projects/${project_id}/zones?user_id=${user_id}`);
+  getList (project_id): Observable<any[]> {
+    return this.apiService.fetch(`projects/${project_id}/zones`);
   }
 
-  post (user_id, project_id, zone): Observable<any[]> {
+  post (project_id, zone): Observable<any[]> {
     let formData:FormData = new FormData();
     formData.append('zone[project_id]', zone.project_id);
     formData.append('zone[name]', zone.name);
@@ -37,7 +37,7 @@ export class ZoneService {
     formData.append('zone[location]', zone.location);
     formData.append('zone[location_geometry]', zone.location_geometry);
     formData.append('zone[image]', zone.image);
-    return this.apiService.postFormData(`projects/${project_id}/zones?user_id=${user_id}`, formData);
+    return this.apiService.postFormData(`projects/${project_id}/zones`, formData);
   }
 
   getOne (project_id, id): Observable<any[]> {

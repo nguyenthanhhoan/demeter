@@ -1,14 +1,10 @@
 Rails.application.routes.draw do
-  
-  devise_for :users, :skip => [:sessions]
+  mount_devise_token_auth_for 'User', at: 'auth'
   
   resources :projects do
     resources :zones
   end
   resources :cameras
-  
-  as :user do
-    post '/login' => 'sessions#create', :as => :user_session
-    delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
-  end
+
+  get '/current_user' => 'profile#get_current_user'
 end

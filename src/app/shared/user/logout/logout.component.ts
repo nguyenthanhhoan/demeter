@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import { Angular2TokenService } from 'angular2-token';
+
 import {NotificationService} from "../../utils/notification.service";
 import { LocalStorageService } from '../../utils/localstorage.service';
 
@@ -20,7 +22,7 @@ export class LogoutComponent implements OnInit {
 
   constructor(private router: Router,
               private notificationService: NotificationService,
-              private localStorageService: LocalStorageService) { }
+              private tokenService: Angular2TokenService) { }
 
   showPopup(){
     this.notificationService.smartMessageBox({
@@ -36,8 +38,11 @@ export class LogoutComponent implements OnInit {
   }
 
   logout(){
-    let user = this.localStorageService.remove('user');
-    this.router.navigate(['/auth/login']);
+    this.tokenService.signOut().subscribe(
+      res => {
+        this.router.navigate(['/auth/login']);
+      }
+    )
   }
 
   ngOnInit() {

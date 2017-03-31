@@ -1,8 +1,8 @@
-class ProjectsController < BypassController
+class ProjectsController < AuthorizedController
   before_action :get_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    render json: Project.where({ user: params[:user_id] }).order(id: :desc)
+    render json: Project.where({ user: current_user }).order(id: :desc)
   end
 
   def show
@@ -15,8 +15,7 @@ class ProjectsController < BypassController
 
   def create
     @project = Project.new(project_params)
-    # TODO: Fix later
-    # @project.user = current_user
+    @project.user = current_user
 
     if @project.save
       render json: @project

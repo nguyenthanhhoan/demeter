@@ -87,11 +87,15 @@ GEM
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
     debug_inspector (0.0.2)
+    devise_token_auth (0.1.40)
+      devise (> 3.5.2, <= 4.2)
+      rails (< 6)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hashie (3.5.5)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -122,6 +126,9 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    omniauth (1.6.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
@@ -226,10 +233,12 @@ DEPENDENCIES
   carrierwave-aws
   coffee-rails (~> 4.2)
   devise!
+  devise_token_auth
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
   mini_magick
+  omniauth
   pg
   puma (~> 3.0)
   rack-cors

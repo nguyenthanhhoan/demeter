@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from "@angular/router";
-
-import { LocalStorageService } from '../../../../shared/utils/localstorage.service';
+import { Angular2TokenService } from 'angular2-token';
 
 declare var $: any;
 
@@ -13,18 +12,23 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private localStorageService: LocalStorageService,
-              private router: Router,
-              private location: Location) {
+  constructor(private router: Router,
+              private location: Location,
+              private tokenService: Angular2TokenService) {
   }
 
   ngOnInit() {
   }
 
-
   logout(){
-    let user = this.localStorageService.remove('user');
-    this.router.navigate(['/auth/login']);
+    this.tokenService.signOut().subscribe(
+      res => {
+        this.router.navigate(['/auth/login']);
+      },
+      error => {
+        this.router.navigate(['/auth/login']);
+      }
+    )
   }
 
   back() {

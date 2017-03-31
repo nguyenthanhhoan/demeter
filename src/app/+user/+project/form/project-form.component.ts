@@ -85,8 +85,6 @@ export class ProjectFormComponent implements OnInit {
     const bootstrapValidator = form.data('bootstrapValidator');
     if (bootstrapValidator.isValid()) {
       let submitProject:any = Object.assign({},this.project);
-      let user = this.localStorageService.retrieve('user');
-      submitProject.user_id = user.id;
       this.projectService.post(submitProject).subscribe(data => {
         this.router.navigate(['/user/project']);
       });

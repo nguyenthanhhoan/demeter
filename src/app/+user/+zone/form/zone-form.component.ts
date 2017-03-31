@@ -137,7 +137,6 @@ export class ZoneFormComponent implements OnInit {
 
   onSubmit() {
     let project_id = +this.route.snapshot.params['id'];
-    let user = this.localStorageService.retrieve('user');
 
     var form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
@@ -148,7 +147,7 @@ export class ZoneFormComponent implements OnInit {
       let submitZone:any = Object.assign({},this.zone);
       submitZone.project_id = project_id;
       this.transformSubmitZone(submitZone);
-      this.zoneService.post(user.id, project_id, submitZone).subscribe(data => {
+      this.zoneService.post(project_id, submitZone).subscribe(data => {
         this.router.navigate([`/user/project/${project_id}`]);
       });
     }

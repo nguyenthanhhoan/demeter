@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, RequestOptions, Headers} from "@angular/http";
-
-import {config} from '../../shared/smartadmin.config';
-import {NotificationService} from "../../shared/utils/notification.service";
 import {Observable} from "rxjs/Rx";
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
+import { Angular2TokenService } from 'angular2-token';
+
+import {config} from '../../shared/smartadmin.config';
+import {NotificationService} from "../../shared/utils/notification.service";
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http, private notificationService: NotificationService) {}
+  constructor(private http: Http, 
+              private notificationService: NotificationService,
+              private tokenService: Angular2TokenService) {}
 
   public fetch(url): Observable<any>{
-    return this.http.get(this.getBaseUrl() + url)
-      .map(this.extractData)
+
+    return this.tokenService.get(url).map(this.extractData)
       .catch(error => {
         return this.handleError(error)
-      })
+      });
   }
 
   public fetchExternal(url): Observable<any>{
@@ -35,7 +37,7 @@ export class ApiService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.getBaseUrl() + url, JSON.stringify(data), options)
+    return this.tokenService.post(url, JSON.stringify(data), options)
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
@@ -43,8 +45,13 @@ export class ApiService {
   }
 
   public postFormData(url, formData): Observable<any> {
-    let headers = new Headers();
-    headers.append('Accept', 'application/json');
+    let headers = new Headers({
+      'access-token': localStorage.getItem('accessToken'),
+      'client': localStorage.getItem('client'),
+      'expiry': localStorage.getItem('expiry'),
+      'tokeni-type': localStorage.getItem('tokenType'),
+      'uid': localStorage.getItem('uid')
+    });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.getBaseUrl() + url, formData, options)
       .map(this.extractData)
@@ -70,7 +77,13 @@ export class ApiService {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
-      errMsg = body.error || 'Service is temporarily unavailable';
+      if (body.errors) {
+
+        //The formatted returned by devise_token_auth
+        errMsg = body.errors.join('\n');
+      } else {
+        errMsg = body.error || 'Service is temporarily unavailable';
+      }
     } else {
       let msgObj = JSON.parse(error._body);
       let errMsg = msgObj.error || 'Service is temporarily unavailable';

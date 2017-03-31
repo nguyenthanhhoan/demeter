@@ -75,8 +75,7 @@ export class ZoneListComponent implements OnInit {
   ngOnInit() {
     this.project_id = +this.route.snapshot.params['id'];
 
-    let user = this.localStorageService.retrieve('user');
-    this.zoneService.getList(user.id, this.project_id).subscribe(data => {
+    this.zoneService.getList(this.project_id).subscribe(data => {
       data.forEach((zone) => {
         zone.percent = "80%";
       })

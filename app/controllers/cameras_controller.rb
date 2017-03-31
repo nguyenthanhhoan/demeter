@@ -1,4 +1,4 @@
-class CamerasController < BypassController
+class CamerasController < AuthorizedController
   before_action :get_camera, only: [:show, :edit, :update, :destroy]
 
   def index

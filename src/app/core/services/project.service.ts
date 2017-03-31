@@ -11,8 +11,8 @@ export class ProjectService {
 
   constructor (private apiService: ApiService) {}
 
-  getProjects (user_id): Observable<any[]> {
-    return this.apiService.fetch(`${this.projectsUrl}?user_id=${user_id}`);
+  getProjects (): Observable<any[]> {
+    return this.apiService.fetch(`${this.projectsUrl}`);
   }
 
   post (project): Observable<any[]> {
@@ -23,7 +23,6 @@ export class ProjectService {
     formData.append('project[location]', project.location);
     formData.append('project[location_geometry]', project.location_geometry);
     formData.append('project[image]', project.image);
-    formData.append('project[user_id]', project.user_id);
     return this.apiService.postFormData(this.projectsUrl, formData);
   }
 

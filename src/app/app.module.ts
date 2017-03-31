@@ -2,6 +2,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Angular2TokenService, A2tUiModule } from 'angular2-token';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -51,6 +52,7 @@ type StoreType = {
     HttpModule,
 
     CoreModule,
+    A2tUiModule,
     SmartadminLayoutModule,
     UserLayoutModule,
     routing,
@@ -61,6 +63,7 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     // ENV_PROVIDERS,
+    Angular2TokenService,
     APP_PROVIDERS
   ]
 })

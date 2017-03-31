@@ -23,8 +23,7 @@ export class ProjectListComponent implements OnInit {
               private projectService: ProjectService,
               private localStorageService: LocalStorageService) {
 
-    let user = this.localStorageService.retrieve('user');
-    projectService.getProjects(user.id).subscribe(data => {
+    projectService.getProjects().subscribe(data => {
       this.projects = data;
     });
   }

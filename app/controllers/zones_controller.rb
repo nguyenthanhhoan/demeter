@@ -1,4 +1,4 @@
-class ZonesController < BypassController
+class ZonesController < AuthorizedController
   before_action :get_zone, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -15,8 +15,6 @@ class ZonesController < BypassController
 
   def create
     @zone = Zone.new(zone_params)
-    # TODO: Fix later
-    # @zone.user = current_user
 
     if @zone.save
       render json: @zone
