@@ -164,7 +164,8 @@ export class ZoneFormComponent implements OnInit {
   }
 
   updateLocation(location) {
-    this.zone.location = location;
+    this.zone.location = location.name;
+    this.zone.location_geometry = location.location_geometry;
   }
 
   fileChange(event) {

@@ -35,6 +35,7 @@ export class ZoneService {
     formData.append('zone[ownership_type]', zone.ownership_type);
     formData.append('zone[labour]', zone.labour);
     formData.append('zone[location]', zone.location);
+    formData.append('zone[location_geometry]', zone.location_geometry);
     formData.append('zone[image]', zone.image);
     return this.apiService.postFormData(`projects/${project_id}/zones?user_id=${user_id}`, formData);
   }

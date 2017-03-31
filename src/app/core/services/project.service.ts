@@ -21,6 +21,7 @@ export class ProjectService {
     formData.append('project[surface]', project.surface);
     formData.append('project[labour]', project.labour);
     formData.append('project[location]', project.location);
+    formData.append('project[location_geometry]', project.location_geometry);
     formData.append('project[image]', project.image);
     formData.append('project[user_id]', project.user_id);
     return this.apiService.postFormData(this.projectsUrl, formData);

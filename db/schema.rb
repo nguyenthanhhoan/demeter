@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323180633) do
+ActiveRecord::Schema.define(version: 20170330032404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(version: 20170323180633) do
     t.float    "surface"
     t.integer  "labour"
     t.string   "location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "image"
+    t.string   "location_geometry"
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170323180633) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "image"
+    t.string   "location_geometry"
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 

@@ -94,7 +94,8 @@ export class ProjectFormComponent implements OnInit {
   }
 
   updateLocation(location) {
-    this.project.location = location;
+    this.project.location = location.name;
+    this.project.location_geometry = location.location_geometry;
   }
 
   fileChange(event) {

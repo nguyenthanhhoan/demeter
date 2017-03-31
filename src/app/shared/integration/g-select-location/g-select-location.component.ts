@@ -65,13 +65,21 @@ export class GSelectLocationComponent {
           placeId: event.placeId
         }, function(place, status) {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            onLocationUpdate.emit(place.name);
+            let location_geometry = `${place.geometry.location.lat()},${place.geometry.location.lng()}`;
+            onLocationUpdate.emit({
+              name: place.name, 
+              location_geometry: location_geometry
+            });
           } else {
-            onLocationUpdate.emit('Unknown');
+            onLocationUpdate.emit({
+              name: 'Unknown'
+            });
           }
         });
       } else {
-        onLocationUpdate.emit('Unknown');
+        onLocationUpdate.emit({
+          name: 'Unknown'
+        });
       }
     });
 
@@ -94,11 +102,11 @@ export class GSelectLocationComponent {
           position: place.geometry.location
         }));
 
-        //TODO:
-        // project.location = place.name;
-        // project.location = `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`;
-
-        onLocationUpdate.emit(place.name);
+        let location_geometry = `${place.geometry.location.lat()},${place.geometry.location.lng()}`;
+        onLocationUpdate.emit({
+          name: place.name, 
+          location_geometry: location_geometry
+        });
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.

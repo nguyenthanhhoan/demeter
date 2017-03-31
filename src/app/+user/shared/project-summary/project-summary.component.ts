@@ -8,6 +8,7 @@ import {
 } from '../../../shared/graphs/chartist/chartist.component';
 
 import { ProjectService } from '../../../core/services/project.service';
+import { WUndergroundService } from '../../../shared/integration/wunderground/wunderground.service';
 
 export interface Chart {
   type: ChartType;
@@ -60,11 +61,12 @@ export class ProjectSummaryComponent implements OnInit {
   chart: Chart;
   
   @Input()
-  project: {};
+  project: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private projectService: ProjectService) { 
+              private projectService: ProjectService,
+              private wundergroundService: WUndergroundService) { 
     this.chart = {
       type: 'Line',
       data: data['Line']
@@ -74,17 +76,26 @@ export class ProjectSummaryComponent implements OnInit {
   ngOnInit() {
     let id = +this.route.snapshot.params['id'];
     if (id) {
-      this.project = {
-        weatherIcon: "assets/img/cau-dat/weather-icon/sunny.svg"
-      };
+      this.project = {};
       this.projectService.getOne(id).subscribe(data => {
         Object.assign(this.project, data);
+        this.requestWeatherData();
       });
     } else {
-      Object.assign(this.project, {
-        weatherIcon: "assets/img/cau-dat/weather-icon/sunny.svg"
-      });
+      this.requestWeatherData();
     }
   }
 
+  requestWeatherData() {
+    let location_geometry = this.project.location_geometry;
+    if (location_geometry) {
+      this.wundergroundService.getWeatherForecastData(location_geometry).subscribe(weatherForecastDatas => {
+        Object.assign(this.project, {
+          weatherIcon: `assets/img/cau-dat/weather-icon/${weatherForecastDatas[0].icon}.svg`
+        });
+      });
+    } else {
+      console.log(`Location is not correct ${this.project}`);
+    }
+  }
 }
