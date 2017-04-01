@@ -172,6 +172,7 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rolify (5.1.0)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -244,6 +245,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.0, >= 5.0.0.1)
   redis-namespace
+  rolify
   sass-rails (~> 5.0)
   sidekiq (~> 4.2.2)
   sidekiq-client-cli
