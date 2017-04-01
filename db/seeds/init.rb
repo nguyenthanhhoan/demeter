@@ -12,4 +12,3 @@ caudatfarm = User.create({
   email: 'caudatfarm@demeter.vn',
   password: '123456'
 })
-caudatfarm.add_role :user

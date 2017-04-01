@@ -64,9 +64,6 @@ body {
 /**
  * Demeter style
  **/
-.user-side .container {
-  max-width: 1000px;
-}
 
 .user-side .user-main {
   margin-top: 50px;
