@@ -10,6 +10,8 @@ import {UserLayoutComponent} from './+user/shared/layout/user-layout/user-layout
 import {ModuleWithProviders} from "@angular/core";
 import { AuthGuard } from './+auth/auth-guard.service';
 
+import { DashboardComponent } from './+admin/+dashboard/dashboard.component';
+
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
 import { ProjectListComponent } from './+user/+project/list/project-list.component';
 import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
@@ -25,16 +27,24 @@ export const routes: Routes = [
         component: MainLayoutComponent,
         children: [
             {
-                path: '', redirectTo: 'home', pathMatch: 'full'
+                path: '', redirectTo: 'user', pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'admin',
+        component: MainLayoutComponent,
+        children: [
+            {
+                path: '', redirectTo: 'dashboard', pathMatch: 'full'
             },
             {
-                path: 'home',
-                loadChildren: 'app/+home/home.module#HomeModule'
+                path: 'dashboard',
+                component: DashboardComponent
             },
         ],
         canActivate: [AuthGuard]
     },
-
     {
         path: 'user',
         component: UserLayoutComponent,
@@ -67,7 +77,8 @@ export const routes: Routes = [
                   }]
                 }]
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
 
     {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},

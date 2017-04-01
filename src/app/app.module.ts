@@ -21,6 +21,7 @@ import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
 
 // Application modules
+import { DashboardModule } from './+admin/+dashboard/dashboard.module';
 import { ProjectModule } from './+user/+project/project.module';
 import { ZoneModule } from './+user/+zone/zone.module';
 
@@ -56,6 +57,11 @@ type StoreType = {
     SmartadminLayoutModule,
     UserLayoutModule,
     routing,
+
+    //admin modules
+    DashboardModule,
+
+    //user modules
     ProjectModule,
     ZoneModule
   ],

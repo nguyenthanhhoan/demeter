@@ -8,16 +8,14 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { Angular2TokenService } from 'angular2-token';
 
-import { LocalStorageService } from '../shared/utils/localstorage.service';
+import { AppSettings } from '../app.settings';
 import { NotificationService } from "../shared/utils/notification.service";
 import { ApiService } from '../core/api/api.service';
-import { User } from './user';
 
 @Injectable()
 export class AuthService {
   constructor(private apiService: ApiService, 
               private router: Router, 
-              private localStorageService: LocalStorageService,
               private tokenService: Angular2TokenService,
               private notificationService: NotificationService) { }
 
@@ -26,10 +24,14 @@ export class AuthService {
       res => {
         this.apiService.fetch('current_user')
           .subscribe(res => {
-            if (res.has_project) {
-              this.router.navigate(['/user/project']);
+            if (res.role == AppSettings.role.admin.name) {
+              this.router.navigate(['/admin']);
             } else {
-              this.router.navigate(['/user/project/new']);
+              if (res.has_project) {
+                this.router.navigate(['/user/project']);
+              } else {
+                this.router.navigate(['/user/project/new']);
+              }
             }
           }
         );
@@ -48,19 +50,7 @@ export class AuthService {
   }
 
   loggedIn(): boolean {
-    let user = this.localStorageService.retrieve('user');
-    let isLoggedIn = user && user.id;
+    let isLoggedIn = this.tokenService.userSignedIn();
     return isLoggedIn;
-  }
-
-  private deleteCookie(name) {
-    this.setCookie(name, "", -1);
-  }
-
-  private setCookie(name: string, value: string, expireDays: number, path: string = "") {
-    let d:Date = new Date();
-    d.setTime(d.getTime() + expireDays * 24 * 60 * 60 * 1000);
-    let expires:string = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + value + "; " + expires + (path.length > 0 ? "; path=" + path : "");
   }
 }
