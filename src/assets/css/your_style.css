@@ -64,7 +64,6 @@ body {
 /**
  * Demeter style
  **/
-
 .user-side .user-main {
   margin-top: 50px;
 }
@@ -342,4 +341,11 @@ body {
 .upload-plus-icon {
   background: transparent url(../img/cau-dat/icon/plus-grey.png) no-repeat 0 0;
   background-size: contain;
+}
+
+/*
+ * Admin side
+ */
+.admin-side #logo img {
+  height: 26px;
 }

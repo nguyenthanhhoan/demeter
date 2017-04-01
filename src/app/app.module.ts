@@ -15,7 +15,7 @@ import { AppState, InternalStateType } from './app.service';
 
 // Core providers
 import {CoreModule} from "./core/core.module";
-import {SmartadminLayoutModule} from "./shared/layout/layout.module";
+import {AdminLayoutModule} from "./+admin/shared/layout/layout.module";
 import {UserLayoutModule} from "./+user/shared/layout/layout.module";
 import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
@@ -54,7 +54,7 @@ type StoreType = {
 
     CoreModule,
     A2tUiModule,
-    SmartadminLayoutModule,
+    AdminLayoutModule,
     UserLayoutModule,
     routing,
 
