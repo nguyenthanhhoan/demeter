@@ -10,8 +10,6 @@ import {UserLayoutComponent} from './+user/shared/layout/user-layout/user-layout
 import {ModuleWithProviders} from "@angular/core";
 import { AuthGuard } from './+auth/auth-guard.service';
 
-import { DashboardComponent } from './+admin/+dashboard/dashboard.component';
-
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
 import { ProjectListComponent } from './+user/+project/list/project-list.component';
 import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
@@ -23,25 +21,12 @@ import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zo
 
 export const routes: Routes = [
     {
-        path: '',
-        children: [
-            {
-                path: '', redirectTo: 'user', pathMatch: 'full'
-            }
-        ]
+        path: '', redirectTo: 'user', pathMatch: 'full'
     },
     {
         path: 'admin',
         component: AdminLayoutComponent,
-        children: [
-            {
-                path: '', redirectTo: 'dashboard', pathMatch: 'full'
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            },
-        ],
+        loadChildren: 'app/+admin/admin.module#AdminModule',
         canActivate: [AuthGuard]
     },
     {

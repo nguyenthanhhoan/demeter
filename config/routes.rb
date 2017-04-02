@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   resources :cameras
 
   get '/current_user' => 'profile#get_current_user'
+
+  namespace :admin do
+    resources :projects
+  end
 end
