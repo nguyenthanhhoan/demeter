@@ -13,7 +13,12 @@ import { DashboardModule } from './+dashboard/dashboard.module';
 import { ProjectFormComponent } from './+project/form/project-form.component';
 import { ProjectListComponent } from './+project/list/project-list.component';
 
+import { ZoneListComponent } from './+zone/list/zone-list.component';
+import { CameraListComponent } from './+camera/list/camera-list.component';
+
 import { ProjectService } from './shared/services/project.service';
+import { ZoneService } from './shared/services/zone.service';
+import { CameraService } from './shared/services/camera.service';
 
 @NgModule({
   imports: [
@@ -28,10 +33,14 @@ import { ProjectService } from './shared/services/project.service';
   ],
   declarations: [
     ProjectFormComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ZoneListComponent,
+    CameraListComponent
   ],
   providers: [
-    ProjectService
+    ProjectService,
+    ZoneService,
+    CameraService
   ],
 })
 export class AdminModule {

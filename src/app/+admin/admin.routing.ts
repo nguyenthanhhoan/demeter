@@ -5,6 +5,9 @@ import { DashboardComponent } from './+dashboard/dashboard.component';
 import { ProjectListComponent } from './+project/list/project-list.component';
 import { ProjectFormComponent } from './+project/form/project-form.component';
 
+import { ZoneListComponent } from './+zone/list/zone-list.component';
+import { CameraListComponent } from './+camera/list/camera-list.component';
+
 export const routes: Routes = [{
     path: '', redirectTo: 'dashboard', pathMatch: 'full'
   }, {
@@ -15,6 +18,12 @@ export const routes: Routes = [{
     component: ProjectListComponent 
   }, { 
     path: 'project/new', component: ProjectFormComponent 
+  }, {
+    path: 'zone',
+    component: ZoneListComponent 
+  }, {
+    path: 'camera',
+    component: CameraListComponent 
   }
 ];
 
