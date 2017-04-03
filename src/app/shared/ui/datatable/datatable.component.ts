@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, AfterContentInit, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ElementRef, AfterContentInit, OnInit} from '@angular/core';
 
 declare var $: any;
 
@@ -24,6 +24,8 @@ export class DatatableComponent implements OnInit {
   @Input() public columnsHide: boolean;
   @Input() public tableClass: string;
   @Input() public width: string = '100%';
+
+  @Output() setDatatableEle = new EventEmitter();
 
   constructor(private el: ElementRef) {
   }
@@ -78,6 +80,7 @@ export class DatatableComponent implements OnInit {
     });
 
     const _dataTable = element.DataTable(options);
+    this.setDatatableEle.emit(_dataTable);
 
     if (this.filter) {
       // Apply the filter

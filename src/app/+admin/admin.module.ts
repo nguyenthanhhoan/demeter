@@ -13,6 +13,8 @@ import { DashboardModule } from './+dashboard/dashboard.module';
 import { ProjectFormComponent } from './+project/form/project-form.component';
 import { ProjectListComponent } from './+project/list/project-list.component';
 
+import { ProjectService } from './shared/services/project.service';
+
 @NgModule({
   imports: [
     SmartadminModule,
@@ -28,7 +30,9 @@ import { ProjectListComponent } from './+project/list/project-list.component';
     ProjectFormComponent,
     ProjectListComponent
   ],
-  providers: [],
+  providers: [
+    ProjectService
+  ],
 })
 export class AdminModule {
 

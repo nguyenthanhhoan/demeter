@@ -20,4 +20,16 @@ export class NotificationService {
     $.SmartMessageBox(data, cb)
   }
 
+  confirmBox(options, cb?) {
+    this.smartMessageBox({
+      title: "Confirm!",
+      content: options.content,
+      buttons: '[OK][Cancel]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === "OK") {
+        cb();
+      }
+    });
+  }
+
 }

@@ -33,6 +33,22 @@ export class ApiService {
       })
   }
 
+  public fetchTableData(options) {
+    return {
+      dom: "Bfrtip",
+      ajax: (data, callback, settings) => {
+        this.fetch(options.url)
+          .subscribe((data) => {
+            callback({
+              aaData: data.slice(0, 100)
+            })
+          })
+      },
+      columns: options.columns,
+      columnDefs: options.columnDefs
+    };
+  }
+
   public post(url, data): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -58,6 +74,13 @@ export class ApiService {
       .catch(error => {
         return this.handleError(error);
       })
+  }
+
+  public delete(url): Observable<any> {
+    return this.tokenService.delete(url).map(this.extractData)
+      .catch(error => {
+        return this.handleError(error)
+      });
   }
 
   private getBaseUrl(){

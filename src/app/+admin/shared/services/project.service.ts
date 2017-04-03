@@ -29,4 +29,8 @@ export class ProjectService {
   getOne (id): Observable<any[]> {
     return this.apiService.fetch(`${this.projectsUrl}/${id}`);
   }
+
+  public delete(id): Observable<any> {
+    return this.apiService.delete(`${this.projectsUrl}/${id}`);
+  }
 }
