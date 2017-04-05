@@ -6,7 +6,6 @@
   </div>
   <div class="project-info">
     <div class="project-title">
-      <img class="weather-icon" src="{{project.weatherIcon}}" />
       <a routerLink="/user/project/{{project.id}}" class="project-name">
         {{project.name}}
       </a>
@@ -38,35 +37,7 @@
       </p>
     </div>
   </div>
-  <div class="seperator">
-  </div>
-  <div class="weather-chart">
-    <div class="metrics">
-      <div class="metric active">
-        <div class="value">25</div>
-        <div class="metric-label">Temp(°C)</div>
-      </div>
-      <div class="metric">
-        <div class="value">88</div>
-        <div class="metric-label">Humidity(%)</div>
-      </div>
-      <div class="metric">
-        <div class="value">85</div>
-        <div class="metric-label">Rain(%)</div>
-      </div>
-      <div class="metric">
-        <div class="value">25</div>
-        <div class="metric-label">Wind(km/h)</div>
-      </div>
-    </div>
-    <div class="chart-wrapper">
-      <x-chartist
-        [data]="chart.data"
-        [type]="chart.type"
-        [options]="chart.options"
-        [responsiveOptions]="chart.responsiveOptions"
-        [events]="chart.events">
-      </x-chartist>
-    </div>
+  <div class="weather-forecast">
+    <app-weather-forecast></app-weather-forecast>
   </div>
 </summary>

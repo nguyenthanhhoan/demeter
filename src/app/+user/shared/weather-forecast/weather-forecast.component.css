@@ -1,0 +1,94 @@
+
+.seperator {
+  border-left: 2px dashed #ccc;
+  height: 150px;
+  margin: 0 15px;
+}
+
+.weather-chart {
+  float: right;
+  width: 45%;
+}
+
+.current-weather, .seperator {
+  float: left;
+}
+
+.weather-forecast {
+  overflow: hidden;
+}
+
+.current-weather {
+  width: 130px;
+}
+
+.weather-condition-wrap {
+  position: relative;
+}
+
+.weather-icon {
+  width: 60px;
+}
+
+.temp {
+  position: absolute;
+  right: 0;
+  color: #EC5A34;
+  font-size: 27px;
+}
+
+.temp-unit {
+  color: #FFB92F;
+  vertical-align: super;
+  font-size: 13px;
+  margin-left: 7px;
+}
+
+.weather-day {
+  width: 14%;
+  float: left;
+  border-right: 1px solid #ccc;
+  padding: 0 6px;
+}
+
+.weather-day .day {
+  color: #55995C;
+  text-transform: uppercase;
+  font-size: 20px;
+  position: relative;
+}
+
+.weather-day .date {
+  color: #55995C;
+  font-size: 12px;
+  position: absolute;
+  top: 21px;
+  right: 1px;
+}
+
+.weather-day:last-child {
+  border-right: none;
+}
+
+.weather-day .weather-icon {
+  width: 60%;
+}
+
+.weather-day .weather-condition {
+  font-size: 9px;
+  height: 23px;
+}
+
+.celsius-high {
+  color: #CE594A;
+  font-size: 18px;
+}
+
+.celsius-low {
+  color: #00a885;
+  border-left: 1px solid #ddd;
+}
+
+.celsius-high, .celsius-low {
+  padding: 3px;
+}

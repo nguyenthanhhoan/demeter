@@ -4,22 +4,22 @@
   padding: 25px;
 }
 
-.project-img, .project-info, .seperator {
+.project-img, .project-info, .seperator, .weather-forecast {
   float: left;
 }
 
 .project-img {
-  max-width: 200px;
+  width: 15%;
   height: 100%;
 }
 
 .project-img img {
-  max-height: 100%;
+  width: 100%;
 }
 
 .project-info {
-  margin-left: 25px;
-  width: 25%;
+  padding-left: 15px;
+  width: 15%;
 }
 
 .project-name {
@@ -68,4 +68,8 @@
 .weather-chart {
   float: right;
   width: 45%;
+}
+
+.weather-forecast {
+  width: 70%;
 }

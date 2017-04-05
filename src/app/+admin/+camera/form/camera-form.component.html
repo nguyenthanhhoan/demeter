@@ -1,0 +1,90 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Camera', 'Edit']" icon="book" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="well">
+        <form class="form-horizontal"
+          novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
+          (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Camera No: <span class="req-field">*</span></label>
+              <div class="col-md-7">
+                <input class="form-control" type="text" 
+                  [(ngModel)]="camera.camera_no" name="name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Camera Name: <span class="req-field">*</span></label>
+              <div class="col-md-7">
+                <input class="form-control" type="text" 
+                  [(ngModel)]="camera.name" name="name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Camera API</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.api" name="api">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Camera Live Hash</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.live_hash" name="live_hash">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Camera Playback Hash</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.playback_hash" name="playback_hash">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Secret ID</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.secret_id" name="secret_id">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Channel</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.channel" name="channel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Server</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  disabled
+                  [(ngModel)]="camera.server" name="server">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="button-group pull-right">
+                <button class="demeter-btn create-btn" type="submit">
+                  Create
+                </button>
+
+                <button class="demeter-btn danger">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

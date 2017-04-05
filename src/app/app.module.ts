@@ -24,6 +24,8 @@ import { AuthService } from './+auth/auth.service';
 import { ProjectModule } from './+user/+project/project.module';
 import { ZoneModule } from './+user/+zone/zone.module';
 
+import { UserModule } from './+user/user.module';
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -58,6 +60,7 @@ type StoreType = {
     routing,
 
     //user modules
+    UserModule,
     ProjectModule,
     ZoneModule
   ],
@@ -72,4 +75,3 @@ type StoreType = {
 export class AppModule {
   constructor(public appRef: ApplicationRef, public appState: AppState) {}
 }
-

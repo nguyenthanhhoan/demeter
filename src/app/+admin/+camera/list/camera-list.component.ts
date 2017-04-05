@@ -45,9 +45,13 @@ export class CameraListComponent implements OnInit {
       render: ( data, type, row, meta ) => {
         var id = data;
         window.openConfirmModalFn = this.openDeleteConfirm.bind(this);
+        window.goToEdit = this.goToEdit.bind(this);
         return '<button style="margin-right:12.5px;" type="button"' +
-          'class="remove-sm btn-red btn btn-default" ' +
-          'onclick="openConfirmModalFn(' + id + ')">Remove</button>';
+          'class="btn btn-default" ' +
+          'onclick="openConfirmModalFn(' + id + ')">Remove</button>' +
+          '<button style="margin-right:12.5px;" type="button"' +
+          'class="btn btn-info" ' +
+          'onclick="goToEdit(' + id + ')">Edit</button>';
       }
     }]
   })
@@ -61,6 +65,10 @@ export class CameraListComponent implements OnInit {
         this.datatable.ajax.reload();
       });
     });
+  }
+
+  goToEdit(id) {
+    this.router.navigate([`/admin/camera/${id}/edit`]);
   }
 
   setDatatableEle(datatable) {

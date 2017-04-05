@@ -3,23 +3,21 @@ import {CommonModule} from "@angular/common";
 import { RouterModule } from '@angular/router';
 import { ChartistModule } from '../../../shared/graphs/chartist/chartist.module';
 
-import { WeatherForecastModule } from '../weather-forecast/weather-forecast.module';
-import { ProjectSummaryComponent } from './project-summary.component';
+import { WeatherForecastComponent } from './weather-forecast.component';
 
 @NgModule({
   imports: [
     CommonModule,
     ChartistModule,
-    RouterModule,
-    WeatherForecastModule,
+    RouterModule
   ],
   declarations: [
-    ProjectSummaryComponent
+    WeatherForecastComponent
   ],
   exports: [
-    ProjectSummaryComponent
+    WeatherForecastComponent
   ]
 })
-export class ProjectSummaryModule {
+export class WeatherForecastModule {
 
 }

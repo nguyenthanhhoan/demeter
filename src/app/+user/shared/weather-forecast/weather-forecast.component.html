@@ -1,0 +1,46 @@
+<div class="current-weather">
+  <div class="weather-condition-wrap">
+    <span class="temp">{{weather.temp}}<span class="temp-unit">°C</span></span>
+    <img src={{weather.icon}} class="weather-icon"/>
+  </div>
+  <p class="text-center">{{weather.weather}}</p>
+  <p>Humidity: {{weather.relative_humidity}}</p>
+  <p>Precipitation: {{weather.precip_today_in}}%</p>
+  <p>Wind Speed: {{weather.wind_mph}} km/h</p>
+</div>
+
+<div class="seperator">
+</div>
+
+<div class="weather-forecast">
+  <div class="weather-forecast-top">
+      <div
+        class="weather-day" 
+        *ngFor="let weatherForecast of weatherForecasts">
+
+        <p class="day">
+          {{weatherForecast.dayFormatted}}
+          <span class="date">{{weatherForecast.dateFormatted}}</span>
+        </p>
+        <p class="conditions text-center no-margin">
+          <img src="assets/img/cau-dat/weather-icon/{{weatherForecast.icon}}.svg" class="weather-icon"/>
+        </p>
+        <p class="text-center no-margin weather-condition">{{weatherForecast.conditions}}</p>
+        <p class="text-center no-margin">
+          <span class="celsius-high">{{weatherForecast.celsiusHigh}}</span>
+          <span class="celsius-low">{{weatherForecast.celsiusLow}}</span>
+        </p>
+      </div>
+  </div>
+</div>
+<!--<div class="weather-chart">
+  <div class="chart-wrapper">
+    <x-chartist
+      [data]="chart.data"
+      [type]="chart.type"
+      [options]="chart.options"
+      [responsiveOptions]="chart.responsiveOptions"
+      [events]="chart.events">
+    </x-chartist>
+  </div>
+</div>-->

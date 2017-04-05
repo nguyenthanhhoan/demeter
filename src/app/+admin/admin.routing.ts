@@ -24,7 +24,11 @@ export const routes: Routes = [{
   }, {
     path: 'camera',
     component: CameraListComponent 
-  }
+  }, { 
+    path: 'project/new', component: ProjectFormComponent 
+  }, { 
+    path: 'project/edit/:id', component: ProjectFormComponent 
+  },
 ];
 
 export const routing = RouterModule.forChild(routes);
