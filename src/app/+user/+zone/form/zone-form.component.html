@@ -1,219 +1,208 @@
-<div class="container no-padding">
-  <app-project-summary></app-project-summary>
-</div>
+<div class="container-fluid">
+  <demeter-user-sidebar></demeter-user-sidebar>
 
-<div class="container">
-  <div class="section-separator"></div>
-</div>
+  <div class="col-md-9">
+    <div class="content-header">
+      <div class="demeter-title">Create Zone</div>
+    </div>
 
-<div class="container no-padding">
-  <div class="row">
-    <demeter-user-sidebar></demeter-user-sidebar>
-
-    <div class="page-content col-md-8">
-      <div class="content-header">
-        <div class="demeter-title">Create Zone</div>
-      </div>
-
-      <div class="demeter-pane">
-          <form class="form-horizontal"
-          novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
-          (ngSubmit)="onSubmit()">
-          <fieldset>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="col-md-5 control-label">Zone Name <span class="req-field">*</span></label>
-                <div class="col-md-7">
-                  <input class="form-control" type="text" 
-                    [(ngModel)]="zone.name" name="name">
-                </div>
+    <div class="demeter-pane">
+        <form class="form-horizontal"
+        novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
+        (ngSubmit)="onSubmit()">
+        <fieldset>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-md-5 control-label">Zone Name <span class="req-field">*</span></label>
+              <div class="col-md-7">
+                <input class="form-control" type="text" 
+                  [(ngModel)]="zone.name" name="name">
               </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Zone ID <span class="req-field">*</span></label>
-                <div class="col-md-7">
-                  <input class="form-control"
-                    [(ngModel)]="zone.zone_id" name="zone_id">
-                </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Zone ID <span class="req-field">*</span></label>
+              <div class="col-md-7">
+                <input class="form-control"
+                  [(ngModel)]="zone.zone_id" name="zone_id">
               </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Start Date</label>
-                <div class="col-md-7">
-                  <div class="input-group">
-                    <input type="text" name="start_date" 
-                      placeholder="Select a date" 
-                      [(ngModel)]="zone.start_date"
-                      (valueChange)="zone.start_date=$event"
-                      class="form-control datepicker"
-                      [saUiDatepicker]="{
-                        dateFormat: 'dd/mm/yy'
-                      }" >
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">End Date</label>
-                <div class="col-md-7">
-                  <div class="input-group">
-                    <input type="text" name="end_date" 
-                      placeholder="Select a date" 
-                      [(ngModel)]="zone.end_date"
-                      (valueChange)="zone.end_date=$event"
-                      class="form-control datepicker"
-                      [saUiDatepicker]="{
-                        dateFormat: 'dd/mm/yy'
-                      }" >
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Plant</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.plant" class="form-control" name="plant">
-                    <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.name}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Quantity of Plant</label>
-                <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.plant_quantity" name="plant_quantity">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Production Type</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.production_type" class="form-control" name="production_type">
-                    <option *ngFor="let production_type of production_types" [ngValue]="production_type">{{production_type}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Estimate Yield</label>
-                <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.estimate_yield" name="estimate_yield">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Surface</label>
-                <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.surface" name="surface">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Type of Zone</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.zone_type" class="form-control" name="zone_type">
-                    <option *ngFor="let zone_type of zone_types" [ngValue]="zone_type">{{zone_type}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Growing Condition</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.growing_condition_type" class="form-control" name="growing_condition_type">
-                    <option *ngFor="let growing_condition_type of growing_condition_types" [ngValue]="growing_condition_type">{{growing_condition_type}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Ownership</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.ownership_type" class="form-control" name="ownership_type">
-                    <option *ngFor="let ownership_type of ownership_types" [ngValue]="ownership_type">{{ownership_type}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Labour</label>
-                <div class="col-md-7">
-                  <input class="form-control" type="number"
-                    [(ngModel)]="zone.labour" name="labour">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Location:</label>
-                <div class="col-md-7">
-                  <input class="form-control" type="text"
-                    [(ngModel)]="zone.location" name="location">
-                  <p class="help-block">
-                    Select Gmap
-                  </p>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Start Date</label>
+              <div class="col-md-7">
+                <div class="input-group">
+                  <input type="text" name="start_date" 
+                    placeholder="Select a date" 
+                    [(ngModel)]="zone.start_date"
+                    (valueChange)="zone.start_date=$event"
+                    class="form-control datepicker"
+                    [saUiDatepicker]="{
+                      dateFormat: 'dd/mm/yy'
+                    }" >
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="project-image-holder">
-                <a (click)="openSelectFile()">
-                  <div class="upload-plus-icon upload-preview"></div>
-                </a>
-                <p class="image-label help-block">Image</p>
-                <input type="file" 
-                  class="file-input hiddenfile"
-                  (change)="fileChange($event)" accept="image/*">
-              </div>
-              <div class="form-group-height"></div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Variety</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.plant_variety" class="form-control" name="plant_variety">
-                    <option *ngFor="let plant_variety of zone.plant.varieties" [ngValue]="plant_variety">{{plant_variety.name}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Unit</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.plant_quantity_unit" class="form-control" name="plant_quantity_unit">
-                    <option *ngFor="let plant_quantity_unit of quantity_units" [ngValue]="plant_quantity_unit">{{plant_quantity_unit}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group-height"></div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Unit</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.estimate_yield_unit" class="form-control" name="estimate_yield_unit">
-                    <option *ngFor="let estimate_yield_unit of quantity_units" [ngValue]="estimate_yield_unit">{{estimate_yield_unit}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-5 control-label">Unit</label>
-                <div class="col-md-7">
-                  <select [(ngModel)]="zone.surface_unit" class="form-control" name="surface_unit">
-                    <option *ngFor="let surface_unit of surface_units" [ngValue]="surface_unit">{{surface_unit}}</option>
-                  </select>
+            <div class="form-group">
+              <label class="col-md-5 control-label">End Date</label>
+              <div class="col-md-7">
+                <div class="input-group">
+                  <input type="text" name="end_date" 
+                    placeholder="Select a date" 
+                    [(ngModel)]="zone.end_date"
+                    (valueChange)="zone.end_date=$event"
+                    class="form-control datepicker"
+                    [saUiDatepicker]="{
+                      dateFormat: 'dd/mm/yy'
+                    }" >
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
               </div>
             </div>
-
-            <div class="col-md-12">
-              <div class="col-md-1 col-padding-map"></div>
-              <div class="col-md-1 col-map">
-                <g-select-location [height]="'400px'" (onLocationUpdate)="updateLocation($event)"></g-select-location>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Plant</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.plant" class="form-control" name="plant">
+                  <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.name}}</option>
+                </select>
               </div>
             </div>
-
-            <div class="col-md-12">
-              <div class="button-group pull-right">
-                <button class="demeter-btn create-btn" type="submit">
-                  Create
-                </button>
-
-                <button class="demeter-btn danger">
-                  Cancel
-                </button>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Quantity of Plant</label>
+              <div class="col-md-7">
+                <input class="form-control" type="number"
+                  [(ngModel)]="zone.plant_quantity" name="plant_quantity">
               </div>
             </div>
-          </fieldset>
-        </form>
-      </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Production Type</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.production_type" class="form-control" name="production_type">
+                  <option *ngFor="let production_type of production_types" [ngValue]="production_type">{{production_type}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Estimate Yield</label>
+              <div class="col-md-7">
+                <input class="form-control" type="number"
+                  [(ngModel)]="zone.estimate_yield" name="estimate_yield">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Surface</label>
+              <div class="col-md-7">
+                <input class="form-control" type="number"
+                  [(ngModel)]="zone.surface" name="surface">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Type of Zone</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.zone_type" class="form-control" name="zone_type">
+                  <option *ngFor="let zone_type of zone_types" [ngValue]="zone_type">{{zone_type}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Growing Condition</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.growing_condition_type" class="form-control" name="growing_condition_type">
+                  <option *ngFor="let growing_condition_type of growing_condition_types" [ngValue]="growing_condition_type">{{growing_condition_type}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Ownership</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.ownership_type" class="form-control" name="ownership_type">
+                  <option *ngFor="let ownership_type of ownership_types" [ngValue]="ownership_type">{{ownership_type}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Labour</label>
+              <div class="col-md-7">
+                <input class="form-control" type="number"
+                  [(ngModel)]="zone.labour" name="labour">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Location:</label>
+              <div class="col-md-7">
+                <input class="form-control" type="text"
+                  [(ngModel)]="zone.location" name="location">
+                <p class="help-block">
+                  Select Gmap
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="project-image-holder">
+              <a (click)="openSelectFile()">
+                <div class="upload-plus-icon upload-preview"></div>
+              </a>
+              <p class="image-label help-block">Image</p>
+              <input type="file" 
+                class="file-input hiddenfile"
+                (change)="fileChange($event)" accept="image/*">
+            </div>
+            <div class="form-group-height"></div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Variety</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.plant_variety" class="form-control" name="plant_variety">
+                  <option *ngFor="let plant_variety of zone.plant.varieties" [ngValue]="plant_variety">{{plant_variety.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Unit</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.plant_quantity_unit" class="form-control" name="plant_quantity_unit">
+                  <option *ngFor="let plant_quantity_unit of quantity_units" [ngValue]="plant_quantity_unit">{{plant_quantity_unit}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group-height"></div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Unit</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.estimate_yield_unit" class="form-control" name="estimate_yield_unit">
+                  <option *ngFor="let estimate_yield_unit of quantity_units" [ngValue]="estimate_yield_unit">{{estimate_yield_unit}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-5 control-label">Unit</label>
+              <div class="col-md-7">
+                <select [(ngModel)]="zone.surface_unit" class="form-control" name="surface_unit">
+                  <option *ngFor="let surface_unit of surface_units" [ngValue]="surface_unit">{{surface_unit}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="col-md-1 col-padding-map"></div>
+            <div class="col-md-1 col-map">
+              <g-select-location [height]="'400px'" (onLocationUpdate)="updateLocation($event)"></g-select-location>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="button-group pull-right">
+              <button class="demeter-btn create-btn" type="submit">
+                Create
+              </button>
+
+              <button class="demeter-btn danger">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
     </div>
   </div>
 </div>
-

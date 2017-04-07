@@ -1,28 +1,18 @@
-<div class="container no-padding">
-  <app-zone-summary-pane></app-zone-summary-pane>
-</div>
+<div class="container-fluid">
+  <demeter-user-sidebar></demeter-user-sidebar>
 
-<div class="container">
-  <div class="section-separator"></div>
-</div>
+  <div class="col-md-9">
+    <div class="content-header">
+      <div class="demeter-title">Camera</div>
+    </div>
 
-<div class="container no-padding">
-  <div class="row">
-    <demeter-user-sidebar></demeter-user-sidebar>
-
-    <div class="page-content col-md-8">
-      <div class="content-header">
-        <div class="demeter-title">Camera</div>
-      </div>
-
-      <div class="demeter-pane">
-        <div class="row">
-          <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
-            <app-camera [camera]="camera"></app-camera>
-            <a routerLink="{{camera.id}}">
-              <p class="camera-name">{{camera.camera_name}}</p>
-            </a>
-          </div>
+    <div class="demeter-pane">
+      <div class="row">
+        <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
+          <app-camera [camera]="camera"></app-camera>
+          <a routerLink="{{camera.id}}">
+            <p class="camera-name">{{camera.camera_name}}</p>
+          </a>
         </div>
       </div>
     </div>

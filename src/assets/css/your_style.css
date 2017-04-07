@@ -65,7 +65,7 @@ body {
  * Demeter style
  **/
 .user-side .user-main {
-  margin-top: 50px;
+  margin-top: 15px;
 }
 
 .demeter-btn {
@@ -183,9 +183,6 @@ body {
 /**
  * Page Content
  **/
-.content-header {
-  padding: 15px 0;
-}
 
 .content-header .demeter-btn {
   margin-top: -38px;
@@ -245,7 +242,7 @@ body {
 
 .section-separator {
   border-top: 1px solid #ccc;
-  margin: 30px -15px;
+  margin: 15px 0;
 }
 
 .control-label {

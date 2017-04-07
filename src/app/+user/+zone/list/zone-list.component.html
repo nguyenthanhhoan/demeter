@@ -1,59 +1,51 @@
-<div class="container no-padding">
-  <app-project-summary [project]="project"></app-project-summary>
-</div>
+<div class="container-fluid">
+  <demeter-user-sidebar></demeter-user-sidebar>
 
-<div class="container">
-  <div class="section-separator"></div>
-</div>
-
-<div class="container no-padding">
-  <div class="row">
-    <demeter-user-sidebar></demeter-user-sidebar>
-
-    <div class="page-content col-md-8">
-      <div class="content-header">
-        <div class="demeter-title">List of Zones</div>
-        <button 
-          class="demeter-btn create-btn primary pull-right"
-          routerLink="zone/new">Create Zone</button>
-      </div>
-      <div *ngFor="let zone of zones" class="demeter-pane">
-        <div class="row">
-          <div class="col-md-3">
-            <a routerLink="zone/{{zone.id}}/summary">
-              <img class="img-responsive" src="{{zone.image?.thumb?.url || 'assets/img/cau-dat/tomato.png'}}" />
-            </a>
-            <button 
-              routerLink="zone/{{zone.id}}/summary"
-              class="demeter-btn detail-btn primary">Detail</button>
+  <div class="col-md-9">
+    <app-project-summary [project]="project"></app-project-summary>
+    <div class="section-separator"></div>
+    <div class="content-header">
+      <div class="demeter-title">List of Zones</div>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        routerLink="zone/new">Create Zone</button>
+    </div>
+    <div *ngFor="let zone of zones" class="demeter-pane">
+      <div class="row">
+        <div class="col-md-3">
+          <a routerLink="zone/{{zone.id}}/summary">
+            <img class="img-responsive" src="{{zone.image?.thumb?.url || 'assets/img/cau-dat/tomato.png'}}" />
+          </a>
+          <button 
+            routerLink="zone/{{zone.id}}/summary"
+            class="demeter-btn detail-btn primary">Detail</button>
+        </div>
+        <div class="col-md-9">
+          <a routerLink="zone/{{zone.id}}/summary">
+            <p class="demeter-title">{{zone.name}}</p>
+          </a>
+          <div class="zone-status-group">
+            <span class="status-percent">{{zone.percent}}</span>
+            <div class="green-bar-wrapper">
+              <div class="green-bar" [style.width]="zone.percent"></div>
+            </div>
+            <div class="date-time-wrapper">
+              <div class="start-date pull-left">
+                <p class="date-label">Start date</p>
+                <p>{{zone.startDate}}</p>
+              </div>
+              <div class="end-date pull-right">
+                <p class="date-label">End date</p>
+                <p>{{zone.endDate}}</p>
+              </div>
+            </div>
           </div>
-          <div class="col-md-9">
-            <a routerLink="zone/{{zone.id}}/summary">
-              <p class="demeter-title">{{zone.name}}</p>
-            </a>
-            <div class="zone-status-group">
-              <span class="status-percent">{{zone.percent}}</span>
-              <div class="green-bar-wrapper">
-                <div class="green-bar" [style.width]="zone.percent"></div>
-              </div>
-              <div class="date-time-wrapper">
-                <div class="start-date pull-left">
-                  <p class="date-label">Start date</p>
-                  <p>{{zone.startDate}}</p>
-                </div>
-                <div class="end-date pull-right">
-                  <p class="date-label">End date</p>
-                  <p>{{zone.endDate}}</p>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="line-info">
-              <p><b>Location: </b>{{zone.location}}</p>
-              <p><b>Surface: </b>{{zone.surface}}</p>
-              <p><b>Worker: </b>{{zone.labour}}</p>
-              <p><b>ID: </b>{{zone.zone_id}}</p>
-            </div>
+          <div class="clearfix"></div>
+          <div class="line-info">
+            <p><b>Location: </b>{{zone.location}}</p>
+            <p><b>Surface: </b>{{zone.surface}}</p>
+            <p><b>Worker: </b>{{zone.labour}}</p>
+            <p><b>ID: </b>{{zone.zone_id}}</p>
           </div>
         </div>
       </div>

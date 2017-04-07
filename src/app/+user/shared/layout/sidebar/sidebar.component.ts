@@ -16,8 +16,18 @@ export class SidebarComponent implements OnInit {
   }
 
   goToPage(name) {
-    let id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
+    let segments = this.route.snapshot['_urlSegment'].segments;
+    var id, project_id;
+    for (let index = 0; index < segments.length; index++) {
+      var element = segments[index];
+      if (element.path === 'project') {
+        project_id = +segments[index + 1].path;
+      }
+
+      if (element.path === 'zone') {
+        id = +segments[index + 1].path;
+      }
+    }
 
     //If project_id present in url -> it's was link to zone detail page
     var url = `/user`;
