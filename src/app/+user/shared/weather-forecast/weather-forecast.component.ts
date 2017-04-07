@@ -62,6 +62,9 @@ var data = {
 export class WeatherForecastComponent implements OnInit {
   chart: Chart;
 
+  @Input()
+  project: any;
+
   weather: any;
   weatherForecasts: any;
 
@@ -78,17 +81,19 @@ export class WeatherForecastComponent implements OnInit {
   ngOnInit() {
     this.weather = {};
 
-    this.wundergroundService.getCurrentWeatherData(123)
+    this.wundergroundService.getCurrentWeatherData(this.project.location_geometry)
     .subscribe((weather) => {
-      this.weather = weather;
-      this.weather.icon = `assets/img/cau-dat/weather-icon/${this.weather.icon}.svg`;
-      console.log('this.weather', this.weather);
+      if (weather) {
+        this.weather = weather;
+        this.weather.icon = `assets/img/cau-dat/weather-icon/${this.weather.icon}.svg`;
+      }
     })
 
-    this.wundergroundService.getWeatherForecastData(123)
+    this.wundergroundService.getWeatherForecastData(this.project.location_geometry)
     .subscribe((weatherForecasts) => {
-      this.weatherForecasts = weatherForecasts;
-      console.log('this.weatherForecasts', this.weatherForecasts);
+      if (weatherForecasts) {
+        this.weatherForecasts = weatherForecasts;
+      }
     })
   }
 }

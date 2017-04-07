@@ -32,4 +32,17 @@ export class NotificationService {
     });
   }
 
+  showErrorMessage(error) {
+    setTimeout(() => {
+      this.bigBox({
+        title: error.title,
+        content: error.content,
+        color: "#C46A69",
+        icon: "fa fa-warning shake animated",
+        number: "1",
+        timeout: 5000
+      });
+    });
+  }
+
 }

@@ -79,23 +79,7 @@ export class ProjectSummaryComponent implements OnInit {
       this.project = {};
       this.projectService.getOne(id).subscribe(data => {
         Object.assign(this.project, data);
-        this.requestWeatherData();
       });
-    } else {
-      this.requestWeatherData();
-    }
-  }
-
-  requestWeatherData() {
-    let location_geometry = this.project.location_geometry;
-    if (location_geometry) {
-      this.wundergroundService.getWeatherForecastData(location_geometry).subscribe(weatherForecastDatas => {
-        Object.assign(this.project, {
-          weatherIcon: `assets/img/cau-dat/weather-icon/${weatherForecastDatas[0].icon}.svg`
-        });
-      });
-    } else {
-      console.log(`Location is not correct ${this.project}`);
     }
   }
 }
