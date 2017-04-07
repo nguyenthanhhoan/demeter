@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 
 import {HeaderModule} from "./header/header.module";
 import {SidebarModule} from './sidebar/sidebar.module';
+import {BreadcrumbModule} from './breadcrumb/breadcrumb.module';
 
 import { UserLayoutComponent } from './user-layout/user-layout.component';
 
@@ -12,7 +13,8 @@ import { UserLayoutComponent } from './user-layout/user-layout.component';
     CommonModule,
     RouterModule,
     HeaderModule,
-    SidebarModule
+    SidebarModule,
+    BreadcrumbModule
   ],
   declarations: [
     UserLayoutComponent

@@ -1,0 +1,11 @@
+<h2 class="page-title txt-color-blueDark">
+  <a routerLink="/user/project">
+    <i ng-reflect-class-name="fa-fw fa fa-home" class="fa-fw fa fa-home"></i>Home
+  </a>
+  <span>
+    <a routerLink="/user/project/{{project_id}}" *ngIf="project_id">> Project</a>
+  </span>
+  <span>
+    <a routerLink="/user/project/{{project_id}}/zone/{{zone_id}}/summary" *ngIf="zone_id">> Zone</a>
+  </span>
+</h2>

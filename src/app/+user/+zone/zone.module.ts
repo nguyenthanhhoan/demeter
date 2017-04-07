@@ -8,6 +8,7 @@ import { SmartadminInputModule } from "../../shared/forms/input/smartadmin-input
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
+import { BreadcrumbModule } from '../shared/layout/breadcrumb/breadcrumb.module';
 import { IntegrationModule } from '../../shared/integration/integration.module';
 import { CameraModule } from '../../shared/camera/camera.module';
 
@@ -33,6 +34,7 @@ import { ZoneCameraDetailComponent } from "./camera/camera-detail/zone-camera-de
     CameraModule,
     HeaderModule,
     SidebarModule,
+    BreadcrumbModule,
     ProjectSummaryModule,
     ZoneSummaryPaneModule
   ],

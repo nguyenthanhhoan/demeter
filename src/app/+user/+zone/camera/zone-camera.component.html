@@ -2,17 +2,20 @@
   <demeter-user-sidebar></demeter-user-sidebar>
 
   <div class="col-md-9">
+    <app-user-breadcrumb></app-user-breadcrumb>
     <div class="content-header">
       <div class="demeter-title">Camera</div>
+      <button 
+        class="demeter-btn create-btn primary pull-right">Add Camera</button>
     </div>
-
     <div class="demeter-pane">
       <div class="row">
         <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
           <app-camera [camera]="camera"></app-camera>
-          <a routerLink="{{camera.id}}">
-            <p class="camera-name">{{camera.camera_name}}</p>
-          </a>
+          <p class="camera-name">{{camera.camera_name}}</p>
+          <button 
+            routerLink="{{camera.id}}"
+            class="demeter-btn primary pull-right playback-btn">Playback</button>
         </div>
       </div>
     </div>
