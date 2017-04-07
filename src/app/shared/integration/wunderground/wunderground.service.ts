@@ -65,7 +65,6 @@ export class WUndergroundService {
         forecastDateResult.avewind = day.avewind.kph;
         forecastDateResults.push(forecastDateResult);
       }
-      console.log('forecastDateResults', forecastDateResults);
       return forecastDateResults;
     } else if (res.response.error) {
       this.notificationService.showErrorMessage({
