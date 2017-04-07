@@ -7,6 +7,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {AdminLayoutComponent} from "./+admin/shared/layout/admin-layout/admin-layout.component";
 import {UserLayoutComponent} from './+user/shared/layout/user-layout/user-layout.component';
+import {UserLayoutProjectListComponent} from './+user/shared/layout/user-layout/user-layout-project-list.component';
 import {ModuleWithProviders} from "@angular/core";
 import { AuthGuard } from './+auth/auth-guard.service';
 
@@ -31,37 +32,43 @@ export const routes: Routes = [
     },
     {
         path: 'user',
-        component: UserLayoutComponent,
         children: [
             {
                 path: '', redirectTo: 'project', pathMatch: 'full'
             }, {
                 path: 'project',
-                component: ProjectListComponent 
-            }, { 
-                path: 'project/new', component: ProjectFormComponent 
-            }, {
-                path: 'project/:id',
-                component: ZoneListComponent
-            }, {
-                path: 'project/:id/zone/new',
-                component: ZoneFormComponent 
-            }, {
-                path: 'project/:project_id/zone/:id',
+                component: UserLayoutProjectListComponent,
                 children: [{
-                  path: 'summary', component: ZoneSummaryComponent 
+                    path: '',
+                    component: ProjectListComponent
                 }, {
-                  path: 'history', component: ZoneHistoryComponent 
-                }, {
-                  path: 'camera',
-                  children: [{
-                    path: '', component: ZoneCameraComponent 
-                  }, {
-                    path: ':camera_id', component: ZoneCameraDetailComponent 
-                  }]
+                    path: 'new', component: ProjectFormComponent 
                 }]
-            }
-        ],
+            }, {
+                path: 'project',
+                component: UserLayoutComponent,
+                children: [{
+                    path: ':id',
+                    component: ZoneListComponent
+                }, {
+                    path: ':id/zone/new',
+                    component: ZoneFormComponent 
+                }, {
+                    path: ':project_id/zone/:id',
+                    children: [{
+                        path: 'summary', component: ZoneSummaryComponent 
+                        }, {
+                        path: 'history', component: ZoneHistoryComponent 
+                        }, {
+                        path: 'camera',
+                        children: [{
+                            path: '', component: ZoneCameraComponent 
+                        }, {
+                            path: ':camera_id', component: ZoneCameraDetailComponent 
+                        }]
+                    }]
+                }]
+        }],
         canActivate: [AuthGuard]
     },
 

@@ -7,6 +7,7 @@ import {SidebarModule} from './sidebar/sidebar.module';
 import {BreadcrumbModule} from './breadcrumb/breadcrumb.module';
 
 import { UserLayoutComponent } from './user-layout/user-layout.component';
+import { UserLayoutProjectListComponent } from './user-layout/user-layout-project-list.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { UserLayoutComponent } from './user-layout/user-layout.component';
     BreadcrumbModule
   ],
   declarations: [
-    UserLayoutComponent
+    UserLayoutComponent,
+    UserLayoutProjectListComponent
   ],
   exports:[
     HeaderModule

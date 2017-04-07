@@ -14,12 +14,16 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-    this.project_id = this.route.snapshot.params['project_id'];
-    if (this.project_id) {
-      this.zone_id = id;
-    } else {
-      this.project_id = id;
+    let segments = this.route.snapshot['_urlSegment'].segments;
+    for (let index = 0; index < segments.length; index++) {
+      var element = segments[index];
+      if (element.path === 'project') {
+        this.project_id = +segments[index + 1].path;
+      }
+
+      if (element.path === 'zone') {
+        this.zone_id = +segments[index + 1].path;
+      }
     }
   }
 }
