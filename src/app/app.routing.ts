@@ -19,6 +19,7 @@ import { ZoneSummaryComponent } from './+user/+zone/summary/zone-summary.compone
 import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.component';
 import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component';
 import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
+import { ZoneWeatherComponent } from './+user/+zone/crop-management/weather/zone-weather.component';
 
 export const routes: Routes = [
     {
@@ -56,17 +57,19 @@ export const routes: Routes = [
                 }, {
                     path: ':project_id/zone/:id',
                     children: [{
-                        path: 'summary', component: ZoneSummaryComponent 
+                            path: 'summary', component: ZoneSummaryComponent 
                         }, {
-                        path: 'history', component: ZoneHistoryComponent 
+                            path: 'history', component: ZoneHistoryComponent 
                         }, {
-                        path: 'camera',
-                        children: [{
-                            path: '', component: ZoneCameraComponent 
+                            path: 'camera',
+                            children: [{
+                                path: '', component: ZoneCameraComponent 
+                            }, {
+                                path: ':camera_id', component: ZoneCameraDetailComponent 
+                            }]
                         }, {
-                            path: ':camera_id', component: ZoneCameraDetailComponent 
+                            path: 'weather', component: ZoneWeatherComponent
                         }]
-                    }]
                 }]
         }],
         canActivate: [AuthGuard]

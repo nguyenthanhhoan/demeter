@@ -38,8 +38,7 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private wundergroundService: WUndergroundService,
-              private applicationRef: ApplicationRef) { 
+              private wundergroundService: WUndergroundService) { 
   }
 
   ngOnInit() {
@@ -55,7 +54,6 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
         if (weather) {
           this.weather = weather;
           this.weather.icon = `assets/img/cau-dat/weather-icon/${this.weather.icon}.svg`;
-          this.applicationRef.tick();
         }
       })
 
@@ -63,7 +61,6 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
       .subscribe((weatherForecasts) => {
         if (weatherForecasts) {
           this.weatherForecasts = weatherForecasts;
-          this.applicationRef.tick();
         }
       })
     }

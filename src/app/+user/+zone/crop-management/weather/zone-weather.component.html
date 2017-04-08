@@ -1,0 +1,66 @@
+<div class="content-header">
+  <div class="demeter-title">Weather Information</div>
+</div>
+
+<div class="demeter-panel-dark">
+  <div class="panel-title">Present Weather Information</div>
+  <div class="demeter-pane" *ngIf="currentWeatherLoaded">
+    <h2 class="location-title">{{weather.display_location}}</h2>
+
+    <div class="row">
+      <div class="col-md-7">
+
+        <p>Elev <b>{{weather.elevation}}</b> m <b>{{weather.latitude | number:'2.2-2'}}</b> °N <b>{{weather.longitude | number:'2.2-2'}}</b> °E | Updated {{weather.observationFromNow}}</p>
+
+        <div class="col-md-4 text-center">
+          <img src="{{weather.icon}}" class="img-responsive img-weather"/>
+          <p>{{weather.weather}}</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="temp">
+            {{weather.temp}}
+            <span class="temp-unit">°C</span>
+          </div>
+          <p>Feels Like {{weather.feelslike}} °C</p>
+        </div>
+      </div>
+      
+      <div class="col-md-5 line-infor">
+        <p><span class="line-label">Pressure</span>	<b>{{weather.pressure_mb}}</b> hPa</p>
+        <p><span class="line-label">Visibility</span>	<b>{{weather.visibility_km}}</b> kilometers</p>
+        <p><span class="line-label">Heat Index</span>	<b>{{weather.heat_index_c}}</b> °C</p>
+        <p><span class="line-label">Dew Point</span>	<b>{{weather.dewpoint_c}}</b> °C</p>
+        <p><span class="line-label">Humidity</span>	<b>{{weather.relative_humidity}}</b></p>
+        <p><span class="line-label">Rainfall</span>	<b>{{weather.precip_today_in}}</b> mm</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="demeter-panel-dark">
+  <div class="panel-title">10 days weather forecast</div>
+  <div class="demeter-pane">
+    <div class="weather-general">
+      <div
+        class="weather-day" 
+        *ngFor="let weatherForecast of weatherForecasts">
+
+        <p class="day">
+          {{weatherForecast.dayFormatted}}
+          <span class="date">{{weatherForecast.dateFormatted}}</span>
+        </p>
+        <p class="conditions text-center no-margin">
+          <img src="assets/img/cau-dat/weather-icon/{{weatherForecast.icon}}.svg" class="weather-icon"/>
+        </p>
+        <p class="text-center no-margin weather-condition">{{weatherForecast.conditions}}</p>
+        <p class="text-center no-margin">
+          <span class="celsius-high">{{weatherForecast.celsiusHigh}}</span>
+          <span class="celsius-low">{{weatherForecast.celsiusLow}}</span>
+        </p>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="chart-wrap">
+    </div>
+  </div>
+</div>
