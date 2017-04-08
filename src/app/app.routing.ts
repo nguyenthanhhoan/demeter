@@ -20,6 +20,7 @@ import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.compone
 import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component';
 import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
 import { ZoneWeatherComponent } from './+user/+zone/crop-management/weather/zone-weather.component';
+import { ZoneSettingComponent } from './+user/+zone/setting/zone-setting.component';
 
 export const routes: Routes = [
     {
@@ -69,6 +70,8 @@ export const routes: Routes = [
                             }]
                         }, {
                             path: 'weather', component: ZoneWeatherComponent
+                        }, {
+                            path: 'setting', component: ZoneSettingComponent
                         }]
                 }]
         }],

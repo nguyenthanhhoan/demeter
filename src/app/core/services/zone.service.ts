@@ -14,7 +14,7 @@ export class ZoneService {
     return this.apiService.fetch(`projects/${project_id}/zones`);
   }
 
-  post (project_id, zone): Observable<any[]> {
+  buildFormData(zone) {
     let formData:FormData = new FormData();
     formData.append('zone[project_id]', zone.project_id);
     formData.append('zone[name]', zone.name);
@@ -36,8 +36,20 @@ export class ZoneService {
     formData.append('zone[labour]', zone.labour);
     formData.append('zone[location]', zone.location);
     formData.append('zone[location_geometry]', zone.location_geometry);
-    formData.append('zone[image]', zone.image);
+    if (zone.image && zone.image.size > 0) {
+      formData.append('zone[image]', zone.image);
+    }
+    return formData;
+  }
+
+  post (project_id, zone): Observable<any[]> {
+    let formData:FormData = this.buildFormData(zone);
     return this.apiService.postFormData(`projects/${project_id}/zones`, formData);
+  }
+
+  put (project_id, zone): Observable<any[]> {
+    let formData:FormData = this.buildFormData(zone);
+    return this.apiService.putFormData(`projects/${project_id}/zones/${zone.id}`, formData);
   }
 
   getOne (project_id, id): Observable<any[]> {

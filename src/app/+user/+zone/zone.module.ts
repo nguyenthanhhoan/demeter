@@ -16,12 +16,14 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 
 import { ZoneListComponent } from "./list/zone-list.component";
-import { ZoneFormComponent } from "./form/zone-form.component";
+import { ZoneFormComponent as ZoneAddFormComponent } from "./form/zone-form.component";
+import { ZoneFormComponent } from "../shared/zone-form/zone-form.component";
 import { ZoneSummaryComponent } from "./summary/zone-summary.component";
 import { ZoneHistoryComponent } from "./history/zone-history.component";
 import { ZoneCameraComponent } from "./camera/zone-camera.component";
 import { ZoneCameraDetailComponent } from "./camera/camera-detail/zone-camera-detail.component";
 import { ZoneWeatherComponent } from "./crop-management/weather/zone-weather.component";
+import { ZoneSettingComponent } from "./setting/zone-setting.component";
 
 @NgModule({
   imports: [
@@ -41,12 +43,14 @@ import { ZoneWeatherComponent } from "./crop-management/weather/zone-weather.com
   ],
   declarations: [
     ZoneListComponent,
+    ZoneAddFormComponent,
     ZoneFormComponent,
     ZoneSummaryComponent,
     ZoneHistoryComponent,
     ZoneCameraComponent,
     ZoneCameraDetailComponent,
-    ZoneWeatherComponent
+    ZoneWeatherComponent,
+    ZoneSettingComponent
   ]
 })
 export class ZoneModule { }

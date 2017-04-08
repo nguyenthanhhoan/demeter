@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { GoogleAPI } from '../gloader';
 
@@ -10,14 +10,18 @@ declare var $: any;
   templateUrl: './g-select-location.component.html',
   styleUrls: ['./g-select-location.component.css']
 })
-export class GSelectLocationComponent {
+export class GSelectLocationComponent implements OnChanges {
 
   @Input('height') containerHeight:any;
+  @Input() location_geometry: string;
   @Output() onLocationUpdate = new EventEmitter();
   map: any;
 
+  markers: any[] = [];
+
+  pendingCheck: boolean = false;
+
   constructor(private googleAPI: GoogleAPI,
-              private ref: ChangeDetectorRef,
               private el:ElementRef) { 
 
     googleAPI.doSomethingGoogley().then(() => {
@@ -26,8 +30,12 @@ export class GSelectLocationComponent {
         zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      var map = new google.maps.Map(document.getElementById("google-map-container"), mapProp);
-      this.initAutocomplete(map, this.onLocationUpdate);
+      this.map = new google.maps.Map(document.getElementById("google-map-container"), mapProp);
+      this.initAutocomplete(this.map, this.onLocationUpdate);
+      if (this.pendingCheck) {
+        this.addMarker(this.location_geometry);
+        this.pendingCheck = false;
+      }
     });
   }
 
@@ -43,22 +51,20 @@ export class GSelectLocationComponent {
       searchBox.setBounds(map.getBounds());
     });
 
-    var markers = [];
-
     let clearMarker = () => {
-      markers.forEach(function(marker) {
+      this.markers.forEach(function(marker) {
         marker.setMap(null);
       });
-      markers = [];
+      this.markers = [];
     }
 
-    google.maps.event.addListener(map, 'click', function(event) {
+    google.maps.event.addListener(map, 'click', (event) => {
       clearMarker();
       let marker = new google.maps.Marker({
         map: map,
         position: event.latLng
       });
-      markers.push(marker);
+      this.markers.push(marker);
       if (event.placeId) {
         var service = new google.maps.places.PlacesService(map);
         service.getDetails({
@@ -94,9 +100,9 @@ export class GSelectLocationComponent {
 
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
+      places.forEach((place) => {
         // Create a marker for each place.
-        markers.push(new google.maps.Marker({
+        this.markers.push(new google.maps.Marker({
           map: map,
           title: place.name,
           position: place.geometry.location
@@ -118,5 +124,32 @@ export class GSelectLocationComponent {
       map.fitBounds(bounds);
     });
     // [END region_getplaces]
+  }
+
+  addMarker(location_geometry) {
+    let lat = parseFloat(location_geometry.split(',')[0]);
+    let lng = parseFloat(location_geometry.split(',')[1]);
+    let latLng = { lat: lat, lng: lng };
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: latLng
+    });
+    this.markers.push(marker);
+    this.map.panTo(latLng);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['location_geometry'] && changes['location_geometry'].currentValue
+
+      //TODO: Have not idea
+      && changes['location_geometry'].currentValue != 'undefined') {
+      if (typeof google == 'undefined') {
+
+        //Wait for google lib to be loaded
+        this.pendingCheck = true;
+      } else {
+        this.addMarker(changes['location_geometry'].currentValue);
+      }
+    }
   }
 }

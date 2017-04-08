@@ -76,6 +76,22 @@ export class ApiService {
       })
   }
 
+  public putFormData(url, formData): Observable<any> {
+    let headers = new Headers({
+      'access-token': localStorage.getItem('accessToken'),
+      'client': localStorage.getItem('client'),
+      'expiry': localStorage.getItem('expiry'),
+      'tokeni-type': localStorage.getItem('tokenType'),
+      'uid': localStorage.getItem('uid')
+    });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(this.getBaseUrl() + url, formData, options)
+      .map(this.extractData)
+      .catch(error => {
+        return this.handleError(error);
+      })
+  }
+
   public delete(url): Observable<any> {
     return this.tokenService.delete(url).map(this.extractData)
       .catch(error => {

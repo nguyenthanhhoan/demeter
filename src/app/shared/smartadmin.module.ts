@@ -5,12 +5,10 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
 
-/*
 import {
   ModalModule, ButtonsModule, TooltipModule, DropdownModule, ProgressbarModule, AlertModule, TabsModule,
   AccordionModule, CarouselModule
 } from 'ng2-bootstrap'
-*/
 
 import {PopoverModule} from "ng2-popover";
 
@@ -36,9 +34,6 @@ import {UtilsModule} from "./utils/utils.module";
 @NgModule({
   imports: [
     CommonModule, FormsModule, HttpModule, RouterModule,
-
-
-
   ],
   declarations: [
 
@@ -52,7 +47,7 @@ import {UtilsModule} from "./utils/utils.module";
     // DropdownModule,
     // ProgressbarModule,
     // AlertModule,
-    // TabsModule,
+    TabsModule,
     // AccordionModule,
     // CarouselModule,
 
