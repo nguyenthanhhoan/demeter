@@ -4,8 +4,7 @@ declare var $: any;
 
 @Component({
   selector: 'zone-add-form',
-  templateUrl: './zone-form.component.html',
-  styleUrls: ['./zone-form.component.css']
+  templateUrl: './zone-form.component.html'
 })
 export class ZoneFormComponent {
 
