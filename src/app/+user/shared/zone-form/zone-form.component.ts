@@ -138,8 +138,12 @@ export class ZoneFormComponent implements OnInit, DoCheck {
   }
 
   onSubmit() {
-    let project_id = +this.route.snapshot.params['project_id'];
-    let zone_id = +this.route.snapshot.params['id'];
+    let project_id;
+    if (this.type == 'edit') {
+      project_id = +this.route.snapshot.params['project_id'];
+    } else {
+      project_id = +this.route.snapshot.params['id'];
+    }
 
     var form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
