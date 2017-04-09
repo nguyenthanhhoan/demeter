@@ -1,0 +1,169 @@
+<form class="smart-form">
+  <header>Weather Forecast</header>
+
+  <fieldset>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Display Weather Forecast</label>
+        </div>
+        <div class="col col-8">
+          <label class="checkbox">
+            <input type="checkbox" name="checkbox" checked="checked">
+            <i></i>&nbsp;
+          </label>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+
+  <header>Zone Environment Information</header>
+  <fieldset>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Display Environment Information</label>
+        </div>
+        <div class="col col-8">
+          <label class="checkbox">
+            <input type="checkbox" name="checkbox" checked="checked">
+            <i></i>&nbsp;
+          </label>
+        </div>
+      </div>
+    </section>
+    <section class="table-section">
+      <label>List of Inputs</label>
+      <button 
+        class="demeter-btn create-btn primary pull-right">Add</button>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-id">No.</th>
+            <th>Name</th>
+            <th>Input</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let input of setting.inputs" class="demeter-pane">
+            <td>{{input.id}}</td>
+            <td>{{input.name}}</td>
+            <td>{{input.input}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Recent Notifications</header>
+  <fieldset>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Display Recent Notifications</label>
+        </div>
+        <div class="col col-8">
+          <label class="checkbox">
+            <input type="checkbox" name="checkbox" checked="checked">
+            <i></i>&nbsp;
+          </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Number of Notifications</label>
+        </div>
+        <div class="col col-8">
+          <label class="input">
+            <input type="number">
+          </label>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+
+  <header>Upcoming Task</header>
+  <fieldset>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Display Upcoming Task</label>
+        </div>
+        <div class="col col-8">
+          <label class="checkbox">
+            <input type="checkbox" name="checkbox" checked="checked">
+            <i></i>&nbsp;
+          </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Number of Task</label>
+        </div>
+        <div class="col col-8">
+          <label class="input">
+            <input type="number">
+          </label>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+
+  <header>Quick View Camera</header>
+  <fieldset>
+    <section>
+      <div class="row">
+        <div class="col col-4">
+          <label class="label">Display Quick View Camera</label>
+        </div>
+        <div class="col col-8">
+          <label class="checkbox">
+            <input type="checkbox" name="checkbox" checked="checked">
+            <i></i>&nbsp;
+          </label>
+        </div>
+      </div>
+    </section>
+    <section class="table-section">
+      <label>List of Quick View Cameras</label>
+      <button 
+        class="demeter-btn create-btn primary pull-right">Add</button>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-id">No.</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let input of setting.inputs" class="demeter-pane">
+            <td>{{input.id}}</td>
+            <td>{{input.name}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+</form>

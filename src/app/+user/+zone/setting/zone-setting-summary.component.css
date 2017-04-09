@@ -1,0 +1,23 @@
+.col-id {
+  width: 40px;
+}
+
+.col-actions {
+  text-align: right;
+}
+
+.col-actions a {
+  padding: 0 5px;
+}
+
+.delete-action {
+  color: #a90329;
+}
+
+.delete-action:hover {
+  color: #900323;
+}
+
+fieldset {
+  max-width: 600px;
+}

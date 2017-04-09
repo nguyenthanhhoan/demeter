@@ -62,6 +62,18 @@ body {
 }
 
 /**
+ * Override Smart Admin
+ **/
+.smart-form header {
+  background: none;
+  padding: 0;
+}
+
+.smart-form fieldset {
+  background: none;
+}
+
+/**
  * Demeter style
  **/
 .user-side .user-main {
