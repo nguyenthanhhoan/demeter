@@ -55,4 +55,8 @@ export class ZoneService {
   getOne (project_id, id): Observable<any[]> {
     return this.apiService.fetch(`projects/${project_id}/zones/${id}`);
   }
+
+  updateSetting(project_id, id, setting): Observable<any> {
+    return this.apiService.post(`projects/${project_id}/zones/${id}/setting`, setting);
+  }
 }

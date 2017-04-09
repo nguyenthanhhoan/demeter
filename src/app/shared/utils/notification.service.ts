@@ -45,4 +45,14 @@ export class NotificationService {
     });
   }
 
+  showMessage(msg) {
+    setTimeout(() => {
+      this.smallBox({
+        title: msg,
+        color: "#296191",
+        timeout: 4000
+      });
+    });
+  }
+
 }

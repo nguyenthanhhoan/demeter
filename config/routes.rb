@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   
   resources :projects do
-    resources :zones
+    resources :zones do
+      member do
+        post 'setting' => 'zones#update_setting'
+      end
+    end
   end
   resources :cameras
 

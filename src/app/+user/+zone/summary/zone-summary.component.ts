@@ -59,7 +59,13 @@ var data = {
 export class ZoneSummaryComponent implements OnInit {
 
   @Input()
-  zone: any;
+  zone: any = {}
+
+  @Input()
+  project: {} = {}
+
+  setting: {} = {}
+
   project_id: number;
   chart: Chart;
 
@@ -81,6 +87,8 @@ export class ZoneSummaryComponent implements OnInit {
       };
       this.zoneService.getOne(project_id, id).subscribe(data => {
         Object.assign(this.zone, data);
+        Object.assign(this.project, this.zone.project);
+        Object.assign(this.setting, this.zone.setting);
       });
     } else {
       Object.assign(this.zone, {

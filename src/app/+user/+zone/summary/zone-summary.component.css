@@ -59,3 +59,7 @@
   width: 560px;
   margin: 0 auto;
 }
+
+.weather-forecast-wrap {
+  overflow: hidden;
+}

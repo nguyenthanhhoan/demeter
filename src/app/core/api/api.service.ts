@@ -50,10 +50,10 @@ export class ApiService {
   }
 
   public post(url, data): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
 
-    return this.tokenService.post(url, JSON.stringify(data), options)
+    return this.tokenService.post(url, JSON.stringify(data))
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);

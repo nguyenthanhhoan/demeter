@@ -1,143 +1,154 @@
-    <app-zone-summary-pane [zone]="zone"></app-zone-summary-pane>
-    <div class="content-header">
-      <div class="demeter-title">Zone Summary</div>
+<app-zone-summary-pane [zone]="zone"></app-zone-summary-pane>
+<div class="content-header">
+  <div class="demeter-title">Zone Summary</div>
+</div>
+
+<div class="demeter-panel-dark" *ngIf="setting.showWeatherForecast">
+  <div class="panel-title">Weather Forecast</div>
+
+  <div class="demeter-pane">
+    <div class="weather-forecast-wrap">
+      <app-weather-forecast [project]="project"></app-weather-forecast>
     </div>
+  </div>
+</div>
 
-    <div class="demeter-panel-dark">
-      <div class="panel-title">Environment Information</div>
+<div class="demeter-panel-dark" *ngIf="setting.showEnvironmentInformation">
+  <div class="panel-title">Environment Information</div>
 
-      <div class="demeter-pane">
-        <div class="weather-chart">
-          <div class="metrics">
-            <div class="metric active">
-              <div class="value">25</div>
-              <div class="metric-label">Temp(°C)</div>
-            </div>
-            <div class="metric">
-              <div class="value">88</div>
-              <div class="metric-label">Humidity(%)</div>
-            </div>
-            <div class="metric">
-              <div class="value">85</div>
-              <div class="metric-label">Rain(%)</div>
-            </div>
-            <div class="metric">
-              <div class="value">25</div>
-              <div class="metric-label">Wind(km/h)</div>
-            </div>
-          </div>
-          <div class="chart-wrapper">
-            <x-chartist
-              [data]="chart.data"
-              [type]="chart.type"
-              [options]="chart.options"
-              [responsiveOptions]="chart.responsiveOptions"
-              [events]="chart.events">
-            </x-chartist>
-          </div>
-      </div>
-    </div>
-
-    <div class="demeter-panel-dark">
-      <div class="panel-title">Recently Alarm</div>
-
-      <div class="demeter-pane">
-
-        <ul class="alarm-pane">
-          <li>
-            <div class="icon-wrap pull-left">
-              <i class="fa fa-line-chart" aria-hidden="true"></i>
-            </div>
-            <div class="alarm-content">
-              <p class="time">1 ngày trước</p>
-              <p><span class="text-highlight">Nhiệt độ</span> ở mức cao</p>
-              <p><b>30°C</b></p>
-            </div>
-          </li>
-          <li>
-            <div class="icon-wrap pull-left">
-              <i class="fa fa-line-chart" aria-hidden="true"></i>
-            </div>
-            <div class="alarm-content">
-              <p class="time">2 ngày trước</p>
-              <p><span class="text-highlight">Độ ẩm</span> đang thấp</p>
-              <p><b>36%</b></p>
-            </div>
-          </li>
-          <li>
-            <div class="icon-wrap pull-left">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-            </div>
-            <div class="alarm-content">
-              <p class="time">3 ngày trước</p>
-              <p>Còn <span class="text-highlight">32 ngày</span> nữa <span class="text-highlight">thu hoạch</span></p>
-            </div>
-          </li>
-          <li>
-            <div class="icon-wrap pull-left">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </div>
-            <div class="alarm-content">
-              <p class="time">4 ngày trước</p>
-              <p><span class="text-highlight">Diễm Trúc</span> chưa xong công việc hôm qua</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="demeter-panel-dark">
-      <div class="panel-title">Upcoming Task</div>
-      <div class="demeter-pane">
-        <table class="table table-bordered upcoming-task-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th class="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p class="task-action">Watering</p>
-                <p class="task-at">at</p>
-                <p class="task-time">7:00 AM</p>
-              </td>
-              <td class="text-center">
-                x
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p class="task-action">Harvesting</p>
-                <p class="task-at">at</p>
-                <p class="task-time">10:00 AM</p>
-              </td>
-              <td class="text-center">
-                x
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p class="task-action">Cleaning</p>
-                <p class="task-at">at</p>
-                <p class="task-time">2:00 PM</p>
-              </td>
-              <td class="text-center">
-                x
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="demeter-panel-dark">
-      <div class="panel-title">Camera</div>
-      <div class="demeter-pane">
-        <div class="camera-wrapper">
-          <div class="camera-pic-holder">
-          </div>
+  <div class="demeter-pane">
+    <div class="weather-chart">
+      <div class="metrics">
+        <div class="metric active">
+          <div class="value">25</div>
+          <div class="metric-label">Temp(°C)</div>
+        </div>
+        <div class="metric">
+          <div class="value">88</div>
+          <div class="metric-label">Humidity(%)</div>
+        </div>
+        <div class="metric">
+          <div class="value">85</div>
+          <div class="metric-label">Rain(%)</div>
+        </div>
+        <div class="metric">
+          <div class="value">25</div>
+          <div class="metric-label">Wind(km/h)</div>
         </div>
       </div>
+      <div class="chart-wrapper">
+        <x-chartist
+          [data]="chart.data"
+          [type]="chart.type"
+          [options]="chart.options"
+          [responsiveOptions]="chart.responsiveOptions"
+          [events]="chart.events">
+        </x-chartist>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="demeter-panel-dark" *ngIf="setting.showRecentNotification">
+  <div class="panel-title">Recently Alarm</div>
+
+  <div class="demeter-pane">
+
+    <ul class="alarm-pane">
+      <li>
+        <div class="icon-wrap pull-left">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </div>
+        <div class="alarm-content">
+          <p class="time">1 ngày trước</p>
+          <p><span class="text-highlight">Nhiệt độ</span> ở mức cao</p>
+          <p><b>30°C</b></p>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap pull-left">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </div>
+        <div class="alarm-content">
+          <p class="time">2 ngày trước</p>
+          <p><span class="text-highlight">Độ ẩm</span> đang thấp</p>
+          <p><b>36%</b></p>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap pull-left">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </div>
+        <div class="alarm-content">
+          <p class="time">3 ngày trước</p>
+          <p>Còn <span class="text-highlight">32 ngày</span> nữa <span class="text-highlight">thu hoạch</span></p>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap pull-left">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="alarm-content">
+          <p class="time">4 ngày trước</p>
+          <p><span class="text-highlight">Diễm Trúc</span> chưa xong công việc hôm qua</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="demeter-panel-dark" *ngIf="setting.showUpcomingTask">
+  <div class="panel-title">Upcoming Task</div>
+  <div class="demeter-pane">
+    <table class="table table-bordered upcoming-task-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="text-center">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <p class="task-action">Watering</p>
+            <p class="task-at">at</p>
+            <p class="task-time">7:00 AM</p>
+          </td>
+          <td class="text-center">
+            x
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="task-action">Harvesting</p>
+            <p class="task-at">at</p>
+            <p class="task-time">10:00 AM</p>
+          </td>
+          <td class="text-center">
+            x
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="task-action">Cleaning</p>
+            <p class="task-at">at</p>
+            <p class="task-time">2:00 PM</p>
+          </td>
+          <td class="text-center">
+            x
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="demeter-panel-dark" *ngIf="setting.showCamera">
+  <div class="panel-title">Camera</div>
+  <div class="demeter-pane">
+    <div class="camera-wrapper">
+      <div class="camera-pic-holder">
+      </div>
+    </div>
+  </div>
+</div>

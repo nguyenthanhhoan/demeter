@@ -1,5 +1,4 @@
-<div class="demeter-pane">
-    <form class="form-horizontal"
+  <form class="form-horizontal"
     novalidate="novalidate" [saBootstrapValidator]="validatorOptions"
     (ngSubmit)="onSubmit()">
     <fieldset>
@@ -183,11 +182,17 @@
       </div>
       <div class="col-md-12">
         <div class="button-group pull-right">
-          <button class="demeter-btn create-btn" type="submit">
-            <span *ngIf="type != 'edit'">Create</span>
-            <span *ngIf="type == 'edit'">Update</span>
+          <button 
+            *ngIf="type != 'edit'"
+            class="demeter-btn create-btn" type="submit">
+            Create
           </button>
 
+          <button 
+            *ngIf="type == 'edit'"
+            class="demeter-btn primary" type="submit">
+            Update
+          </button>
           <button class="demeter-btn danger">
             Cancel
           </button>
@@ -195,4 +200,3 @@
       </div>
     </fieldset>
   </form>
-</div>

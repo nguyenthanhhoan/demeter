@@ -25,7 +25,7 @@
         <zone-form [zone]="zone" [type]="'edit'"></zone-form>
       </tab>
       <tab [active]="state.tabs.activeTab == 1">
-        <zone-setting-summary></zone-setting-summary>
+        <zone-setting-summary [zone]="zone"></zone-setting-summary>
       </tab>
     </tabset>
   </div>

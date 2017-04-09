@@ -14,6 +14,7 @@ import { CameraModule } from '../../shared/camera/camera.module';
 
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
+import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
 
 import { ZoneListComponent } from "./list/zone-list.component";
 import { ZoneFormComponent as ZoneAddFormComponent } from "./form/zone-form.component";
@@ -40,7 +41,8 @@ import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.comp
     SidebarModule,
     BreadcrumbModule,
     ProjectSummaryModule,
-    ZoneSummaryPaneModule
+    ZoneSummaryPaneModule,
+    WeatherForecastModule
   ],
   declarations: [
     ZoneListComponent,
