@@ -73,6 +73,10 @@ body {
   background: none;
 }
 
+.login-info img {
+  border-left: none;
+}
+
 /**
  * Demeter style
  **/
