@@ -58,14 +58,9 @@ var data = {
 })
 export class ZoneSummaryComponent implements OnInit {
 
-  @Input()
   zone: any = {}
-
-  @Input()
   project: {} = {}
-
   setting: {} = {}
-
   project_id: number;
   chart: Chart;
 

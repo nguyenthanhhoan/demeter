@@ -45,8 +45,9 @@ export class ZoneWeatherComponent implements OnInit {
   }
 
   fetchWeatherData() {
-    if (this.zone && this.zone.location_geometry) {
-      this.wundergroundService.getCurrentWeatherFullData(this.zone.location_geometry)
+    let {project} =  this.zone;
+    if (project && project.location_geometry) {
+      this.wundergroundService.getCurrentWeatherFullData(project.location_geometry)
         .subscribe((weather) => {
           if (weather) {
             this.weather = weather;
@@ -55,7 +56,7 @@ export class ZoneWeatherComponent implements OnInit {
           }
         })
 
-      this.wundergroundService.getWeatherForecastFullData(this.zone.location_geometry)
+      this.wundergroundService.getWeatherForecastFullData(project.location_geometry)
         .subscribe((weatherForecasts) => {
           if (weatherForecasts) {
             this.weatherForecasts = weatherForecasts;
@@ -75,8 +76,9 @@ export class ZoneWeatherComponent implements OnInit {
   }
 
   fetchHourlyWeatherData() {
-    if (this.zone && this.zone.location_geometry) {
-      this.wundergroundService.getHourlyWeatherData(this.zone.location_geometry)
+    let {project} = this.zone;
+    if (project && project.location_geometry) {
+      this.wundergroundService.getHourlyWeatherData(project.location_geometry)
         .subscribe((result) => {
           this.initChart(result);
         })

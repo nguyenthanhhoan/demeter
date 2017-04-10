@@ -8,4 +8,7 @@
   <span>
     <a routerLink="/user/project/{{project_id}}/zone/{{zone_id}}/summary" *ngIf="zone_id">> Zone</a>
   </span>
+  <span *ngIf="last_segment">
+    > {{last_segment}}
+  </span>
 </h2>

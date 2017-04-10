@@ -7,4 +7,7 @@ export class AppSettings {
       name: 'user'
     }
   }
+  public static date_time_format = {
+    date: 'MM/DD/YYYY'
+  }
 }
