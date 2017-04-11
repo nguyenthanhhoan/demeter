@@ -30,6 +30,8 @@ import {UtilsModule} from "./utils/utils.module";
 // import {SmartadminFormsLiteModule} from "./forms/smartadmin-forms-lite.module";
 // import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.module";
 
+import { SpinnerModule } from './spinner/spinner.module';
+
 
 @NgModule({
   imports: [
@@ -41,10 +43,10 @@ import {UtilsModule} from "./utils/utils.module";
   exports: [
     CommonModule, FormsModule, HttpModule, RouterModule,
 
-    // ModalModule,
+    ModalModule,
     // ButtonsModule,
     // TooltipModule,
-    // DropdownModule,
+    DropdownModule,
     // ProgressbarModule,
     // AlertModule,
     TabsModule,
@@ -73,6 +75,7 @@ import {UtilsModule} from "./utils/utils.module";
     // StatsModule,
 
     // VoiceControlModule,
+    SpinnerModule
 
   ]
 })

@@ -10,7 +10,6 @@ import { ZoneService } from '../../../core/services/zone.service';
 })
 export class ZoneSettingComponent implements OnInit {
 
-  @Input()
   zone: any;
   project_id: number;
 

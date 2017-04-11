@@ -1,5 +1,5 @@
 class ZonesController < AuthorizedController
-  before_action :get_zone, only: [:show, :edit, :update, :update_setting, :destroy]
+  before_action :get_zone, only: [:show, :edit, :update, :update_setting, :assign_camera, :unassign_camera, :destroy]
 
   def index
     render json: Zone.where({ project: params[:project_id] }).order(id: :desc)
@@ -37,6 +37,18 @@ class ZonesController < AuthorizedController
     else
       render :json => { errors: @zone.errors }, :status => :bad_request
     end
+  end
+
+  def assign_camera
+    camera = Camera.find params[:camera_id]
+    @zone.cameras << camera
+    render json: @zone
+  end
+
+  def unassign_camera
+    camera = Camera.find params[:camera_id]
+    @zone.cameras.delete camera
+    render json: @zone
   end
 
   def destroy

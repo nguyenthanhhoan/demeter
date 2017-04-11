@@ -26,6 +26,7 @@ import { ZoneCameraDetailComponent } from "./camera/camera-detail/zone-camera-de
 import { ZoneWeatherComponent } from "./crop-management/weather/zone-weather.component";
 import { ZoneSettingComponent } from "./setting/zone-setting.component";
 import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.component";
+import { ZoneSettingCameraComponent } from "./setting/camera/zone-setting-camera.component";
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.comp
     ZoneCameraDetailComponent,
     ZoneWeatherComponent,
     ZoneSettingComponent,
-    ZoneSettingSummaryComponent
+    ZoneSettingSummaryComponent,
+    ZoneSettingCameraComponent
   ]
 })
 export class ZoneModule { }

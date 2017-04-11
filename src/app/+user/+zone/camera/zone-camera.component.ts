@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { CameraService } from '../../../core/services/camera.service';
+import { ZoneService } from '../../../core/services/zone.service';
 
 @Component({
   templateUrl: './zone-camera.component.html',
@@ -9,18 +10,23 @@ import { CameraService } from '../../../core/services/camera.service';
 })
 export class ZoneCameraComponent implements OnInit {
 
-  cameras: any[];
+  zone: any = {};
+  cameras: any[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private cameraService: CameraService) {
+              private cameraService: CameraService,
+              private zoneService: ZoneService) {
 
   }
 
   ngOnInit() {
-    this.cameraService.getList()
-    .subscribe(data => {
-      this.cameras = data;
-    })
+
+    let zone_id = +this.route.snapshot.params['id'];
+    let project_id = +this.route.snapshot.params['project_id'];
+    this.zoneService.getOne(project_id, zone_id).subscribe(data => {
+      Object.assign(this.zone, data);
+      Object.assign(this.cameras, data.cameras);
+    });
   }
 }

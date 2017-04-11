@@ -52,11 +52,23 @@ export class ZoneService {
     return this.apiService.putFormData(`projects/${project_id}/zones/${zone.id}`, formData);
   }
 
-  getOne (project_id, id): Observable<any[]> {
+  getOne (project_id, id): Observable<any> {
     return this.apiService.fetch(`projects/${project_id}/zones/${id}`);
   }
 
   updateSetting(project_id, id, setting): Observable<any> {
     return this.apiService.post(`projects/${project_id}/zones/${id}/setting`, setting);
+  }
+
+  assignCamera(project_id, zone_id, camera_id): Observable<any> {
+    return this.apiService.post(`projects/${project_id}/zones/${zone_id}/assign_camera`, {
+      camera_id: camera_id
+    });
+  }
+
+  unAssignCamera(project_id, zone_id, camera_id): Observable<any> {
+    return this.apiService.post(`projects/${project_id}/zones/${zone_id}/unassign_camera`, {
+      camera_id: camera_id
+    });
   }
 }

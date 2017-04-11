@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :zones do
       member do
         post 'setting' => 'zones#update_setting'
+        post 'assign_camera' => 'zones#assign_camera'
+        post 'unassign_camera' => 'zones#unassign_camera'
       end
     end
   end

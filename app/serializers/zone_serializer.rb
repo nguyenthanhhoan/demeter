@@ -8,6 +8,8 @@ class ZoneSerializer < ActiveModel::Serializer
 
   has_one :project, serializer: ProjectSerializer
 
+  has_many :cameras
+
   def start_date
     object.start_date.to_s
   end
