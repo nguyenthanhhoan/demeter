@@ -2,17 +2,17 @@ import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { ModalDirective } from "ng2-bootstrap";
 
-import { NotificationService } from "../../../../shared/utils/notification.service";
-import { ZoneService } from '../../../../core/services/zone.service';
-import { CameraService } from '../../../../core/services/camera.service';
+import { NotificationService } from "../../../../../shared/utils/notification.service";
+import { ZoneService } from '../../../../../core/services/zone.service';
+import { CameraService } from '../../../../../core/services/camera.service';
 
 declare var moment: any;
 @Component({
-  selector: 'zone-report-overview',
-  templateUrl: './zone-report-overview.component.html',
-  styleUrls: ['./zone-report-overview.component.css']
+  selector: 'zone-daily-report-overview',
+  templateUrl: './zone-daily-report-overview.component.html',
+  styleUrls: ['./zone-daily-report-overview.component.css']
 })
-export class ZoneReportOverviewComponent implements OnInit, DoCheck {
+export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
 
   @Input()
   zone: any;

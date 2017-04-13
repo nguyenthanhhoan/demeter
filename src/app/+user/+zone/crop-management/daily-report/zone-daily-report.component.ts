@@ -2,13 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import * as Chartist from 'chartist';
 
-import { ZoneService } from '../../../core/services/zone.service';
+import { ZoneService } from '../../../../core/services/zone.service';
 
 @Component({
-  templateUrl: './zone-report.component.html',
-  styleUrls: ['./zone-report.component.css']
+  templateUrl: './zone-daily-report.component.html',
+  styleUrls: ['./zone-daily-report.component.css']
 })
-export class ZoneReportComponent implements OnInit {
+export class ZoneDailyReportComponent implements OnInit {
 
   zone: any;
   project_id: number;

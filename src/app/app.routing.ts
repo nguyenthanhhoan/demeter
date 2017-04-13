@@ -20,8 +20,8 @@ import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.compone
 import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component';
 import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
 import { ZoneWeatherComponent } from './+user/+zone/crop-management/weather/zone-weather.component';
+import { ZoneDailyReportComponent } from './+user/+zone/crop-management/daily-report/zone-daily-report.component';
 import { ZoneSettingComponent } from './+user/+zone/setting/zone-setting.component';
-import { ZoneReportComponent } from './+user/+zone/report/zone-report.component';
 
 export const routes: Routes = [
     {
@@ -74,7 +74,7 @@ export const routes: Routes = [
                         }, {
                             path: 'setting', component: ZoneSettingComponent
                         }, {
-                            path: 'report', component: ZoneReportComponent
+                            path: 'daily-report', component: ZoneDailyReportComponent
                         }]
                 }]
         }],

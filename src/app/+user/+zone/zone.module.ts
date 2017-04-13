@@ -27,8 +27,8 @@ import { ZoneWeatherComponent } from "./crop-management/weather/zone-weather.com
 import { ZoneSettingComponent } from "./setting/zone-setting.component";
 import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.component";
 import { ZoneSettingCameraComponent } from "./setting/camera/zone-setting-camera.component";
-import { ZoneReportComponent } from "./report/zone-report.component";
-import { ZoneReportOverviewComponent } from "./report/overview/zone-report-overview.component";
+import { ZoneDailyReportComponent } from "./crop-management/daily-report/zone-daily-report.component";
+import { ZoneDailyReportOverviewComponent } from "./crop-management/daily-report/overview/zone-daily-report-overview.component";
 
 @NgModule({
   imports: [
@@ -59,8 +59,8 @@ import { ZoneReportOverviewComponent } from "./report/overview/zone-report-overv
     ZoneSettingComponent,
     ZoneSettingSummaryComponent,
     ZoneSettingCameraComponent,
-    ZoneReportComponent,
-    ZoneReportOverviewComponent
+    ZoneDailyReportComponent,
+    ZoneDailyReportOverviewComponent
   ]
 })
 export class ZoneModule { }
