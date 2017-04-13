@@ -1,0 +1,24 @@
+<form class="smart-form">
+  <header>Environment 24H Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add Chart</button>
+      
+      <div *ngFor="let chart of charts">
+        <p>{{chart.title}}</p>
+        <button 
+        class="demeter-btn point-button primary pull-right"
+        >Edit/Add Point</button>
+        <x-chartist
+          [data]="chart.data"
+          [type]="chart.type"
+          [options]="chart.options"
+          [responsiveOptions]="chart.responsiveOptions"
+          [events]="chart.events">
+        </x-chartist>
+      </div>
+    </section>
+  </fieldset>
+</form>

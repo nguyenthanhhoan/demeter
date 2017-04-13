@@ -1,0 +1,41 @@
+<form class="smart-form">
+  <header>Harvesting Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let harvesting of harvesting_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{harvesting.name}}</td>
+            <td>{{harvesting.type}}</td>
+            <td>{{harvesting.quantity}}</td>
+            <td>{{harvesting.cost | currency:'USD':true}}</td>
+            <td>{{harvesting.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+</form>

@@ -17,6 +17,7 @@ import { VoiceRecognitionService } from "../shared/voice-control/voice-recogniti
 import { ProjectService } from './services/project.service';
 import { ZoneService } from './services/zone.service';
 import { CameraService } from './services/camera.service';
+import { MockDataService } from './services/mock-data.service';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { CameraService } from './services/camera.service';
 
     ProjectService,
     ZoneService,
-    CameraService
+    CameraService,
+    MockDataService
   ]
 })
 export class CoreModule {

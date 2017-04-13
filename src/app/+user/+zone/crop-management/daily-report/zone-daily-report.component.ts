@@ -32,10 +32,8 @@ export class ZoneDailyReportComponent implements OnInit {
       this.zone = {
         image: "assets/img/cau-dat/cau-dat-farm.png"
       };
-      console.log('zone detail not loaded!');
       this.zoneService.getOne(project_id, id).subscribe(data => {
         Object.assign(this.zone, data);
-        console.log('zone detail loaded!');
       });
       
     } else {

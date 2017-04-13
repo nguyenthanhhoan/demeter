@@ -368,3 +368,20 @@ body {
 .admin-side #logo img {
   height: 26px;
 }
+
+.demeter-table .col-actions {
+  text-align: right;
+  width: 50px;
+}
+
+.demeter-table .col-actions a {
+  padding: 0 5px;
+}
+
+.demeter-table .delete-action {
+  color: #a90329;
+}
+
+.demeter-table .delete-action:hover {
+  color: #900323;
+}

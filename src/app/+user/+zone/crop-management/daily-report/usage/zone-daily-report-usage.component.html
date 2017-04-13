@@ -1,0 +1,249 @@
+<form class="smart-form">
+  <header>Work Hours Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Worker ID</th>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Total (h)</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let work_hour of work_hour_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{work_hour.worker_id}}</td>
+            <td>{{work_hour.name}}</td>
+            <td>{{work_hour.from}}</td>
+            <td>{{work_hour.to}}</td>
+            <td>{{work_hour.total}}</td>
+            <td>{{work_hour.cost | currency:'USD':true}}</td>
+            <td>{{work_hour.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Machinery Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Task</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Total</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let machinery of machinery_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{machinery.name}}</td>
+            <td>{{machinery.task}}</td>
+            <td>{{machinery.from}}</td>
+            <td>{{machinery.to}}</td>
+            <td>{{machinery.total}}</td>
+            <td>{{machinery.cost | currency:'USD':true}}</td>
+            <td>{{machinery.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Fuel Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Total</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fuel of fuel_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{fuel.name}}</td>
+            <td>{{fuel.type}}</td>
+            <td>{{fuel.quantity}}</td>
+            <td>{{fuel.cost | currency:'USD':true}}</td>
+            <td>{{fuel.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Fertilizers Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fertilizer of fertilizer_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{fertilizer.name}}</td>
+            <td>{{fertilizer.type}}</td>
+            <td>{{fertilizer.quantity}}</td>
+            <td>{{fertilizer.cost | currency:'USD':true}}</td>
+            <td>{{fertilizer.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Pesticides Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pesticide of pesticide_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{pesticide.name}}</td>
+            <td>{{pesticide.type}}</td>
+            <td>{{pesticide.quantity}}</td>
+            <td>{{pesticide.cost | currency:'USD':true}}</td>
+            <td>{{pesticide.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+
+  <header>Water Report</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let water of water_reports; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{water.name}}</td>
+            <td>{{water.type}}</td>
+            <td>{{water.quantity}}</td>
+            <td>{{water.cost | currency:'USD':true}}</td>
+            <td>{{water.note}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+</form>

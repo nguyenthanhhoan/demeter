@@ -4,12 +4,12 @@
 
 <div class="demeter-pane">
 
-  <ul id="myTab1" class="nav nav-tabs bordered">
+  <ul class="nav nav-tabs bordered">
     <li [class.active]="state.tabs.activeTab == 0">
       <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Overview</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 1">
-      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-money" aria-hidden="true"></i> Environment</a>
+      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-sun-o" aria-hidden="true"></i> Environment</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 2">
       <a (click)="state.tabs.activeTab = 2"><i class="fa fa-money" aria-hidden="true"></i> Usage</a>
@@ -30,9 +30,14 @@
       <tab [active]="state.tabs.activeTab == 0">
         <zone-daily-report-overview [zone]="zone"></zone-daily-report-overview>
       </tab>
-      <tab [active]="state.tabs.activeTab == 1">
+      <tab [active]="state.tabs.activeTab == 1" (select)="environmentTab.initData()">
+        <zone-daily-report-environment #environmentTab [zone]="zone"></zone-daily-report-environment>
       </tab>
       <tab [active]="state.tabs.activeTab == 2">
+        <zone-daily-report-usage [zone]="zone"></zone-daily-report-usage>
+      </tab>
+      <tab [active]="state.tabs.activeTab == 3">
+        <zone-daily-report-harvesting [zone]="zone"></zone-daily-report-harvesting>
       </tab>
     </tabset>
   </div>

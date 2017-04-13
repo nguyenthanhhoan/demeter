@@ -29,6 +29,9 @@ import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.comp
 import { ZoneSettingCameraComponent } from "./setting/camera/zone-setting-camera.component";
 import { ZoneDailyReportComponent } from "./crop-management/daily-report/zone-daily-report.component";
 import { ZoneDailyReportOverviewComponent } from "./crop-management/daily-report/overview/zone-daily-report-overview.component";
+import { ZoneDailyReportEnvironmentComponent } from "./crop-management/daily-report/environment/zone-daily-report-environment.component";
+import { ZoneDailyReportUsageComponent } from "./crop-management/daily-report/usage/zone-daily-report-usage.component";
+import { ZoneDailyReportHarvestingComponent } from "./crop-management/daily-report/harvesting/zone-daily-report-harvesting.component";
 
 @NgModule({
   imports: [
@@ -60,7 +63,10 @@ import { ZoneDailyReportOverviewComponent } from "./crop-management/daily-report
     ZoneSettingSummaryComponent,
     ZoneSettingCameraComponent,
     ZoneDailyReportComponent,
-    ZoneDailyReportOverviewComponent
+    ZoneDailyReportOverviewComponent,
+    ZoneDailyReportEnvironmentComponent,
+    ZoneDailyReportUsageComponent,
+    ZoneDailyReportHarvestingComponent
   ]
 })
 export class ZoneModule { }
