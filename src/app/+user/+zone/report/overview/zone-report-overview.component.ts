@@ -66,41 +66,48 @@ export class ZoneReportOverviewComponent implements OnInit, DoCheck {
   }]
 
   photo_reports = [{
-    title: 'Images about Disease',
+    title: 'Growing Images',
     images: [{
       src: 'assets/img/demo/s1.jpg',
       title: 'Date 1'
     }, {
       src: 'assets/img/demo/s2.jpg',
-      title: 'Date 2'
+      title: 'Date 1'
     }, {
       src: 'assets/img/demo/s3.jpg',
-      title: 'Date 3'
+      title: 'Date 1'
     }]
   }, {
-    title: 'Images about Leaf',
+    title: 'Leaves Images',
     images: [{
       src: 'assets/img/demo/s1.jpg',
       title: 'Date 1'
     }, {
       src: 'assets/img/demo/s2.jpg',
-      title: 'Date 2'
+      title: 'Date 1'
     }, {
       src: 'assets/img/demo/s3.jpg',
-      title: 'Date 3'
+      title: 'Date 1'
     }]
   }, {
-    title: 'Images about Height',
+    title: 'Height Images',
     images: [{
       src: 'assets/img/demo/s1.jpg',
       title: 'Date 1'
     }, {
       src: 'assets/img/demo/s2.jpg',
-      title: 'Date 2'
+      title: 'Date 1'
     }, {
       src: 'assets/img/demo/s3.jpg',
-      title: 'Date 3'
+      title: 'Date 1'
     }]
+  }]
+
+  notes = [{
+    title: 'Note 1',
+    content: 'Appeared few days ago'
+  }, {
+    title: 'Note 2'
   }]
 
   constructor(private router: Router,

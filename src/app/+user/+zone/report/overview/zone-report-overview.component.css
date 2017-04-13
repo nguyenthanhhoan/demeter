@@ -28,3 +28,34 @@
   right: 0;
   top: -66px;
 }
+
+.image-title {
+  margin-top: 5px;
+}
+
+.image-actions {
+  opacity: 0;
+  position: absolute;
+  right: 20px;
+  bottom: 0px;
+}
+
+.image-single:hover .image-actions {
+  opacity: 1;
+}
+
+.image-actions a {
+  padding: 0 3px;
+}
+
+.smart-form .col-lg-1, .smart-form .col-lg-10, .smart-form .col-lg-11, .smart-form .col-lg-12, .smart-form .col-lg-2, .smart-form .col-lg-3, 
+.smart-form .col-lg-4, .smart-form .col-lg-5, .smart-form .col-lg-6, .smart-form .col-lg-7, .smart-form .col-lg-8, .smart-form .col-lg-9, 
+.smart-form .col-md-1, .smart-form .col-md-10, .smart-form .col-md-11, .smart-form .col-md-12, .smart-form .col-md-2, .smart-form .col-md-3, 
+.smart-form .col-md-4, .smart-form .col-md-5, .smart-form .col-md-6, .smart-form .col-md-7, .smart-form .col-md-8, .smart-form .col-md-9, 
+.smart-form .col-sm-1, .smart-form .col-sm-10, .smart-form .col-sm-11, .smart-form .col-sm-12, .smart-form .col-sm-2, .smart-form .col-sm-3, 
+.smart-form .col-sm-4, .smart-form .col-sm-5, .smart-form .col-sm-6, .smart-form .col-sm-7, .smart-form .col-sm-8, .smart-form .col-sm-9, 
+.smart-form .col-xs-1, .smart-form .col-xs-10, .smart-form .col-xs-11, .smart-form .col-xs-12, .smart-form .col-xs-2, .smart-form .col-xs-3, 
+.smart-form .col-xs-4, .smart-form .col-xs-5, .smart-form .col-xs-6, .smart-form .col-xs-7, .smart-form .col-xs-8, .smart-form .col-xs-9 {
+  padding-left: 15px;
+  padding-right: 15px;
+}

@@ -6,19 +6,22 @@
 
   <ul id="myTab1" class="nav nav-tabs bordered">
     <li [class.active]="state.tabs.activeTab == 0">
-      <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Overview Daily Report</a>
+      <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Overview</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 1">
-      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-money" aria-hidden="true"></i> Usage Report</a>
+      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-money" aria-hidden="true"></i> Environment</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 2">
-      <a (click)="state.tabs.activeTab = 2"><i class="fa fa-shopping-cart"></i> Harvest Report</a>
+      <a (click)="state.tabs.activeTab = 2"><i class="fa fa-money" aria-hidden="true"></i> Usage</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 3">
-      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-angle-double-up"></i> Productivity Report</a>
+      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-shopping-cart"></i> Harvesting</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 4">
-      <a (click)="state.tabs.activeTab = 4"><i class="fa fa-university"></i> Finance Report</a>
+      <a (click)="state.tabs.activeTab = 4"><i class="fa fa-angle-double-up"></i> Productivity</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 5">
+      <a (click)="state.tabs.activeTab = 5"><i class="fa fa-university"></i> Finance</a>
     </li>
   </ul>
 

@@ -43,64 +43,6 @@
     </section>
   </fieldset>
 
-  <header>Data Report</header>
-  <fieldset>
-    <section>
-      <button 
-        class="demeter-btn create-btn primary pull-right"
-        >Add</button>
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-              <th rowspan="2">Time</th>
-              <th colspan="2" class="text-center">Soil</th>
-              <th colspan="2" class="text-center">Temp</th>
-              <th colspan="2" class="text-center">Moisture (%)</th>
-              <th rowspan="2">CO2 (ppm)</th>
-              <th rowspan="2"></th>
-          </tr>
-          <tr>
-              <th>pH of soil</th>
-              <th>Ec of soil</th>
-              <th>Air</th>
-              <th>Soil</th>
-              <th>Air (%)</th>
-              <th>Soil (%)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let irrigation of irrigations" class="demeter-pane">
-            <td>{{irrigation.time}}</td>
-            <td>{{irrigation.situation}}</td>
-            <td>{{irrigation.m}}</td>
-            <td>{{irrigation.water_ec}}</td>
-            <td>{{irrigation.water_ph}}</td>
-            <td>{{irrigation.ferlitizer}}</td>
-            <td>{{irrigation.concentration}}</td>
-            <td>{{irrigation.concentration}}</td>
-            <td class="col-actions">
-              <a>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </a>
-              <a class="delete-action">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </fieldset>
-
-  <header>Date time</header>
-  <fieldset>
-    <section>
-        <input ionSlider type="text" data-min="1" data-max="24" data-from="7"
-                data-to="17" data-type="integer" data-step="1" data-postfix=" hour"
-                data-hasgrid="true">
-    </section>
-  </fieldset>
-
   <header>Pests / Disease Report</header>
   <fieldset>
     <section>
@@ -148,13 +90,56 @@
           >Add</button>
     </section>
     <section *ngFor="let photo_report of photo_reports">
-      <p>{{photo_reports.title}}</p>
-      <span *ngFor="let image of photo_report.images">
-        <div class="col-md-3 col-sm-6">
+      <p>{{photo_report.title}}</p>
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-6 image-single" *ngFor="let image of photo_report.images">
           <img src="{{image.src}}" class="img-responsive" />
-          <p>{{image.title}}</p>
+          <p class="image-title">{{image.title}}</p>
+
+          <div class="image-actions">
+            <a>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="delete-action">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
-      </span>
+      </div>
+    </section>
+  </fieldset>
+
+  <header>Notes of Day</header>
+  <fieldset>
+    <section>
+      <button 
+        class="demeter-btn create-btn primary pull-right"
+        >Add</button>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Content</th>
+              <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of notes; let i = index;" class="demeter-pane">
+            <td>{{i + 1}}</td>
+            <td>{{note.title}}</td>
+            <td>{{note.content}}</td>
+            <td class="col-actions">
+              <a>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a class="delete-action">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </fieldset>
 </form>
