@@ -1,0 +1,36 @@
+<div class="content-header">
+  <div class="demeter-title">Report</div>
+</div>
+
+<div class="demeter-pane">
+
+  <ul id="myTab1" class="nav nav-tabs bordered">
+    <li [class.active]="state.tabs.activeTab == 0">
+      <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Overview Daily Report</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 1">
+      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-money" aria-hidden="true"></i> Usage Report</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 2">
+      <a (click)="state.tabs.activeTab = 2"><i class="fa fa-shopping-cart"></i> Harvest Report</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 3">
+      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-angle-double-up"></i> Productivity Report</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 4">
+      <a (click)="state.tabs.activeTab = 4"><i class="fa fa-university"></i> Finance Report</a>
+    </li>
+  </ul>
+
+  <div class="demeter-pane-content">
+    <tabset class="padding-10">
+      <tab [active]="state.tabs.activeTab == 0">
+        <zone-report-overview [zone]="zone"></zone-report-overview>
+      </tab>
+      <tab [active]="state.tabs.activeTab == 1">
+      </tab>
+      <tab [active]="state.tabs.activeTab == 2">
+      </tab>
+    </tabset>
+  </div>
+</div>
