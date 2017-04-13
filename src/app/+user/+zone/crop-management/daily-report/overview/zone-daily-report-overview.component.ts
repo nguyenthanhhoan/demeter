@@ -21,29 +21,32 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   zone_id: number;
 
   irrigations = [{
+    id: 1,
     time: moment('2016-04-05 05:00').format('hh:mm A'),
-    situation: 1,
-    m: 20,
-    water_ec: 1.2,
-    water_ph: 7,
+    event: 'Watering',
+    duration: 20,
+    ec: 1.2,
+    ph: 7,
     ferlitizer: 'Super',
     concentration: 5,
     amount: 0.3
   }, {
+    id: 2,
     time: moment('2016-04-05 12:00').format('hh:mm A'),
-    situation: 2,
-    m: 15,
-    water_ec: 1,
-    water_ph: 6.5,
+    event: 'Watering',
+    duration: 15,
+    ec: 1,
+    ph: 6.5,
     ferlitizer: 'Kahach',
     concentration: 10,
     amount: 0.2
   }, {
+    id: 3,
     time: moment('2016-04-05 17:00').format('hh:mm A'),
-    situation: 1,
-    m: 5,
-    water_ec: 1,
-    water_ph: 5,
+    event: 'Watering & Fertilizer',
+    duration: 5,
+    ec: 1,
+    ph: 5,
     ferlitizer: 'Super',
     concentration: 8,
     amount: 0.1
@@ -127,5 +130,28 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
       this.oldZone = this.zone;
     }
+  }
+
+  irrigationFormResolve(irrigation) {
+    if (irrigation.id) {
+      let found = this.irrigations.find((loop_irrigation) => {
+        return loop_irrigation.id == irrigation.id;
+      })
+      Object.assign(found, irrigation);
+    } else {
+      let clone_irr = Object.assign({}, irrigation);
+      clone_irr.id = (new Date()).getTime();
+      this.irrigations.push(clone_irr);
+    }
+  }
+
+  removeIrrigation(irrigation) {
+    this.notificationService.confirmBox({
+      content: 'Do you want to remove this Irrigation?'
+    }, () => {
+      let index = this.irrigations.indexOf(irrigation);
+      this.irrigations.splice(irrigation, 1);
+      this.notificationService.showMessage('Remove irrigation successfully!');
+    })
   }
 }

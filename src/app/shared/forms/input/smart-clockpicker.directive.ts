@@ -23,7 +23,7 @@ export class SmartClockpickerDirective implements OnInit {
   render() {
     let el = $(this.el.nativeElement);
     el.clockpicker(this.smartClockpicker || {
-      placement: 'top',
+      placement: 'bottom',
       donetext: 'Done',
       afterDone: () => {
         this.valueChange.emit(el.val());

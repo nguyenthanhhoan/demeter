@@ -385,3 +385,7 @@ body {
 .demeter-table .delete-action:hover {
   color: #900323;
 }
+
+.popover {
+  z-index: 1089;
+}
