@@ -7,9 +7,8 @@ import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router";
   styleUrls: ['./breadcrumb.component.css']
 })
 export class BreadcrumbComponent {
-  zone_id: any;
-  project_id: any;
-  last_segment: any;
+
+  resources: any[]
   constructor(private router: Router,
               private route: ActivatedRoute) {
 
@@ -22,24 +21,35 @@ export class BreadcrumbComponent {
 
   update() {
     let segments = this.route.snapshot['_urlSegment'].segments;
-    this.project_id = null;
-    this.zone_id = null;
-    this.last_segment = null;
-    for (let index = 0; index < segments.length; index++) {
-      var element = segments[index];
-      if (element.path === 'project') {
-        this.project_id = +segments[index + 1].path;
+
+    this.resources = [];
+    for (let index = 1; index < segments.length - 1; index+=2) {
+      let resource_name = segments[index].path;
+      let resource_id = +segments[index + 1].path;
+
+      let path;
+
+      //For the last segment, only get the resource
+      if (index != segments.length - 2) {
+        path = `${resource_name}/${resource_id}`
+      } else {
+        path = `${resource_name}`
       }
 
-      if (element.path === 'zone') {
-        this.zone_id = +segments[index + 1].path;
+      if (index > 1) {
+        let lastPath = this.resources[this.resources.length - 1].path;
+        path = lastPath + `/${path}`;
       }
-    }
-    let lastSegment = segments[segments.length - 1];
 
-    //Last segment is not an integer
-    if (!/^\d+$/.test(lastSegment.path) && lastSegment.path.length > 0) {
-      this.last_segment = lastSegment.path.charAt(0).toUpperCase() + lastSegment.path.slice(1);;
+      resource_name = resource_name.charAt(0).toUpperCase() + resource_name.slice(1);
+      if (resource_name == 'Okr') {
+        resource_name = resource_name.toUpperCase();
+      }
+      this.resources.push({
+        id: resource_id,
+        name: resource_name,
+        path: path
+      })
     }
   }
 }

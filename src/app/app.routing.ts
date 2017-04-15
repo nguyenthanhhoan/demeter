@@ -21,6 +21,7 @@ import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component'
 import { ZoneCameraDetailComponent } from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
 
 import { ZoneOKRComponent } from './+user/+zone/crop-management/okr/zone-okr.component';
+import { OKRFormComponent } from './+user/+zone/crop-management/okr/okr-form/okr-form.component';
 import { ZoneWeatherComponent } from './+user/+zone/crop-management/weather/zone-weather.component';
 import { ZoneDailyReportComponent } from './+user/+zone/crop-management/daily-report/zone-daily-report.component';
 
@@ -62,6 +63,8 @@ export const routes: Routes = [
                 }, {
                     path: ':project_id/zone/:id',
                     children: [{
+                            path: '', redirectTo: 'summary', pathMatch: 'full'
+                        }, {
                             path: 'summary', component: ZoneSummaryComponent 
                         }, {
                             path: 'history', component: ZoneHistoryComponent 
@@ -79,7 +82,12 @@ export const routes: Routes = [
                         }, {
                             path: 'daily-report', component: ZoneDailyReportComponent
                         }, {
-                            path: 'okr', component: ZoneOKRComponent
+                            path: 'okr', 
+                            children: [{
+                                path: '', component: ZoneOKRComponent,
+                            }, {
+                                path: ':objective_id', component: OKRFormComponent 
+                            }]
                         }]
                 }]
         }],

@@ -1,0 +1,28 @@
+.key-result-title {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.button-group {
+  height: 35px;
+  padding-right: 14px;
+  margin-top: 20px;
+}
+
+.key-result-group {
+  border-bottom: 1px solid #ccc;
+}
+
+.key-result-remove-btn {
+  padding: 5px 10px;
+}
+
+.add-key-result-btn {
+  margin-top: -40px;
+  position: absolute;
+  right: 0;
+}
+
+.key-result-header {
+  padding-top: 10px;
+}

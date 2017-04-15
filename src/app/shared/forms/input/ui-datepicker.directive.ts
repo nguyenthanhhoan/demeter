@@ -43,12 +43,13 @@ export class UiDatepickerDirective implements OnInit {
         onSelectCallbacks.forEach((callback) =>{
           callback.call(callback, selectedDate)
         })
+      },
+      beforeShow: function() {
+        element.css('z-index', 2000);
       }
     });
 
     element.datepicker(options);
-
-
   }
 
 

@@ -18,7 +18,7 @@
     <ng-container *ngFor="let objective of objectives; let i = index">
       <tr>
         <td [attr.rowspan]="objective.key_results.length + 1">{{ i + 1 }}</td>
-        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.time}}</td>
+        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.end_date}}</td>
         <td [attr.rowspan]="objective.key_results.length + 1">{{objective.objective}}</td>
         <ng-container *ngIf="objective.key_results.length == 0">
           <td></td><td></td><td></td>
@@ -36,10 +36,10 @@
           <td>{{objective.key_results[0].note}}</td>
         </ng-container>
         <td [attr.rowspan]="objective.key_results.length + 1" class="col-actions">
-          <a>
+          <a routerLink="{{objective.id}}">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <a class="delete-action">
+          <a class="delete-action" (click)="removeObjective(objective)">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </a>
         </td>

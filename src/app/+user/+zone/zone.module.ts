@@ -37,6 +37,7 @@ import { ZoneDailyReportHarvestingComponent } from "./crop-management/daily-repo
 
 import { ZoneOKRComponent } from "./crop-management/okr/zone-okr.component";
 import { OKRTableComponent } from "./crop-management/okr/okr-table/okr-table.component";
+import { OKRFormComponent } from "./crop-management/okr/okr-form/okr-form.component";
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { OKRTableComponent } from "./crop-management/okr/okr-table/okr-table.com
     ZoneDailyReportHarvestingComponent,
     IrrigationFormComponent,
     ZoneOKRComponent,
-    OKRTableComponent
+    OKRTableComponent,
+    OKRFormComponent
   ]
 })
 export class ZoneModule { }

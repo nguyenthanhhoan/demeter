@@ -4,6 +4,7 @@ import * as Chartist from 'chartist';
 import { ModalDirective } from "ng2-bootstrap";
 
 import { ZoneService } from '../../../../core/services/zone.service';
+import { NotificationService } from "../../../../shared/utils/notification.service";
 
 @Component({
   templateUrl: './zone-okr.component.html',
@@ -31,7 +32,8 @@ export class ZoneOKRComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private zoneService: ZoneService) {
+    private zoneService: ZoneService,
+    private notificationService: NotificationService) {
 
   }
 
@@ -41,7 +43,6 @@ export class ZoneOKRComponent implements OnInit {
 
     this.zoneService.getOKRData(project_id, id)
       .subscribe((okr_tabs) => {
-        console.log('okr_tabs', okr_tabs);
         this.okr_tabs = okr_tabs;
         this.activeORKTab = this.okr_tabs[0];
       })
@@ -69,11 +70,18 @@ export class ZoneOKRComponent implements OnInit {
   createObjetive() {
     this.activeORKTab.objectives.push({
       id: (new Date()).getTime(),
-      time: this.objective.time,
+      start_date: this.objective.start_date,
+      end_date: this.objective.end_date,
       objective: this.objective.objective,
       key_results: []
     });
     this.objective = {};
     this.objectiveAddModal.hide();
+  }
+
+  removeObjective(objective) {
+    let index = this.activeORKTab.objectives.indexOf(objective);
+    this.activeORKTab.objectives.splice(objective, 1);
+    this.notificationService.showMessage('Remove objective successfully!');
   }
 }

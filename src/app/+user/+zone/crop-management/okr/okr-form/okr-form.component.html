@@ -1,0 +1,189 @@
+<div class="content-header">
+  <div class="demeter-title">Edit Objective</div>
+</div>
+
+<div class="demeter-pane">
+
+  <form class="smart-form" #objectiveForm="ngForm">
+    <section>
+      <div class="row">
+        <label class="col col-4 label">Date Time</label>
+        <div class="col col-4">
+          <label class="input">
+            <div class="input-group">
+              <input type="text" name="start_date" 
+                [(ngModel)]="objective.start_date"
+                (valueChange)="objective.start_date=$event"
+                class="form-control datepicker"
+                [saUiDatepicker]="{
+                  dateFormat: 'mm/dd/yy'
+                }" >
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </label>
+        </div>
+        <div class="col col-4">
+          <label class="input">
+            <div class="input-group">
+              <input type="text" name="end_date" 
+                [(ngModel)]="objective.end_date"
+                (valueChange)="objective.end_date=$event"
+                class="form-control datepicker"
+                [saUiDatepicker]="{
+                  dateFormat: 'mm/dd/yy'
+                }" >
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <label class="col col-4 label">Objective</label>
+        <div class="col col-8">
+          <label class="textarea">
+            <textarea [(ngModel)]="objective.objective" name="objective" rows="4"></textarea>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <div class="key-result-header">
+      <header>List of Key Results</header>
+      <button 
+        class="demeter-btn primary add-key-result-btn" (click)="addKeyResult()">
+        Add Key Result
+      </button>
+    </div>
+    <div *ngFor="let key_result of objective.key_results; let i = index">
+      <fieldset class="key-result-group">
+        <section>
+          <p class="key-result-title">{{ i + 1}} - Key result</p>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Name</label>
+            <div class="col col-8">
+              <label class="textarea">
+                <textarea name="key_result_{{i}}_description" [(ngModel)]="key_result.description" rows="4"></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Status</label>
+            <div class="col col-8">
+              <label class="select">
+                <select name="key_result_{{i}}_status" [(ngModel)]="key_result.status">
+                  <option>Finish</option>
+                  <option>Waiting</option>
+                </select><i></i>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">PIC</label>
+            <div class="col col-8">
+              <select select2 multiple style="width:100%" class="select2">
+                <option value="CA">Nguyen Van A</option>
+                <option value="NV">Tran Van B</option>
+                <option value="OR">Dao Thi C</option>
+              </select>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Start Date</label>
+            <div class="col col-8">
+              <label class="input">
+                <div class="input-group">
+                  <input type="text" name="start_date" 
+                    [(ngModel)]="key_result.start_date"
+                    (valueChange)="objective.start_date=$event"
+                    class="form-control datepicker"
+                    [saUiDatepicker]="{
+                      dateFormat: 'mm/dd/yy'
+                    }" >
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Original Deadline</label>
+            <div class="col col-8">
+              <label class="input">
+                <div class="input-group">
+                  <input type="text" name="deadline" 
+                    [(ngModel)]="key_result.deadline"
+                    (valueChange)="objective.deadline=$event"
+                    class="form-control datepicker"
+                    [saUiDatepicker]="{
+                      dateFormat: 'mm/dd/yy'
+                    }" >
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Deadline 1</label>
+            <div class="col col-8">
+              <label class="input">
+                <div class="input-group">
+                  <input type="text" name="deadline1" 
+                    [(ngModel)]="key_result.deadline1"
+                    (valueChange)="objective.deadline1=$event"
+                    class="form-control datepicker"
+                    [saUiDatepicker]="{
+                      dateFormat: 'mm/dd/yy'
+                    }" >
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row">
+            <label class="col col-4 label">Note</label>
+            <div class="col col-8">
+              <label class="textarea">
+                <textarea name="key_result_{{i}}_note" [(ngModel)]="key_result.note" rows="4"></textarea>
+              </label>
+            </div>
+          </div>
+        </section>
+        <button class="demeter-btn danger pull-right key-result-remove-btn" (click)="removeKeyResult(key_result)">
+          Remove
+        </button>
+      </fieldset>
+    </div>
+    <div class="button-group">
+      <div class="pull-right">
+        <button class="demeter-btn danger" (click)="deleteObjective()">
+          Delete
+        </button>
+        <button class="demeter-btn danger" (click)="archiveObjective()">
+          Archive
+        </button>
+        <button 
+          class="demeter-btn primary" (click)="saveObjective()">
+          Save
+        </button>
+        <button class="demeter-btn secondary" (click)="cancelObjective()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

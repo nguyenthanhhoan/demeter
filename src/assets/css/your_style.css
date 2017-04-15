@@ -83,6 +83,17 @@ body {
   padding: 1px 5px;
 }
 
+.smart-form .select2-container-multi .select2-choices .select2-search-choice, 
+.smart-form .select2-selection__choice {
+  padding: 1px 28px 1px 8px;
+  margin: 4px 0 3px 5px;
+}
+
+.smart-form .select2-container-multi .select2-choices, 
+.smart-form .select2-selection--multiple {
+  border-color: #BDBDBD;
+}
+
 /**
  * Demeter style
  **/
@@ -109,6 +120,15 @@ body {
 
 .demeter-btn.primary:hover {
   background-color: #525d4f;
+}
+
+.demeter-btn.secondary {
+  background-color: #95a5a6;
+  color: #fff;
+}
+
+.demeter-btn.secondary:hover {
+  background-color: #7f8c8d;
 }
 
 .demeter-btn.danger {

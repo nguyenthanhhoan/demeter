@@ -18,7 +18,7 @@ export class WUndergroundService {
     private jsonApiService: JsonApiService,
     private notificationService: NotificationService) {}
 
-  isMock = false;
+  isMock = true;
 
   getWeatherForecastData(location): Observable<any> {
     if (this.isMock) {
