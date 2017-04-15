@@ -4,11 +4,13 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { ApiService } from '../api/api.service';
+import { JsonApiService } from '../../core/api/json-api.service';
 
 @Injectable()
 export class ZoneService {
 
-  constructor (private apiService: ApiService) {}
+  constructor (private apiService: ApiService,
+              private jsonApiService: JsonApiService) {}
 
   getList (project_id): Observable<any[]> {
     return this.apiService.fetch(`projects/${project_id}/zones`);
@@ -70,5 +72,9 @@ export class ZoneService {
     return this.apiService.post(`projects/${project_id}/zones/${zone_id}/unassign_camera`, {
       camera_id: camera_id
     });
+  }
+
+  getOKRData(project_id, zone_id): Observable<any> {
+    return this.jsonApiService.fetch(`/zone/okr.json`);
   }
 }

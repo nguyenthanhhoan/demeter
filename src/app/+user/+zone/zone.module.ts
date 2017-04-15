@@ -27,6 +27,7 @@ import { ZoneWeatherComponent } from "./crop-management/weather/zone-weather.com
 import { ZoneSettingComponent } from "./setting/zone-setting.component";
 import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.component";
 import { ZoneSettingCameraComponent } from "./setting/camera/zone-setting-camera.component";
+
 import { ZoneDailyReportComponent } from "./crop-management/daily-report/zone-daily-report.component";
 import { ZoneDailyReportOverviewComponent } from "./crop-management/daily-report/overview/zone-daily-report-overview.component";
 import { IrrigationFormComponent } from "./crop-management/daily-report/overview/irrigation-form/irrigation-form.component";
@@ -34,6 +35,8 @@ import { ZoneDailyReportEnvironmentComponent } from "./crop-management/daily-rep
 import { ZoneDailyReportUsageComponent } from "./crop-management/daily-report/usage/zone-daily-report-usage.component";
 import { ZoneDailyReportHarvestingComponent } from "./crop-management/daily-report/harvesting/zone-daily-report-harvesting.component";
 
+import { ZoneOKRComponent } from "./crop-management/okr/zone-okr.component";
+import { OKRTableComponent } from "./crop-management/okr/okr-table/okr-table.component";
 
 @NgModule({
   imports: [
@@ -69,7 +72,9 @@ import { ZoneDailyReportHarvestingComponent } from "./crop-management/daily-repo
     ZoneDailyReportEnvironmentComponent,
     ZoneDailyReportUsageComponent,
     ZoneDailyReportHarvestingComponent,
-    IrrigationFormComponent
+    IrrigationFormComponent,
+    ZoneOKRComponent,
+    OKRTableComponent
   ]
 })
 export class ZoneModule { }

@@ -1,0 +1,11 @@
+.demeter-table .col-actions a {
+     padding: 0; 
+}
+
+.demeter-table .delete-action {
+    margin-left: 7px;
+}
+
+.demeter-table .col-actions {
+    width: 55px;
+}

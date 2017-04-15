@@ -1,0 +1,115 @@
+<div class="content-header">
+  <div class="demeter-title">OKR</div>
+
+  <button 
+    class="demeter-btn create-btn primary pull-right"
+    (click)="openAddOKRTable()"
+    >Add OKR Table</button>
+</div>
+
+<div class="demeter-pane">
+
+  <ul class="nav nav-tabs bordered">
+    <li [class.active]="activeORKTab.id == ork_tab.id" *ngFor="let ork_tab of okr_tabs">
+      <a (click)="activeORKTab = ork_tab"> {{ ork_tab.name }}</a>
+    </li>
+  </ul>
+
+  <div class="demeter-pane-content">
+    <tabset class="padding-10">
+      <div class="create-btn-wrap">
+        <button 
+          class="demeter-btn create-btn pull-right"
+          (click)="openAddObjective()"
+          >Add Objective</button>
+      </div>
+      <tab [active]="activeORKTab.id == 1">
+        <okr-table [objectives]="activeORKTab.objectives"></okr-table>
+      </tab>
+    </tabset>
+  </div>
+</div>
+
+<div bsModal #okrTableFormModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="okrTableFormModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add OKR Table</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #okrTableForm="ngForm">
+          <section>
+            <div class="row">
+              <label class="col col-4 label">OKR Tab Name</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="okrTab.name" name="name" required>
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="okrTableFormModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!okrTableForm.valid"
+          class="btn btn-primary" (click)="createOKRTable()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #objectiveAddModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="objectiveAddModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add Objective</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #objectiveForm="ngForm">
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Date Time</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="objective.time" name="time">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Objective</label>
+              <div class="col col-8">
+                <label class="textarea">
+                  <textarea [(ngModel)]="objective.objective" name="objective"></textarea>
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="objectiveAddModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!objectiveForm.valid"
+          class="btn btn-primary" (click)="createObjetive()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

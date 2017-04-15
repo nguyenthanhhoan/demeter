@@ -8,6 +8,7 @@ export class AppSettings {
     }
   }
   public static date_time_format = {
-    date: 'MM/DD/YYYY'
+    date: 'MM/DD/YYYY',
+    time: 'hh:mm A'
   }
 }

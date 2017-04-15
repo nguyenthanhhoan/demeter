@@ -1,0 +1,62 @@
+<table class="table table-hover demeter-table">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Time</th>
+      <th>Objective</th>
+      <th>Status</th>
+      <th>Key Result</th>
+      <th>PIC</th>
+      <th>Start Date</th>
+      <th>Deadline</th>
+      <th>Deadline 1</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let objective of objectives; let i = index">
+      <tr>
+        <td [attr.rowspan]="objective.key_results.length + 1">{{ i + 1 }}</td>
+        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.time}}</td>
+        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.objective}}</td>
+        <ng-container *ngIf="objective.key_results.length == 0">
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+        </ng-container>
+        <ng-container *ngIf="objective.key_results.length > 0">
+          <td>{{objective.key_results[0].status}}</td>
+          <td>{{objective.key_results[0].description}}</td>
+          <td>
+            <p *ngFor="let pic of objective.key_results[0].pics">{{pic.name}}</p>
+          </td>
+          <td>{{objective.key_results[0].start_date}}</td>
+          <td>{{objective.key_results[0].deadline}}</td>
+          <td>{{objective.key_results[0].deadline1}}</td>
+          <td>{{objective.key_results[0].note}}</td>
+        </ng-container>
+        <td [attr.rowspan]="objective.key_results.length + 1" class="col-actions">
+          <a>
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+          <a class="delete-action">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+      <tr *ngFor="let key_result of objective.key_results; let i = index">
+        <ng-container *ngIf="i != 0">
+          <td>{{key_result.status}}</td>
+          <td>{{key_result.description}}</td>
+          <td>
+            <p *ngFor="let pic of key_result.pics">{{pic.name}}</p>
+          </td>
+          <td>{{key_result.start_date}}</td>
+          <td>{{key_result.deadline}}</td>
+          <td>{{key_result.deadline1}}</td>
+          <td>{{key_result.note}}</td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

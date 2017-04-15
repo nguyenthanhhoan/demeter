@@ -1,0 +1,17 @@
+.demeter-pane {
+  padding: 0;
+}
+
+.demeter-pane-content {
+  padding: 0 25px;
+}
+
+.nav-tabs.bordered {
+  background: #F5F3EB;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.create-btn-wrap {
+  height: 45px;
+}
