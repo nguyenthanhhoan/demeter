@@ -27,3 +27,7 @@
   width: 100px;
   float: left;
 }
+
+.chart-container {
+  height: 400px;
+}

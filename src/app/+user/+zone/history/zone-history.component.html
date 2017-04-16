@@ -13,7 +13,7 @@
               (valueChange)="filter.date=$event"
               class="form-control datepicker"
               [saUiDatepicker]="{
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'mm/dd/yy'
               }" >
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
           </div>
@@ -21,26 +21,27 @@
         <div class="form-group filter-form-group">
           <label class="control-label from-label">From: </label>
           <div class="input-group time-input-group">
-            <input class="form-control" smartClockpicker type="text" data-autoclose="true">
+            <input class="form-control" smartClockpicker type="text" data-autoclose="true" 
+              [(ngModel)]="filter.start_time"
+              (valueChange)="filter.start_time=$event">
             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
           </div>
           <label class="control-label to-label">To: </label>
           <div class="input-group time-input-group">
-            <input class="form-control" smartClockpicker type="text" data-autoclose="true">
+            <input class="form-control" smartClockpicker type="text" data-autoclose="true"
+               [(ngModel)]="filter.end_time"
+               (valueChange)="filter.end_time=$event">
             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
           </div>
-          <button class="demeter-btn form-control-size primary pull-right">View</button>
+          <button class="demeter-btn form-control-size primary pull-right" 
+            (click)="queryHistoryData()">View</button>
         </div>
       </div>
 
-      <div *ngFor="let chart of charts">
-        <p>{{chart.title}}</p>
-        <x-chartist
-          [data]="chart.data"
-          [type]="chart.type"
-          [options]="chart.options"
-          [responsiveOptions]="chart.responsiveOptions"
-          [events]="chart.events">
-        </x-chartist>
+      <div class="spinner-wrapper">
+        <app-spinner [isRunning]="isRequesting"></app-spinner>
       </div>
+      <div id="chart-container-0" class="chart-container"></div>
+      <div id="chart-container-1" class="chart-container"></div>
+      <div id="chart-container-2" class="chart-container"></div>
     </div>

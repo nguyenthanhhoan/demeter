@@ -19,4 +19,8 @@ Rails.application.routes.draw do
     resources :zones
     resources :cameras
   end
+
+  namespace :user do 
+    get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
+  end
 end

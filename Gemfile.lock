@@ -232,6 +232,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  aws-sdk (~> 2)
   byebug
   carrierwave-aws
   coffee-rails (~> 4.2)

@@ -327,6 +327,10 @@ body {
   overflow: hidden;
 }
 
+.spinner-wrapper {
+  position: relative;
+}
+
 /*
  * Charting.
  */

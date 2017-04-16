@@ -48,7 +48,7 @@ import { SpinnerModule } from './spinner/spinner.module';
     // TooltipModule,
     DropdownModule,
     // ProgressbarModule,
-    // AlertModule,
+    AlertModule,
     TabsModule,
     // AccordionModule,
     // CarouselModule,
