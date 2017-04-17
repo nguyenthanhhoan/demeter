@@ -31,7 +31,7 @@
         <zone-daily-report-overview [zone]="zone"></zone-daily-report-overview>
       </tab>
       <tab [active]="state.tabs.activeTab == 1" (select)="environmentTab.initData()">
-        <zone-daily-report-environment #environmentTab [zone]="zone"></zone-daily-report-environment>
+        <zone-daily-report-environment #environmentTab></zone-daily-report-environment>
       </tab>
       <tab [active]="state.tabs.activeTab == 2">
         <zone-daily-report-usage [zone]="zone"></zone-daily-report-usage>

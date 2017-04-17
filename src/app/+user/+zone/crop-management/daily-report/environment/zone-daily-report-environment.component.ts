@@ -1,33 +1,38 @@
-import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { ModalDirective } from "ng2-bootstrap";
+import { Observable } from 'rxjs/Rx';
 
 import { NotificationService } from "../../../../../shared/utils/notification.service";
 import { ZoneService } from '../../../../../core/services/zone.service';
-import { CameraService } from '../../../../../core/services/camera.service';
-import { MockDataService } from '../../../../../core/services/mock-data.service';
+import { SensorDataService } from '../../../../../core/services/sensor-data.service';
 
 declare var moment: any;
+declare var Highcharts: any;
 @Component({
   selector: 'zone-daily-report-environment',
   templateUrl: './zone-daily-report-environment.component.html',
   styleUrls: ['./zone-daily-report-environment.component.css']
 })
-export class ZoneDailyReportEnvironmentComponent implements OnInit, DoCheck {
+export class ZoneDailyReportEnvironmentComponent implements OnInit {
 
-  @Input()
-  zone: any;
-  oldZone: any = {};
   project_id: number;
   zone_id: number;
-  charts: any[];
+
+  chartData: any = {
+    xAxis: {
+      categories: []
+    },
+    series: []
+  }
+  isRequesting = false;
+  first_loaded = false;
+  last_timestamp: any;
+  charts: any[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
-              private zoneService: ZoneService,
-              private cameraService: CameraService,
-              private mockDataService: MockDataService) {
+              private sensorDataService: SensorDataService) {
 
     this.project_id = +this.route.snapshot.params['project_id'];
     this.zone_id = +this.route.snapshot.params['id'];
@@ -38,46 +43,100 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit, DoCheck {
   }
 
   initData() {
-    //TODO: Refactor later
-    let stats = this.mockDataService.initStat(30);
-    this.charts = [{
-      title: 'Temperature 24H',
-      type: 'Line',
-      data: {
-        label: stats.labels,
-        series: [stats.data.temp]
-      },
-      options: stats.options
-    }, {
-      title: 'EC 24H',
-      type: 'Line',
-      data: {
-        label: stats.labels,
-        series: [stats.data.humid]
-      },
-      options: stats.options
-    }, {
-      title: 'Soil Moisture 24H',
-      type: 'Line',
-      data: {
-        label: stats.labels,
-        series: [stats.data.light]
-      },
-      options: stats.options
-    }, {
-      title: 'CO2 24H',
-      type: 'Line',
-      data: {
-        label: stats.labels,
-        series: [stats.data.pressure]
-      },
-      options: stats.options
-    }];
+    //TODO: Should load from the beginning of the day
+    let start_timestamp = moment().valueOf() - 5 * 60 * 1000;
+    let end_timestamp = this.last_timestamp = moment().valueOf();
+    this.isRequesting = true;
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
+      .subscribe((data) => {
+        if (data) {
+          this.first_loaded = true;
+          this.chartData = data;
+          console.log('Number of points returned ', this.chartData.xAxis.categories.length);
+          if (this.chartData.xAxis.categories.length == 0) {
+            this.notificationService.showErrorMessage({
+              title: 'error',
+              content: 'No data match your filter.'
+            });
+          } if (this.chartData.xAxis.categories.length > 100) {
+            this.notificationService.showErrorMessage({
+              title: 'error',
+              content: 'Too many data. Cannot render chart.'
+            });
+          } else {
+
+            //Using timer to make sure DOM has ready
+            let timer = Observable.timer(1);
+            timer.subscribe(() => {
+              this.loadHighChart();
+              this.handleDataRealTime();
+            });
+          }
+        }
+        this.isRequesting = false;
+      });
   }
 
-  ngDoCheck() {
-    if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
-      this.oldZone = this.zone;
-    }
+  loadHighChart() {
+    System.import('script-loader!highcharts').then(() => {
+      return System.import('script-loader!highcharts/highcharts.js')
+    }).then(() => {
+      this.initChart();
+    })
+  }
+
+  initChart() {
+    this.chartData.series.forEach((series, index) => {
+      let chartOpts = {
+        chart: {
+          backgroundColor: '#F5F3EB',
+        },
+        title: {
+          text: series.name
+        },
+        yAxis: {
+          title: {
+            text: ''
+          }
+        },
+        tooltip: {
+          valueSuffix: series.valueSuffix
+        },
+        xAxis: this.chartData.xAxis,
+        series: [
+          series
+        ]
+      };
+      if (this.charts[index]) {
+        this.charts[index].update(chartOpts);
+      } else {
+        let chart = Highcharts.chart('chart-container-' + index, chartOpts);
+        this.charts.push(chart);
+      }
+    });
+  }
+
+  //Ideally, this should use Websocket
+  handleDataRealTime() {
+    let timer = Observable.timer(1000, 5000);
+    timer.subscribe(() => {
+      console.log('get new data');
+      let start_timestamp = this.last_timestamp;
+      let end_timestamp = this.last_timestamp = moment().valueOf();
+      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
+        .subscribe((data) => {
+          if (data) {
+            this.charts.forEach((chart, index) => {
+              data.xAxis.categories.forEach((deltaPoint, point_index) => {
+                let chart = this.charts[index];
+                console.log('deltaPoint', deltaPoint);
+                console.log('data.series[index].data[point_index]', data.series[index].data[point_index]);
+                chart.series[0].addPoint([(new Date()).getTime(), data.series[index].data[point_index]], true, true);
+              })
+              console.log('delta', data);
+            });
+          }
+        });
+    });
   }
 }
