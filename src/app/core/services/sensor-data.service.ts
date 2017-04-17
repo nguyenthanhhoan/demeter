@@ -37,17 +37,12 @@ export class SensorDataService {
       name: fieldConfig.field2,
       valueSuffix: ' %',
       data: []
-    }, {
-      name: fieldConfig.field3,
-      valueSuffix: '',
-      data: []
     }];
     items.forEach(item => {
       let formated_time = moment(parseInt(item.timestamp)).format('HH:mm:ss A');
       xAxis_cates.push(formated_time);
       series[0].data.push(parseFloat(item.payload.data.field1));
       series[1].data.push(parseFloat(item.payload.data.field2));
-      series[2].data.push(parseFloat(item.payload.data.field3));
     });
     return {
       xAxis: {

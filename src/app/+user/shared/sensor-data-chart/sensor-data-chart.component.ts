@@ -2,18 +2,18 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Observable } from 'rxjs/Rx';
 
-import { NotificationService } from "../../../../../shared/utils/notification.service";
-import { ZoneService } from '../../../../../core/services/zone.service';
-import { SensorDataService } from '../../../../../core/services/sensor-data.service';
+import { NotificationService } from "../../../shared/utils/notification.service";
+import { ZoneService } from '../../../core/services/zone.service';
+import { SensorDataService } from '../../../core/services/sensor-data.service';
 
 declare var moment: any;
 declare var Highcharts: any;
 @Component({
-  selector: 'zone-daily-report-environment',
-  templateUrl: './zone-daily-report-environment.component.html',
-  styleUrls: ['./zone-daily-report-environment.component.css']
+  selector: 'sensor-data-chart',
+  templateUrl: './sensor-data-chart.component.html',
+  styleUrls: ['./sensor-data-chart.component.css']
 })
-export class ZoneDailyReportEnvironmentComponent implements OnInit {
+export class SensorDataChartComponent implements OnInit {
 
   project_id: number;
   zone_id: number;

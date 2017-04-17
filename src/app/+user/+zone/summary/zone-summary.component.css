@@ -1,13 +1,5 @@
-.chart-wrapper {
-  height: 200px;
-}
-
-.weather-chart .value {
-  font-size: 3rem;
-}
-
-.weather-chart .metric-label {
-  font-size: 2rem;
+.chart-container {
+  height: 400px;
 }
 
 /*

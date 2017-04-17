@@ -16,9 +16,11 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
 
+import { ZoneFormComponent } from "../shared/zone-form/zone-form.component";
+import { SensorDataChartComponent } from "../shared/sensor-data-chart/sensor-data-chart.component";
+
 import { ZoneListComponent } from "./list/zone-list.component";
 import { ZoneFormComponent as ZoneAddFormComponent } from "./form/zone-form.component";
-import { ZoneFormComponent } from "../shared/zone-form/zone-form.component";
 import { ZoneSummaryComponent } from "./summary/zone-summary.component";
 import { ZoneHistoryComponent } from "./history/zone-history.component";
 import { ZoneCameraComponent } from "./camera/zone-camera.component";
@@ -57,9 +59,11 @@ import { OKRFormComponent } from "./crop-management/okr/okr-form/okr-form.compon
     WeatherForecastModule
   ],
   declarations: [
+    ZoneFormComponent,
+    SensorDataChartComponent,
+
     ZoneListComponent,
     ZoneAddFormComponent,
-    ZoneFormComponent,
     ZoneSummaryComponent,
     ZoneHistoryComponent,
     ZoneCameraComponent,
