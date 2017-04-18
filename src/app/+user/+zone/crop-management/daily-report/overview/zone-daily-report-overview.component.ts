@@ -1,8 +1,8 @@
 import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { ModalDirective } from "ng2-bootstrap";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
 
-import { NotificationService } from "../../../../../shared/utils/notification.service";
+import { NotificationService } from '../../../../../shared/utils/notification.service';
 import { ZoneService } from '../../../../../core/services/zone.service';
 import { CameraService } from '../../../../../core/services/camera.service';
 
@@ -50,9 +50,10 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     ferlitizer: 'Super',
     concentration: 8,
     amount: 0.1
-  }]
+  }];
 
   pest_diseases = [{
+    id: 1,
     type: 'Disease',
     sub_type: 'Earwigs',
     situation: '10%',
@@ -60,13 +61,14 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     concentration: 5,
     amount: 0.3
   }, {
+    id: 2,
     type: 'Weeds',
     sub_type: 'Earwigs',
     situation: '20%',
     pesticides: 'Abagro',
     concentration: 10,
     amount: 0.2
-  }]
+  }];
 
   photo_reports = [{
     title: 'Growing Images',
@@ -104,14 +106,14 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
       src: 'assets/img/demo/s3.jpg',
       title: 'Date 1'
     }]
-  }]
+  }];
 
   notes = [{
     title: 'Note 1',
     content: 'Appeared few days ago'
   }, {
     title: 'Note 2'
-  }]
+  }];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -127,7 +129,7 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
+    if (this.zone && this.zone.id && this.oldZone.id !== this.zone.id) {
       this.oldZone = this.zone;
     }
   }
@@ -135,8 +137,8 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   irrigationFormResolve(irrigation) {
     if (irrigation.id) {
       let found = this.irrigations.find((loop_irrigation) => {
-        return loop_irrigation.id == irrigation.id;
-      })
+        return loop_irrigation.id === irrigation.id;
+      });
       Object.assign(found, irrigation);
     } else {
       let clone_irr = Object.assign({}, irrigation);
@@ -145,13 +147,37 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     }
   }
 
-  removeIrrigation(irrigation) {
+  pestDiseaseFormResolve(pest_disease) {
+    if (pest_disease.id) {
+      let found = this.pest_diseases.find((loop_pest_disease) => {
+        return loop_pest_disease.id === pest_disease.id;
+      });
+      Object.assign(found, pest_disease);
+    } else {
+      let clone_irr = Object.assign({}, pest_disease);
+      clone_irr.id = (new Date()).getTime();
+      this.pest_diseases.push(clone_irr);
+    }
+  }
+
+  remove(item, type) {
     this.notificationService.confirmBox({
-      content: 'Do you want to remove this Irrigation?'
+      content: `Do you want to remove this ${type}?`
     }, () => {
-      let index = this.irrigations.indexOf(irrigation);
-      this.irrigations.splice(irrigation, 1);
-      this.notificationService.showMessage('Remove irrigation successfully!');
-    })
+      let items = [];
+      switch (type) {
+        case 'Irrigation':
+          items = this.irrigations;
+          break;
+        case 'Pests / Disease':
+          items = this.pest_diseases;
+          break;
+        default:
+          break;
+      }
+      let index = items.indexOf(item);
+      items.splice(item, 1);
+      this.notificationService.showMessage(`Remove ${type} successfully!`);
+    });
   }
 }

@@ -30,13 +30,16 @@ import { ZoneSettingComponent } from "./setting/zone-setting.component";
 import { ZoneSettingSummaryComponent } from "./setting/zone-setting-summary.component";
 import { ZoneSettingCameraComponent } from "./setting/camera/zone-setting-camera.component";
 
+/* Daily report */
 import { ZoneDailyReportComponent } from "./crop-management/daily-report/zone-daily-report.component";
 import { ZoneDailyReportOverviewComponent } from "./crop-management/daily-report/overview/zone-daily-report-overview.component";
 import { IrrigationFormComponent } from "./crop-management/daily-report/overview/irrigation-form/irrigation-form.component";
+import { PestDiseaseFormComponent } from "./crop-management/daily-report/overview/pest-disease-form/pest-disease-form.component";
 import { ZoneDailyReportEnvironmentComponent } from "./crop-management/daily-report/environment/zone-daily-report-environment.component";
 import { ZoneDailyReportUsageComponent } from "./crop-management/daily-report/usage/zone-daily-report-usage.component";
 import { ZoneDailyReportHarvestingComponent } from "./crop-management/daily-report/harvesting/zone-daily-report-harvesting.component";
 
+/* Zone OKR */
 import { ZoneOKRComponent } from "./crop-management/okr/zone-okr.component";
 import { OKRTableComponent } from "./crop-management/okr/okr-table/okr-table.component";
 import { OKRFormComponent } from "./crop-management/okr/okr-form/okr-form.component";
@@ -72,12 +75,17 @@ import { OKRFormComponent } from "./crop-management/okr/okr-form/okr-form.compon
     ZoneSettingComponent,
     ZoneSettingSummaryComponent,
     ZoneSettingCameraComponent,
+
+    /* Daily report */
     ZoneDailyReportComponent,
     ZoneDailyReportOverviewComponent,
     ZoneDailyReportEnvironmentComponent,
     ZoneDailyReportUsageComponent,
     ZoneDailyReportHarvestingComponent,
     IrrigationFormComponent,
+    PestDiseaseFormComponent,
+
+    /* OKR */
     ZoneOKRComponent,
     OKRTableComponent,
     OKRFormComponent

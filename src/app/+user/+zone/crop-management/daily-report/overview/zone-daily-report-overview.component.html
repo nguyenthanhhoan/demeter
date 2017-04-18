@@ -35,7 +35,7 @@
               <a (click)="irrigationForm.open(irrigation)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action" (click)="removeIrrigation(irrigation)">
+              <a class="delete-action" (click)="remove(irrigation, 'Irrigation')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -50,7 +50,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="pestDiseaseForm.open()">Add</button>
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
@@ -76,10 +76,10 @@
             <td>{{pest_disease.concentration}}</td>
             <td>{{pest_disease.amount}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="pestDiseaseForm.open(pest_disease)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(pest_disease, 'Pests / Disease')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -152,3 +152,4 @@
 </form>
 
 <irrigation-form #irrigationForm (resolve)="irrigationFormResolve($event)"></irrigation-form>
+<pest-disease-form #pestDiseaseForm (resolve)="pestDiseaseFormResolve($event)"></pest-disease-form>

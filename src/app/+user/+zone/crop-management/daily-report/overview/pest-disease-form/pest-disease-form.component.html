@@ -1,0 +1,87 @@
+<div bsModal #lgModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" *ngIf="mode == 'add'">Add Pest Disease</h4>
+        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit Pest Disease</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #pestDiseaseForm="ngForm">
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Type</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.type" name="type">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Sub Type</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.sub_type" name="sub_type">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Situation</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.situation" name="situation">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Pesticides</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.pesticides" name="pesticides">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Concentration</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.concentration" name="concentration">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Amount</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input type="text" [(ngModel)]="pest_disease.amount" name="amount">
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!pestDiseaseForm.valid"
+          class="btn btn-primary" (click)="saveOrUpdate()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
