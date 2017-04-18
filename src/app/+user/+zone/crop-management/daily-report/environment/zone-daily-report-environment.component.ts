@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, Input, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-import { NotificationService } from "../../../../../shared/utils/notification.service";
+import { NotificationService } from '../../../../../shared/utils/notification.service';
 import { ZoneService } from '../../../../../core/services/zone.service';
 import { SensorDataService } from '../../../../../core/services/sensor-data.service';
 
@@ -13,7 +13,7 @@ declare var Highcharts: any;
   templateUrl: './zone-daily-report-environment.component.html',
   styleUrls: ['./zone-daily-report-environment.component.css']
 })
-export class ZoneDailyReportEnvironmentComponent implements OnInit {
+export class ZoneDailyReportEnvironmentComponent {
 
   project_id: number;
   zone_id: number;
@@ -23,7 +23,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
       categories: []
     },
     series: []
-  }
+  };
   isRequesting = false;
   first_loaded = false;
   last_timestamp: any;
@@ -38,12 +38,8 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
     this.zone_id = +this.route.snapshot.params['id'];
   }
 
-  ngOnInit() {
-
-  }
-
   initData() {
-    //TODO: Should load from the beginning of the day
+    // TODO: Should load from the beginning of the day
     let start_timestamp = moment().valueOf() - 5 * 60 * 1000;
     let end_timestamp = this.last_timestamp = moment().valueOf();
     this.isRequesting = true;
@@ -53,7 +49,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
           this.first_loaded = true;
           this.chartData = data;
           console.log('Number of points returned ', this.chartData.xAxis.categories.length);
-          if (this.chartData.xAxis.categories.length == 0) {
+          if (this.chartData.xAxis.categories.length === 0) {
             this.notificationService.showErrorMessage({
               title: 'error',
               content: 'No data match your filter.'
@@ -65,11 +61,10 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
             });
           } else {
 
-            //Using timer to make sure DOM has ready
+            // Using timer to make sure DOM has ready
             let timer = Observable.timer(1);
             timer.subscribe(() => {
               this.loadHighChart();
-              this.handleDataRealTime();
             });
           }
         }
@@ -82,7 +77,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
       return System.import('script-loader!highcharts/highcharts.js')
     }).then(() => {
       this.initChart();
-    })
+    });
   }
 
   initChart() {
@@ -113,26 +108,6 @@ export class ZoneDailyReportEnvironmentComponent implements OnInit {
         let chart = Highcharts.chart('chart-container-' + index, chartOpts);
         this.charts.push(chart);
       }
-    });
-  }
-
-  //Ideally, this should use Websocket
-  handleDataRealTime() {
-    let timer = Observable.timer(1000, 5000);
-    timer.subscribe(() => {
-      let start_timestamp = this.last_timestamp;
-      let end_timestamp = this.last_timestamp = moment().valueOf();
-      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
-        .subscribe((data) => {
-          if (data) {
-            this.charts.forEach((chart, index) => {
-              data.xAxis.categories.forEach((deltaPoint, point_index) => {
-                let chart = this.charts[index];
-                chart.series[0].addPoint([deltaPoint, data.series[index].data[point_index]], true, true);
-              })
-            });
-          }
-        });
     });
   }
 }
