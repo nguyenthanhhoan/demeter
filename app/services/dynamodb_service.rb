@@ -18,6 +18,27 @@ class DynamodbService
       },
       table_name: "cdf-gateway-data"
     })
-    query_result[:items].to_json
+    query_result[:items]
+  end
+
+  # Incase have more than max_point data points, we should normalize into max_point points only
+  def self.normalize_data(start_timestamp, end_timestamp, points, max_point)
+    if points.length > max_point
+      start_time = Integer(start_timestamp)
+      end_time = Integer(end_timestamp)
+
+      result_points = []
+      duration = end_time - start_time
+      time_step = duration / max_point
+      max_point.times { |i| 
+        result_point = points.bsearch { |x| 
+          Integer(x['timestamp']) >= start_time + time_step * i
+        }
+        result_points << result_point
+      }
+      result_points.to_json
+    else
+      points.to_json
+    end
   end
 end

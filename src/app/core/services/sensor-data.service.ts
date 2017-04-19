@@ -28,7 +28,7 @@ export class SensorDataService {
       field3: 'Light',
       // field4: 'EC',
       // field5: 'pH',
-    }
+    };
     series = [{
       name: fieldConfig.field1,
       valueSuffix: ' °C',
@@ -39,7 +39,7 @@ export class SensorDataService {
       data: []
     }];
     items.forEach(item => {
-      let formated_time = moment(parseInt(item.timestamp)).format('HH:mm:ss A');
+      let formated_time = moment(parseInt(item.timestamp, 10)).format('HH:mm:ss A');
       xAxis_cates.push(formated_time);
       series[0].data.push(parseFloat(item.payload.data.field1));
       series[1].data.push(parseFloat(item.payload.data.field2));
@@ -49,6 +49,6 @@ export class SensorDataService {
         categories: xAxis_cates
       },
       series: series
-    }
+    };
   }
 }

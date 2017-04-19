@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
 import {
@@ -29,8 +29,8 @@ export class ZoneHistoryComponent implements OnInit {
       categories: []
     },
     series: []
-  }
-  isRequesting = false
+  };
+  isRequesting = false;
   filter: any = {};
   charts: any[] = [];
 
@@ -65,26 +65,26 @@ export class ZoneHistoryComponent implements OnInit {
 
   loadHistoryData() {
     let filter = this.filter;
-    let start_timestamp = moment(`${filter.date} ${filter.start_time}`, AppSettings.date_time_format.date_time).valueOf();
-    let end_timestamp = moment(`${filter.date} ${filter.end_time}`, AppSettings.date_time_format.date_time).valueOf();
-    
+    let start_timestamp =
+      moment(`${filter.date} ${filter.start_time}`,
+              AppSettings.date_time_format.date_time).valueOf();
+
+    let end_timestamp =
+      moment(`${filter.date} ${filter.end_time}`,
+              AppSettings.date_time_format.date_time).valueOf();
+
     this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
       .subscribe((data) => {
         if (data) {
           this.chartData = data;
           console.log('Number of points returned ', this.chartData.xAxis.categories.length);
-          if (this.chartData.xAxis.categories.length == 0) {
+          if (this.chartData.xAxis.categories.length === 0) {
             this.notificationService.showErrorMessage({
               title: 'error',
               content: 'No data match your filter.'
             });
-          } if (this.chartData.xAxis.categories.length > 100) {
-            this.notificationService.showErrorMessage({
-              title: 'error',
-              content: 'Too many data. Cannot render chart.'
-            });
           } else {
-            this.loadHighChart();
+            this.loadHighChart(start_timestamp, end_timestamp);
           }
         }
         this.isRequesting = false;
@@ -93,19 +93,27 @@ export class ZoneHistoryComponent implements OnInit {
       });
   }
 
-  loadHighChart() {
+  loadHighChart(start_timestamp, end_timestamp) {
     System.import('script-loader!highcharts').then(() => {
-      return System.import('script-loader!highcharts/highcharts.js')
+      return System.import('script-loader!highcharts/highcharts.js');
     }).then(() => {
-      this.initChart();
-    })
+      this.initChart(start_timestamp, end_timestamp);
+    });
   }
 
-  initChart() {
+  initChart(start_timestamp, end_timestamp) {
+    Highcharts.setOptions({
+      global : {
+        useUTC : false
+      }
+    });
     this.chartData.series.forEach((series, index) => {
+
+      let pointInterval = Math.round((end_timestamp - start_timestamp) / series.data.length);
       let chartOpts = {
         chart: {
           backgroundColor: '#F5F3EB',
+          type: 'spline'
         },
         title: {
           text: series.name
@@ -118,13 +126,26 @@ export class ZoneHistoryComponent implements OnInit {
         tooltip: {
           valueSuffix: series.valueSuffix
         },
-        xAxis: this.chartData.xAxis,
+        plotOptions: {
+          spline: {
+            pointInterval: pointInterval,
+            // TODO: Work around
+            pointStart: start_timestamp// - ((new Date()).getTimezoneOffset() * 60 * 1000)
+          }
+        },
+        xAxis: {
+          type: 'datetime',
+          labels: {
+            overflow: 'justify'
+          }
+        },
         series: [
           series
         ]
       };
       if (this.charts[index]) {
-        this.charts[index].update(chartOpts);
+        this.charts[index].destroy();
+        this.charts[index] = Highcharts.chart('chart-container-' + index, chartOpts);
       } else {
         let chart = Highcharts.chart('chart-container-' + index, chartOpts);
         this.charts.push(chart);

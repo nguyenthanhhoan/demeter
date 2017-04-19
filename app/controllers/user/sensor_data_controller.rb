@@ -1,8 +1,12 @@
 class User::SensorDataController < AuthorizedController
 
   def query_in_timestamp
-    sensor_data = DynamodbService.get_data_in(params[:start_timestamp], params[:end_timestamp])
-    render json: sensor_data
+    start_timestamp = params[:start_timestamp]
+    end_timestamp = params[:end_timestamp]
+    sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp)
+
+    sensor_data_normalized = DynamodbService.normalize_data(start_timestamp, end_timestamp, sensor_data, 300)
+    render json: sensor_data_normalized
   end
 
 end
