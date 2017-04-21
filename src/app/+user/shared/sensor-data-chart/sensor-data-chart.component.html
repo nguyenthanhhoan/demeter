@@ -1,4 +1,20 @@
 <div *ngIf="first_loaded">
-  <div id="chart-container-0" class="chart-container"></div>
-  <div id="chart-container-1" class="chart-container"></div>
+  <div class="chart-tabs-wrap">
+    <div class="chart-tabs">
+      <div class="chart-tab" 
+        [ngClass]="chart === activeChartTab ? 'active' : ''"
+        *ngFor="let chart of chartTabs" (click)="setActiveChartTab(chart)">
+        <p class="num">{{chart.lastest_data}}</p>
+        <p class="chart-name">{{chart.name}}</p>
+      </div>
+    </div>
+    <div *ngFor="let chart of chartTabs; let i = index">
+      <div id="chart-container-{{i}}" class="chart-container" [hidden]="chart != activeChartTab"></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!first_loaded">
+  <div class="spinner-wrapper">
+    <app-spinner [isRunning]="!first_loaded"></app-spinner>
+  </div>
 </div>

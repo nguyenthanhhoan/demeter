@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Observable } from 'rxjs/Rx';
+import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subscription } from 'rxjs/Rx';
 
-import { NotificationService } from "../../../shared/utils/notification.service";
+import { NotificationService } from '../../../shared/utils/notification.service';
 import { ZoneService } from '../../../core/services/zone.service';
 import { SensorDataService } from '../../../core/services/sensor-data.service';
 
@@ -13,123 +13,173 @@ declare var Highcharts: any;
   templateUrl: './sensor-data-chart.component.html',
   styleUrls: ['./sensor-data-chart.component.css']
 })
-export class SensorDataChartComponent implements OnInit {
+export class SensorDataChartComponent extends OnDestroy {
 
   project_id: number;
   zone_id: number;
 
-  chartData: any = {
-    xAxis: {
-      categories: []
-    },
-    series: []
-  }
   isRequesting = false;
   first_loaded = false;
   last_timestamp: any;
-  charts: any[] = [];
+
+  chartTabs: any[] = [{
+    lastest_data: null,
+    name: 'Temp(°C)',
+    chart_series: [],
+    chart_ref: null
+  }, {
+    lastest_data: null,
+    name: 'Humidity(%)',
+    chart_series: [],
+    chart_ref: null
+  }];
+  activeChartTab = this.chartTabs[0];
+
+  // Show last 5 minutes data
+  timeline = 5 * 60 * 1000;
+
+  // Timer to simulate real-time
+  subscription: Subscription;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
               private sensorDataService: SensorDataService) {
 
+    super();
     this.project_id = +this.route.snapshot.params['project_id'];
     this.zone_id = +this.route.snapshot.params['id'];
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
+  setActiveChartTab(chartTab) {
+    this.activeChartTab = chartTab;
+    this.switchTab();
+  }
+
+  switchTab() {
+    this.loadChart(this.activeChartTab);
   }
 
   initData() {
-    //TODO: Should load from the beginning of the day
-    let start_timestamp = moment().valueOf() - 5 * 60 * 1000;
+    let start_timestamp = moment().valueOf() - this.timeline;
     let end_timestamp = this.last_timestamp = moment().valueOf();
     this.isRequesting = true;
     this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;
-          this.chartData = data;
-          console.log('Number of points returned ', this.chartData.xAxis.categories.length);
-          if (this.chartData.xAxis.categories.length == 0) {
+          console.log('Number of points returned ', data.xAxis.categories.length);
+
+          if (data.xAxis.categories.length === 0) {
             this.notificationService.showErrorMessage({
               title: 'error',
               content: 'No data match your filter.'
             });
-          } if (this.chartData.xAxis.categories.length > 100) {
-            this.notificationService.showErrorMessage({
-              title: 'error',
-              content: 'Too many data. Cannot render chart.'
-            });
           } else {
+            // Init chart data with data in the first time request
+            this.chartTabs.forEach((chartTab, index) => {
+              chartTab.chart_series = data.series[index];
 
-            //Using timer to make sure DOM has ready
-            let timer = Observable.timer(1);
-            timer.subscribe(() => {
-              this.loadHighChart();
-              this.handleDataRealTime();
+              let length = data.series[index].data.length;
+              chartTab.lastest_data = data.series[index].data[length - 1];
             });
+            this.loadHighChart(start_timestamp, end_timestamp);
+            this.handleDataRealTime();
           }
         }
         this.isRequesting = false;
       });
   }
 
-  loadHighChart() {
+  loadHighChart(start_timestamp, end_timestamp) {
     System.import('script-loader!highcharts').then(() => {
-      return System.import('script-loader!highcharts/highcharts.js')
+      return System.import('script-loader!highcharts/highcharts.js');
     }).then(() => {
-      this.initChart();
-    })
+      Highcharts.setOptions({
+        global : {
+          useUTC : false
+        }
+      });
+      this.loadChart(this.activeChartTab);
+    });
   }
 
-  initChart() {
-    this.chartData.series.forEach((series, index) => {
-      let chartOpts = {
-        chart: {
-          backgroundColor: '#F5F3EB',
-        },
+  loadChart(chartData) {
+    let index = this.chartTabs.indexOf(chartData);
+    let series = chartData.chart_series;
+    let pointInterval = Math.round((this.timeline) / series.data.length);
+    let chartOpts = {
+      chart: {
+        backgroundColor: '#F5F3EB',
+        type: 'spline'
+      },
+      title: {
+        text: ''
+      },
+      yAxis: {
         title: {
-          text: series.name
-        },
-        yAxis: {
-          title: {
-            text: ''
-          }
-        },
-        tooltip: {
-          valueSuffix: series.valueSuffix
-        },
-        xAxis: this.chartData.xAxis,
-        series: [
-          series
-        ]
-      };
-      if (this.charts[index]) {
-        this.charts[index].update(chartOpts);
+          text: ''
+        }
+      },
+      tooltip: {
+        valueSuffix: series.valueSuffix
+      },
+      plotOptions: {
+        spline: {
+          pointInterval: pointInterval,
+          pointStart: moment().valueOf() - this.timeline
+        }
+      },
+      xAxis: {
+        type: 'datetime',
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      series: [
+        series
+      ]
+    };
+    setTimeout(() => {
+      if (chartData.chart_ref) {
+        chartData.chart_ref.update(chartOpts);
       } else {
-        let chart = Highcharts.chart('chart-container-' + index, chartOpts);
-        this.charts.push(chart);
+        chartData.chart_ref = Highcharts.chart('chart-container-' + index, chartOpts);
       }
     });
   }
 
-  //Ideally, this should use Websocket
+  // Ideally, this should use Websocket
   handleDataRealTime() {
     let timer = Observable.timer(1000, 5000);
-    timer.subscribe(() => {
+    this.subscription = timer.subscribe(() => {
       let start_timestamp = this.last_timestamp;
       let end_timestamp = this.last_timestamp = moment().valueOf();
       this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
         .subscribe((data) => {
           if (data) {
-            this.charts.forEach((chart, index) => {
-              data.xAxis.categories.forEach((deltaPoint, point_index) => {
-                let chart = this.charts[index];
-                chart.series[0].addPoint([deltaPoint, data.series[index].data[point_index]], true, true);
-              })
+            let newDataReceiveds = data.xAxis.categories;
+            this.chartTabs.forEach((chartTab, index) => {
+
+              if (chartTab === this.activeChartTab) {
+                // Push data through Highchart API
+                newDataReceiveds.forEach((deltaPoint, point_index) => {
+                  chartTab.chart_ref.series[0]
+                    .addPoint([deltaPoint, data.series[index].data[point_index]], true, true);
+                });
+              }
+
+              // Push data manually into chart data
+              newDataReceiveds.forEach((deltaPoint, point_index) => {
+                chartTab.chart_series.data.push(data.series[index].data[point_index]);
+
+                let length = data.series[index].data.length;
+                chartTab.lastest_data = data.series[index].data[length - 1];
+              });
             });
           }
         });
