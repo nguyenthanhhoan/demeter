@@ -108,7 +108,6 @@ export class ZoneHistoryComponent implements OnInit {
       }
     });
     this.chartData.series.forEach((series, index) => {
-
       let pointInterval = Math.round((end_timestamp - start_timestamp) / series.data.length);
       let chartOpts = {
         chart: {
@@ -121,7 +120,9 @@ export class ZoneHistoryComponent implements OnInit {
         yAxis: {
           title: {
             text: ''
-          }
+          },
+          min: Math.round(Math.min(...series.data)) - series.diff,
+          max: Math.round(Math.max(...series.data)) + series.diff
         },
         tooltip: {
           valueSuffix: series.valueSuffix

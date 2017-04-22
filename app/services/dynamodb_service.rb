@@ -34,7 +34,9 @@ class DynamodbService
         result_point = points.bsearch { |x| 
           Integer(x['timestamp']) >= start_time + time_step * i
         }
-        result_points << result_point
+        unless result_point.blank?
+          result_points << result_point
+        end
       }
       result_points.to_json
     else

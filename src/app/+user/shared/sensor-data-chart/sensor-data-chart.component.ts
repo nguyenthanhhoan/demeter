@@ -32,6 +32,11 @@ export class SensorDataChartComponent extends OnDestroy {
     name: 'Humidity(%)',
     chart_series: [],
     chart_ref: null
+  }, {
+    lastest_data: null,
+    name: 'Illuminances(lx)',
+    chart_series: [],
+    chart_ref: null
   }];
   activeChartTab = this.chartTabs[0];
 
@@ -123,7 +128,9 @@ export class SensorDataChartComponent extends OnDestroy {
       yAxis: {
         title: {
           text: ''
-        }
+        },
+        min: Math.round(Math.min(...series.data)) - series.diff,
+        max: Math.round(Math.max(...series.data)) + series.diff
       },
       tooltip: {
         valueSuffix: series.valueSuffix
@@ -140,9 +147,11 @@ export class SensorDataChartComponent extends OnDestroy {
           overflow: 'justify'
         }
       },
-      series: [
-        series
-      ]
+      series: [{
+        name: series.name,
+        valueSuffix: series.valueSuffix,
+        data: [...series.data]
+      }]
     };
     setTimeout(() => {
       if (chartData.chart_ref) {
@@ -168,6 +177,7 @@ export class SensorDataChartComponent extends OnDestroy {
               if (chartTab === this.activeChartTab) {
                 // Push data through Highchart API
                 newDataReceiveds.forEach((deltaPoint, point_index) => {
+
                   chartTab.chart_ref.series[0]
                     .addPoint([deltaPoint, data.series[index].data[point_index]], true, true);
                 });
@@ -176,6 +186,7 @@ export class SensorDataChartComponent extends OnDestroy {
               // Push data manually into chart data
               newDataReceiveds.forEach((deltaPoint, point_index) => {
                 chartTab.chart_series.data.push(data.series[index].data[point_index]);
+                chartTab.chart_series.data.splice(0, 1);
 
                 let length = data.series[index].data.length;
                 chartTab.lastest_data = data.series[index].data[length - 1];

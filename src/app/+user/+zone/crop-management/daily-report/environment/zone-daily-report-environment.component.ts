@@ -26,8 +26,9 @@ export class ZoneDailyReportEnvironmentComponent {
   };
   isRequesting = false;
   first_loaded = false;
-  last_timestamp: any;
   charts: any[] = [];
+
+  timeline: number;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -39,9 +40,12 @@ export class ZoneDailyReportEnvironmentComponent {
   }
 
   initData() {
-    // TODO: Should load from the beginning of the day
-    let start_timestamp = moment().valueOf() - 5 * 60 * 1000;
-    let end_timestamp = this.last_timestamp = moment().valueOf();
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+    let start_timestamp = start.valueOf();
+    let end_timestamp = end.valueOf();
     this.isRequesting = true;
     this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
       .subscribe((data) => {
@@ -54,17 +58,12 @@ export class ZoneDailyReportEnvironmentComponent {
               title: 'error',
               content: 'No data match your filter.'
             });
-          } if (this.chartData.xAxis.categories.length > 100) {
-            this.notificationService.showErrorMessage({
-              title: 'error',
-              content: 'Too many data. Cannot render chart.'
-            });
           } else {
 
             // Using timer to make sure DOM has ready
             let timer = Observable.timer(1);
             timer.subscribe(() => {
-              this.loadHighChart();
+              this.loadHighChart(start_timestamp, end_timestamp);
             });
           }
         }
@@ -72,19 +71,30 @@ export class ZoneDailyReportEnvironmentComponent {
       });
   }
 
-  loadHighChart() {
+  loadHighChart(start_timestamp, end_timestamp) {
     System.import('script-loader!highcharts').then(() => {
       return System.import('script-loader!highcharts/highcharts.js')
     }).then(() => {
-      this.initChart();
+      Highcharts.setOptions({
+        global : {
+          useUTC : false
+        }
+      });
+      this.initChart(start_timestamp, end_timestamp);
     });
   }
 
-  initChart() {
+  initChart(start_timestamp, end_timestamp) {
+    // End timestamp should be the lastest timestamp returned
+    let timestamps = this.chartData.timestamps;
+    end_timestamp = timestamps[timestamps.length - 1];
+    this.timeline = end_timestamp - start_timestamp;
     this.chartData.series.forEach((series, index) => {
+      let pointInterval = Math.round((this.timeline) / series.data.length);
       let chartOpts = {
         chart: {
           backgroundColor: '#F5F3EB',
+          type: 'spline'
         },
         title: {
           text: series.name
@@ -92,12 +102,25 @@ export class ZoneDailyReportEnvironmentComponent {
         yAxis: {
           title: {
             text: ''
-          }
+          },
+          min: Math.round(Math.min(...series.data)) - series.diff,
+          max: Math.round(Math.max(...series.data)) + series.diff
         },
         tooltip: {
           valueSuffix: series.valueSuffix
         },
-        xAxis: this.chartData.xAxis,
+        plotOptions: {
+        spline: {
+            pointInterval: pointInterval,
+            pointStart: start_timestamp
+          }
+        },
+        xAxis: {
+          type: 'datetime',
+          labels: {
+            overflow: 'justify'
+          }
+        },
         series: [
           series
         ]
