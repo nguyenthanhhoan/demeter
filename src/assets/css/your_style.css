@@ -94,6 +94,11 @@ body {
   border-color: #BDBDBD;
 }
 
+.smart-form .select2-container .select2-choice, 
+.smart-form .select2-selection {
+  padding: 0 8px;
+}
+
 /**
  * Demeter style
  **/

@@ -14,8 +14,12 @@
             <div class="row">
               <label class="col col-4 label">Type</label>
               <div class="col col-8">
-                <label class="input">
-                  <input type="text" [(ngModel)]="pest_disease.type" name="type">
+                <label class="select">
+                  <select [(ngModel)]="pest_disease.type" name="type" (change)="changeType()">
+                    <option value="Disease">Disease</option>
+                    <option value="Pests">Pests</option>
+                    <option value="Weeds">Weeds</option>
+                  </select><i></i>
                 </label>
               </div>
             </div>
@@ -24,9 +28,10 @@
             <div class="row">
               <label class="col col-4 label">Sub Type</label>
               <div class="col col-8">
-                <label class="input">
-                  <input type="text" [(ngModel)]="pest_disease.sub_type" name="sub_type">
-                </label>
+                <select select2 style="width:100%" class="select2" 
+                  (onSelect)="updateSubType($event)" name="sub_type">
+                  <option *ngFor="let type of sub_types" [ngValue]="type">{{type}}</option>
+                </select>
               </div>
             </div>
           </section>

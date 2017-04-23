@@ -15,8 +15,34 @@ export class PestDiseaseFormComponent {
   pest_disease: any = {};
   mode: string;
 
+  weed_types = [
+    'Annual bluegrass',
+    'Canada thistle',
+    'Large crabgrass'
+  ];
+
+  disease_types = [
+    'Alfalfa mosaic virus',
+    'Bacterial leaf spot',
+    'Bacterial soft rot',
+    'Black root rot',
+    'Chrisanthemum ray blight'
+  ];
+
+  pest_types = [
+    'Alfalfa looper',
+    'Bean thrips',
+    'Cotton aphid',
+    'Crane fly',
+    'European earwig',
+    'Fall armyworm'
+  ];
+
+  sub_types = [];
+
   constructor(private router: Router,
               private route: ActivatedRoute) {
+
   }
 
   open(pest_disease) {
@@ -33,6 +59,26 @@ export class PestDiseaseFormComponent {
   saveOrUpdate() {
     this.lgModal.hide();
     this.resolve.emit(this.pest_disease);
+  }
+
+  changeType() {
+    switch (this.pest_disease.type) {
+      case 'Disease':
+        this.sub_types = this.disease_types;
+        break;
+      case 'Pests':
+        this.sub_types = this.pest_types;
+        break;
+      case 'Weeds':
+        this.sub_types = this.weed_types;
+        break;
+      default:
+        break;
+    }
+  }
+
+  updateSubType(value) {
+    this.pest_disease.sub_type = value;
   }
 
 }
