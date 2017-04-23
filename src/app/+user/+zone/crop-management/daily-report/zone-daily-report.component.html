@@ -2,8 +2,16 @@
   <div class="demeter-title">Report</div>
 </div>
 
+<ul class="date-nav-tabs">
+  <li class="date-nav-tab" 
+    [class.active]="activeDate == date"
+    (click)="setDate(date)"
+    routerLink="/{{path}}/{{date.date}}"
+    *ngFor="let date of dates">
+    {{ date.date_display }}
+  </li>
+</ul>
 <div class="demeter-pane">
-
   <ul class="nav nav-tabs bordered">
     <li [class.active]="state.tabs.activeTab == 0">
       <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Overview</a>
@@ -31,7 +39,9 @@
         <zone-daily-report-overview [zone]="zone"></zone-daily-report-overview>
       </tab>
       <tab [active]="state.tabs.activeTab == 1" (select)="environmentTab.initData()">
-        <zone-daily-report-environment #environmentTab></zone-daily-report-environment>
+        <zone-daily-report-environment #environmentTab 
+          [date]="activeDate.date"
+           [isActive]="state.tabs.activeTab == 1"></zone-daily-report-environment>
       </tab>
       <tab [active]="state.tabs.activeTab == 2">
         <zone-daily-report-usage [zone]="zone"></zone-daily-report-usage>

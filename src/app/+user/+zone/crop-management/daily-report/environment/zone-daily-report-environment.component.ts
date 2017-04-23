@@ -1,7 +1,8 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
+import { AppSettings } from '../../../../../app.settings';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 import { ZoneService } from '../../../../../core/services/zone.service';
 import { SensorDataService } from '../../../../../core/services/sensor-data.service';
@@ -13,8 +14,10 @@ declare var Highcharts: any;
   templateUrl: './zone-daily-report-environment.component.html',
   styleUrls: ['./zone-daily-report-environment.component.css']
 })
-export class ZoneDailyReportEnvironmentComponent {
+export class ZoneDailyReportEnvironmentComponent implements OnChanges {
 
+  @Input() date: string;
+  @Input() isActive: boolean;
   project_id: number;
   zone_id: number;
 
@@ -39,13 +42,37 @@ export class ZoneDailyReportEnvironmentComponent {
     this.zone_id = +this.route.snapshot.params['id'];
   }
 
+  // When date filter select
+  ngOnChanges() {
+    if (this.date && this.isActive) {
+      this.requestDailyChartDataByDate(this.date);
+    }
+  }
+
+  // When switch tab
   initData() {
-    let start = new Date();
+    if (this.date) {
+      this.requestDailyChartDataByDate(this.date);
+    } else {
+      this.date = moment().format(AppSettings.date_time_format.date_iso);
+      this.requestDailyChartDataByDate(this.date);
+    }
+  }
+
+  requestDailyChartDataByDate(date) {
+    console.log('requestDailyChartDataByDate', date);
+    let start = new Date(date);
     start.setHours(0, 0, 0, 0);
-    let end = new Date();
+
+    let end = new Date(date);
     end.setHours(23, 59, 59, 999);
+
     let start_timestamp = start.valueOf();
     let end_timestamp = end.valueOf();
+    this.requestDailyChartData(start_timestamp, end_timestamp);
+  }
+
+  requestDailyChartData(start_timestamp, end_timestamp) {
     this.isRequesting = true;
     this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
       .subscribe((data) => {
@@ -126,11 +153,10 @@ export class ZoneDailyReportEnvironmentComponent {
         ]
       };
       if (this.charts[index]) {
-        this.charts[index].update(chartOpts);
-      } else {
-        let chart = Highcharts.chart('chart-container-' + index, chartOpts);
-        this.charts.push(chart);
+        this.charts[index].destroy();
       }
+      let chart = Highcharts.chart('chart-container-' + index, chartOpts);
+      this.charts[index] = chart;
     });
   }
 }

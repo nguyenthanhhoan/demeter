@@ -4,11 +4,11 @@
 
 
 import {Routes, RouterModule} from '@angular/router';
-import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
-import {AdminLayoutComponent} from "./+admin/shared/layout/admin-layout/admin-layout.component";
+import {AuthLayoutComponent} from './shared/layout/app-layouts/auth-layout.component';
+import {AdminLayoutComponent} from './+admin/shared/layout/admin-layout/admin-layout.component';
 import {UserLayoutComponent} from './+user/shared/layout/user-layout/user-layout.component';
 import {UserLayoutProjectListComponent} from './+user/shared/layout/user-layout/user-layout-project-list.component';
-import {ModuleWithProviders} from "@angular/core";
+import {ModuleWithProviders} from '@angular/core';
 import { AuthGuard } from './+auth/auth-guard.service';
 
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
@@ -80,9 +80,14 @@ export const routes: Routes = [
                         }, {
                             path: 'setting', component: ZoneSettingComponent
                         }, {
-                            path: 'daily-report', component: ZoneDailyReportComponent
+                            path: 'daily-report',
+                            children: [{
+                                path: '', component: ZoneDailyReportComponent
+                            }, {
+                                path: ':date', component: ZoneDailyReportComponent
+                            }]
                         }, {
-                            path: 'okr', 
+                            path: 'okr',
                             children: [{
                                 path: '', component: ZoneOKRComponent,
                             }, {
