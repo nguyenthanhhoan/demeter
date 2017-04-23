@@ -24,7 +24,7 @@
           <tr *ngFor="let irrigation of irrigations; let i = index;" class="demeter-pane">
             <td>{{i + 1}}
             <td>{{irrigation.time}}</td>
-            <td>{{irrigation.event}}</td>
+            <td>{{irrigation.event.label}}</td>
             <td>{{irrigation.duration}}</td>
             <td>{{irrigation.ec}}</td>
             <td>{{irrigation.ph}}</td>

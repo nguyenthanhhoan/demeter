@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 
+import { AppSettings } from '../../../../../app.settings';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 import { ZoneService } from '../../../../../core/services/zone.service';
 import { CameraService } from '../../../../../core/services/camera.service';
@@ -20,10 +21,12 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   project_id: number;
   zone_id: number;
 
+  irrigationType = AppSettings.irrigationType;
+
   irrigations = [{
     id: 1,
     time: moment('2016-04-05 05:00').format('hh:mm A'),
-    event: 'Watering',
+    event: 'watering',
     duration: 20,
     ec: 1.2,
     ph: 7,
@@ -33,7 +36,7 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   }, {
     id: 2,
     time: moment('2016-04-05 12:00').format('hh:mm A'),
-    event: 'Watering',
+    event: 'watering',
     duration: 15,
     ec: 1,
     ph: 6.5,
@@ -43,7 +46,7 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   }, {
     id: 3,
     time: moment('2016-04-05 17:00').format('hh:mm A'),
-    event: 'Watering & Fertilizer',
+    event: 'watering_fertilizer',
     duration: 5,
     ec: 1,
     ph: 5,
@@ -126,6 +129,9 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.irrigations.forEach((irrigation) => {
+      irrigation.event = this.irrigationType[irrigation.event];
+    });
   }
 
   ngDoCheck() {
