@@ -118,9 +118,9 @@
 <div class="demeter-panel-dark" *ngIf="setting.showCamera">
   <div class="panel-title">Camera</div>
   <div class="demeter-pane">
-    <div class="camera-wrapper">
-      <div class="camera-pic-holder">
-      </div>
+    <div *ngFor="let camera of cameraQuickViews">
+      <app-camera [camera]="camera"></app-camera>
+      <p class="camera-name">{{camera.camera_name}}</p>
     </div>
   </div>
 </div>

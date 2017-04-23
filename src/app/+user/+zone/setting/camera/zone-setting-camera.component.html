@@ -5,7 +5,7 @@
       <label>List of Cameras</label>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        (click)="lgModal.show()">Add</button>
+        (click)="cameraSelectModal.show()">Add</button>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -30,42 +30,4 @@
   </fieldset>
 </form>
 
-<div bsModal #lgModal="bs-modal" class="modal fade">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Add Camera</h4>
-      </div>
-      <div class="modal-body">
-        <app-spinner [isRunning]="isRequesting"></app-spinner>
-        <form class="smart-form" #selectForm="ngForm">
-          <div class="row">
-            <section>
-              <label class="col col-4 label">Camera Source</label>
-              <div class="col col-8">
-                <label class="select">
-                  <select [(ngModel)]="selectedCamera" class="input" name="selectedCamera" required>
-                    <option *ngFor="let camera of all_cameras" [ngValue]="camera">{{camera.camera_name}}</option>
-                  </select> <i></i> 
-                </label>
-              </div>
-            </section>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="lgModal.hide()">
-          Cancel
-        </button>
-        <button type="button" 
-          [disabled]="!selectForm.valid"
-          class="btn btn-primary" (click)="onSelectCamera()">
-          OK
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<camera-select-modal #cameraSelectModal mode="assign_camera_to_zone" (onResolve)="reloadZone()"></camera-select-modal>

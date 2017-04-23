@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411095829) do
+ActiveRecord::Schema.define(version: 20170422182455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(version: 20170411095829) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "cameras_zones", id: false, force: :cascade do |t|
+  create_table "cameras_zones", force: :cascade do |t|
     t.integer "camera_id"
     t.integer "zone_id"
+    t.boolean "is_primary"
     t.index ["camera_id", "zone_id"], name: "cameras_zones_index", unique: true, using: :btree
   end
 

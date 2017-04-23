@@ -145,7 +145,7 @@
     <section class="table-section">
       <label>List of Quick View Cameras</label>
       <button 
-        class="demeter-btn create-btn primary pull-right">Add</button>
+        class="demeter-btn create-btn primary pull-right" (click)="cameraSelectModal.show()">Add</button>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -159,10 +159,7 @@
             <td>{{camera.no}}</td>
             <td>{{camera.name}}</td>
             <td class="col-actions">
-              <a>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="unAssignQuickViewCamera(camera)">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -182,3 +179,5 @@
     </div>
   </div>
 </form>
+
+<camera-select-modal #cameraSelectModal mode="assign_quick_view" (onResolve)="reloadZone()"></camera-select-modal>

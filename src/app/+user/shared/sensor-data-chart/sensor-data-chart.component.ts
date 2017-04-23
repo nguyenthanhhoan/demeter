@@ -57,7 +57,9 @@ export class SensorDataChartComponent extends OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   setActiveChartTab(chartTab) {
@@ -157,6 +159,7 @@ export class SensorDataChartComponent extends OnDestroy {
       if (chartData.chart_ref) {
         chartData.chart_ref.update(chartOpts);
       } else {
+        // TODO: Check chart-container present first, maybe the page has been navigated out
         chartData.chart_ref = Highcharts.chart('chart-container-' + index, chartOpts);
       }
     });

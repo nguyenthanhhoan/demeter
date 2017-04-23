@@ -25,10 +25,10 @@
         <zone-form [zone]="zone" [type]="'edit'"></zone-form>
       </tab>
       <tab [active]="state.tabs.activeTab == 1">
-        <zone-setting-summary [zone]="zone"></zone-setting-summary>
+        <zone-setting-summary [zone]="zone" (onRefresh)="loadZone()"></zone-setting-summary>
       </tab>
       <tab [active]="state.tabs.activeTab == 2">
-        <zone-setting-camera [zone]="zone"></zone-setting-camera>
+        <zone-setting-camera [zone]="zone" (onRefresh)="loadZone()"></zone-setting-camera>
       </tab>
     </tabset>
   </div>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
         post 'setting' => 'zones#update_setting'
         post 'assign_camera' => 'zones#assign_camera'
         post 'unassign_camera' => 'zones#unassign_camera'
+        post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
+        post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
       end
     end
   end

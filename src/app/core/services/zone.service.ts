@@ -74,6 +74,20 @@ export class ZoneService {
     });
   }
 
+  assignQuickViewCamera(project_id, zone_id, camera_id): Observable<any> {
+    return this.apiService
+      .post(`projects/${project_id}/zones/${zone_id}/assign_quick_view_camera`, {
+      camera_id: camera_id
+    });
+  }
+
+  unAssignQuickViewCamera(project_id, zone_id, camera_id): Observable<any> {
+    return this.apiService
+      .post(`projects/${project_id}/zones/${zone_id}/unassign_quick_view_camera`, {
+      camera_id: camera_id
+    });
+  }
+
   getOKRData(project_id, zone_id): Observable<any> {
     return this.jsonApiService.fetch(`/zone/okr.json`);
   }

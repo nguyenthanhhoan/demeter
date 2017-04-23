@@ -1,8 +1,9 @@
-import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { ModalDirective } from "ng2-bootstrap";
+import { Component, OnInit, DoCheck, Input, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
+import * as _ from 'lodash';
 
-import { NotificationService } from "../../../../shared/utils/notification.service";
+import { NotificationService } from '../../../../shared/utils/notification.service';
 import { ZoneService } from '../../../../core/services/zone.service';
 import { CameraService } from '../../../../core/services/camera.service';
 
@@ -13,21 +14,16 @@ import { CameraService } from '../../../../core/services/camera.service';
 })
 export class ZoneSettingCameraComponent implements OnInit, DoCheck {
 
-  @Input()
-  zone: any;
+  @Input() zone: any;
+  @Output() onRefresh = new EventEmitter();
+
   oldZone: any = {};
   project_id: number;
   zone_id: number;
-  isRequesting = false;
 
-  setting: {} = {}
+  cameras = [];
 
-  cameras = []
-
-  all_cameras = []
-  selectedCamera: any;
-
-  @ViewChild('lgModal') public lgModal:ModalDirective
+  all_cameras = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -46,25 +42,22 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
-      this.oldZone = this.zone;
-      this.setting = this.zone.setting;
-      this.cameras = this.zone.cameras;
+    let changeDetected = false;
+    if (this.zone && this.zone.id && this.oldZone.id !== this.zone.id) {
+      changeDetected = true;
     }
-  }
 
-  onSelectCamera() {
-    this.isRequesting = true;
-    if (this.selectedCamera) {
-      this.zoneService.assignCamera(this.project_id, this.zone_id, this.selectedCamera.id)
-      .subscribe((data) => {
-        this.isRequesting = false;
-        this.lgModal.hide();
-        this.notificationService.showMessage('Assign camera successfully!');
-        this.reloadZone();
-      }, (error) => {
-        this.isRequesting = false;
-      })
+    if (this.zone && this.zone.id &&
+      !_.isEqual(this.zone.cameras, this.oldZone.cameras)) {
+
+      changeDetected = true;
+    }
+
+    if (changeDetected) {
+      this.oldZone = {
+        id: this.zone.id
+      };
+      this.cameras = [...this.zone.cameras];
     }
   }
 
@@ -76,17 +69,11 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
       .subscribe((data) => {
         this.notificationService.showMessage('Remove camera successfully!');
         this.reloadZone();
-      })
-    })
+      });
+    });
   }
 
   reloadZone() {
-    this.zoneService.getOne(this.project_id, this.zone_id)
-      .subscribe((zone) => {
-        this.zone = zone;
-        this.oldZone = this.zone;
-        this.setting = this.zone.setting;
-        this.cameras = this.zone.cameras;
-      })
+    this.onRefresh.emit({});
   }
 }
