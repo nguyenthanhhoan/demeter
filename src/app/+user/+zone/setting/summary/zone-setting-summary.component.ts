@@ -74,12 +74,6 @@ export class ZoneSettingSummaryComponent implements DoCheck {
       changeDetected = true;
     }
 
-    if (this.zone && this.zone.id &&
-      !_.isEqual(this.zone.setting, this.setting)) {
-
-      changeDetected = true;
-    }
-
     if (changeDetected) {
       this.oldZone = {
         id: this.zone.id,
