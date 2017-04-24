@@ -40,6 +40,10 @@
   bottom: 0px;
 }
 
+.image-single img {
+  cursor: pointer;
+}
+
 .image-single:hover .image-actions {
   opacity: 1;
 }

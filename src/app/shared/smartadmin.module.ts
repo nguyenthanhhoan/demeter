@@ -31,6 +31,7 @@ import {UtilsModule} from "./utils/utils.module";
 // import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.module";
 
 import { SpinnerModule } from './spinner/spinner.module';
+import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { SpinnerModule } from './spinner/spinner.module';
     CommonModule, FormsModule, HttpModule, RouterModule,
   ],
   declarations: [
-
+    ImageGalleryDirective
   ],
   exports: [
     CommonModule, FormsModule, HttpModule, RouterModule,
@@ -75,7 +76,8 @@ import { SpinnerModule } from './spinner/spinner.module';
     // StatsModule,
 
     // VoiceControlModule,
-    SpinnerModule
+    SpinnerModule,
+    ImageGalleryDirective
 
   ]
 })

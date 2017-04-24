@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
+import * as _ from 'lodash';
 
 import { AppSettings } from '../../../../../app.settings';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
@@ -73,43 +74,62 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     amount: 0.2
   }];
 
-  photo_reports = [{
-    title: 'Growing Images',
-    images: [{
-      src: 'assets/img/demo/s1.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s2.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s3.jpg',
-      title: 'Date 1'
-    }]
+  image_report_types: any[] = [{
+    name: 'Growing Images'
   }, {
-    title: 'Leaves Images',
-    images: [{
-      src: 'assets/img/demo/s1.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s2.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s3.jpg',
-      title: 'Date 1'
-    }]
+    name: 'Leaves Images'
   }, {
-    title: 'Height Images',
-    images: [{
-      src: 'assets/img/demo/s1.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s2.jpg',
-      title: 'Date 1'
-    }, {
-      src: 'assets/img/demo/s3.jpg',
-      title: 'Date 1'
-    }]
+    name: 'Height Images'
   }];
+
+  image_reports: any[] = [{
+    id: 1,
+    src: 'assets/img/demo/s1.jpg',
+    type: this.image_report_types[0],
+    title: 'Date 1'
+  }, {
+    id: 2,
+    src: 'assets/img/demo/s2.jpg',
+    type: this.image_report_types[0],
+    title: 'Date 1'
+  }, {
+    id: 3,
+    src: 'assets/img/demo/s3.jpg',
+    type: this.image_report_types[0],
+    title: 'Date 1'
+  }, {
+    id: 4,
+    src: 'assets/img/demo/s1.jpg',
+    type: this.image_report_types[1],
+    title: 'Date 1'
+  }, {
+    id: 5,
+    src: 'assets/img/demo/s2.jpg',
+    type: this.image_report_types[1],
+    title: 'Date 1'
+  }, {
+    id: 6,
+    src: 'assets/img/demo/s3.jpg',
+    type: this.image_report_types[1],
+    title: 'Date 1'
+  }, {
+    id: 7,
+    src: 'assets/img/demo/s1.jpg',
+    type: this.image_report_types[2],
+    title: 'Date 1'
+  }, {
+    id: 8,
+    src: 'assets/img/demo/s2.jpg',
+    type: this.image_report_types[2],
+    title: 'Date 1'
+  }, {
+    id: 9,
+    src: 'assets/img/demo/s3.jpg',
+    type: this.image_report_types[2],
+    title: 'Date 1'
+  }];
+
+  image_report_groups: any[] = [];
 
   notes = [{
     title: 'Note 1',
@@ -132,6 +152,8 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     this.irrigations.forEach((irrigation) => {
       irrigation.event = this.irrigationType[irrigation.event];
     });
+
+    this.buildImageReportGroups();
   }
 
   ngDoCheck() {
@@ -166,6 +188,20 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     }
   }
 
+  imageReportFormResolve(image_report) {
+    if (image_report.id) {
+      let found = this.image_reports.find((loop_image_report) => {
+        return loop_image_report.id === image_report.id;
+      });
+      Object.assign(found, image_report);
+    } else {
+      let clone_irr = Object.assign({}, image_report);
+      clone_irr.id = (new Date()).getTime();
+      this.image_reports.push(clone_irr);
+    }
+    this.buildImageReportGroups();
+  }
+
   remove(item, type) {
     this.notificationService.confirmBox({
       content: `Do you want to remove this ${type}?`
@@ -178,12 +214,30 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
         case 'Pests / Disease':
           items = this.pest_diseases;
           break;
+        case 'Image':
+          items = this.image_reports;
+          break;
         default:
           break;
       }
       let index = items.indexOf(item);
-      items.splice(item, 1);
+      items.splice(index, 1);
       this.notificationService.showMessage(`Remove ${type} successfully!`);
+      this.buildImageReportGroups();
     });
+  }
+
+  buildImageReportGroups() {
+    this.image_reports.forEach((image_report) => {
+      image_report.type_name = image_report.type.name;
+    });
+    let result = _.chain(this.image_reports)
+    .groupBy('type_name')
+    .toPairs()
+    .map(function(currentItem) {
+      return _.zipObject(['type_name', 'images'], currentItem);
+    })
+    .value();
+    this.image_report_groups = result;
   }
 }

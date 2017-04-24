@@ -10,7 +10,8 @@ import 'rxjs/add/operator/mergeMap';
 window['jQuery'] = require('jquery');
 window['$'] = window['jQuery'];
 window['flowplayer'] = require('flowplayer/dist/flowplayer.js');
-import 'jquery-ui-npm/jquery-ui.min.js'
+window['blueimp'] = require('blueimp-gallery/js/jquery.blueimp-gallery.min.js');
+import 'jquery-ui-npm/jquery-ui.min.js';
 
 require('bootstrap/js/tooltip.js'); // required for X-editable
 require('bootstrap/js/popover.js'); // required for X-editable
