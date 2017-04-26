@@ -1,0 +1,63 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Device Management', mode + ' Device']" icon="book" class="col-md-12"></sa-big-breadcrumbs>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <form class="smart-form" #deviceForm="ngForm">
+              <section>
+                <label class="label">Name</label>
+                <label class="input"
+                  [ngClass]="name.valid || name.pristine ? '' : 'state-error'">
+
+                  <input [(ngModel)]="device.name" 
+                    #name="ngModel" name="name" required />
+                </label>
+                <div class="note note-error" 
+                  [hidden]="name.valid || name.pristine">This is a required field.
+                </div>
+              </section>
+              <section>
+                <label class="label">Type</label>
+                <label class="select"
+                  [ngClass]="device_type.valid || device_type.pristine ? '' : 'state-error'">
+                    <select [(ngModel)]="device.device_type" name="device_type" #device_type="ngModel">
+                      <option value="gateway">gateway</option>
+                      <option value="gprs_device">gprs-device</option>
+                    </select><i></i>
+                </label>
+                <div class="note note-error" 
+                  [hidden]="device_type.valid || device_type.pristine">This is a required field.
+                </div>
+              </section>
+              <section>
+                <label class="label">API</label>
+                <label class="select"
+                  [ngClass]="api.valid || api.pristine ? '' : 'state-error'">
+                    <select [(ngModel)]="device.api" name="api" #api="ngModel">
+                      <option value="aws">aws</option>
+                      <option value="socket">socket</option>
+                    </select><i></i>
+                </label>
+                <div class="note note-error" 
+                  [hidden]="api.valid || api.pristine">This is a required field.
+                </div>
+              </section>
+              <div class="button-group-wrap">
+                <div class="button-group pull-right">
+                  <button type="button" 
+                    [disabled]="!deviceForm.valid"
+                    class="demeter-btn primary" (click)="saveOrUpdate()">
+                    OK
+                  </button>
+                  <button class="demeter-btn danger" routerLink="/admin/device">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

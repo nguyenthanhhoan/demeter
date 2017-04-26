@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422182455) do
+ActiveRecord::Schema.define(version: 20170426064104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,34 @@ ActiveRecord::Schema.define(version: 20170422182455) do
     t.integer "zone_id"
     t.boolean "is_primary"
     t.index ["camera_id", "zone_id"], name: "cameras_zones_index", unique: true, using: :btree
+  end
+
+  create_table "device_fields", force: :cascade do |t|
+    t.integer  "device_id"
+    t.string   "field_id"
+    t.string   "name"
+    t.string   "name_display"
+    t.string   "description"
+    t.string   "value"
+    t.integer  "interval"
+    t.datetime "last_updated"
+    t.integer  "status"
+    t.integer  "field_attribute"
+    t.integer  "value_data_type"
+    t.integer  "update_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "device_type"
+    t.integer  "api"
+    t.integer  "created_by_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -121,5 +149,6 @@ ActiveRecord::Schema.define(version: 20170422182455) do
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 
+  add_foreign_key "device_fields", "devices"
   add_foreign_key "zones", "projects"
 end

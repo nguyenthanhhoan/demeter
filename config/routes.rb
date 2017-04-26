@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     resources :projects
     resources :zones
     resources :cameras
+    resources :devices do
+      resources :device_fields
+    end
   end
 
   namespace :user do 

@@ -114,3 +114,33 @@ Camera.create({
   channel: 'DMT20',
   server: '29h2.vp9.tv'
 })
+
+Device.create({
+  name: "cdf-gateway",
+  device_type: :gateway,
+  api: :aws,
+  created_by: User.find_by_email('admin@example.com')
+})
+
+DeviceField.create([{
+  # Temp field
+  device: Device.find_by_name('cdf-gateway'),
+  field_id: 'field1',
+  name: 'B1 - Temp',
+  name_display: 'Temperature',
+  value: '25.8',
+  value_data_type: :float,
+  field_attribute: :read_only,
+  update_type: :field_interval,
+  interval: 5
+}, {
+  # Fan field
+  device: Device.find_by_name('cdf-gateway'),
+  field_id: 'field11',
+  name: 'B11 - Fan',
+  name_display: 'Fan',
+  value: '1',
+  value_data_type: :integer,
+  field_attribute: :read_write,
+  update_type: :field_changed
+}])

@@ -1,0 +1,92 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Device Management', 'Field Management', mode + ' Field']" icon="book" class="col-md-12"></sa-big-breadcrumbs>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <form class="smart-form" #fieldForm="ngForm">
+              <section>
+                <label class="label">Field ID</label>
+                <label class="input"
+                  [ngClass]="field_id.valid || field_id.pristine ? '' : 'state-error'">
+
+                  <input [(ngModel)]="deviceField.field_id" 
+                    #field_id="ngModel" name="field_id" required />
+                </label>
+                <div class="note note-error" 
+                  [hidden]="field_id.valid || field_id.pristine">This is a required field.
+                </div>
+              </section>
+              <section>
+                <label class="label">Name</label>
+                <label class="input"
+                  [ngClass]="name.valid || name.pristine ? '' : 'state-error'">
+
+                  <input [(ngModel)]="deviceField.name" 
+                    #name="ngModel" name="name" required />
+                </label>
+                <div class="note note-error" 
+                  [hidden]="name.valid || name.pristine">This is a required field.
+                </div>
+              </section>
+              <section>
+                <label class="label">Description</label>
+                <label class="textarea">
+
+                  <textarea [(ngModel)]="deviceField.description" 
+                    #description="ngModel" name="description"></textarea>
+                </label>
+              </section>
+              <section>
+                <label class="label">Attribute</label>
+                <label class="select">
+                  <select [(ngModel)]="deviceField.field_attribute" name="field_attribute">
+                    <option value="read_only">read_only</option>
+                    <option value="read_write">read_write</option>
+                  </select><i></i>
+                </label>
+              </section>
+              <section>
+                <label class="label">Data Type</label>
+                <label class="select">
+                  <select [(ngModel)]="deviceField.value_data_type" name="value_data_type">
+                    <option value="integer">integer</option>
+                    <option value="float">float</option>
+                    <option value="string">string</option>
+                  </select><i></i>
+                </label>
+              </section>
+              <section>
+                <label class="label">Interval</label>
+                <label class="input"
+                  [hidden]="interval.valid || interval.pristine">
+
+                  <input [(ngModel)]="deviceField.interval" 
+                    #interval="ngModel" name="interval" />
+                </label>
+              </section>
+              <section>
+                <label class="label">Value</label>
+                <label class="input">
+                  <input [(ngModel)]="deviceField.value" 
+                    #value="ngModel" name="value" />
+                </label>
+              </section>
+              <div class="button-group-wrap">
+                <div class="button-group pull-right">
+                  <button type="button" 
+                    [disabled]="!fieldForm.valid"
+                    class="demeter-btn primary" (click)="saveOrUpdate()">
+                    OK
+                  </button>
+                  <button class="demeter-btn danger" routerLink="/admin/device/{{device_id}}/field">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
