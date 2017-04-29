@@ -18,6 +18,7 @@ class Admin::DevicesController < Admin::AdminController
     @device.created_by = current_user
 
     if @device.save
+      AwsIotService.create_thing(@device.name, @device.device_type)
       render json: @device
     else
       render :json => { errors: @device.errors }, :status => :bad_request

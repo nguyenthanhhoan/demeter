@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
-import { ProjectService } from '../../../shared/services/project.service';
+import { DeviceFieldService } from '../../../shared/services/device-field.service';
 import { ApiService } from '../../../../core/api/api.service';
 
 import { Observable } from 'rxjs/Rx';
@@ -25,9 +25,10 @@ export class DeviceFieldListComponent implements OnInit {
   constructor(private http: Http,
               private router: Router,
               private route: ActivatedRoute,
+              private ngZone: NgZone,
               private apiService: ApiService,
               private notificationService: NotificationService,
-              private projectService: ProjectService
+              private deviceFieldService: DeviceFieldService
               ) {
 
   }
@@ -36,9 +37,11 @@ export class DeviceFieldListComponent implements OnInit {
     this.notificationService.confirmBox({
       content: 'Do you want to delete this field?'
     }, () => {
-      this.projectService.delete(id)
+      this.deviceFieldService.delete(this.device_id, id)
       .subscribe(data => {
-        this.datatable.ajax.reload();
+        this.ngZone.run(() => {
+          this.datatable.ajax.reload();
+        });
       });
     });
   }
@@ -82,7 +85,9 @@ export class DeviceFieldListComponent implements OnInit {
   }
 
   goToEdit(id) {
-    this.router.navigate([`/admin/device/${this.device_id}/field/${id}/edit`]);
+    this.ngZone.run(() => {
+      this.router.navigate([`/admin/device/${this.device_id}/field/${id}/edit`]);
+    });
   }
 
 }

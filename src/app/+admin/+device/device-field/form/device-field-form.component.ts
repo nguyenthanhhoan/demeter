@@ -32,9 +32,7 @@ export class DeviceFieldFormComponent implements OnInit {
       this.mode = 'edit';
       this.deviceFieldService.getOne(this.device_id, this.field_id)
         .subscribe(data => {
-          this.ngZone.run(() => {
-            Object.assign(this.deviceField, data);
-          });
+          Object.assign(this.deviceField, data);
         });
     } else {
       this.mode = 'new';

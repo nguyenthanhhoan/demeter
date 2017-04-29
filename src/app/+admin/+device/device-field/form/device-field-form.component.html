@@ -7,7 +7,7 @@
         <div class="well">
             <form class="smart-form" #fieldForm="ngForm">
               <section>
-                <label class="label">Field ID</label>
+                <label class="label">Field ID <span class="req-field">*</span></label>
                 <label class="input"
                   [ngClass]="field_id.valid || field_id.pristine ? '' : 'state-error'">
 
@@ -19,7 +19,7 @@
                 </div>
               </section>
               <section>
-                <label class="label">Name</label>
+                <label class="label">Name <span class="req-field">*</span></label>
                 <label class="input"
                   [ngClass]="name.valid || name.pristine ? '' : 'state-error'">
 
@@ -28,6 +28,18 @@
                 </label>
                 <div class="note note-error" 
                   [hidden]="name.valid || name.pristine">This is a required field.
+                </div>
+              </section>
+              <section>
+                <label class="label">Display Name <span class="req-field">*</span></label>
+                <label class="input"
+                  [ngClass]="name_display.valid || name_display.pristine ? '' : 'state-error'">
+
+                  <input [(ngModel)]="deviceField.name_display" 
+                    #name_display="ngModel" name="name_display" required />
+                </label>
+                <div class="note note-error" 
+                  [hidden]="name_display.valid || name_display.pristine">This is a required field.
                 </div>
               </section>
               <section>
@@ -58,9 +70,17 @@
                 </label>
               </section>
               <section>
+                <label class="label">Update Type</label>
+                <label class="select">
+                  <select [(ngModel)]="deviceField.update_type" name="update_type">
+                    <option value="field_interval">timer</option>
+                    <option value="field_changed">changed</option>
+                  </select><i></i>
+                </label>
+              </section>
+              <section *ngIf="deviceField.update_type == 'field_interval'">
                 <label class="label">Interval</label>
-                <label class="input"
-                  [hidden]="interval.valid || interval.pristine">
+                <label class="input">
 
                   <input [(ngModel)]="deviceField.interval" 
                     #interval="ngModel" name="interval" />
@@ -68,8 +88,9 @@
               </section>
               <section>
                 <label class="label">Value</label>
-                <label class="input">
+                <label class="input" [class.state-disabled]="deviceField.update_type == 'field_interval'">
                   <input [(ngModel)]="deviceField.value" 
+                    [disabled]="deviceField.update_type == 'field_interval'"
                     #value="ngModel" name="value" />
                 </label>
               </section>

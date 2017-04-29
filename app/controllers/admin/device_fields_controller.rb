@@ -2,7 +2,7 @@ class Admin::DeviceFieldsController < Admin::AdminController
   before_action :get_device_field, only: [:show, :edit, :update, :destroy]
 
   def index
-    render json: DeviceField.order(id: :desc)
+    render json: DeviceField.where({ device: params[:device_id] }).order(id: :desc)
   end
 
   def show
@@ -17,6 +17,7 @@ class Admin::DeviceFieldsController < Admin::AdminController
     @device_field = DeviceField.new(device_field_params)
 
     if @device_field.save
+      AwsIotService.update_thing_shadow(@device_field)
       render json: @device_field
     else
       render :json => { errors: @device_field.errors }, :status => :bad_request
@@ -25,6 +26,7 @@ class Admin::DeviceFieldsController < Admin::AdminController
 
   def update
     if @device_field.update(device_field_params)
+      AwsIotService.update_thing_shadow(@device_field)
       render json: @device_field
     else
       render :json => { errors: @device_field.errors }, :status => :bad_request
