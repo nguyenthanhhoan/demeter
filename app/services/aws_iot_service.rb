@@ -40,14 +40,22 @@ class AwsIotService
       endpoint: ENV.fetch('AWS_THING_SHADOW_REST_API')
     })
 
+    if device_field.field_changed?
+      device_state = {
+        value: device_field.value,
+        updateType: device_field.update_type
+      }
+    else
+      device_state = {
+        updateType: device_field.update_type,
+        interval: device_field.interval
+      }
+    end
+    
     submit_state = {
       state: {
         desired: {
-          "#{device_field.field_id}": {
-            value: device_field.field_changed? ? device_field.value : nil,
-            updateType: device_field.update_type,
-            interval: device_field.field_changed? ? nil : device_field.interval
-          }
+          "#{device_field.field_id}": device_state
         }
       }
     }

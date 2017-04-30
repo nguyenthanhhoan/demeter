@@ -23,20 +23,6 @@ export class ZoneSettingSummaryComponent implements DoCheck {
 
   setting: {} = {};
 
-  inputs = [{
-    no: 1,
-    name: 'Temperature',
-    input: 'B1 - Sensor 1'
-  }, {
-    no: 2,
-    name: 'Humidity',
-    input: 'B1 - Sensor 2'
-  }, {
-    no: 3,
-    name: 'Light',
-    input: 'B1 - Sensor 3'
-  }];
-
   cameras = [];
 
   constructor(private router: Router,
@@ -110,6 +96,18 @@ export class ZoneSettingSummaryComponent implements DoCheck {
       this.zoneService.unAssignQuickViewCamera(this.project_id, this.zone_id, camera.camera_id)
       .subscribe((data) => {
         this.notificationService.showMessage('Remove camera successfully!');
+        this.reloadZone();
+      });
+    });
+  }
+
+  unAssignDeviceField(deviceField) {
+    this.notificationService.confirmBox({
+      content: 'Do you want to remove this Input?'
+    }, () => {
+      this.zoneService.unAssignDeviceField(this.project_id, this.zone_id, deviceField.id)
+      .subscribe((data) => {
+        this.notificationService.showMessage('Remove Input successfully!');
         this.reloadZone();
       });
     });

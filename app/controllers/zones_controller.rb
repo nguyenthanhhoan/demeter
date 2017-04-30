@@ -1,7 +1,9 @@
 class ZonesController < AuthorizedController
-  before_action :get_zone, only: [:show, :edit, :update, :update_setting, 
-    :assign_camera, :unassign_camera, 
-    :assign_quick_view_camera, :unassign_quick_view_camera, :destroy]
+  before_action :get_zone, only: [:show, :edit, :update, :update_setting,
+    :assign_camera, :unassign_camera,
+    :assign_quick_view_camera, :unassign_quick_view_camera,
+    :assign_device_field, :unassign_device_field,
+    :destroy]
 
   def index
     render json: Zone.where({ project: params[:project_id] }).order(id: :desc)
@@ -73,6 +75,18 @@ class ZonesController < AuthorizedController
     camera_zone = @zone.cameras_zones.find_by_camera_id camera_id
     camera_zone.is_primary = false
     camera_zone.save!
+    render json: @zone
+  end
+
+  def assign_device_field
+    device_field = DeviceField.find params[:device_field_id]
+    @zone.device_fields << device_field
+    render json: @zone
+  end
+
+  def unassign_device_field
+    device_field = DeviceField.find params[:device_field_id]
+    @zone.device_fields.delete device_field
     render json: @zone
   end
 

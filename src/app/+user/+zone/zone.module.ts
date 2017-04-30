@@ -32,7 +32,12 @@ import { ZoneWeatherComponent } from './crop-management/weather/zone-weather.com
 import { ZoneSettingComponent } from './setting/zone-setting.component';
 import { ZoneSettingSummaryComponent } from './setting/summary/zone-setting-summary.component';
 import { ZoneSettingCameraComponent } from './setting/camera/zone-setting-camera.component';
-import { CameraSelectModalComponent } from './setting/_camera-select-modal/camera-select-modal.component';
+import {
+  CameraSelectModalComponent
+} from './setting/_camera-select-modal/camera-select-modal.component';
+import {
+  DeviceFieldSelectModalComponent
+} from './setting/_device-field-select-modal/device-field-select-modal.component';
 
 /* Daily report */
 import { ZoneDailyReportComponent } from './crop-management/daily-report/zone-daily-report.component';
@@ -83,6 +88,7 @@ import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.compon
     ZoneSettingSummaryComponent,
     ZoneSettingCameraComponent,
     CameraSelectModalComponent,
+    DeviceFieldSelectModalComponent,
 
     /* Daily report */
     ZoneDailyReportComponent,

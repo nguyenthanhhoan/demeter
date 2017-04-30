@@ -10,6 +10,7 @@ class ZoneSerializer < ActiveModel::Serializer
 
   has_many :cameras_zones
   has_many :cameras
+  has_many :device_fields
 
   def start_date
     object.start_date.to_s

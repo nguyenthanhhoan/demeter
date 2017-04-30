@@ -9,6 +9,8 @@ Rails.application.routes.draw do
         post 'unassign_camera' => 'zones#unassign_camera'
         post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
         post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
+        post 'assign_device_field' => 'zones#assign_device_field'
+        post 'unassign_device_field' => 'zones#unassign_device_field'
       end
     end
   end
@@ -27,5 +29,6 @@ Rails.application.routes.draw do
 
   namespace :user do 
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
+    get '/device_fields' => 'device_fields#index'
   end
 end

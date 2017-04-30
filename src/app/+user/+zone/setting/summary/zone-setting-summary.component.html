@@ -37,26 +37,22 @@
     <section class="table-section">
       <label>List of Inputs</label>
       <button 
-        class="demeter-btn create-btn primary pull-right">Add</button>
+        class="demeter-btn create-btn primary pull-right"
+        (click)="deviceFieldSelectModal.show()">Add</button>
       <table class="table table-hover">
         <thead>
           <tr>
-            <th class="col-id">No.</th>
+            <th>Display Name</th>
             <th>Name</th>
-            <th>Input</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let input of inputs" class="demeter-pane">
-            <td>{{input.no}}</td>
+          <tr *ngFor="let input of zone.device_fields" class="demeter-pane">
+            <td>{{input.name_display}}</td>
             <td>{{input.name}}</td>
-            <td>{{input.input}}</td>
             <td class="col-actions">
-              <a>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="unAssignDeviceField(input)">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -181,3 +177,4 @@
 </form>
 
 <camera-select-modal #cameraSelectModal mode="assign_quick_view" (onResolve)="reloadZone()"></camera-select-modal>
+<device-field-select-modal #deviceFieldSelectModal (onResolve)="reloadZone()"></device-field-select-modal>
