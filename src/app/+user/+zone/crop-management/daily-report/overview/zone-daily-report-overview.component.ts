@@ -132,10 +132,12 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   image_report_groups: any[] = [];
 
   notes = [{
-    title: 'Note 1',
+    id: 1,
+    name: 'Note 1',
     content: 'Appeared few days ago'
   }, {
-    title: 'Note 2'
+    id: 2,
+    name: 'Note 2'
   }];
 
   constructor(private router: Router,
@@ -202,6 +204,19 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     this.buildImageReportGroups();
   }
 
+  noteFormResolve(note) {
+    if (note.id) {
+      let found = this.notes.find((loop_note) => {
+        return loop_note.id === note.id;
+      });
+      Object.assign(found, note);
+    } else {
+      let clone_irr = Object.assign({}, note);
+      clone_irr.id = (new Date()).getTime();
+      this.notes.push(clone_irr);
+    }
+  }
+
   remove(item, type) {
     this.notificationService.confirmBox({
       content: `Do you want to remove this ${type}?`
@@ -216,6 +231,9 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
           break;
         case 'Image':
           items = this.image_reports;
+          break;
+        case 'Note':
+          items = this.notes;
           break;
         default:
           break;

@@ -121,7 +121,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="noteForm.open()">Add</button>
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
@@ -134,13 +134,13 @@
         <tbody>
           <tr *ngFor="let note of notes; let i = index;" class="demeter-pane">
             <td>{{i + 1}}</td>
-            <td>{{note.title}}</td>
+            <td>{{note.name}}</td>
             <td>{{note.content}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="noteForm.open(note)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(note, 'Note')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -156,3 +156,5 @@
 <image-report-form #imageReportForm 
   (resolve)="imageReportFormResolve($event)"
   [imageReportTypes]="image_report_types"></image-report-form>
+<note-form #noteForm
+  (resolve)="noteFormResolve($event)"></note-form>

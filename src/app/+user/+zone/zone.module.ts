@@ -45,6 +45,9 @@ import { ZoneDailyReportOverviewComponent } from './crop-management/daily-report
 import { IrrigationFormComponent } from './crop-management/daily-report/overview/irrigation-form/irrigation-form.component';
 import { PestDiseaseFormComponent } from './crop-management/daily-report/overview/pest-disease-form/pest-disease-form.component';
 import { ImageReportFormComponent } from './crop-management/daily-report/overview/image-report-form/image-report-form.component';
+import {
+  NoteFormComponent
+} from './crop-management/daily-report/overview/note-form/note-form.component';
 import { ZoneDailyReportEnvironmentComponent } from './crop-management/daily-report/environment/zone-daily-report-environment.component';
 import { ZoneDailyReportUsageComponent } from './crop-management/daily-report/usage/zone-daily-report-usage.component';
 import { ZoneDailyReportHarvestingComponent } from './crop-management/daily-report/harvesting/zone-daily-report-harvesting.component';
@@ -99,6 +102,7 @@ import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.compon
     IrrigationFormComponent,
     PestDiseaseFormComponent,
     ImageReportFormComponent,
+    NoteFormComponent,
 
     /* OKR */
     ZoneOKRComponent,

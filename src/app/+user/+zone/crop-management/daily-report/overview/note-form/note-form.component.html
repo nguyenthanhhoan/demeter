@@ -1,0 +1,48 @@
+<div bsModal #lgModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" *ngIf="mode == 'add'">Add Note</h4>
+        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit Note</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #noteForm="ngForm">
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Name</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input [(ngModel)]="note.name" name="name" />
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Content</label>
+              <div class="col col-8">
+                <label class="textarea">
+                  <textarea [(ngModel)]="note.content" name="content">
+                  </textarea>
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!noteForm.valid"
+          class="btn btn-primary" (click)="saveOrUpdate()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
