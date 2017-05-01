@@ -4,7 +4,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="harvestingForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -26,10 +26,10 @@
             <td>{{harvesting.cost | currency:'USD':true}}</td>
             <td>{{harvesting.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="harvestingForm.open(harvesting)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(harvesting)">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -39,3 +39,6 @@
     </section>
   </fieldset>
 </form>
+
+<harvesting-form #harvestingForm
+  (resolve)="harvestingFormResolve($event)"></harvesting-form>

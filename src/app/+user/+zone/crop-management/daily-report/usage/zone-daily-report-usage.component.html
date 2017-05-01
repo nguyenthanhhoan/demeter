@@ -4,7 +4,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="workHourForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -23,17 +23,17 @@
           <tr *ngFor="let work_hour of work_hour_reports; let i = index;" class="demeter-pane">
             <td>{{i + 1}}</td>
             <td>{{work_hour.worker_id}}</td>
-            <td>{{work_hour.name}}</td>
+            <td>{{work_hour.worker_name}}</td>
             <td>{{work_hour.from}}</td>
             <td>{{work_hour.to}}</td>
             <td>{{work_hour.total}}</td>
             <td>{{work_hour.cost | currency:'USD':true}}</td>
             <td>{{work_hour.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="workHourForm.open(work_hour)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(work_hour, 'Work Hour')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -46,9 +46,9 @@
   <header>Machinery Report</header>
   <fieldset>
     <section>
-      <button 
+      <button
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="machineryForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -74,10 +74,10 @@
             <td>{{machinery.cost | currency:'USD':true}}</td>
             <td>{{machinery.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="machineryForm.open(machinery)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(machinery, 'Machinery')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -92,7 +92,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="fuelForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -114,10 +114,10 @@
             <td>{{fuel.cost | currency:'USD':true}}</td>
             <td>{{fuel.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="fuelForm.open(fuel)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(fuel, 'Fuel')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -132,7 +132,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="fertilizerForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -154,10 +154,10 @@
             <td>{{fertilizer.cost | currency:'USD':true}}</td>
             <td>{{fertilizer.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="fertilizerForm.open(fertilizer)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(fertilizer, 'Fertilizer')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -172,7 +172,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="pesticideForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -194,10 +194,10 @@
             <td>{{pesticide.cost | currency:'USD':true}}</td>
             <td>{{pesticide.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="pesticideForm.open(pesticide)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(pesticide, 'Pesticide')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -212,7 +212,7 @@
     <section>
       <button 
         class="demeter-btn create-btn primary pull-right"
-        >Add</button>
+        (click)="waterForm.open()">Add</button>
       <table class="table table-hover table-bordered demeter-table">
         <thead>
           <tr>
@@ -234,10 +234,10 @@
             <td>{{water.cost | currency:'USD':true}}</td>
             <td>{{water.note}}</td>
             <td class="col-actions">
-              <a>
+              <a (click)="waterForm.open(water)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </a>
-              <a class="delete-action">
+              <a class="delete-action" (click)="remove(water, 'Water Report')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </td>
@@ -247,3 +247,16 @@
     </section>
   </fieldset>
 </form>
+
+<work-hour-form #workHourForm
+  (resolve)="workHourFormResolve($event)"></work-hour-form>
+<machinery-form #machineryForm
+  (resolve)="machineryFormResolve($event)"></machinery-form>
+<fuel-form #fuelForm
+  (resolve)="fuelFormResolve($event)"></fuel-form>
+<fertilizer-form #fertilizerForm
+  (resolve)="fertilizerFormResolve($event)"></fertilizer-form>
+<pesticide-form #pesticideForm
+  (resolve)="pesticideFormResolve($event)"></pesticide-form>
+<water-form #waterForm
+  (resolve)="waterFormResolve($event)"></water-form>

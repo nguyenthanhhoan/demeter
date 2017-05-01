@@ -48,9 +48,33 @@ import { ImageReportFormComponent } from './crop-management/daily-report/overvie
 import {
   NoteFormComponent
 } from './crop-management/daily-report/overview/note-form/note-form.component';
+import {
+  MachineryFormComponent
+} from './crop-management/daily-report/usage/machinery-form/machinery-form.component';
+import {
+  FuelFormComponent
+} from './crop-management/daily-report/usage/fuel-form/fuel-form.component';
 import { ZoneDailyReportEnvironmentComponent } from './crop-management/daily-report/environment/zone-daily-report-environment.component';
 import { ZoneDailyReportUsageComponent } from './crop-management/daily-report/usage/zone-daily-report-usage.component';
-import { ZoneDailyReportHarvestingComponent } from './crop-management/daily-report/harvesting/zone-daily-report-harvesting.component';
+import {
+  WorkHourFormComponent
+} from './crop-management/daily-report/usage/work-hour-form/work-hour-form.component';
+import {
+  FertilizerFormComponent
+} from './crop-management/daily-report/usage/fertilizer-form/fertilizer-form.component';
+import {
+  PesticideFormComponent
+} from './crop-management/daily-report/usage/pesticide/pesticide-form.component';
+import {
+  WaterFormComponent
+} from './crop-management/daily-report/usage/water/water-form.component';
+
+import {
+  ZoneDailyReportHarvestingComponent
+} from './crop-management/daily-report/harvesting/zone-daily-report-harvesting.component';
+import {
+  HarvestingFormComponent
+} from './crop-management/daily-report/harvesting/harvesting-form/harvesting-form.component';
 
 /* Zone OKR */
 import { ZoneOKRComponent } from './crop-management/okr/zone-okr.component';
@@ -98,11 +122,19 @@ import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.compon
     ZoneDailyReportOverviewComponent,
     ZoneDailyReportEnvironmentComponent,
     ZoneDailyReportUsageComponent,
-    ZoneDailyReportHarvestingComponent,
     IrrigationFormComponent,
     PestDiseaseFormComponent,
     ImageReportFormComponent,
     NoteFormComponent,
+    WorkHourFormComponent,
+    MachineryFormComponent,
+    FuelFormComponent,
+    FertilizerFormComponent,
+    PesticideFormComponent,
+    WaterFormComponent,
+
+    ZoneDailyReportHarvestingComponent,
+    HarvestingFormComponent,
 
     /* OKR */
     ZoneOKRComponent,

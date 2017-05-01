@@ -1,0 +1,103 @@
+<div bsModal #lgModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" *ngIf="mode == 'add'">Add Work Hour</h4>
+        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit Work Hour</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #workHourForm="ngForm">
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Worker ID</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input [(ngModel)]="workHour.worker_id" name="worker_id" />
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Worker Name</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input [(ngModel)]="workHour.worker_name" name="worker_name" />
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">From</label>
+              <div class="col col-8">
+                <div class="input-group time-input-group">
+                  <input [(ngModel)]="workHour.from"
+                    name="from"
+                    class="form-control" smartClockpicker type="text" data-autoclose="true">
+                  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">To</label>
+              <div class="col col-8">
+                <div class="input-group time-input-group">
+                  <input [(ngModel)]="workHour.to"
+                    name="to"
+                    class="form-control" smartClockpicker type="text" data-autoclose="true">
+                  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Total (h)</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input [(ngModel)]="workHour.total" name="total" />
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Cost</label>
+              <div class="col col-8">
+                <label class="input">
+                  <input [(ngModel)]="workHour.cost" name="cost" />
+                </label>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="row">
+              <label class="col col-4 label">Note</label>
+              <div class="col col-8">
+                <label class="textarea">
+                  <textarea [(ngModel)]="workHour.note" name="note"></textarea>
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!workHourForm.valid"
+          class="btn btn-primary" (click)="saveOrUpdate()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
