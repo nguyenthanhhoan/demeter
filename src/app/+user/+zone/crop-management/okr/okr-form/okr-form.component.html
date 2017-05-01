@@ -77,8 +77,11 @@
             <div class="col col-8">
               <label class="select">
                 <select name="key_result_{{i}}_status" [(ngModel)]="key_result.status">
+                  <option>Planned</option>
+                  <option>In Progress</option>
+                  <option>Pending</option>
+                  <option>Delay</option>
                   <option>Finish</option>
-                  <option>Waiting</option>
                 </select><i></i>
               </label>
             </div>

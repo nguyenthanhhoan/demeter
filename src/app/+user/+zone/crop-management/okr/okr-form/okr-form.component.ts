@@ -15,12 +15,12 @@ export class OKRFormComponent {
 
   objective: any = {
     key_results: []
-  }
-  numberOfKeyResult: number
+  };
+  numberOfKeyResult: number;
 
-  project_id: number 
-  zone_id: number 
-  objective_id: number
+  project_id: number;
+  zone_id: number;
+  objective_id: number;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
