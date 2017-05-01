@@ -37,6 +37,21 @@ export class SensorDataChartComponent extends OnDestroy {
     name: 'Illuminances(lx)',
     chart_series: [],
     chart_ref: null
+  }, {
+    lastest_data: null,
+    name: 'EC(mS/cm)',
+    chart_series: [],
+    chart_ref: null
+  }, {
+    lastest_data: null,
+    name: 'pH',
+    chart_series: [],
+    chart_ref: null
+  }, {
+    lastest_data: null,
+    name: 'Water Temp(°C)',
+    chart_series: [],
+    chart_ref: null
   }];
   activeChartTab = this.chartTabs[0];
 

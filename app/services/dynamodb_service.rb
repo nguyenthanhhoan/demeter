@@ -7,16 +7,16 @@ class DynamodbService
       key_conditions: {
         'deviceId' => {
           comparison_operator: 'EQ',
-          attribute_value_list: ['cdf-gateway-123']
+          attribute_value_list: ['cdf-gateway']
         },
         'timestamp' => {
           comparison_operator: 'BETWEEN',
           #Example
           #attribute_value_list: ['1492298805911', '1492298856230']
-          attribute_value_list: [start_timestamp, end_timestamp]
+          attribute_value_list: [start_timestamp.to_i, end_timestamp.to_i]
         }
       },
-      table_name: "cdf-gateway-data"
+      table_name: "gateway_data"
     })
     query_result[:items]
   end
