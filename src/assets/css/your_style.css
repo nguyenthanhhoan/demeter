@@ -102,8 +102,54 @@ body {
 /**
  * Demeter style
  **/
+.user-side {
+  overflow: hidden;
+}
+
 .user-side .user-main {
-  margin-top: 15px;
+  margin-top: 75px;
+}
+
+.user-side .user-main .container-fluid {
+  padding-left: 0px;
+}
+
+.user-side .user-header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.user-side .sidebar {
+  width: 250px;
+  position: fixed;
+  overflow-y: scroll;
+  top: 60px;
+  bottom: 0;
+
+  left: -250px;
+  transition: left 0.5s;
+  -o-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -webkit-transition: left 0.5s;
+}
+
+.user-side .sidebar.show {
+  left: 0;
+  display: block;
+}
+
+
+.user-side .user-content {
+  padding-left: 270px;
+  transition: padding-left 0.5s;
+  -o-transition: padding-left 0.5s;
+  -moz-transition: padding-left 0.5s;
+  -webkit-transition: padding-left 0.5s;
+}
+
+.user-side.side-bar-open .user-content {
+  padding-left: 15px;
 }
 
 .demeter-btn {

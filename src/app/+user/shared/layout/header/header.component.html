@@ -1,7 +1,13 @@
 <header class="user-header">
-  <a (click)="back()">
-    <img src="assets/img/cau-dat/icon/back.png" class="back-btn pull-left" />
-  </a>
+
+  <div class="brand">
+    <a (click)="back()">
+      <img src="assets/img/cau-dat/icon/back.png" class="back-btn pull-left" />
+    </a>
+    <a class="toogle pull-right" (click)="toggleSidebar()">
+      <i class="fa {{ isSidebarOpen ? 'fa-chevron-left' : 'fa-chevron-right'}}"></i>
+    </a>
+  </div>
   <div class="container-fluid">
     <ul class="button-group-right pull-right">
       <li class="icon-button">

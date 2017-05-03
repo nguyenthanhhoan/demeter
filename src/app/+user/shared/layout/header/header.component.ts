@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 
 declare var $: any;
@@ -11,6 +11,8 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  isSidebarOpen = true;
 
   constructor(private router: Router,
               private location: Location,
@@ -28,7 +30,13 @@ export class HeaderComponent implements OnInit {
       error => {
         this.router.navigate(['/auth/login']);
       }
-    )
+    );
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    $('.sidebar').toggleClass('show');
+    $('.user-side').toggleClass('side-bar-open');
   }
 
   back() {

@@ -28,3 +28,18 @@
   margin-top: 15px;
   margin-left: 15px;
 }
+
+.brand {
+  width: 250px;
+  float: left;
+}
+
+.brand .toogle {
+  font-size: 30px;
+  margin-top: 9px;
+  color: #ccc;
+}
+
+.brand .toogle:hover {
+  color: #fff;
+}
