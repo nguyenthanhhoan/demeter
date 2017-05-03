@@ -4,7 +4,7 @@
     <a (click)="back()">
       <img src="assets/img/cau-dat/icon/back.png" class="back-btn pull-left" />
     </a>
-    <a class="toogle pull-right" (click)="toggleSidebar()">
+    <a class="toogle pull-right" (click)="toggleSidebar()" *ngIf="hasSidebar">
       <i class="fa {{ isSidebarOpen ? 'fa-chevron-left' : 'fa-chevron-right'}}"></i>
     </a>
   </div>

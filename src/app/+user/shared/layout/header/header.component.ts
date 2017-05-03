@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
@@ -12,6 +12,8 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
+  @Input()
+  hasSidebar: string;
   isSidebarOpen = true;
 
   constructor(private router: Router,
