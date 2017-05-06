@@ -56,7 +56,7 @@ export class ZoneWeatherComponent implements OnInit {
           }
         })
 
-      this.wundergroundService.getWeatherForecastFullData(project.location_geometry)
+      this.wundergroundService.getWeatherForecastData(project.location_geometry, 10)
         .subscribe((weatherForecasts) => {
           if (weatherForecasts) {
             this.weatherForecasts = weatherForecasts;

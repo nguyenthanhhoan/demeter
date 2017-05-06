@@ -1,5 +1,7 @@
-import { ApplicationRef, Component, OnInit, OnChanges, DoCheck, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import {
+  ApplicationRef, Component, OnInit, OnChanges, DoCheck, Input, ChangeDetectionStrategy
+} from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
 import {
@@ -38,7 +40,7 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private wundergroundService: WUndergroundService) { 
+              private wundergroundService: WUndergroundService) {
   }
 
   ngOnInit() {
@@ -55,19 +57,19 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
           this.weather = weather;
           this.weather.icon = `assets/img/cau-dat/weather-icon/${this.weather.icon}.svg`;
         }
-      })
+      });
 
-      this.wundergroundService.getWeatherForecastData(this.project.location_geometry)
+      this.wundergroundService.getWeatherForecastData(this.project.location_geometry, 7)
       .subscribe((weatherForecasts) => {
         if (weatherForecasts) {
           this.weatherForecasts = weatherForecasts;
         }
-      })
+      });
     }
   }
 
   ngDoCheck() {
-    if (this.project && this.project.id && this.oldProject.id != this.project.id) {
+    if (this.project && this.project.id && this.oldProject.id !== this.project.id) {
       this.fetchWeatherData();
       this.oldProject = this.project;
     }

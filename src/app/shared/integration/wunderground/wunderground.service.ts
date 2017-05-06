@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -13,35 +13,23 @@ declare var moment: any;
 @Injectable()
 export class WUndergroundService {
 
+  isMock = true;
   constructor (
     private apiService: ApiService,
     private jsonApiService: JsonApiService,
     private notificationService: NotificationService) {}
 
-  isMock = true;
-
-  getWeatherForecastData(location): Observable<any> {
+  getWeatherForecastData(location, numOfDay): Observable<any> {
     if (this.isMock) {
       let url = `/integration/wunderground-forecast.json`;
-      return this.jsonApiService.fetch(url).map(this.extractWeatherForecastData);
+      return this.jsonApiService.fetch(url).map((res) => {
+        return this.extractWeatherForecastData(res, numOfDay);
+      });
     } else {
       let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/forecast10day/q/${location}.json`;
       return this.apiService.fetchExternal(url)
         .map((res) => {
-          return this.extractWeatherForecastData(res)
-        });
-    }
-  }
-
-  getWeatherForecastFullData(location): Observable<any> {
-    if (this.isMock) {
-      let url = `/integration/wunderground-forecast.json`;
-      return this.jsonApiService.fetch(url).map(this.extractWeatherForecastFullData);
-    } else {
-      let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/forecast10day/q/${location}.json`;
-      return this.apiService.fetchExternal(url)
-        .map((res) => {
-          return this.extractWeatherForecastFullData(res)
+          return this.extractWeatherForecastData(res, numOfDay);
         });
     }
   }
@@ -54,7 +42,7 @@ export class WUndergroundService {
       let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/conditions/q/${location}.json`;
       return this.apiService.fetchExternal(url)
         .map((res) => {
-          return this.extractCurrentWeatherData(res)
+          return this.extractCurrentWeatherData(res);
         });
     }
   }
@@ -67,7 +55,7 @@ export class WUndergroundService {
       let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/conditions/q/${location}.json`;
       return this.apiService.fetchExternal(url)
         .map((res) => {
-          return this.extractCurrentWeatherFullData(res)
+          return this.extractCurrentWeatherFullData(res);
         });
     }
   }
@@ -80,19 +68,19 @@ export class WUndergroundService {
       let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/hourly10day/q/${location}.json`;
       return this.apiService.fetchExternal(url)
         .map((res) => {
-          return this.extractHourlyWeatherData(res)
+          return this.extractHourlyWeatherData(res);
         });
     }
   }
 
-  extractWeatherForecastData(res: any) {
+  extractWeatherForecastData(res: any, numOfDay) {
     if (res.forecast) {
-      var forecastDateResults = [];
+      let forecastDateResults = [];
       let days = res.forecast.simpleforecast.forecastday;
-      for (var index = 0; index < 7; index++) {
+      for (let index = 0; index < numOfDay; index++) {
         let day = days[index];
-        let dayMoment = moment(parseInt(day.date.epoch) * 1000);
-        var forecastDateResult: any = {};
+        let dayMoment = moment(parseInt(day.date.epoch, 10) * 1000);
+        let forecastDateResult: any = {};
         forecastDateResult.date = dayMoment;
         forecastDateResult.dayFormatted = dayMoment.format('ddd');
         forecastDateResult.dateFormatted = dayMoment.format('DD/MM');
@@ -109,37 +97,7 @@ export class WUndergroundService {
       this.notificationService.showErrorMessage({
         title: 'WUnderground ' + res.response.error.type,
         content: res.response.error.description
-      })
-    } else {
-      console.log('Go to unhandled case with ', res);
-    }
-  }
-
-  extractWeatherForecastFullData(res: any) {
-    if (res.forecast) {
-      var forecastDateResults = [];
-      let days = res.forecast.simpleforecast.forecastday;
-      for (var index = 0; index < 10; index++) {
-        let day = days[index];
-        let dayMoment = moment(parseInt(day.date.epoch) * 1000);
-        var forecastDateResult: any = {};
-        forecastDateResult.date = dayMoment;
-        forecastDateResult.dayFormatted = dayMoment.format('ddd');
-        forecastDateResult.dateFormatted = dayMoment.format('DD/MM');
-        forecastDateResult.icon = day.icon;
-        forecastDateResult.conditions = day.conditions;
-        forecastDateResult.celsiusHigh = day.high.celsius;
-        forecastDateResult.celsiusLow = day.low.celsius;
-        forecastDateResult.avehumidity = day.avehumidity;
-        forecastDateResult.avewind = day.avewind.kph;
-        forecastDateResults.push(forecastDateResult);
-      }
-      return forecastDateResults;
-    } else if (res.response.error) {
-      this.notificationService.showErrorMessage({
-        title: 'WUnderground ' + res.response.error.type,
-        content: res.response.error.description
-      })
+      });
     } else {
       console.log('Go to unhandled case with ', res);
     }
@@ -147,20 +105,20 @@ export class WUndergroundService {
 
   extractCurrentWeatherData(res: any) {
     if (res.current_observation) {
-      var currentData = {
+      let currentData = {
         temp: res.current_observation.temp_c,
         icon: res.current_observation.icon,
         weather: res.current_observation.weather,
         relative_humidity: res.current_observation.relative_humidity,
         precip_today_in: res.current_observation.precip_today_in,
-        wind_mph: res.current_observation.wind_mph,
-      }
+        wind_mph: res.current_observation.wind_mph
+      };
       return currentData;
     } else if (res.response.error) {
       this.notificationService.showErrorMessage({
         title: 'WUnderground ' + res.response.error.type,
         content: res.response.error.description
-      })
+      });
     } else {
       console.log('Go to unhandled case with ', res);
     }
@@ -168,7 +126,7 @@ export class WUndergroundService {
 
   extractCurrentWeatherFullData(res: any) {
     if (res.current_observation) {
-      var currentData = {
+      let currentData = {
         display_location: res.current_observation.display_location.full,
         elevation: res.current_observation.display_location.elevation,
         latitude: res.current_observation.display_location.latitude,
@@ -185,13 +143,13 @@ export class WUndergroundService {
         relative_humidity: res.current_observation.relative_humidity,
         precip_today_in: res.current_observation.precip_today_in,
         wind_mph: res.current_observation.wind_mph,
-      }
+      };
       return currentData;
     } else if (res.response.error) {
       this.notificationService.showErrorMessage({
         title: 'WUnderground ' + res.response.error.type,
         content: res.response.error.description
-      })
+      });
     } else {
       console.log('Go to unhandled case with ', res);
     }
@@ -199,40 +157,40 @@ export class WUndergroundService {
 
   extractHourlyWeatherData(res: any) {
     if (res.hourly_forecast) {
-      var result = {
-        "xData": [],
-        "datasets": [{
-          "name": "Temperature (°C)",
-          "data": [],
-          "unit": "°C",
-          "type": "line",
-          "valueDecimals": 1
+      let result = {
+        'xData': [],
+        'datasets': [{
+          'name': 'Temperature (°C)',
+          'data': [],
+          'unit': '°C',
+          'type': 'line',
+          'valueDecimals': 1
         }, {
-          "name": "Pressure (hPa)",
-          "data": [],
-          "unit": "hPa",
-          "type": "line",
-          "valueDecimals": 1
+          'name': 'Pressure (hPa)',
+          'data': [],
+          'unit': 'hPa',
+          'type': 'line',
+          'valueDecimals': 1
         }, {
-          "name": "Wind Speed",
-          "data": [],
-          "unit": "km/h",
-          "type": "line",
-          "valueDecimals": 1
+          'name': 'Wind Speed',
+          'data': [],
+          'unit': 'km/h',
+          'type': 'line',
+          'valueDecimals': 1
         }]
-      }
+      };
       res.hourly_forecast.forEach((hourlyData) => {
         result.xData.push(hourlyData.FCTTIME.epoch);
-        result.datasets[0].data.push(parseInt(hourlyData.temp.metric));
-        result.datasets[1].data.push(parseInt(hourlyData.mslp.metric));
-        result.datasets[2].data.push(parseInt(hourlyData.wspd.metric));
-      })
+        result.datasets[0].data.push(parseInt(hourlyData.temp.metric, 10));
+        result.datasets[1].data.push(parseInt(hourlyData.mslp.metric, 10));
+        result.datasets[2].data.push(parseInt(hourlyData.wspd.metric, 10));
+      });
       return result;
     } else if (res.response.error) {
       this.notificationService.showErrorMessage({
         title: 'WUnderground ' + res.response.error.type,
         content: res.response.error.description
-      })
+      });
     } else {
       console.log('Go to unhandled case with ', res);
     }
