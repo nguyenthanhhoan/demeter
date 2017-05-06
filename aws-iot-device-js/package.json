@@ -6,6 +6,7 @@
   "angular-cli": {},
   "private": true,
   "dependencies": {
-    "aws-iot-device-sdk": "^1.0.14"
+    "aws-iot-device-sdk": "^1.0.14",
+    "ws": "^2.3.1"
   }
 }

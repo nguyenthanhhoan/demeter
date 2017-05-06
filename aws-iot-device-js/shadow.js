@@ -1,4 +1,5 @@
 var awsIot = require('aws-iot-device-sdk');
+var websocket = require('./websocket');
 
 var thingShadows = awsIot.thingShadow({
   keyPath: 'certs/cf637a6743.private.key',
@@ -23,23 +24,7 @@ var bval = 222;
 thingShadows.on('connect', function() {
     console.log('connected!');
     thingShadows.register( 'test-1', function() {
-      console.log('RGBLedLamp registered!');
-       var rgbLedLampState = {"state":{"desired":{"red":rval,"green":gval,"blue":bval}}};
-
-       clientTokenUpdate = thingShadows.update('RGBLedLamp', rgbLedLampState  );
-//
-// The update method returns a clientToken; if non-null, this value will
-// be sent in a 'status' event when the operation completes, allowing you
-// to know whether or not the update was successful.  If the update method
-// returns null, it's because another operation is currently in progress and
-// you'll need to wait until it completes (or times out) before updating the 
-// shadow.
-//
-  console.log('clientTokenUpdate', clientTokenUpdate);
-       if (clientTokenUpdate === null)
-       {
-          console.log('update shadow failed, operation still in progress');
-       }
+      console.log('thing registered!');
     });
 
 thingShadows.on('status', 
@@ -50,7 +35,9 @@ thingShadows.on('status',
 
 thingShadows.on('delta', 
     function(thingName, stateObject) {
-       console.log('received delta on '+thingName+': '+
+        websocket.notifySubcriber(thingName);
+        websocket.notifySubcriber(JSON.stringify(stateObject));
+        console.log('received delta on '+thingName+': '+
                    JSON.stringify(stateObject));
     });
 
