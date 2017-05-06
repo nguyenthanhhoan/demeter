@@ -1,0 +1,11 @@
+{
+  "name": "demeter-iot-device-js",
+  "description": "Listen device shadow update",
+  "version": "0.0.1",
+  "license": "MIT",
+  "angular-cli": {},
+  "private": true,
+  "dependencies": {
+    "aws-iot-device-sdk": "^1.0.14"
+  }
+}
