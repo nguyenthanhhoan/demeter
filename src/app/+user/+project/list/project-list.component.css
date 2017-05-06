@@ -6,3 +6,7 @@
   margin-top: 50px;
   display: block;
 }
+
+.spinner-wrapper {
+  height: 100px;
+}

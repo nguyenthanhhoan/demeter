@@ -7,17 +7,16 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnDestroy {
+  @Input() public delay: number = 300;
+
   private currentTimeout: number;
   private isDelayedRunning: boolean = false;
-
-  @Input()
-  public delay: number = 300;
 
   @Input()
   public set isRunning(value: boolean) {
     this.isDelayedRunning = value;
 
-    //TODO: Check later
+    // TODO: Check later
     // if (!value) {
     //   this.cancelTimeout();
     //   this.isDelayedRunning = false;
@@ -37,12 +36,12 @@ export class SpinnerComponent implements OnDestroy {
     // });
   }
 
+  ngOnDestroy(): any {
+    this.cancelTimeout();
+  }
+
   private cancelTimeout(): void {
     clearTimeout(this.currentTimeout);
     this.currentTimeout = undefined;
-  }
-
-  ngOnDestroy(): any {
-    this.cancelTimeout();
   }
 }

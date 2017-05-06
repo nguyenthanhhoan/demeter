@@ -7,6 +7,9 @@
       Create Project
     </button>
   </div>
+  <div class="spinner-wrapper" *ngIf="isRequesting">
+    <app-spinner [isRunning]="isRequesting"></app-spinner>
+  </div>
   <div *ngFor="let project of projects">
     <app-project-summary 
       [project]="project"
