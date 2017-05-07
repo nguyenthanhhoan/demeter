@@ -20,6 +20,7 @@ import { CameraService } from './services/camera.service';
 import { SensorDataService } from './services/sensor-data.service';
 import { DeviceFieldService } from './services/device-field-service';
 import { MockDataService } from './services/mock-data.service';
+import { WeatherService } from './services/weather.service';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { MockDataService } from './services/mock-data.service';
     CameraService,
     SensorDataService,
     DeviceFieldService,
+    WeatherService,
     MockDataService
   ]
 })

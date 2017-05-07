@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
-import { WUndergroundService } from '../../../../shared/integration/wunderground/wunderground.service';
+import { WeatherService } from '../../../../core/services/weather.service';
 import { ZoneService } from '../../../../core/services/zone.service';
 
 declare var Highcharts: any;
@@ -22,7 +22,7 @@ export class ZoneWeatherComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private zoneService: ZoneService,
-    private wundergroundService: WUndergroundService) {
+    private weatherService: WeatherService) {
 
   }
 
@@ -31,7 +31,7 @@ export class ZoneWeatherComponent implements OnInit {
     let project_id = +this.route.snapshot.params['project_id'];
     if (id) {
       this.zone = {
-        image: "assets/img/cau-dat/cau-dat-farm.png"
+        image: 'assets/img/cau-dat/cau-dat-farm.png'
       };
       this.zoneService.getOne(project_id, id).subscribe(data => {
         Object.assign(this.zone, data);
@@ -39,7 +39,7 @@ export class ZoneWeatherComponent implements OnInit {
       });
     } else {
       Object.assign(this.zone, {
-        image: "assets/img/cau-dat/cau-dat-farm.png"
+        image: 'assets/img/cau-dat/cau-dat-farm.png'
       });
     }
   }
@@ -47,41 +47,41 @@ export class ZoneWeatherComponent implements OnInit {
   fetchWeatherData() {
     let {project} =  this.zone;
     if (project && project.location_geometry) {
-      this.wundergroundService.getCurrentWeatherFullData(project.location_geometry)
+      this.weatherService.getCurrentWeatherFullData(project.location_geometry)
         .subscribe((weather) => {
           if (weather) {
             this.weather = weather;
             this.weather.icon = `assets/img/cau-dat/weather-icon/${this.weather.icon}.svg`;
             this.currentWeatherLoaded = true;
           }
-        })
+        });
 
-      this.wundergroundService.getWeatherForecastData(project.location_geometry, 10)
+      this.weatherService.getWeatherForecastData(project.location_geometry, 10)
         .subscribe((weatherForecasts) => {
           if (weatherForecasts) {
             this.weatherForecasts = weatherForecasts;
             this.loadHighChart();
           }
-        })
+        });
     }
   }
 
   loadHighChart() {
-    System.import('script-loader!highcharts').then(()=>{
-      return System.import('script-loader!highcharts/highcharts.js')
-    }).then(()=>{
+    System.import('script-loader!highcharts').then(() => {
+      return System.import('script-loader!highcharts/highcharts.js');
+    }).then(() => {
       this.configChart();
       this.fetchHourlyWeatherData();
-    })
+    });
   }
 
   fetchHourlyWeatherData() {
     let {project} = this.zone;
     if (project && project.location_geometry) {
-      this.wundergroundService.getHourlyWeatherData(project.location_geometry)
+      this.weatherService.getHourlyWeatherData(project.location_geometry)
         .subscribe((result) => {
           this.initChart(result);
-        })
+        });
     }
   }
 
@@ -158,7 +158,7 @@ export class ZoneWeatherComponent implements OnInit {
   configChart() {
 
     $('.chart-wrap').bind('mousemove touchmove touchstart', function (e) {
-      var chart,
+      let chart,
         point,
         i,
         event;

@@ -1,76 +1,46 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Injectable }              from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { ApiService } from '../../../core/api/api.service';
-import { JsonApiService } from '../../../core/api/json-api.service';
-import { NotificationService } from '../../utils/notification.service';
+import { ApiService } from '../api/api.service';
+import { NotificationService } from '../../shared/utils/notification.service';
 
 declare var moment: any;
 
 @Injectable()
-export class WUndergroundService {
+export class WeatherService {
+  private weatherUrl = 'user/weather';
 
-  isMock = true;
-  constructor (
-    private apiService: ApiService,
-    private jsonApiService: JsonApiService,
-    private notificationService: NotificationService) {}
+  constructor (private apiService: ApiService,
+              private notificationService: NotificationService) {}
 
   getWeatherForecastData(location, numOfDay): Observable<any> {
-    if (this.isMock) {
-      let url = `/integration/wunderground-forecast.json`;
-      return this.jsonApiService.fetch(url).map((res) => {
+    return this.apiService.fetch(`${this.weatherUrl}/forecast10day/${location}`)
+      .map((res) => {
         return this.extractWeatherForecastData(res, numOfDay);
       });
-    } else {
-      let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/forecast10day/q/${location}.json`;
-      return this.apiService.fetchExternal(url)
-        .map((res) => {
-          return this.extractWeatherForecastData(res, numOfDay);
-        });
-    }
   }
 
   getCurrentWeatherData(location): Observable<any> {
-    if (this.isMock) {
-      let url = `/integration/wunderground-current.json`;
-      return this.jsonApiService.fetch(url).map(this.extractCurrentWeatherData);
-    } else {
-      let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/conditions/q/${location}.json`;
-      return this.apiService.fetchExternal(url)
-        .map((res) => {
-          return this.extractCurrentWeatherData(res);
-        });
-    }
+    return this.apiService.fetch(`${this.weatherUrl}/conditions/${location}`)
+      .map((res) => {
+        return this.extractCurrentWeatherData(res);
+      });
   }
 
   getCurrentWeatherFullData(location): Observable<any> {
-    if (this.isMock) {
-      let url = `/integration/wunderground-current.json`;
-      return this.jsonApiService.fetch(url).map(this.extractCurrentWeatherFullData);
-    } else {
-      let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/conditions/q/${location}.json`;
-      return this.apiService.fetchExternal(url)
-        .map((res) => {
-          return this.extractCurrentWeatherFullData(res);
-        });
-    }
+    return this.apiService.fetch(`${this.weatherUrl}/conditions/${location}`)
+      .map((res) => {
+        return this.extractCurrentWeatherFullData(res);
+      });
   }
 
   getHourlyWeatherData(location): Observable<any> {
-    if (this.isMock) {
-      let url = `/integration/wunderground-hourly10day.json`;
-      return this.jsonApiService.fetch(url).map(this.extractHourlyWeatherData);
-    } else {
-      let url = `http://api.wunderground.com/api/00d0f6e2f45ef13d/hourly10day/q/${location}.json`;
-      return this.apiService.fetchExternal(url)
-        .map((res) => {
-          return this.extractHourlyWeatherData(res);
-        });
-    }
+    return this.apiService.fetch(`${this.weatherUrl}/hourly10day/${location}`)
+      .map((res) => {
+        return this.extractHourlyWeatherData(res);
+      });
   }
 
   extractWeatherForecastData(res: any, numOfDay) {

@@ -30,5 +30,6 @@ Rails.application.routes.draw do
   namespace :user do 
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/device_fields' => 'device_fields#index'
+    get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }
   end
 end

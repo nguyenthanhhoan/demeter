@@ -9,7 +9,7 @@ import {
   ChartEvent
 } from '../../../shared/graphs/chartist/chartist.component';
 
-import { WUndergroundService } from '../../../shared/integration/wunderground/wunderground.service';
+import { WeatherService } from '../../../core/services/weather.service';
 
 export interface Chart {
   type: ChartType;
@@ -40,7 +40,7 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private wundergroundService: WUndergroundService) {
+              private weatherService: WeatherService) {
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
 
   fetchWeatherData() {
     if (this.project && this.project.location_geometry) {
-      this.wundergroundService.getCurrentWeatherData(this.project.location_geometry)
+      this.weatherService.getCurrentWeatherData(this.project.location_geometry)
       .subscribe((weather) => {
         if (weather) {
           this.weather = weather;
@@ -59,7 +59,7 @@ export class WeatherForecastComponent implements OnInit, DoCheck {
         }
       });
 
-      this.wundergroundService.getWeatherForecastData(this.project.location_geometry, 7)
+      this.weatherService.getWeatherForecastData(this.project.location_geometry, 7)
       .subscribe((weatherForecasts) => {
         if (weatherForecasts) {
           this.weatherForecasts = weatherForecasts;
