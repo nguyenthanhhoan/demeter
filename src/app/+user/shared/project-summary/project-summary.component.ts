@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
 import {
@@ -8,7 +8,6 @@ import {
 } from '../../../shared/graphs/chartist/chartist.component';
 
 import { ProjectService } from '../../../core/services/project.service';
-import { WUndergroundService } from '../../../shared/integration/wunderground/wunderground.service';
 
 export interface Chart {
   type: ChartType;
@@ -59,14 +58,13 @@ var data = {
 })
 export class ProjectSummaryComponent implements OnInit {
   chart: Chart;
-  
+
   @Input()
   project: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private projectService: ProjectService,
-              private wundergroundService: WUndergroundService) { 
+              private projectService: ProjectService) {
     this.chart = {
       type: 'Line',
       data: data['Line']
