@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from 'ng2-bootstrap';
+import * as _ from 'lodash';
 
 import { ZoneService } from '../../../../core/services/zone.service';
-import { NotificationService } from "../../../../shared/utils/notification.service";
+import { NotificationService } from '../../../../shared/utils/notification.service';
 
 @Component({
   templateUrl: './zone-okr.component.html',
@@ -12,8 +13,8 @@ import { NotificationService } from "../../../../shared/utils/notification.servi
 })
 export class ZoneOKRComponent implements OnInit {
 
-  @ViewChild('okrTableFormModal') public okrTableFormModal:ModalDirective
-  @ViewChild('objectiveAddModal') public objectiveAddModal:ModalDirective
+  @ViewChild('okrTableFormModal') public okrTableFormModal: ModalDirective;
+  @ViewChild('objectiveAddModal') public objectiveAddModal: ModalDirective;
 
   persons: any[] = [{
     id: 1,
@@ -21,20 +22,29 @@ export class ZoneOKRComponent implements OnInit {
   }, {
     id: 2,
     name: 'Tran Thi B'
-  }]
-  
+  }];
   zone: any;
-  okr_tabs: any[]
+  okr_tabs: any[];
   activeORKTab: any = {};
 
-  okrTab: any = {}
-  objective: any = {}
+  okrTab: any = {};
+  objective: any = {};
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private zoneService: ZoneService,
     private notificationService: NotificationService) {
 
+  }
+
+  removeTab(event, ork_tab) {
+    event.stopPropagation();
+    this.notificationService.confirmBox({
+      content: 'Do you want ot remove this Tab?'
+    }, () => {
+      let index = this.okr_tabs.indexOf(ork_tab);
+      this.okr_tabs.splice(index, 1);
+    });
   }
 
   ngOnInit() {
@@ -45,7 +55,7 @@ export class ZoneOKRComponent implements OnInit {
       .subscribe((okr_tabs) => {
         this.okr_tabs = okr_tabs;
         this.activeORKTab = this.okr_tabs[0];
-      })
+      });
   }
 
   openAddOKRTable() {
@@ -83,5 +93,15 @@ export class ZoneOKRComponent implements OnInit {
     let index = this.activeORKTab.objectives.indexOf(objective);
     this.activeORKTab.objectives.splice(objective, 1);
     this.notificationService.showMessage('Remove objective successfully!');
+  }
+
+  okrConfigureResolve(okrs) {
+    this.okr_tabs = _.sortBy(okrs, ['order']);
+  }
+
+  okrRenameResolve(okrs) {
+    okrs.forEach((element, index) => {
+      this.okr_tabs[index].name = element.name;
+    });
   }
 }

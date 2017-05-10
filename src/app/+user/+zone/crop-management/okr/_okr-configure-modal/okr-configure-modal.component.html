@@ -1,0 +1,52 @@
+<div bsModal #okrConfigureModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="okrConfigureModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Configure Objective</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #objectiveForm="ngForm">
+          <section>
+            <div class="row">
+              <div class="col col-10">
+                <sa-nestable-list [items]="okrList"
+                                  (change)="onChangeList($event)"></sa-nestable-list>
+              </div>
+            </div>
+          </section>
+          <section>
+            <header>Add New OKR</header>
+          </section>
+          <section>
+            <div class="row">
+              <div class="col col-10">
+                <label class="input">
+                  <input [(ngModel)]="newOKRName" name="okr_name"/>
+                </label>
+              </div>
+              <div class="col col-2 text-right">
+                <button type="button" 
+                  [disabled]="newOKRName.length == 0"
+                  class="btn btn-primary" (click)="addOKR(newOKRName)">
+                  Add
+                </button>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="okrConfigureModal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          class="btn btn-primary" (click)="save()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,18 @@
-import {Component, OnInit, Input, Output, EventEmitter, ElementRef, Renderer, OnChanges} from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  Renderer
+} from '@angular/core';
 
-declare var $:any;
+import * as _ from 'lodash';
+
+declare var $: any;
 
 let counter = 1;
 
@@ -9,13 +21,14 @@ let counter = 1;
   selector: 'sa-nestable-list',
   template: '<div class="dd"></div>'
 })
-export class NestableListComponent implements OnChanges {
+export class NestableListComponent implements OnChanges, DoCheck {
 
-  @Input() items:any;
-  @Input() options:any;
+  @Input() items: any;
+  oldItems: any;
+  @Input() options: any;
   @Output() change = new EventEmitter<any>();
 
-  constructor(private el:ElementRef, private renderer:Renderer) {
+  constructor(private el: ElementRef, private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -28,8 +41,28 @@ export class NestableListComponent implements OnChanges {
     })
   }
 
+  ngDoCheck() {
+    let changeDetected = false;
+
+    if (!_.isEqual(this.items, this.oldItems)) {
+
+      changeDetected = true;
+    }
+
+    if (changeDetected) {
+      this.oldItems = [...this.items];
+      System.import('script-loader!smartadmin-plugins/bower_components/jquery-nestable/jquery.nestable.js')
+        .then(() => {
+          this.render();
+        });
+    }
+  }
+
   private render() {
     const root = this.el.nativeElement.getElementsByTagName('div')[0];
+    while (root.firstChild) {
+      root.removeChild(root.firstChild);
+    }
     root.appendChild(this.createBranch(this.items));
     let options = this.options || {};
 
@@ -38,7 +71,7 @@ export class NestableListComponent implements OnChanges {
 
     $(root).on('change', ()=> {
       this.change.emit($(root).nestable('serialize'))
-    })
+    });
   }
 
 
@@ -66,11 +99,11 @@ export class NestableListComponent implements OnChanges {
 
   private createBranch(items) {
     const ol = document.createElement('ol');
-    ol.className = 'dd-list'
-    items.forEach(item=> {
-      ol.appendChild(this.createChild(item))
+    ol.className = 'dd-list';
+    items.forEach(item => {
+      ol.appendChild(this.createChild(item));
     });
-    return ol
+    return ol;
   }
 
 

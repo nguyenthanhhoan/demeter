@@ -1,17 +1,28 @@
 <div class="content-header">
   <div class="demeter-title">OKR</div>
 
-  <button 
-    class="demeter-btn create-btn primary pull-right"
-    (click)="openAddOKRTable()"
-    >Add OKR Table</button>
+  <div class="pull-right btn-group">
+    <button 
+      class="demeter-btn primary"
+      (click)="okrConfigureModal.show()"
+      ><i class="fa fa-cog" aria-hidden="true"></i></button>
+
+    <button 
+      class="demeter-btn primary"
+      (click)="okrRenameModal.show()"
+      >Rename</button>
+  </div>
 </div>
 
 <div class="demeter-pane">
-
   <ul class="nav nav-tabs bordered">
     <li [class.active]="activeORKTab.id == ork_tab.id" *ngFor="let ork_tab of okr_tabs">
-      <a (click)="activeORKTab = ork_tab"> {{ ork_tab.name }}</a>
+      <a (click)="activeORKTab = ork_tab" class="nav-with-btn"> 
+        <button class="btn btn-xs font-xs btn-default hover-transparent" (click)="removeTab($event, ork_tab)">
+          <i class="fa fa-times"></i>
+        </button> 
+        <span>{{ ork_tab.name }}</span>
+      </a>
     </li>
   </ul>
 
@@ -136,3 +147,6 @@
     </div>
   </div>
 </div>
+
+<okr-configure-modal #okrConfigureModal [okrs]="okr_tabs" (onResolve)="okrConfigureResolve($event)"></okr-configure-modal>
+<okr-rename-modal #okrRenameModal [okrs]="okr_tabs" (onResolve)="okrRenameResolve($event)"></okr-rename-modal>

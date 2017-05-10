@@ -6,6 +6,7 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import { SmartadminValidationModule }
         from '../../shared/forms/validation/smartadmin-validation.module';
 import { SmartadminInputModule } from '../../shared/forms/input/smartadmin-input.module';
+import { NestableListModule } from '../../shared/ui/nestable-list/nestable-list.module';
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
@@ -80,6 +81,12 @@ import {
 import { ZoneOKRComponent } from './crop-management/okr/zone-okr.component';
 import { OKRTableComponent } from './crop-management/okr/okr-table/okr-table.component';
 import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.component';
+import {
+  OKRConfigureModalComponent
+} from './crop-management/okr/_okr-configure-modal/okr-configure-modal.component';
+import {
+  OKRRenameModalComponent
+} from './crop-management/okr/_okr-rename-modal/okr-rename-modal.component';
 
 @NgModule({
   imports: [
@@ -89,6 +96,7 @@ import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.compon
     ChartistModule,
     SmartadminValidationModule,
     SmartadminInputModule,
+    NestableListModule,
     IntegrationModule,
     CameraModule,
     HeaderModule,
@@ -139,7 +147,9 @@ import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.compon
     /* OKR */
     ZoneOKRComponent,
     OKRTableComponent,
-    OKRFormComponent
+    OKRFormComponent,
+    OKRConfigureModalComponent,
+    OKRRenameModalComponent
   ]
 })
 export class ZoneModule { }

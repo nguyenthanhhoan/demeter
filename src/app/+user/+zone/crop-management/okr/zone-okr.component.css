@@ -15,3 +15,13 @@
 .create-btn-wrap {
   height: 45px;
 }
+
+.nav .nav-with-btn button,
+.nav .nav-with-btn span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.demeter-title, .btn-group {
+  display: inline-block;
+}
