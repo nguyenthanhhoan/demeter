@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170506173610) do
+ActiveRecord::Schema.define(version: 20170510084654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 20170506173610) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
+  end
+
+  create_table "okrs", force: :cascade do |t|
+    t.integer  "zone_id"
+    t.integer  "order"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["zone_id"], name: "index_okrs_on_zone_id", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -164,5 +173,6 @@ ActiveRecord::Schema.define(version: 20170506173610) do
   end
 
   add_foreign_key "device_fields", "devices"
+  add_foreign_key "okrs", "zones"
   add_foreign_key "zones", "projects"
 end

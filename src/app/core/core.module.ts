@@ -21,6 +21,7 @@ import { SensorDataService } from './services/sensor-data.service';
 import { DeviceFieldService } from './services/device-field-service';
 import { MockDataService } from './services/mock-data.service';
 import { WeatherService } from './services/weather.service';
+import { OkrService } from './services/okr.service';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { WeatherService } from './services/weather.service';
     SensorDataService,
     DeviceFieldService,
     WeatherService,
-    MockDataService
+    MockDataService,
+    OkrService
   ]
 })
 export class CoreModule {

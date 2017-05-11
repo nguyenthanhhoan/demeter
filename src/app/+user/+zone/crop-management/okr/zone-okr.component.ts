@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 
 import { ZoneService } from '../../../../core/services/zone.service';
 import { NotificationService } from '../../../../shared/utils/notification.service';
+import { OkrService } from '../../../../core/services/okr.service';
 
 @Component({
   templateUrl: './zone-okr.component.html',
@@ -24,6 +25,7 @@ export class ZoneOKRComponent implements OnInit {
     name: 'Tran Thi B'
   }];
   zone: any;
+  zone_id: number;
   okr_tabs: any[];
   activeORKTab: any = {};
 
@@ -33,6 +35,7 @@ export class ZoneOKRComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private zoneService: ZoneService,
+    private okrService: OkrService,
     private notificationService: NotificationService) {
 
   }
@@ -48,13 +51,18 @@ export class ZoneOKRComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
+    this.zone_id = +this.route.snapshot.params['id'];
+    this.loadOKR();
+  }
 
-    this.zoneService.getOKRData(project_id, id)
+  loadOKR() {
+    this.okrService.getList(this.zone_id)
       .subscribe((okr_tabs) => {
         this.okr_tabs = okr_tabs;
-        this.activeORKTab = this.okr_tabs[0];
+        this.sortOKRTab();
+        if (this.okr_tabs.length > 0) {
+          this.activeORKTab = this.okr_tabs[0];
+        }
       });
   }
 
@@ -95,13 +103,17 @@ export class ZoneOKRComponent implements OnInit {
     this.notificationService.showMessage('Remove objective successfully!');
   }
 
-  okrConfigureResolve(okrs) {
-    this.okr_tabs = _.sortBy(okrs, ['order']);
+  okrConfigureResolve() {
+    this.loadOKR();
   }
 
   okrRenameResolve(okrs) {
     okrs.forEach((element, index) => {
       this.okr_tabs[index].name = element.name;
     });
+  }
+
+  sortOKRTab() {
+    this.okr_tabs = _.sortBy(this.okr_tabs, ['order']);
   }
 }

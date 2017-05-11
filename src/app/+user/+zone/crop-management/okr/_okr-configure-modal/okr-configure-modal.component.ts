@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import * as events from 'events';
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 
@@ -5,6 +6,7 @@ import * as _ from 'lodash';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 import { AppSettings } from '../../../../../app.settings';
+import { OkrService } from '../../../../../core/services/okr.service';
 
 declare var moment: any;
 @Component({
@@ -15,7 +17,9 @@ declare var moment: any;
 export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
 
   okrList: any[];
-  okrs_bak: any[];
+  okrs_old: any[];
+  zone_id: number;
+  sortableList: any;
 
   @Input() okrs: any[];
   @ViewChild('okrConfigureModal') public okrConfigureModal: ModalDirective;
@@ -23,10 +27,14 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
 
   newOKRName: String = '';
 
-  constructor(private notificationService: NotificationService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private notificationService: NotificationService,
+              private okrService: OkrService) {
   }
 
   ngOnInit() {
+    this.zone_id = +this.route.snapshot.params['id'];
     if (this.okrs) {
       this.initOKRList();
     }
@@ -35,20 +43,20 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
   ngOnChanges() {
     if (this.okrs) {
       this.initOKRList();
-      this.okrs_bak = [...this.okrs];
+      this.okrs_old = this.cloneORKs(this.okrs);
     }
   }
 
   ngDoCheck() {
     let changeDetected = false;
     if (this.okrs && this.okrs.length
-      && this.okrs_bak && this.okrs_bak.length) {
+      && this.okrs_old && this.okrs_old.length) {
 
-      if (this.okrs.length !== this.okrs_bak.length) {
+      if (this.okrs.length !== this.okrs_old.length) {
         changeDetected = true;
       } else {
         this.okrs.forEach((element, index) => {
-          if (this.okrs[index].name !== this.okrs_bak[index].name) {
+          if (this.okrs[index].name !== this.okrs_old[index].name) {
             changeDetected = true;
           }
         });
@@ -56,8 +64,20 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
     }
     if (changeDetected) {
       this.initOKRList();
-      this.okrs_bak = [...this.okrs];
+      this.okrs_old = this.cloneORKs(this.okrs);
     }
+  }
+
+  cloneORKs(okrs) {
+    let cloneORKs = [];
+    this.okrs.forEach((okr) => {
+      cloneORKs.push({
+        id: okr.id,
+        name: okr.name,
+        order: okr.order
+      });
+    });
+    return cloneORKs;
   }
 
   initOKRList() {
@@ -68,6 +88,11 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
         content: okr.name
       });
     });
+
+    // Render UI of nestable-list
+    if (this.sortableList) {
+      this.sortableList.render();
+    }
   }
 
   onChangeList(event) {
@@ -101,25 +126,24 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
   }
 
   save() {
+    let submit_okrs = [];
     this.okrList.forEach((element, index) => {
-      if (element.isNew) {
-        this.okrs.splice(index, 0, {
-          id: element.id,
-          order: index,
-          name: element.content
-        });
-      } else {
-        let foundEle = this.okrs.find((okr) => {
-          return okr.id === element.id;
-        });
-        if (foundEle) {
-          foundEle.order = index;
-        } else {
-          console.error('Cannot find element', element);
-        }
+      let submit_okr: any = {
+        zone_id: this.zone_id,
+        order: index,
+        name: element.content
+      };
+      if (!element.isNew) {
+        submit_okr.id = element.id;
       }
+      submit_okrs.push(submit_okr);
     });
-    this.onResolve.emit(this.okrs);
-    this.okrConfigureModal.hide();
+    this.okrService.update_batch(this.zone_id, {
+      okrs: submit_okrs
+    })
+    .subscribe(() => {
+      this.onResolve.emit();
+      this.okrConfigureModal.hide();
+    });
   }
 }

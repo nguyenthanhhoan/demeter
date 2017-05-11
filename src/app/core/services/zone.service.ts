@@ -100,8 +100,4 @@ export class ZoneService {
       device_field_id: device_field_id
     });
   }
-
-  getOKRData(project_id, zone_id): Observable<any> {
-    return this.jsonApiService.fetch(`/zone/okr.json`);
-  }
 }

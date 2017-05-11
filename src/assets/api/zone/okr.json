@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "order": 2,
     "name": "Farm Tech",
     "objectives": [
       {
@@ -130,26 +131,31 @@
   },
   {
     "id": 2,
+    "order": 1,
     "name": "Contract Farming",
     "objectives": []
   },
   {
     "id": 3,
+    "order": 3,
     "name": "Operation",
     "objectives": []
   },
   {
     "id": 4,
+    "order": 4,
     "name": "PSI Plan",
     "objectives": []
   },
   {
     "id": 5,
+    "order": 5,
     "name": "QC",
     "objectives": []
   },
   {
     "id": 6,
+    "order": 6,
     "name": "Finance",
     "objectives": []
   }

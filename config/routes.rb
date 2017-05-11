@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   
+  # TODO: Move to namespace /user
   resources :projects do
     resources :zones do
       member do
@@ -27,7 +28,12 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :user do 
+  namespace :user do
+    resources :okrs do
+      collection do
+        post 'update_batch' => 'okrs#update_batch'
+      end
+    end
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/device_fields' => 'device_fields#index'
     get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }

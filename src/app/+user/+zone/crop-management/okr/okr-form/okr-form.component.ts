@@ -29,16 +29,18 @@ export class OKRFormComponent {
     this.project_id = +this.route.snapshot.params['project_id'];
     this.zone_id = +this.route.snapshot.params['id'];
     this.objective_id = +this.route.snapshot.params['objective_id'];
-    this.zoneService.getOKRData(this.project_id, this.zone_id)
-      .subscribe((okr_tabs) => {
-        let foundObjective = okr_tabs[0].objectives.find((objective) => {
-          return (objective.id == this.objective_id);
-        });
-        if (foundObjective) {
-          this.objective = foundObjective;
-          this.numberOfKeyResult = this.objective.key_results.length;
-        }
-      })
+
+    // TODO: Fix later
+    // this.zoneService.getOKRData(this.project_id, this.zone_id)
+    //   .subscribe((okr_tabs) => {
+    //     let foundObjective = okr_tabs[0].objectives.find((objective) => {
+    //       return (objective.id == this.objective_id);
+    //     });
+    //     if (foundObjective) {
+    //       this.objective = foundObjective;
+    //       this.numberOfKeyResult = this.objective.key_results.length;
+    //     }
+    //   });
   }
 
   removeKeyResult(key_result) {

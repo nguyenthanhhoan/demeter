@@ -13,6 +13,7 @@
             <div class="row">
               <div class="col col-10">
                 <sa-nestable-list [items]="okrList"
+                                  #sortableList
                                   (change)="onChangeList($event)"></sa-nestable-list>
               </div>
             </div>
