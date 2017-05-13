@@ -34,9 +34,9 @@
           (click)="openAddObjective()"
           >Add Objective</button>
       </div>
-      <tab [active]="activeORKTab.id == 1">
-        <okr-table [objectives]="activeORKTab.objectives" (onRemoveObjective)="removeObjective($event)"></okr-table>
-      </tab>
+      <okr-table 
+        *ngIf="activeORKTab?.objectives?.length > 0"
+        [objectives]="activeORKTab.objectives" (onRemoveObjective)="removeObjective($event)"></okr-table>
     </tabset>
   </div>
 </div>
@@ -95,9 +95,9 @@
               <div class="col col-4">
                 <label class="input">
                   <div class="input-group">
-                    <input type="text" name="start_date" 
-                      [(ngModel)]="objective.start_date"
-                      (valueChange)="objective.start_date=$event"
+                    <input type="text" name="date_from" 
+                      [(ngModel)]="objective.date_from"
+                      (valueChange)="objective.date_from=$event"
                       class="form-control datepicker"
                       [saUiDatepicker]="{
                         dateFormat: 'mm/dd/yy'
@@ -109,9 +109,9 @@
               <div class="col col-4">
                 <label class="input">
                   <div class="input-group">
-                    <input type="text" name="end_date" 
-                      [(ngModel)]="objective.end_date"
-                      (valueChange)="objective.end_date=$event"
+                    <input type="text" name="date_to" 
+                      [(ngModel)]="objective.date_to"
+                      (valueChange)="objective.date_to=$event"
                       class="form-control datepicker"
                       [saUiDatepicker]="{
                         dateFormat: 'mm/dd/yy'

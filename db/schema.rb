@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510084654) do
+ActiveRecord::Schema.define(version: 20170512134808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,30 @@ ActiveRecord::Schema.define(version: 20170510084654) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
+  end
+
+  create_table "okr_objective_keys", force: :cascade do |t|
+    t.integer  "okr_objective_id"
+    t.text     "description"
+    t.integer  "status"
+    t.string   "pic"
+    t.date     "start_date"
+    t.date     "original_deadline"
+    t.date     "deadline1"
+    t.text     "note"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["okr_objective_id"], name: "index_okr_objective_keys_on_okr_objective_id", using: :btree
+  end
+
+  create_table "okr_objectives", force: :cascade do |t|
+    t.integer  "okr_id"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.string   "objective"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["okr_id"], name: "index_okr_objectives_on_okr_id", using: :btree
   end
 
   create_table "okrs", force: :cascade do |t|
@@ -173,6 +197,8 @@ ActiveRecord::Schema.define(version: 20170510084654) do
   end
 
   add_foreign_key "device_fields", "devices"
+  add_foreign_key "okr_objective_keys", "okr_objectives"
+  add_foreign_key "okr_objectives", "okrs"
   add_foreign_key "okrs", "zones"
   add_foreign_key "zones", "projects"
 end

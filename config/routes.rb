@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         post 'update_batch' => 'okrs#update_batch'
       end
     end
+    resources :okr_objectives
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/device_fields' => 'device_fields#index'
     get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }

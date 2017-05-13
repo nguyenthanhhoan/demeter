@@ -18,7 +18,7 @@
     <ng-container *ngFor="let objective of objectives; let i = index">
       <tr>
         <td [attr.rowspan]="objective.key_results.length + 1">{{ i + 1 }}</td>
-        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.end_date}}</td>
+        <td [attr.rowspan]="objective.key_results.length + 1">{{objective.date_to}}</td>
         <td [attr.rowspan]="objective.key_results.length + 1">{{objective.objective}}</td>
         <ng-container *ngIf="objective.key_results.length == 0">
           <td></td><td></td><td></td>
@@ -31,7 +31,7 @@
             <p *ngFor="let pic of objective.key_results[0].pics">{{pic.name}}</p>
           </td>
           <td>{{objective.key_results[0].start_date}}</td>
-          <td>{{objective.key_results[0].deadline}}</td>
+          <td>{{objective.key_results[0].original_deadline}}</td>
           <td>{{objective.key_results[0].deadline1}}</td>
           <td>{{objective.key_results[0].note}}</td>
         </ng-container>

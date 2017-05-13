@@ -11,9 +11,9 @@
         <div class="col col-4">
           <label class="input">
             <div class="input-group">
-              <input type="text" name="start_date" 
-                [(ngModel)]="objective.start_date"
-                (valueChange)="objective.start_date=$event"
+              <input type="text" name="date_from" 
+                [(ngModel)]="objective.date_from"
+                (valueChange)="objective.date_from=$event"
                 class="form-control datepicker"
                 [saUiDatepicker]="{
                   dateFormat: 'mm/dd/yy'
@@ -25,9 +25,9 @@
         <div class="col col-4">
           <label class="input">
             <div class="input-group">
-              <input type="text" name="end_date" 
-                [(ngModel)]="objective.end_date"
-                (valueChange)="objective.end_date=$event"
+              <input type="text" name="date_to" 
+                [(ngModel)]="objective.date_to"
+                (valueChange)="objective.date_to=$event"
                 class="form-control datepicker"
                 [saUiDatepicker]="{
                   dateFormat: 'mm/dd/yy'
@@ -57,7 +57,7 @@
       </button>
     </div>
     <div *ngFor="let key_result of objective.key_results; let i = index">
-      <fieldset class="key-result-group">
+      <fieldset class="key-result-group" *ngIf="key_result._destroy !== true">
         <section>
           <p class="key-result-title">{{ i + 1}} - Key result</p>
         </section>
@@ -77,11 +77,11 @@
             <div class="col col-8">
               <label class="select">
                 <select name="key_result_{{i}}_status" [(ngModel)]="key_result.status">
-                  <option>Planned</option>
-                  <option>In Progress</option>
-                  <option>Pending</option>
-                  <option>Delay</option>
-                  <option>Finish</option>
+                  <option value="planned">Planned</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="pending">Pending</option>
+                  <option value="delay">Delay</option>
+                  <option value="finish">Finish</option>
                 </select><i></i>
               </label>
             </div>
@@ -91,10 +91,12 @@
           <div class="row">
             <label class="col col-4 label">PIC</label>
             <div class="col col-8">
-              <select select2 multiple style="width:100%" class="select2">
-                <option value="CA">Nguyen Van A</option>
-                <option value="NV">Tran Van B</option>
-                <option value="OR">Dao Thi C</option>
+              <select 
+                select2 multiple style="width:100%" class="select2"
+                [data]="key_result.pic"
+                (onSelect)="changePIC($event, key_result)">
+
+                <option *ngFor="let person of key_result.pic">{{person}}</option>
               </select>
             </div>
           </div>
@@ -105,9 +107,9 @@
             <div class="col col-8">
               <label class="input">
                 <div class="input-group">
-                  <input type="text" name="start_date" 
+                  <input type="text" name="key_result_{{i}}_start_date" 
                     [(ngModel)]="key_result.start_date"
-                    (valueChange)="objective.start_date=$event"
+                    (valueChange)="key_result.start_date=$event"
                     class="form-control datepicker"
                     [saUiDatepicker]="{
                       dateFormat: 'mm/dd/yy'
@@ -124,9 +126,9 @@
             <div class="col col-8">
               <label class="input">
                 <div class="input-group">
-                  <input type="text" name="deadline" 
-                    [(ngModel)]="key_result.deadline"
-                    (valueChange)="objective.deadline=$event"
+                  <input type="text" name="key_result_{{i}}_original_deadline" 
+                    [(ngModel)]="key_result.original_deadline"
+                    (valueChange)="key_result.original_deadline=$event"
                     class="form-control datepicker"
                     [saUiDatepicker]="{
                       dateFormat: 'mm/dd/yy'
@@ -143,9 +145,9 @@
             <div class="col col-8">
               <label class="input">
                 <div class="input-group">
-                  <input type="text" name="deadline1" 
+                  <input type="text" name="key_result_{{i}}_deadline1" 
                     [(ngModel)]="key_result.deadline1"
-                    (valueChange)="objective.deadline1=$event"
+                    (valueChange)="key_result.deadline1=$event"
                     class="form-control datepicker"
                     [saUiDatepicker]="{
                       dateFormat: 'mm/dd/yy'

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { AppSettings } from '../../../../../app.settings';
 import { ZoneService } from '../../../../../core/services/zone.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
+import { OkrObjectiveService } from '../../../../../core/services/okr-objective.service';
 
 declare var moment: any;
 @Component({
@@ -11,7 +12,7 @@ declare var moment: any;
   templateUrl: './okr-form.component.html',
   styleUrls: ['./okr-form.component.css']
 })
-export class OKRFormComponent {
+export class OKRFormComponent implements OnInit {
 
   objective: any = {
     key_results: []
@@ -25,32 +26,26 @@ export class OKRFormComponent {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private zoneService: ZoneService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private okrObjectiveService: OkrObjectiveService) {
     this.project_id = +this.route.snapshot.params['project_id'];
     this.zone_id = +this.route.snapshot.params['id'];
     this.objective_id = +this.route.snapshot.params['objective_id'];
+  }
 
-    // TODO: Fix later
-    // this.zoneService.getOKRData(this.project_id, this.zone_id)
-    //   .subscribe((okr_tabs) => {
-    //     let foundObjective = okr_tabs[0].objectives.find((objective) => {
-    //       return (objective.id == this.objective_id);
-    //     });
-    //     if (foundObjective) {
-    //       this.objective = foundObjective;
-    //       this.numberOfKeyResult = this.objective.key_results.length;
-    //     }
-    //   });
+  ngOnInit() {
+    this.okrObjectiveService.getOne(this.objective_id)
+    .subscribe((objective) => {
+      this.objective = objective;
+    });
   }
 
   removeKeyResult(key_result) {
     this.notificationService.confirmBox({
       content: 'Do you want to remove this Key Result?'
     }, () => {
-      let key_results = this.objective.key_results;
-      let index = key_results.indexOf(key_result);
-      key_results.splice(index, 1);
-    })
+      key_result._destroy = true;
+    });
   }
 
   deleteObjective() {
@@ -58,7 +53,7 @@ export class OKRFormComponent {
       content: 'Do you want to delete this Objective?'
     }, () => {
       
-    })
+    });
   }
 
   archiveObjective() {
@@ -66,11 +61,14 @@ export class OKRFormComponent {
       content: 'Do you want to archive this Objective?'
     }, () => {
       
-    })
+    });
   }
 
   saveObjective() {
-    this.notificationService.showMessage('Updated Objective successfully!');
+    this.okrObjectiveService.put(this.objective)
+    .subscribe(() => {
+      this.notificationService.showMessage('Updated Objective successfully!');
+    });
   }
 
   cancelObjective() {
@@ -80,5 +78,9 @@ export class OKRFormComponent {
   addKeyResult() {
     let key_results = this.objective.key_results;
     key_results.push({});
+  }
+
+  changePIC(pic, key_result) {
+    key_result.pic = pic;
   }
 }
