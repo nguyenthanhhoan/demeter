@@ -28,7 +28,7 @@
           <td>{{objective.key_results[0].status}}</td>
           <td>{{objective.key_results[0].description}}</td>
           <td>
-            <p *ngFor="let pic of objective.key_results[0].pics">{{pic.name}}</p>
+            {{objective.key_results[0].pic.join(', ')}}
           </td>
           <td>{{objective.key_results[0].start_date}}</td>
           <td>{{objective.key_results[0].original_deadline}}</td>
@@ -49,10 +49,10 @@
           <td>{{key_result.status}}</td>
           <td>{{key_result.description}}</td>
           <td>
-            <p *ngFor="let pic of key_result.pics">{{pic.name}}</p>
+            {{key_result.pic.join(', ')}}
           </td>
           <td>{{key_result.start_date}}</td>
-          <td>{{key_result.deadline}}</td>
+          <td>{{key_result.original_deadline}}</td>
           <td>{{key_result.deadline1}}</td>
           <td>{{key_result.note}}</td>
         </ng-container>
