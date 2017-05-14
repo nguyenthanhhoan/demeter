@@ -29,6 +29,8 @@ export class ProjectListComponent implements OnInit {
     projectService.getProjects().subscribe(data => {
       this.projects = data;
       this.isRequesting = false;
+    }, () => {
+      this.isRequesting = false;
     });
   }
 

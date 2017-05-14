@@ -8,6 +8,7 @@ import { SensorDataService } from '../../../core/services/sensor-data.service';
 
 declare var moment: any;
 declare var Highcharts: any;
+declare var $: any;
 @Component({
   selector: 'sensor-data-chart',
   templateUrl: './sensor-data-chart.component.html',
@@ -54,6 +55,7 @@ export class SensorDataChartComponent extends OnDestroy {
     chart_ref: null
   }];
   activeChartTab = this.chartTabs[0];
+  chartInit = false;
 
   // Show last 5 minutes data
   timeline = 5 * 60 * 1000;
@@ -174,8 +176,13 @@ export class SensorDataChartComponent extends OnDestroy {
       if (chartData.chart_ref) {
         chartData.chart_ref.update(chartOpts);
       } else {
-        // TODO: Check chart-container present first, maybe the page has been navigated out
-        chartData.chart_ref = Highcharts.chart('chart-container-' + index, chartOpts);
+        // Check chart-container present first, maybe the page has been navigated out
+        if ($('#chart-container-' + index).length > 0) {
+          chartData.chart_ref = Highcharts.chart('chart-container-' + index, chartOpts);
+          this.chartInit = true;
+        } else {
+          console.log('Chart container not present!');
+        }
       }
     });
   }
@@ -183,6 +190,7 @@ export class SensorDataChartComponent extends OnDestroy {
   // Ideally, this should use Websocket
   handleDataRealTime() {
     let timer = Observable.timer(1000, 5000);
+    let retryCount = 0;
     this.subscription = timer.subscribe(() => {
       let start_timestamp = this.last_timestamp;
       let end_timestamp = this.last_timestamp = moment().valueOf();
@@ -191,6 +199,20 @@ export class SensorDataChartComponent extends OnDestroy {
           if (data) {
             let newDataReceiveds = data.xAxis.categories;
             this.chartTabs.forEach((chartTab, index) => {
+
+              if ($('#chart-container-' + index).length === 0) {
+                retryCount++;
+                if (retryCount > 5 && this.subscription) {
+                  this.subscription.unsubscribe();
+                }
+                return;
+              }
+
+              retryCount = 0;
+              if (!this.chartInit) {
+                // Chart's not init yet. Need wait next tick
+                return;
+              }
 
               if (chartTab === this.activeChartTab) {
                 // Push data through Highchart API
