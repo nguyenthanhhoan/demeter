@@ -26,6 +26,7 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
   @Output() onResolve = new EventEmitter();
 
   newOKRName: String = '';
+  isRequesting = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -138,12 +139,17 @@ export class OKRConfigureModalComponent implements OnInit, OnChanges, DoCheck {
       }
       submit_okrs.push(submit_okr);
     });
+
+    this.isRequesting = true;
     this.okrService.update_batch(this.zone_id, {
       okrs: submit_okrs
     })
     .subscribe(() => {
       this.onResolve.emit();
       this.okrConfigureModal.hide();
+      this.isRequesting = false;
+    }, () => {
+      this.isRequesting = false;
     });
   }
 }

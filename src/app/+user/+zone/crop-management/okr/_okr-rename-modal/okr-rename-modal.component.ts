@@ -24,6 +24,7 @@ export class OKRRenameModalComponent implements OnChanges {
   @Output() onResolve = new EventEmitter();
 
   okrList: any[];
+  isRequesting = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -56,12 +57,16 @@ export class OKRRenameModalComponent implements OnChanges {
         name: element.name
       });
     });
+    this.isRequesting = true;
     this.okrService.update_batch(this.zone_id, {
       okrs: submit_okrs
     })
     .subscribe(() => {
       this.onResolve.emit(this.okrList);
       this.okrRenameModal.hide();
+      this.isRequesting = false;
+    }, () => {
+      this.isRequesting = false;
     });
   }
 }

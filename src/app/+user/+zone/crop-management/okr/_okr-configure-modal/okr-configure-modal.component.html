@@ -8,6 +8,7 @@
         <h4 class="modal-title">Configure Objective</h4>
       </div>
       <div class="modal-body">
+        <app-spinner [isRunning]="isRequesting"></app-spinner>
         <form class="smart-form" #objectiveForm="ngForm">
           <section>
             <div class="row">
@@ -44,6 +45,7 @@
           Cancel
         </button>
         <button type="button" 
+          [disabled]="isRequesting"
           class="btn btn-primary" (click)="save()">
           OK
         </button>
