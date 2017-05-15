@@ -23,7 +23,7 @@
     ```
     2. Link `dist` folder to `public` folder
     ```
-    ls -s dist public
+    ln -s dist public
     ```
     3. Run docker
     ```
@@ -31,3 +31,15 @@
     ```
 
 That's all. Now try `http://localhost:4200` on your browser ;)
+
+## References
+
+1. Install Node
+
+    ```
+    https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+    ```
+2. Install anuglar-cli
+    ```
+    npm install -g @angular/cli
+    ```
