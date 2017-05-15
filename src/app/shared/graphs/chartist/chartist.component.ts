@@ -118,16 +118,6 @@ export class ChartistComponent implements OnInit, OnChanges, OnDestroy {
   }
 }
 
-@NgModule({
-  declarations: [
-    ChartistComponent
-  ],
-  exports: [
-    ChartistComponent
-  ]
-})
-export class ChartistModule {}
-
 // for angular-cli
 export default {
   directives: [ChartistComponent]

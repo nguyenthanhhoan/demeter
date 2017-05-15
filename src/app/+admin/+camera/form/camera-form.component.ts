@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
 import { CameraService } from '../../shared/services/camera.service';
@@ -9,9 +9,9 @@ import { CameraService } from '../../shared/services/camera.service';
   templateUrl: './camera-form.component.html',
   styleUrls: ['./camera-form.component.css']
 })
-export class ProjectFormComponent implements OnInit {
+export class CameraFormComponent implements OnInit {
 
-  camera: any
+  camera: any;
 
   validatorOptions = {
     feedbackIcons: {
@@ -37,12 +37,12 @@ export class ProjectFormComponent implements OnInit {
         }
       }
     }
-  }
-  
+  };
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private cameraService: CameraService,
-              private el:ElementRef) { 
+              private el: ElementRef) {
   }
 
   ngOnInit() {
@@ -52,12 +52,12 @@ export class ProjectFormComponent implements OnInit {
       .subscribe(data => {
         console.log('data', data);
         this.camera = data;
-      })
+      });
     }
   }
 
   onSubmit() {
-    var form = $(this.el.nativeElement).find('form');
+    let form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
     if (bootstrapValidator.isValid()) {
       let submitCamera:any = Object.assign({},this.camera);

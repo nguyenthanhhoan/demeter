@@ -22,6 +22,8 @@ import { DeviceFormComponent } from './+device/form/device-form.component';
 import { DeviceFieldListComponent } from './+device/device-field/list/device-field-list.component';
 import { DeviceFieldFormComponent } from './+device/device-field/form/device-field-form.component';
 
+import { CameraFormComponent } from './+camera/form/camera-form.component';
+
 import { ProjectService } from './shared/services/project.service';
 import { ZoneService } from './shared/services/zone.service';
 import { CameraService } from './shared/services/camera.service';
@@ -48,7 +50,9 @@ import { DeviceFieldService } from './shared/services/device-field.service';
     DeviceListComponent,
     DeviceFormComponent,
     DeviceFieldListComponent,
-    DeviceFieldFormComponent
+    DeviceFieldFormComponent,
+
+    CameraFormComponent
   ],
   providers: [
     ProjectService,

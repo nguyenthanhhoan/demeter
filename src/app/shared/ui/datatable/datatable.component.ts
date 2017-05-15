@@ -11,7 +11,7 @@ declare var $: any;
       </table>
 `,
   styles: [
-    require('smartadmin-plugins/datatables-bundle/datatables.min.css')
+    'smartadmin-plugins/datatables-bundle/datatables.min.css'
   ]
 })
 export class DatatableComponent implements OnInit {
