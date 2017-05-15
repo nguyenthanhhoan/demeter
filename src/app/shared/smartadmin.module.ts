@@ -46,7 +46,7 @@ import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
 
     ModalModule,
     // ButtonsModule,
-    // TooltipModule,
+    TooltipModule,
     DropdownModule,
     // ProgressbarModule,
     AlertModule,

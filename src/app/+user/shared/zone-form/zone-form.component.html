@@ -130,13 +130,24 @@
       </div>
       <div class="col-md-6">
         <div class="project-image-holder">
-          <a (click)="openSelectFile()">
-            <div class="upload-plus-icon upload-preview"></div>
-          </a>
-          <p class="image-label help-block">Image</p>
+          <div *ngIf="type == 'edit'">
+            <div class="img-wrap" 
+              (click)="openSelectFile()"
+              placement="bottom" tooltip="Change">
+
+              <img class="img-responsive" src="{{zone.image?.thumb?.url}}" />
+            </div>
+          </div>
+
+          <div *ngIf="type != 'edit'">
+            <a (click)="openSelectFile()">
+              <div class="upload-plus-icon upload-preview"></div>
+            </a>
+            <p class="image-label help-block">Image</p>
+          </div>
           <input type="file" 
             class="file-input hiddenfile"
-            (change)="fileChange($event)" accept="image/*">
+            (change)="fileChange($event)" accept="image/*" />
         </div>
         <div class="form-group-height"></div>
         <div class="form-group" *ngIf="zone.plant">

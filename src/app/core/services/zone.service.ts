@@ -17,7 +17,7 @@ export class ZoneService {
   }
 
   buildFormData(zone) {
-    let formData:FormData = new FormData();
+    let formData: FormData = new FormData();
     formData.append('zone[project_id]', zone.project_id);
     formData.append('zone[name]', zone.name);
     formData.append('zone[zone_id]', zone.zone_id);
@@ -45,13 +45,20 @@ export class ZoneService {
   }
 
   post (project_id, zone): Observable<any[]> {
-    let formData:FormData = this.buildFormData(zone);
+    let formData: FormData = this.buildFormData(zone);
     return this.apiService.postFormData(`projects/${project_id}/zones`, formData);
   }
 
   put (project_id, zone): Observable<any[]> {
-    let formData:FormData = this.buildFormData(zone);
+    let formData: FormData = this.buildFormData(zone);
     return this.apiService.putFormData(`projects/${project_id}/zones/${zone.id}`, formData);
+  }
+
+  updateImage (project_id, zone_id, image): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('zone[image]', image);
+    return this.apiService
+            .putFormData(`projects/${project_id}/zones/${zone_id}/update_image`, formData);
   }
 
   getOne (project_id, id): Observable<any> {

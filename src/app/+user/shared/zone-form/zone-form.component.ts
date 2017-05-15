@@ -1,7 +1,10 @@
-import { Component, Input, OnInit, DoCheck, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import {
+  ChangeDetectorRef, Component, DoCheck, ElementRef, Input, OnChanges, OnInit
+} from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
+import { NotificationService } from '../../../shared/utils/notification.service';
 import { ZoneService } from '../../../core/services/zone.service';
 
 import {
@@ -16,7 +19,7 @@ declare var $: any;
   templateUrl: './zone-form.component.html',
   styleUrls: ['./zone-form.component.css']
 })
-export class ZoneFormComponent implements OnInit, DoCheck {
+export class ZoneFormComponent implements OnInit, OnChanges, DoCheck {
 
   @Input()
   zone: any;
@@ -25,10 +28,12 @@ export class ZoneFormComponent implements OnInit, DoCheck {
   type: string;
 
   oldZone: any = {};
+  project_id;
+  zone_id;
 
   plants = [
-    { 
-      id: 1, 
+    {
+      id: 1,
       name: 'Fruit Tree',
       varieties: [
         { id: 1, name: 'Almonds'},
@@ -83,14 +88,14 @@ export class ZoneFormComponent implements OnInit, DoCheck {
       name: 'Other',
       varieties: []
     }
-  ]
+  ];
 
-  quantity_units = ['kg', 'pieces']
-  production_types = ['conventinal', 'organic', 'intergrated']
-  surface_units = ['m2', 'ha']
-  zone_types = ['greenhouse', 'orchard', 'field crop', 'special']
+  quantity_units = ['kg', 'pieces'];
+  production_types = ['conventinal', 'organic', 'intergrated'];
+  surface_units = ['m2', 'ha'];
+  zone_types = ['greenhouse', 'orchard', 'field crop', 'special'];
   growing_condition_types = ['soil', 'medium', 'hydroponic', 'aeroponic', 'aquaponic', 'other']
-  ownership_types = ['private', 'contract farming', 'rent']
+  ownership_types = ['private', 'contract farming', 'rent'];
 
   validatorOptions = {
     feedbackIcons: {
@@ -121,50 +126,58 @@ export class ZoneFormComponent implements OnInit, DoCheck {
               private ref: ChangeDetectorRef,
               private zoneService: ZoneService,
               private route: ActivatedRoute,
-              private el:ElementRef) { 
+              private el: ElementRef,
+              private notificationService: NotificationService) {
 
     this.zone = {
       name: '',
       plant: this.plants[0]
     };
 
-    //TODO: Refactor later
+    // TODO: Refactor later
     setInterval(() => {
       this.ref.markForCheck();
-    },1000);
+    }, 1000);
   }
 
   ngOnInit() {
+    this.parseParam();
+  }
+
+  ngOnChanges() {
+    this.parseParam();
+  }
+
+  parseParam() {
+    if (this.type === 'edit') {
+      this.project_id = +this.route.snapshot.params['project_id'];
+      this.zone_id = +this.route.snapshot.params['id'];
+    } else {
+      this.project_id = +this.route.snapshot.params['id'];
+    }
   }
 
   onSubmit() {
-    let project_id;
-    if (this.type == 'edit') {
-      project_id = +this.route.snapshot.params['project_id'];
-    } else {
-      project_id = +this.route.snapshot.params['id'];
-    }
-
-    var form = $(this.el.nativeElement).find('form');
+    let form = $(this.el.nativeElement).find('form');
     const bootstrapValidator = form.data('bootstrapValidator');
-    //TODO: Sometime the validate() fn from directive was not triggered
+
+    // TODO: Sometime the validate() fn from directive was not triggered
     // Should trigger here!!!
     bootstrapValidator.validate();
     if (bootstrapValidator.isValid()) {
-      let submitZone:any = Object.assign({},this.zone);
-      submitZone.project_id = project_id;
+      let submitZone: any = Object.assign({}, this.zone);
+      submitZone.project_id = this.project_id;
       this.transformSubmitZone(submitZone);
 
-      if (this.type == 'edit') {
-        this.zoneService.put(project_id, submitZone).subscribe(data => {
-          this.router.navigate([`/user/project/${project_id}`]);
+      if (this.type === 'edit') {
+        this.zoneService.put(this.project_id, submitZone).subscribe(data => {
+          this.router.navigate([`/user/project/${this.project_id}`]);
         });
       } else {
-        this.zoneService.post(project_id, submitZone).subscribe(data => {
-          this.router.navigate([`/user/project/${project_id}`]);
+        this.zoneService.post(this.project_id, submitZone).subscribe(data => {
+          this.router.navigate([`/user/project/${this.project_id}`]);
         });
       }
-      
     }
   }
 
@@ -184,24 +197,36 @@ export class ZoneFormComponent implements OnInit, DoCheck {
 
   fileChange(event) {
     let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      this.zone.image = fileList[0];
+    if (this.type === 'edit') {
+      let submitImage: any;
+      if (fileList.length > 0) {
+        submitImage = fileList[0];
+      }
+      this.zoneService.updateImage(this.project_id, this.zone_id, submitImage)
+      .subscribe((image) => {
+        this.zone.image = image;
+        this.notificationService.showMessage('Change image successfully!');
+      });
+    } else {
+      if (fileList.length > 0) {
+        this.zone.image = fileList[0];
+      }
+      this.readURL(event.target);
     }
-    this.readURL(event.target);
   }
 
   openSelectFile() {
     let file = $(this.el.nativeElement).find('.file-input');
-    file.trigger('click'); 
+    file.trigger('click');
   }
 
   readURL(input) {
     if (input.files && input.files[0]) {
-      var reader = new FileReader();
+      let reader = new FileReader();
 
       reader.onload = function (e) {
-        $('.upload-preview').css('background-image', 'url('+e.target['result'] +')');
-      }
+        $('.upload-preview').css('background-image', 'url(' + e.target['result'] + ')');
+      };
 
       reader.readAsDataURL(input.files[0]);
     }
