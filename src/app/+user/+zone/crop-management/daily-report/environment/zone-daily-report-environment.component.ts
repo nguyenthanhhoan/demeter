@@ -65,7 +65,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
     start.setHours(0, 0, 0, 0);
 
     let end = new Date(date);
-    end.setHours(23, 59, 59, 999);
+    end.setHours(23, 59, 0, 0);
 
     let start_timestamp = start.valueOf();
     let end_timestamp = end.valueOf();
@@ -90,7 +90,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
             // Using timer to make sure DOM has ready
             let timer = Observable.timer(1);
             timer.subscribe(() => {
-              this.loadHighChart(start_timestamp, end_timestamp);
+              this.loadHighChart();
             });
           }
         }
@@ -98,7 +98,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
       });
   }
 
-  loadHighChart(start_timestamp, end_timestamp) {
+  loadHighChart() {
     System.import('script-loader!highcharts').then(() => {
       return System.import('script-loader!highcharts/highcharts.js')
     }).then(() => {
@@ -107,14 +107,15 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
           useUTC : false
         }
       });
-      this.initChart(start_timestamp, end_timestamp);
+      this.initChart();
     });
   }
 
-  initChart(start_timestamp, end_timestamp) {
+  initChart() {
     // End timestamp should be the lastest timestamp returned
     let timestamps = this.chartData.timestamps;
-    end_timestamp = timestamps[timestamps.length - 1];
+    let start_timestamp = timestamps[0];
+    let end_timestamp = timestamps[timestamps.length - 1];
     this.timeline = end_timestamp - start_timestamp;
     this.chartData.series.forEach((series, index) => {
       let pointInterval = Math.round((this.timeline) / series.data.length);

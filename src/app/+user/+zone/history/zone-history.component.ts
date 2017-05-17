@@ -84,7 +84,7 @@ export class ZoneHistoryComponent implements OnInit {
               content: 'No data match your filter.'
             });
           } else {
-            this.loadHighChart(start_timestamp, end_timestamp);
+            this.loadHighChart();
           }
         }
         this.isRequesting = false;
@@ -93,20 +93,23 @@ export class ZoneHistoryComponent implements OnInit {
       });
   }
 
-  loadHighChart(start_timestamp, end_timestamp) {
+  loadHighChart() {
     System.import('script-loader!highcharts').then(() => {
       return System.import('script-loader!highcharts/highcharts.js');
     }).then(() => {
-      this.initChart(start_timestamp, end_timestamp);
+      this.initChart();
     });
   }
 
-  initChart(start_timestamp, end_timestamp) {
+  initChart() {
     Highcharts.setOptions({
       global : {
         useUTC : false
       }
     });
+    let timestamps = this.chartData.timestamps;
+    let start_timestamp = timestamps[0];
+    let end_timestamp = timestamps[timestamps.length - 1];
     this.chartData.series.forEach((series, index) => {
       let pointInterval = Math.round((end_timestamp - start_timestamp) / series.data.length);
       let chartOpts = {
@@ -130,8 +133,7 @@ export class ZoneHistoryComponent implements OnInit {
         plotOptions: {
           spline: {
             pointInterval: pointInterval,
-            // TODO: Work around
-            pointStart: start_timestamp// - ((new Date()).getTimezoneOffset() * 60 * 1000)
+            pointStart: start_timestamp
           }
         },
         xAxis: {
