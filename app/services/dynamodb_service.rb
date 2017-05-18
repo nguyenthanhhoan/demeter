@@ -18,7 +18,7 @@ class DynamodbService
           attribute_value_list: [start_timestamp.to_i, end_timestamp.to_i]
         }
       },
-      table_name: "gateway_data"
+      table_name: 'gateway_data'
     }
 
     query_result = client.query(query_obj)
