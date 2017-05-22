@@ -2,6 +2,9 @@ FROM sutran/ruby-2.3-docker
 
 RUN gem install bundler --no-ri --no-rdoc
 
+# Install static server
+RUN npm -g install static-server
+
 # Cache bundle install
 WORKDIR /tmp
 ADD Gemfile      /tmp/

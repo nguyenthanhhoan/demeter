@@ -27,19 +27,31 @@ cache:
 
 web:
   build: .
-  # command: bundle exec unicorn -E development -c config/unicorn.rb
-  command: npm run start
+  command: bundle exec unicorn -E development -c config/unicorn.rb
   # command: node_modules/.bin/ng serve --port=4200
-  ports:
-    - "8080:8080"
-    - "4200:4200"
   volumes:
     - .:/rails
   env_file: .env.web
+  expose:
+    - 8080
+  environment:
+    - VIRTUAL_HOST=console.demeter.local
+    - VIRTUAL_PORT=8080
   links:
     - db
     - redis
     - cache
+
+homepage_web:
+  build: .
+  entrypoint: /rails/dmt-homepage/entry.sh
+  volumes:
+    - .:/rails
+  expose:
+    - 9080
+  environment:
+    - VIRTUAL_HOST=demeter.local
+    - VIRTUAL_PORT=9080
 
 worker:
   build: .
@@ -48,7 +60,6 @@ worker:
     - .:/rails
   env_file: .env.web
   environment:
-    SECRET_KEY_BASE: abcdefg
     RAILS_ENV: development
   links:
     - db

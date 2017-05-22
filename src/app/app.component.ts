@@ -11,7 +11,7 @@ export class AppComponent {
   public constructor(private viewContainerRef: ViewContainerRef,
                     private _tokenService: Angular2TokenService) {
     this._tokenService.init({
-      apiBase:                    location.protocol + '//' + location.hostname + (':8080'),
+      apiBase:                    location.protocol + '//' + location.hostname,
       apiPath:                    null,
 
       signInPath:                 'auth/sign_in',
