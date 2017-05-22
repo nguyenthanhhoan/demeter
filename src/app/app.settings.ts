@@ -1,4 +1,6 @@
 export class AppSettings {
+  public static api = location.hostname === 'localhost' ? 'http://console.demeter.local/' :
+    location.protocol + '//' + location.hostname + '/';
   public static role = {
     admin: {
       name: 'admin'

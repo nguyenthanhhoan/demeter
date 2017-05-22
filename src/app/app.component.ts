@@ -1,4 +1,5 @@
-import {Component, ViewContainerRef} from '@angular/core';
+import { AppSettings } from './app.settings';
+import { Component, ViewContainerRef } from '@angular/core';
 import { Angular2TokenService } from 'angular2-token';
 
 @Component({
@@ -11,7 +12,7 @@ export class AppComponent {
   public constructor(private viewContainerRef: ViewContainerRef,
                     private _tokenService: Angular2TokenService) {
     this._tokenService.init({
-      apiBase:                    location.protocol + '//' + location.hostname,
+      apiBase:                    AppSettings.api,
       apiPath:                    null,
 
       signInPath:                 'auth/sign_in',

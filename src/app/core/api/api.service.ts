@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, RequestOptions, Headers} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 import { Angular2TokenService } from 'angular2-token';
 
-import {config} from '../../shared/smartadmin.config';
-import {NotificationService} from "../../shared/utils/notification.service";
+import { AppSettings } from '../../app.settings';
+import { config } from '../../shared/smartadmin.config';
+import { NotificationService } from '../../shared/utils/notification.service';
 
 @Injectable()
 export class ApiService {
@@ -29,13 +30,13 @@ export class ApiService {
     return this.http.get(url)
       .map(this.extractData)
       .catch(error => {
-        return this.handleError(error)
+        return this.handleError(error);
       })
   }
 
   public fetchTableData(options) {
     return {
-      dom: "Bfrtip",
+      dom: 'Bfrtip',
       ajax: (data, callback, settings) => {
         this.fetch(options.url)
           .subscribe((data) => {
@@ -100,12 +101,12 @@ export class ApiService {
   public delete(url): Observable<any> {
     return this.tokenService.delete(url).map(this.extractData)
       .catch(error => {
-        return this.handleError(error)
+        return this.handleError(error);
       });
   }
 
   private getBaseUrl(){
-    return location.protocol + '//' + location.hostname + (':8080') + '/'
+    return AppSettings.api;
   }
 
   private extractData(res:Response) {
@@ -137,9 +138,9 @@ export class ApiService {
       this.notificationService.bigBox({
         title: error.statusText,
         content: errMsg,
-        color: "#C46A69",
-        icon: "fa fa-warning shake animated",
-        number: "1",
+        color: '#C46A69',
+        icon: 'fa fa-warning shake animated',
+        number: '1',
         timeout: 5000
       });
     });
