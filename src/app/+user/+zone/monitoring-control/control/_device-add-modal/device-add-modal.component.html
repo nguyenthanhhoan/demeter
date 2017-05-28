@@ -1,0 +1,39 @@
+<div bsModal #modal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="modal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add Device</h4>
+      </div>
+      <div class="modal-body">
+        <app-spinner [isRunning]="isRequesting"></app-spinner>
+        <form class="smart-form" #selectForm="ngForm">
+          <div class="row">
+            <section>
+              <label class="col col-4 label">Choose Device</label>
+              <div class="col col-8">
+                <label class="select">
+                  <select [(ngModel)]="selectedDevice" class="input" name="selectedDevice" required>
+                    <option *ngFor="let device of devices" [ngValue]="device">{{device.name}}</option>
+                  </select> <i></i> 
+                </label>
+              </div>
+            </section>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">
+          Cancel
+        </button>
+        <button type="button" 
+          [disabled]="!selectForm.valid"
+          class="btn btn-primary" (click)="onSelectDevice(selectedDevice)">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

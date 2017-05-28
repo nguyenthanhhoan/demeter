@@ -14,15 +14,15 @@ import { NotificationService } from '../../shared/utils/notification.service';
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http, 
+  constructor(private http: Http,
               private notificationService: NotificationService,
               private tokenService: Angular2TokenService) {}
 
-  public fetch(url): Observable<any>{
+  public fetch(url, options?): Observable<any>{
 
-    return this.tokenService.get(url).map(this.extractData)
+    return this.tokenService.get(url, options).map(this.extractData)
       .catch(error => {
-        return this.handleError(error)
+        return this.handleError(error);
       });
   }
 
@@ -31,7 +31,7 @@ export class ApiService {
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
-      })
+      });
   }
 
   public fetchTableData(options) {
@@ -39,11 +39,11 @@ export class ApiService {
       dom: 'Bfrtip',
       ajax: (data, callback, settings) => {
         this.fetch(options.url)
-          .subscribe((data) => {
+          .subscribe((tableData) => {
             callback({
-              aaData: data.slice(0, 100)
-            })
-          })
+              aaData: tableData.slice(0, 100)
+            });
+          });
       },
       columns: options.columns,
       columnDefs: options.columnDefs
@@ -63,7 +63,7 @@ export class ApiService {
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
-      })
+      });
   }
 
   public postFormData(url, formData): Observable<any> {
@@ -79,7 +79,7 @@ export class ApiService {
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
-      })
+      });
   }
 
   public putFormData(url, formData): Observable<any> {
@@ -95,7 +95,7 @@ export class ApiService {
       .map(this.extractData)
       .catch(error => {
         return this.handleError(error);
-      })
+      });
   }
 
   public delete(url): Observable<any> {
@@ -109,29 +109,29 @@ export class ApiService {
     return AppSettings.api;
   }
 
-  private extractData(res:Response) {
+  private extractData(res: Response) {
     let body = res.json();
     if (body){
-      return body.data || body
+      return body.data || body;
     } else {
-      return {}
+      return {};
     }
   }
 
-  private handleError(error:any) {
+  private handleError(error: any) {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
       if (body.errors) {
 
-        //The formatted returned by devise_token_auth
+        // The formatted returned by devise_token_auth
         errMsg = body.errors.join('\n');
       } else {
         errMsg = body.error || 'Service is temporarily unavailable';
       }
     } else {
       let msgObj = JSON.parse(error._body);
-      let errMsg = msgObj.error || 'Service is temporarily unavailable';
+      errMsg = msgObj.error || 'Service is temporarily unavailable';
     }
 
     setTimeout(() => {

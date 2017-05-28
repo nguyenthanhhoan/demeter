@@ -17,6 +17,7 @@ import { CameraModule } from '../../shared/camera/camera.module';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
+import { MonitoringControlModule } from './monitoring-control/monitoring-control.module';
 
 import { ZoneFormComponent } from '../shared/zone-form/zone-form.component';
 import { SensorDataChartComponent } from '../shared/sensor-data-chart/sensor-data-chart.component';
@@ -104,7 +105,8 @@ import {
     BreadcrumbModule,
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
-    WeatherForecastModule
+    WeatherForecastModule,
+    MonitoringControlModule
   ],
   declarations: [
     ZoneFormComponent,
