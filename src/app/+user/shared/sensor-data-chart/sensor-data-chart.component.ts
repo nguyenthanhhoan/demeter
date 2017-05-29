@@ -102,7 +102,7 @@ export class SensorDataChartComponent extends OnDestroy {
   }
 
   requestChartData(start_timestamp, end_timestamp) {
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;
@@ -207,7 +207,7 @@ export class SensorDataChartComponent extends OnDestroy {
     this.subscription = timer.subscribe(() => {
       let start_timestamp = this.last_timestamp;
       let end_timestamp = this.last_timestamp = moment().valueOf();
-      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
+      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
         .subscribe((data) => {
           if (data) {
             let newDataReceiveds = data.xAxis.categories;

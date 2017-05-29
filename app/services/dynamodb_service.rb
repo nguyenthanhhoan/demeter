@@ -1,6 +1,6 @@
 class DynamodbService
 
-  def self.get_data_in(start_timestamp, end_timestamp)
+  def self.get_data_in(start_timestamp, end_timestamp, device_gateway)
     client = Aws::DynamoDB::Client.new(region: ENV.fetch('AWS_DYNAMODB_REGION'))
 
     items = []
@@ -9,7 +9,7 @@ class DynamodbService
       key_conditions: {
         'deviceId' => {
           comparison_operator: 'EQ',
-          attribute_value_list: ['cdf-gateway']
+          attribute_value_list: [device_gateway]
         },
         'timestamp' => {
           comparison_operator: 'BETWEEN',

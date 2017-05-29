@@ -108,7 +108,7 @@ export class ZoneHistoryComponent implements OnInit {
   }
 
   requestDailyChartData(start_timestamp, end_timestamp) {
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
       .subscribe((data) => {
         if (data) {
           this.chartData = data;

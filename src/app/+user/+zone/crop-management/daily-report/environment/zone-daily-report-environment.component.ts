@@ -105,7 +105,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
 
   requestDailyChartData(start_timestamp, end_timestamp) {
     this.isRequesting = true;
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;

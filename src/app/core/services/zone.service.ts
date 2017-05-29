@@ -38,6 +38,7 @@ export class ZoneService {
     formData.append('zone[labour]', zone.labour);
     formData.append('zone[location]', zone.location);
     formData.append('zone[location_geometry]', zone.location_geometry);
+    formData.append('zone[device_gateway]', zone.device_gateway);
     if (zone.image && zone.image.size > 0) {
       formData.append('zone[image]', zone.image);
     }
