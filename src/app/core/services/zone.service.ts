@@ -94,17 +94,4 @@ export class ZoneService {
       camera_id: camera_id
     });
   }
-
-  assignDeviceField(project_id, zone_id, device_field_id): Observable<any> {
-    return this.apiService.post(`projects/${project_id}/zones/${zone_id}/assign_device_field`, {
-      device_field_id: device_field_id
-    });
-  }
-
-  unAssignDeviceField(project_id, zone_id, device_field_id): Observable<any> {
-    return this.apiService
-      .post(`projects/${project_id}/zones/${zone_id}/unassign_device_field`, {
-      device_field_id: device_field_id
-    });
-  }
 }

@@ -47,13 +47,16 @@ export class DeviceFieldSelectModalComponent implements OnInit {
   }
 
   assignDeviceField() {
-    this.zoneService.assignDeviceField(this.project_id, this.zone_id, this.selectedDeviceField.id)
-    .subscribe((data) => {
+    this.deviceFieldService.assignDeviceToZone({
+      device_field_id: this.selectedDeviceField.id,
+      zone_id: this.zone_id,
+      link_type: 'summary'
+    }).subscribe(() => {
       this.isRequesting = false;
       this.modal.hide();
       this.notificationService.showMessage('Assign input successfully!');
       this.onResolve.emit();
-    }, (error) => {
+    }, () => {
       this.isRequesting = false;
     });
   }

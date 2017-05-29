@@ -3,14 +3,13 @@ class ZoneSerializer < ActiveModel::Serializer
     :plant, :plant_variety, :plant_quantity, :plant_quantity_unit,
     :production_type, :estimate_yield, :estimate_yield_unit, :surface, :surface_unit,
     :zone_type, :growing_condition_type, :ownership_type, :labour, :location, :location_geometry, :image,
-    :setting
+    :setting, :summary_device_fields
 
 
   has_one :project, serializer: ProjectSerializer
 
   has_many :cameras_zones
   has_many :cameras
-  has_many :device_fields
 
   def start_date
     object.start_date.to_s
@@ -32,5 +31,11 @@ class ZoneSerializer < ActiveModel::Serializer
         showCamera: true
       }
     end
+  end
+
+  def summary_device_fields
+    object.summary_device_fields.map { |device_field|
+      device_field.device_field
+    }
   end
 end

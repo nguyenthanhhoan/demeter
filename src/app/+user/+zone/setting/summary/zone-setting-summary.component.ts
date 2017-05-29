@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'lodash';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
+import { DeviceFieldService } from '../../../../core/services/device-field-service';
 import { ZoneService } from '../../../../core/services/zone.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class ZoneSettingSummaryComponent implements DoCheck {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
+              private deviceFieldService: DeviceFieldService,
               private zoneService: ZoneService) {
 
     this.project_id = +this.route.snapshot.params['project_id'];
@@ -105,8 +107,11 @@ export class ZoneSettingSummaryComponent implements DoCheck {
     this.notificationService.confirmBox({
       content: 'Do you want to remove this Input?'
     }, () => {
-      this.zoneService.unAssignDeviceField(this.project_id, this.zone_id, deviceField.id)
-      .subscribe((data) => {
+      this.deviceFieldService.unassignDeviceToZone({
+        zone_id: this.zone_id,
+        link_type: 'summary',
+        device_field_id: deviceField.id
+      }).subscribe((fields) => {
         this.notificationService.showMessage('Remove Input successfully!');
         this.reloadZone();
       });

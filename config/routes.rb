@@ -10,8 +10,6 @@ Rails.application.routes.draw do
         post 'unassign_camera' => 'zones#unassign_camera'
         post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
         post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
-        post 'assign_device_field' => 'zones#assign_device_field'
-        post 'unassign_device_field' => 'zones#unassign_device_field'
         put 'update_image' => 'zones#update_image'
       end
     end
