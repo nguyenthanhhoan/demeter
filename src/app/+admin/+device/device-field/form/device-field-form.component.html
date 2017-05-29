@@ -94,6 +94,20 @@
                     #value="ngModel" name="value" />
                 </label>
               </section>
+
+              <header>Chart Configuration</header>
+              <section>
+                <label class="label">Chart Suffix</label>
+                <label class="input">
+                  <input [(ngModel)]="deviceField.chart_value_suffix" name="chart_value_suffix" />
+                </label>
+              </section>
+              <section>
+                <label class="label">Chart Value Diff</label>
+                <label class="input">
+                  <input [(ngModel)]="deviceField.chart_value_diff" name="chart_value_diff" />
+                </label>
+              </section>
               <div class="button-group-wrap">
                 <div class="button-group pull-right">
                   <button type="button" 

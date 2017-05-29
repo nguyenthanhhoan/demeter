@@ -1,3 +1,4 @@
+import { URLSearchParams } from '@angular/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
@@ -11,6 +12,7 @@ import { AppSettings } from '../../../app.settings';
 import { ZoneService } from '../../../core/services/zone.service';
 import { SensorDataService } from '../../../core/services/sensor-data.service';
 import { NotificationService } from '../../../shared/utils/notification.service';
+import { DeviceFieldService } from '../../../core/services/device-field-service';
 
 declare var Highcharts: any;
 declare var moment: any;
@@ -24,6 +26,7 @@ export class ZoneHistoryComponent implements OnInit {
   @Input()
   zone: any = {};
   project_id: number;
+  zone_id: number;
   chartData: any = {
     xAxis: {
       categories: []
@@ -33,19 +36,21 @@ export class ZoneHistoryComponent implements OnInit {
   isRequesting = false;
   filter: any = {};
   charts: any[] = [];
+  fields: any[];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private zoneService: ZoneService,
     private sensorDataService: SensorDataService,
+    private deviceFieldService: DeviceFieldService,
     private notificationService: NotificationService) {
 
   }
 
   ngOnInit() {
-    let id = +this.route.snapshot.params['id'];
+    this.zone_id = +this.route.snapshot.params['id'];
     let project_id = +this.route.snapshot.params['project_id'];
-    this.zoneService.getOne(project_id, id).subscribe(data => {
+    this.zoneService.getOne(project_id, this.zone_id).subscribe(data => {
       Object.assign(this.zone, data);
     });
   }
@@ -73,7 +78,37 @@ export class ZoneHistoryComponent implements OnInit {
       moment(`${filter.date} ${filter.end_time}`,
               AppSettings.date_time_format.date_time).valueOf();
 
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
+    if (this.fields && this.fields.length > 0) {
+      this.requestDailyChartData(start_timestamp, end_timestamp);
+    } else {
+      this.requestFieldAssignedToZone(start_timestamp, end_timestamp);
+    }
+  }
+
+  requestFieldAssignedToZone(start_timestamp, end_timestamp) {
+    // Firstly, request list of device assigned to zone
+    this.isRequesting = true;
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('zone_id', this.zone_id.toString());
+    params.set('link_type', 'summary');
+    this.deviceFieldService.getListAssigned({
+      search: params
+    }).subscribe((fields) => {
+      this.fields = fields;
+      if (fields.length > 0) {
+        this.requestDailyChartData(start_timestamp, end_timestamp);
+      } else {
+        this.isRequesting = false;
+        this.notificationService.showErrorMessage({
+          title: 'error',
+          content: 'No field was assigned to this zone.'
+        });
+      }
+    });
+  }
+
+  requestDailyChartData(start_timestamp, end_timestamp) {
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
       .subscribe((data) => {
         if (data) {
           this.chartData = data;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529021708) do
+ActiveRecord::Schema.define(version: 20170529090353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,10 @@ ActiveRecord::Schema.define(version: 20170529021708) do
     t.integer  "field_attribute"
     t.integer  "value_data_type"
     t.integer  "update_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "chart_value_suffix"
+    t.float    "chart_value_diff"
     t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
   end
 

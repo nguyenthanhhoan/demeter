@@ -41,10 +41,6 @@
       <div class="spinner-wrapper">
         <app-spinner [isRunning]="isRequesting"></app-spinner>
       </div>
-      <div id="chart-container-0" class="chart-container"></div>
-      <div id="chart-container-1" class="chart-container"></div>
-      <div id="chart-container-2" class="chart-container"></div>
-      <div id="chart-container-3" class="chart-container"></div>
-      <div id="chart-container-4" class="chart-container"></div>
-      <div id="chart-container-5" class="chart-container"></div>
+      <div *ngFor="let field of fields; let i = index;" id="chart-container-{{i}}" class="chart-container">
+      </div>
     </div>

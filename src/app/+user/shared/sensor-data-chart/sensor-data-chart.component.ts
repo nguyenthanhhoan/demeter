@@ -1,3 +1,4 @@
+import { URLSearchParams } from '@angular/http';
 import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
@@ -5,6 +6,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { NotificationService } from '../../../shared/utils/notification.service';
 import { ZoneService } from '../../../core/services/zone.service';
 import { SensorDataService } from '../../../core/services/sensor-data.service';
+import { DeviceFieldService } from '../../../core/services/device-field-service';
 
 declare var moment: any;
 declare var Highcharts: any;
@@ -23,39 +25,20 @@ export class SensorDataChartComponent extends OnDestroy {
   first_loaded = false;
   last_timestamp: any;
 
-  chartTabs: any[] = [{
-    lastest_data: null,
-    name: 'Temp(°C)',
-    chart_series: [],
-    chart_ref: null
-  }, {
-    lastest_data: null,
-    name: 'Humidity(%)',
-    chart_series: [],
-    chart_ref: null
-  }, {
-    lastest_data: null,
-    name: 'Illuminances(lx)',
-    chart_series: [],
-    chart_ref: null
-  }, {
-    lastest_data: null,
-    name: 'EC(mS/cm)',
-    chart_series: [],
-    chart_ref: null
-  }, {
-    lastest_data: null,
-    name: 'pH',
-    chart_series: [],
-    chart_ref: null
-  }, {
-    lastest_data: null,
-    name: 'Water Temp(°C)',
-    chart_series: [],
-    chart_ref: null
-  }];
+  // TODO: This configure should come from db
+  fieldNames: any = {
+    field1: 'Temp(°C)',
+    field2: 'Humidity(%)',
+    field3: 'Illuminances(lx)',
+    field4: 'EC(mS/cm)',
+    field5: 'pH',
+    field6: 'Water Temp(°C)'
+  };
+
+  chartTabs: any[] = [];
   activeChartTab = this.chartTabs[0];
   chartInit = false;
+  fields: any[];
 
   // Show last 5 minutes data
   timeline = 5 * 60 * 1000;
@@ -66,6 +49,7 @@ export class SensorDataChartComponent extends OnDestroy {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
+              private deviceFieldService: DeviceFieldService,
               private sensorDataService: SensorDataService) {
 
     super();
@@ -92,7 +76,33 @@ export class SensorDataChartComponent extends OnDestroy {
     let start_timestamp = moment().valueOf() - this.timeline;
     let end_timestamp = this.last_timestamp = moment().valueOf();
     this.isRequesting = true;
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
+    this.requestFieldAssignedToZone(start_timestamp, end_timestamp);
+  }
+
+  requestFieldAssignedToZone(start_timestamp, end_timestamp) {
+    // Firstly, request list of device assigned to zone
+    this.isRequesting = true;
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('zone_id', this.zone_id.toString());
+    params.set('link_type', 'summary');
+    this.deviceFieldService.getListAssigned({
+      search: params
+    }).subscribe((fields) => {
+      this.fields = fields;
+      if (fields.length > 0) {
+        this.requestChartData(start_timestamp, end_timestamp);
+      } else {
+        this.isRequesting = false;
+        this.notificationService.showErrorMessage({
+          title: 'error',
+          content: 'No field was assigned to this zone. Cannot load environment chart!'
+        });
+      }
+    });
+  }
+
+  requestChartData(start_timestamp, end_timestamp) {
+    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;
@@ -105,12 +115,15 @@ export class SensorDataChartComponent extends OnDestroy {
             });
           } else {
             // Init chart data with data in the first time request
-            this.chartTabs.forEach((chartTab, index) => {
+            this.fields.forEach((field, index) => {
+              let chartTab: any = {};
               chartTab.chart_series = data.series[index];
-
               let length = data.series[index].data.length;
               chartTab.lastest_data = data.series[index].data[length - 1];
+              chartTab.name = this.fieldNames[field.field_id];
+              this.chartTabs.push(chartTab);
             });
+            this.activeChartTab = this.chartTabs[0];
             this.loadHighChart(start_timestamp, end_timestamp);
             this.handleDataRealTime();
           }
@@ -194,7 +207,7 @@ export class SensorDataChartComponent extends OnDestroy {
     this.subscription = timer.subscribe(() => {
       let start_timestamp = this.last_timestamp;
       let end_timestamp = this.last_timestamp = moment().valueOf();
-      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp)
+      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields)
         .subscribe((data) => {
           if (data) {
             let newDataReceiveds = data.xAxis.categories;
