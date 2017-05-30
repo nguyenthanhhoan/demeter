@@ -42,28 +42,24 @@ class AwsIotService
 
     if device_field.field_changed?
       device_state = {
-        value: device_field.value,
-        updateType: device_field.update_type
+        value: device_field.value
       }
-    else
-      device_state = {
-        updateType: device_field.update_type,
-        interval: device_field.interval
-      }
-    end
-    
-    submit_state = {
-      state: {
-        desired: {
-          "#{device_field.field_id}": device_state
+
+      submit_state = {
+        state: {
+          desired: {
+            "#{device_field.field_id}": device_state
+          }
         }
       }
-    }
 
-    thing = client.update_thing_shadow({
-      thing_name: device_field.device.name,
-      payload: submit_state.to_json.to_s
-    })
+      Rails.logger.info 'Aws::IoTDataPlane'
+      Rails.logger.info "Prepare to submit thing_name: #{device_field.device.name} with new state: #{submit_state.to_json.to_s}"
+      thing = client.update_thing_shadow({
+        thing_name: device_field.device.name,
+        payload: submit_state.to_json.to_s
+      })
+    end
   end
 end
 
