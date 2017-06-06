@@ -16,7 +16,7 @@ declare var $: any;
   templateUrl: './sensor-data-chart.component.html',
   styleUrls: ['./sensor-data-chart.component.css']
 })
-export class SensorDataChartComponent extends OnDestroy {
+export class SensorDataChartComponent implements OnDestroy {
 
   project_id: number;
   zone_id: number;
@@ -52,7 +52,6 @@ export class SensorDataChartComponent extends OnDestroy {
               private deviceFieldService: DeviceFieldService,
               private sensorDataService: SensorDataService) {
 
-    super();
     this.project_id = +this.route.snapshot.params['project_id'];
     this.zone_id = +this.route.snapshot.params['id'];
   }
