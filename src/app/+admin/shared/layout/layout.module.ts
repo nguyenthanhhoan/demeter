@@ -10,7 +10,7 @@ import {ToggleActiveDirective} from "../utils/toggle-active.directive";
 import {LayoutSwitcherComponent} from "./layout-switcher.component";
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import {RouterModule} from "@angular/router";
-import {TooltipModule, DropdownModule} from "ng2-bootstrap";
+import {TooltipModule, BsDropdownModule} from "ng2-bootstrap";
 import { RouteBreadcrumbsComponent } from './ribbon/route-breadcrumbs.component';
 import {UtilsModule} from "../../../shared/utils/utils.module";
 
@@ -26,7 +26,7 @@ import {UtilsModule} from "../../../shared/utils/utils.module";
 
 
     TooltipModule.forRoot(),
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     FooterComponent,

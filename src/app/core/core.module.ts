@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  TabsModule, ProgressbarModule, TooltipModule, DropdownModule, AlertModule
+  TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertModule
 } from 'ng2-bootstrap';
 
 import { IntegrationModule } from '../shared/integration/integration.module';
@@ -31,7 +31,7 @@ import { OkrObjectiveService } from './services/okr-objective.service';
     CommonModule,
     IntegrationModule,
     TooltipModule.forRoot(),
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot()

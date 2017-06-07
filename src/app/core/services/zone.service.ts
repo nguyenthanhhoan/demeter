@@ -4,13 +4,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { ApiService } from '../api/api.service';
-import { JsonApiService } from '../../core/api/json-api.service';
 
 @Injectable()
 export class ZoneService {
 
-  constructor (private apiService: ApiService,
-              private jsonApiService: JsonApiService) {}
+  constructor (private apiService: ApiService) {}
 
   getList (project_id): Observable<any[]> {
     return this.apiService.fetch(`projects/${project_id}/zones`);

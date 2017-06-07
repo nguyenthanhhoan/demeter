@@ -1,13 +1,13 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {DropdownModule} from "ng2-bootstrap";
+import {BsDropdownModule} from "ng2-bootstrap";
 
 import {HeaderComponent} from "./header.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    DropdownModule
+    BsDropdownModule
   ],
   declarations: [
     HeaderComponent

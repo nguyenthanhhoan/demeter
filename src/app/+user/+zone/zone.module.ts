@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DropdownModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ng2-bootstrap';
 import { SmartadminModule } from '../../shared/smartadmin.module';
 import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import { SmartadminValidationModule }
@@ -93,7 +93,7 @@ import {
   imports: [
     CommonModule,
     SmartadminModule,
-    DropdownModule,
+    BsDropdownModule,
     ChartistModule,
     SmartadminValidationModule,
     SmartadminInputModule,

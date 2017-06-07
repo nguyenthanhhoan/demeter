@@ -37,6 +37,7 @@ export class AuthService {
         );
       },
       error => {
+        // TODO: Handle globally
         this.notificationService.bigBox({
           title: error.statusText,
           content: error.json().errors,

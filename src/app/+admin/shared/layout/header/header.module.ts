@@ -11,7 +11,7 @@ import {HeaderComponent} from "./header.component";
 import {UtilsModule} from "../../../../shared/utils/utils.module";
 import {I18nModule} from "../../../../shared/i18n/i18n.module";
 import {UserModule} from "../../../../shared/user/user.module";
-import {DropdownModule} from "ng2-bootstrap";
+import { BsDropdownModule } from "ng2-bootstrap";
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import {DropdownModule} from "ng2-bootstrap";
 
     FormsModule,
 
-    DropdownModule,
+    BsDropdownModule,
 
     UtilsModule, I18nModule, UserModule, PopoverModule,
   ],

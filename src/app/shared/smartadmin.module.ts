@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 
 
 import {
-  ModalModule, ButtonsModule, TooltipModule, DropdownModule, ProgressbarModule, AlertModule, TabsModule,
+  ModalModule, ButtonsModule, TooltipModule, BsDropdownModule, ProgressbarModule, AlertModule, TabsModule,
   AccordionModule, CarouselModule
 } from 'ng2-bootstrap'
 
@@ -47,7 +47,7 @@ import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
     ModalModule,
     // ButtonsModule,
     TooltipModule,
-    DropdownModule,
+    BsDropdownModule,
     // ProgressbarModule,
     AlertModule,
     TabsModule,
