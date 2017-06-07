@@ -30,8 +30,18 @@
     docker-compose -f docker-compose.test.yml up
     ```
 
-That's all. Now try `http://localhost:4200` on your browser ;)
+4. How to develop
 
+    1. Start backend
+    ```
+    docker-compose up
+    ```
+    3. Start front-end
+    ```
+    npm run start
+    ```
+
+    Now try `http://localhost:3000` on your browser ;)
 ## References
 
 1. Install Node

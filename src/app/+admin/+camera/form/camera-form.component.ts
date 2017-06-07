@@ -4,6 +4,8 @@ import * as Chartist from 'chartist';
 
 import { CameraService } from '../../shared/services/camera.service';
 
+declare var $: any;
+
 @Component({
   selector: 'camera-form',
   templateUrl: './camera-form.component.html',

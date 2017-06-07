@@ -3,6 +3,7 @@ import { ApiService } from '../../core/api/api.service';
 
 declare var flowplayer: any;
 declare var moment: any;
+declare var $: any;
 
 @Component({
   selector: 'app-camera',

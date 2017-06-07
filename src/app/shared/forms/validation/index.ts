@@ -1,2 +1,2 @@
-export {UiValidate} from './ui-validate.directive'
-export {BootstrapValidator} from './bootstrap-validator.directive'
+import { UiValidateDirective } from './ui-validate.directive';
+export { BootstrapValidatorDirective } from './bootstrap-validator.directive'
