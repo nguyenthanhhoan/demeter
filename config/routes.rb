@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :cameras
 
   get '/current_user' => 'profile#get_current_user'
+  post '/register' => 'registrations#create'
 
   namespace :admin do
     resources :projects

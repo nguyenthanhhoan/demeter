@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable, ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/delay';
@@ -13,6 +13,8 @@ import { NotificationService } from '../../shared/utils/notification.service';
 
 @Injectable()
 export class ApiService {
+
+  public replaySubject: ReplaySubject<any> = new ReplaySubject(1);
 
   constructor(private http: Http,
               private notificationService: NotificationService,
@@ -51,11 +53,8 @@ export class ApiService {
   }
 
   public post(url, data): Observable<any> {
-    return this.tokenService.post(url, JSON.stringify(data))
-      .map(this.extractData)
-      .catch(error => {
-        return this.handleError(error);
-      })
+    this.wrapApi(this.tokenService.post(url, JSON.stringify(data)));
+    return this.replaySubject;
   }
 
   public put(url, data): Observable<any> {
@@ -107,6 +106,18 @@ export class ApiService {
 
   private getBaseUrl(){
     return AppSettings.api;
+  }
+
+  private wrapApi(api) {
+    api.map(this.extractData)
+    .subscribe((responseObj) => {
+      if (responseObj && responseObj.message) {
+        this.notificationService.showMessage(responseObj.message);
+      }
+      this.replaySubject.next(responseObj);
+    }, (error) => {
+      return this.handleError(error);
+    });
   }
 
   private extractData(res: Response) {

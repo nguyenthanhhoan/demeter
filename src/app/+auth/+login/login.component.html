@@ -1,10 +1,10 @@
-<div class="animated fadeInDown" id="login">
-    <div class="login-wrapper">
-      <div class="login-form">
+<div class="animated fadeInDown" class="auth-container">
+    <div class="auth-wrapper">
+      <div class="main-content">
           <header>
             <h2>
                 <div class="logo large"></div>
-                <div class="content">
+                <div class="header">
                     Sign In
                 </div>
             </h2>
@@ -34,7 +34,7 @@
                 <p><a routerLink="/auth/register">Register account</a></p>
                 <p><a routerLink="/auth/forgot-password">Forgot password?</a></p>
               </section>
-              <button (click)="login($event)" class="btn btn-sign-in">
+              <button (click)="login($event)" class="btn main-action-btn">
                 Sign in
               </button>
             </div>

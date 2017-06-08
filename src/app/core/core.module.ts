@@ -16,6 +16,7 @@ import { SoundService } from '../shared/sound/sound.service';
 import { throwIfAlreadyLoaded } from './guards/module-import-guard';
 import { VoiceRecognitionService } from '../shared/voice-control/voice-recognition.service';
 
+import { CoreService } from './services/core.service';
 import { ProjectService } from './services/project.service';
 import { ZoneService } from './services/zone.service';
 import { CameraService } from './services/camera.service';
@@ -46,6 +47,7 @@ import { OkrObjectiveService } from './services/okr-objective.service';
     VoiceRecognitionService,
     SoundService,
 
+    CoreService,
     ProjectService,
     ZoneService,
     CameraService,

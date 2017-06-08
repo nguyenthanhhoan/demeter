@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 class User {
@@ -12,14 +12,14 @@ class User {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss', '../auth.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService) { }
-
   @Input()
   user = new User('', '');
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
