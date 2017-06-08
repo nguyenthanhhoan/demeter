@@ -132,11 +132,11 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.6",
-    "@angular/compiler-cli": "^2.3.1",
-    "@types/jasmine": "2.5.38",
+    "@angular/compiler-cli": "~4.0.3",
+    "@types/hammerjs": "^2.0.34",
+    "@types/node": "^7.0.13",
+    "@types/jasmine": "2.5.45",
     "@types/jquery": "^2.0.40",
-    "@types/node": "^6.0.42",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
     "@types/webpack": "^2.2.15",
