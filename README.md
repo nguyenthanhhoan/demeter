@@ -14,12 +14,21 @@
 
 * Default admin email: `admin@example.com`
 * Default admin password: `123456`
+* Node version: v6.x.x+ (or v7.x.x)
+* NPM version: 3.x.x+
+* Node package globally:
+
+    - webpack (npm install --global webpack)
+    - webpack-dev-server (npm install --global webpack-dev-server)
+    - karma (npm install --global karma-cli)
+    - protractor (npm install --global protractor)
+    - typescript (npm install --global typescript)
 
 3. How to build/deploy
 
     1. Build
     ```
-    ./node_modules/.bin/ng build --prod --aot
+    npm run build:prod
     ```
     2. Link `dist` folder to `public` folder
     ```
@@ -42,6 +51,11 @@
     ```
 
     Now try `http://localhost:3000` on your browser ;)
+
+5. Troubleshoot
+
+    1. Cannot `npm i`
+    Try install node `v6.2.0`
 ## References
 
 1. Install Node

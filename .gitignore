@@ -27,3 +27,4 @@ npm-debug.log
 /aws-iot-device-js/certs
 /dist
 /.awcache
+.env.web

@@ -43,7 +43,7 @@ web:
     - cache
 
 homepage_web:
-  build: .
+  image: sutran/static-server
   entrypoint: /rails/dmt-homepage/entry.sh
   volumes:
     - .:/rails
