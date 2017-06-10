@@ -1,6 +1,8 @@
 export class AppSettings {
   public static api = location.hostname === 'localhost' ? 'http://console.demeter.local/' :
     location.protocol + '//' + location.hostname + '/';
+
+  public static websocketPath = `ws://${location.hostname}:9090`;
   public static role = {
     admin: {
       name: 'admin'
