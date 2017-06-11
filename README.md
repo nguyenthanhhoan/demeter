@@ -38,6 +38,15 @@
     ```
     docker-compose -f docker-compose.test.yml up
     ```
+    4. Deploy `aws-iot-device-js`
+    ```
+    cd aws-iot-device-js
+    npm i
+    scp -r certs root@demeter:~/workspace/demeter/aws-iot-device-js/
+    npm i forever -g
+    forever -o out.log -e err.log index.js
+    ```
+    
 
 4. How to develop
 
@@ -56,6 +65,27 @@
 
     1. Cannot `npm i`
     Try install node `v6.2.0`
+
+    2. Cannot build with unexpected result
+
+        - Check at least 2GB Ram needed for the build task
+        - Stop docker-compose by `c stop`
+
+    3. Cannot build due to `Module build failed: Error: ENOENT: no such file or directory, scandir '/root/workspace/demeter/node_modules/node-sass/vendor'`
+
+        - Solution 1
+            - `rm -rf node_modules`
+            - `npm i`
+
+        - Solution 2
+            - `npm rebuild node-sass`
+
+    4. Cannot test websocket from client
+
+        Open port `9090`
+
+        `sudo ufw allow 9090/tcp`
+
 ## References
 
 1. Install Node
