@@ -20,6 +20,7 @@ require('bootstrap/js/tab.js'); //
 require('bootstrap/js/modal.js'); //
 
 window['moment'] = require('moment');
+require('moment-timezone');
 
 // import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 

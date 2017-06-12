@@ -125,7 +125,8 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
     }).then(() => {
       Highcharts.setOptions({
         global : {
-          useUTC : false
+          useUTC : true,
+          timezone: 'Asia/Ho_Chi_Minh'
         }
       });
       this.initChart();
