@@ -1,7 +1,7 @@
-class DynamoDbCacheJob < ApplicationJob
-  queue_as :default
+class DynamoDbCacheWorker
+  include Sidekiq::Worker
 
-  def perform(*args)
+  def perform()
     Rails.logger.info 'Execute dynamodb cache job'
 
     redis = CacheService.get_redis
