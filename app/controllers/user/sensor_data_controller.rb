@@ -13,4 +13,24 @@ class User::SensorDataController < AuthorizedController
     render json: sensor_data_normalized
   end
 
+  def query_in_date
+    zone = Zone.find params[:zone_id].to_i
+    date = params[:date]
+    gateway_name = zone.device_gateway
+
+    redis = CacheService.get_redis
+    cached_key = CacheService.build_key(gateway_name, date)
+
+    # Get data from cache
+    sensor_data = redis.get(cached_key)
+
+    if sensor_data.present? 
+      render json: JSON.parse(sensor_data)
+    else
+
+      # Cached data not present. Should create cache data first
+      sensor_data_parsed = CacheService.build_cache_data_by_date(gateway_name, date)
+      render json: sensor_data_parsed
+    end
+  end
 end

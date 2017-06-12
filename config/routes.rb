@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       end
     end
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
+    get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
     get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }
   end
 end

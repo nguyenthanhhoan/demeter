@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607144943) do
+ActiveRecord::Schema.define(version: 20170611153233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,12 +199,13 @@ ActiveRecord::Schema.define(version: 20170607144943) do
     t.string   "ownership_type"
     t.integer  "labour"
     t.string   "location"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "image"
     t.string   "location_geometry"
     t.string   "setting"
     t.string   "device_gateway"
+    t.string   "time_zone",              default: "Hanoi"
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 

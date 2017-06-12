@@ -56,32 +56,22 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
 
   // When switch tab
   initData() {
-    if (this.date) {
-      this.requestDailyChartDataByDate(this.date);
-    } else {
+    if (!this.date) {
       this.date = moment().format(AppSettings.date_time_format.date_iso);
-      this.requestDailyChartDataByDate(this.date);
     }
+    this.requestDailyChartDataByDate(this.date);
   }
 
   requestDailyChartDataByDate(date) {
     console.log('requestDailyChartDataByDate', date);
-    let start = new Date(date);
-    start.setHours(0, 0, 0, 0);
-
-    let end = new Date(date);
-    end.setHours(23, 59, 0, 0);
-
-    let start_timestamp = start.valueOf();
-    let end_timestamp = end.valueOf();
     if (this.fields && this.fields.length > 0) {
-      this.requestDailyChartData(start_timestamp, end_timestamp);
+      this.requestDailyChartData(date);
     } else {
-      this.requestFieldAssignedToZone(start_timestamp, end_timestamp);
+      this.requestFieldAssignedToZone(date);
     }
   }
 
-  requestFieldAssignedToZone(start_timestamp, end_timestamp) {
+  requestFieldAssignedToZone(date) {
     // Firstly, request list of device assigned to zone
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
@@ -92,7 +82,7 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
     }).subscribe((fields) => {
       this.fields = fields;
       if (fields.length > 0) {
-        this.requestDailyChartData(start_timestamp, end_timestamp);
+        this.requestDailyChartData(date);
       } else {
         this.isRequesting = false;
         this.notificationService.showErrorMessage({
@@ -103,9 +93,9 @@ export class ZoneDailyReportEnvironmentComponent implements OnChanges {
     });
   }
 
-  requestDailyChartData(start_timestamp, end_timestamp) {
+  requestDailyChartData(date) {
     this.isRequesting = true;
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
+    this.sensorDataService.getByDate(date, this.fields, this.zone_id)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;

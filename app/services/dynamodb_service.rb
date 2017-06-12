@@ -13,8 +13,11 @@ class DynamodbService
         },
         'timestamp' => {
           comparison_operator: 'BETWEEN',
-          #Example
-          #attribute_value_list: ['1492298805911', '1492298856230']
+
+          # Debug purpose
+          # Date.current.beginning_of_day.to_f * 1000
+          # Date.current.beginning_of_day.to_f * 1000 + 10 * 60 * 1000
+          # attribute_value_list: [1497225600000, 1497226200000]
           attribute_value_list: [start_timestamp.to_i, end_timestamp.to_i]
         }
       },

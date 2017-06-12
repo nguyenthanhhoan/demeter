@@ -1,30 +1,25 @@
 class CacheService
 
-  def self.get_cached_data_in(start_timestamp, end_timestamp)
-    redis = Redis.new(:host => "redis", :port => 6379)
+  def self.get_redis
+    Redis.new(:host => "redis", :port => 6379)
+  end
 
-    start_date = DateTime.strptime(start_timestamp.to_s, '%Q').to_date
-    end_date = DateTime.strptime(end_timestamp.to_s, '%Q').to_date
+  def self.build_key(gateway_name, date)
+    "gateway:#{gateway_name}:#{date}"
+  end
 
-    date_formatted = start_date.to_s('%Y-%m-%d')
+  def self.build_cache_data_by_date(gateway_name, date_s)
+    cached_key = CacheService.build_key(gateway_name, date_s)
+    redis = CacheService.get_redis
 
-    if start_date != end_date
-      return false
-    end
+    date = Date.parse(date_s).in_time_zone('Hanoi')
 
-    cached_data = redis.get(date_formatted)
-    if cached_data.present?
-      Rails.logger.info 'go to cached_data.present?'
-      
-      cached_data_parsed = JSON.parse(cached_data)
-      Rails.logger.info cached_data_parsed.count
+    start_timestamp = date.beginning_of_day.to_f * 1000
+    end_timestamp = date.end_of_day.to_f * 1000
 
-      results = cached_data_parsed.select { |x|
-        x['timestamp'].to_i >= start_timestamp && Integer(x['timestamp']) <= end_timestamp
-      }
-      results
-    else
-      false
-    end
+    sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, gateway_name)
+    sensor_data_normalized = DynamodbService.normalize_data(start_timestamp, end_timestamp, sensor_data, 300)
+    redis.set(cached_key, sensor_data_normalized)
+    sensor_data_normalized
   end
 end
