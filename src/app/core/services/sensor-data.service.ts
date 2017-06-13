@@ -31,6 +31,15 @@ export class SensorDataService {
       });
   }
 
+  getLatest(fields, zone_id): Observable<any> {
+    return this.apiService
+      .fetch(
+        `${this.sensorDataUrl}/latest?zone_id=${zone_id}`)
+      .map((items) => {
+        return this.extractChartData(items, fields);
+      });
+  }
+
   extractChartData(items: any, fields: any[]) {
     let xAxis_cates = [];
     let series = [];

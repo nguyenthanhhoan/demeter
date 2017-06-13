@@ -36,10 +36,10 @@ class DynamodbService
   end
 
   # Incase have more than max_point data points, we should normalize into max_point points only
-  def self.normalize_data(start_timestamp, end_timestamp, points, max_point)
+  def self.normalize_data(points, max_point)
     if points.length > max_point
-      start_time = Integer(points[0]['timestamp'])
-      end_time = Integer(points[points.count - 1]['timestamp'])
+      start_time = Integer(points[0]['timestamp'].to_f)
+      end_time = Integer(points[points.count - 1]['timestamp'].to_f)
 
       result_points = []
       duration = end_time - start_time
@@ -47,7 +47,7 @@ class DynamodbService
 
       max_point.times { |i| 
         result_point = points.bsearch { |x| 
-          Integer(x['timestamp']) >= start_time + time_step * i
+          Integer(x['timestamp'].to_f) >= start_time + time_step * i
         }
         unless result_point.blank?
           result_points << result_point

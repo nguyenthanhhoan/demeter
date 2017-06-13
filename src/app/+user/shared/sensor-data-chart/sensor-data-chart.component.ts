@@ -41,7 +41,7 @@ export class SensorDataChartComponent implements OnDestroy {
   fields: any[];
 
   // Show last 5 minutes data
-  timeline = 5 * 60 * 1000;
+  timeline = 24 * 60 * 60 * 1000;
 
   // Timer to simulate real-time
   subscription: Subscription;
@@ -72,13 +72,11 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   initData() {
-    let start_timestamp = moment().valueOf() - this.timeline;
-    let end_timestamp = this.last_timestamp = moment().valueOf();
     this.isRequesting = true;
-    this.requestFieldAssignedToZone(start_timestamp, end_timestamp);
+    this.requestFieldAssignedToZone();
   }
 
-  requestFieldAssignedToZone(start_timestamp, end_timestamp) {
+  requestFieldAssignedToZone() {
     // Firstly, request list of device assigned to zone
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
@@ -89,7 +87,7 @@ export class SensorDataChartComponent implements OnDestroy {
     }).subscribe((fields) => {
       this.fields = fields;
       if (fields.length > 0) {
-        this.requestChartData(start_timestamp, end_timestamp);
+        this.requestChartData();
       } else {
         this.isRequesting = false;
         this.notificationService.showErrorMessage({
@@ -100,8 +98,8 @@ export class SensorDataChartComponent implements OnDestroy {
     });
   }
 
-  requestChartData(start_timestamp, end_timestamp) {
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
+  requestChartData() {
+    this.sensorDataService.getLatest(this.fields, this.zone_id)
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;
@@ -123,21 +121,22 @@ export class SensorDataChartComponent implements OnDestroy {
               this.chartTabs.push(chartTab);
             });
             this.activeChartTab = this.chartTabs[0];
-            this.loadHighChart(start_timestamp, end_timestamp);
-            this.handleDataRealTime();
+            this.loadHighChart();
+            // this.handleDataRealTime();
           }
         }
         this.isRequesting = false;
       });
   }
 
-  loadHighChart(start_timestamp, end_timestamp) {
+  loadHighChart() {
     System.import('script-loader!highcharts').then(() => {
       return System.import('script-loader!highcharts/highcharts.js');
     }).then(() => {
       Highcharts.setOptions({
         global : {
-          useUTC : false
+          useUTC : true,
+          timezone: 'Asia/Ho_Chi_Minh'
         }
       });
       this.loadChart(this.activeChartTab);

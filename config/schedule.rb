@@ -5,3 +5,7 @@ job_type :sidekiq, "cd :path && :environment_variable=:environment /usr/local/bi
 every :hour do
   sidekiq "DynamoDbCacheWorker"
 end
+
+every 10.minutes do
+  sidekiq "DynamoDbCacheLatestWorker"
+end
