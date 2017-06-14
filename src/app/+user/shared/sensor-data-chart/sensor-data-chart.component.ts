@@ -40,8 +40,11 @@ export class SensorDataChartComponent implements OnDestroy {
   chartInit = false;
   fields: any[];
 
-  // Show last 5 minutes data
+  // Show last 24 hours data
   timeline = 24 * 60 * 60 * 1000;
+
+  // Period the the time to request new data
+  period = 5 * 60 * 1000;
 
   // Timer to simulate real-time
   subscription: Subscription;
@@ -122,7 +125,7 @@ export class SensorDataChartComponent implements OnDestroy {
             });
             this.activeChartTab = this.chartTabs[0];
             this.loadHighChart();
-            // this.handleDataRealTime();
+            this.handleDataRealTime();
           }
         }
         this.isRequesting = false;
@@ -200,15 +203,26 @@ export class SensorDataChartComponent implements OnDestroy {
 
   // Ideally, this should use Websocket
   handleDataRealTime() {
-    let timer = Observable.timer(1000, 5000);
+    let timer = Observable.timer(1000, this.period);
     let retryCount = 0;
     this.subscription = timer.subscribe(() => {
+      if (!this.last_timestamp) {
+        // Init last_timestamp, then wait for next tick
+        this.last_timestamp = moment().valueOf();
+        return;
+      }
       let start_timestamp = this.last_timestamp;
       let end_timestamp = this.last_timestamp = moment().valueOf();
-      this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
+      this.sensorDataService
+        .getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
         .subscribe((data) => {
           if (data) {
-            let newDataReceiveds = data.xAxis.categories;
+            let newDataReceiveds = data.timestamps;
+
+            if (newDataReceiveds && newDataReceiveds.length > 1) {
+              let length = newDataReceiveds.length;
+              newDataReceiveds.splice(0, length - 1);
+            }
             this.chartTabs.forEach((chartTab, index) => {
 
               if ($('#chart-container-' + index).length === 0) {
