@@ -30,7 +30,7 @@ export class DeviceFieldService {
     return this.apiService.post(`user/device_fields/unassign_device_to_zone`, data);
   }
 
-  updateDeviceValue(data): Observable<any[]> {
+  updateDeviceValue(data): Observable<any> {
     return this.apiService.post(`user/device_fields/update_device_value`, data);
   }
 }

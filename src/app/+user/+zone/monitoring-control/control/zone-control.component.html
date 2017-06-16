@@ -45,7 +45,7 @@
           <label class="label">Control</label>
           <div class="device-control-toggle">
             <label class="toggle" [class.state-disabled]="field.isRunning">
-              <input type="checkbox" [(ngModel)]="field.value"
+              <input type="checkbox" [ngModel]="field.value"
                 [disabled]="field.isRunning"
                 (click)="changeValue($event, field)">
               <i data-swchon-text="ON" data-swchoff-text="OFF"></i>

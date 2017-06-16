@@ -1,7 +1,8 @@
-import { URLSearchParams } from '@angular/http';
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { AppSettings } from '../../../../app.settings';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
@@ -15,6 +16,7 @@ import { NotificationService } from '../../../../shared/utils/notification.servi
 export class ZoneControlComponent implements OnInit {
   fields: any[];
   zone_id: number;
+  private updateSubscription: ISubscription;
 
   constructor(private route: ActivatedRoute,
               private deviceFieldService: DeviceFieldService,
@@ -101,7 +103,7 @@ export class ZoneControlComponent implements OnInit {
   changeValue($event, field) {
     $event.preventDefault();
     let newValue = !field.value;
-    let intValue = newValue ? '1' : '0';
+    let intValue = newValue ? 1 : 0;
     field.isRunning = true;
     this.deviceFieldService.updateDeviceValue({
       device_field_id: field.id,
@@ -109,7 +111,6 @@ export class ZoneControlComponent implements OnInit {
     })
     .subscribe(() => {
       this.notificationService.showMessage('Command sent successfully!');
-      field.value = newValue;
       field.isRunning = false;
     }, () => {
       this.notificationService.showErrorMessage({

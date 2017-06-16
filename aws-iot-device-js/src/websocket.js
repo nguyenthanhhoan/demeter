@@ -71,7 +71,6 @@ var notifySubcriber = function(gateway, field, value) {
       winston.log('debug', `[WebSocket] Prepare to send device data: ${sentData} to clientId: ${cacheConnect.clientId}`);
       cacheConnect.ws.send(sentData, function(error) {
           if (error) {
-            console.log('error', error);
             winston.log('error', `[WebSocket] Cannot send data to clientId: ${cacheConnect.clientId}`);
           }
       });

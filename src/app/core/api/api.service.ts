@@ -53,8 +53,11 @@ export class ApiService {
   }
 
   public post(url, data): Observable<any> {
-    this.wrapApi(this.tokenService.post(url, JSON.stringify(data)));
-    return this.replaySubject;
+    return this.tokenService.post(url, JSON.stringify(data))
+      .map(this.extractData)
+      .catch(error => {
+        return this.handleError(error);
+      });
   }
 
   public put(url, data): Observable<any> {
@@ -109,7 +112,7 @@ export class ApiService {
   }
 
   private wrapApi(api) {
-    api.map(this.extractData)
+    let subscription = api.map(this.extractData)
     .subscribe((responseObj) => {
       if (responseObj && responseObj.message) {
         this.notificationService.showMessage(responseObj.message);

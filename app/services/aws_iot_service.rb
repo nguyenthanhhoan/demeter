@@ -41,8 +41,13 @@ class AwsIotService
     })
 
     if device_field.field_changed?
+
+      value = device_field.value
+      if device_field.integer?
+        value = Integer(device_field.value)
+      end
       device_state = {
-        value: device_field.value
+        value: value
       }
 
       submit_state = {
