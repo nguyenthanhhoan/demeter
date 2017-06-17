@@ -20,17 +20,21 @@ function registerThings(thingNames, thingShadows) {
     });
 }
 
-function processDelta(thingName, stateObject, websocket) {
+function processDelta(thingName, stateObject, websocket, restService) {
 
     let {state} = stateObject;
     let fields = Object.keys(state);
 
     fields.forEach((field) => {
+        // Notify web api via websocket
         websocket.notifySubcriber(thingName, field, state[field].value);
+
+        // Update to db via webhook
+        restService.update_device_value(thingName, field, state[field].value);
     });
 }
 
-function init(thingShadowOpts, thingNames, websocket) {
+function init(thingShadowOpts, thingNames, websocket, restService) {
 
     var thingShadows = awsIot.thingShadow(thingShadowOpts);
 
@@ -47,7 +51,7 @@ function init(thingShadowOpts, thingNames, websocket) {
             winston.log('debug', '[AWS_ThingShadow] received delta on ' + thingName + ': ' +
                         JSON.stringify(stateObject));
 
-            processDelta(thingName, stateObject, websocket);
+            processDelta(thingName, stateObject, websocket, restService);
         });
 
         thingShadows.on('timeout', function(thingName, clientToken) {

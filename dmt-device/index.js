@@ -1,6 +1,7 @@
 let winston = require('./src/winston');
 let websocket = require('./src/websocket');
 let shadow = require('./src/shadow');
+let restService = require('./src/rest-service');
 
 let thingShadowOpts = {
   keyPath: './certs/95a7afd98e-private.pem.key',
@@ -10,8 +11,18 @@ let thingShadowOpts = {
   host: 'a31slpql5dmbn0.iot.us-west-2.amazonaws.com',
 }
 
-shadow.init(thingShadowOpts, ['cdf-gateway', 'dmt-client', 'RGBLedLamp'], websocket);
+let appOpts = {
+  web_hook: {
+    // web_hook_api: 'http://console.demeter.local/',
+    web_hook_api: 'http://web:8080/',
+    update_device_value_path: 'webhook/update_device_value'
+  },
+  access_token: '07f0f540-0e56-4e2b-a4ef-b154ed7a53ff'
+}
 
+restService.init(appOpts);
+
+shadow.init(thingShadowOpts, ['cdf-gateway', 'dmt-client', 'RGBLedLamp'], websocket, restService);
 
 /*
  *

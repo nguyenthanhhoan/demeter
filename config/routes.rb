@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/current_user' => 'profile#get_current_user'
   post '/register' => 'registrations#create'
+  post '/webhook/update_device_value' => 'webhook#update_device_value'
 
   namespace :admin do
     resources :projects
