@@ -53,6 +53,16 @@ homepage_web:
     - VIRTUAL_HOST=demeter.local
     - VIRTUAL_PORT=9080
 
+device_service:
+  image: sutran/nodejs-forever
+  entrypoint: /rails/dmt-device/entry.sh
+  volumes:
+    - .:/rails
+  ports:
+      - "9090:9090"
+  expose:
+    - 9090
+
 worker:
   build: .
   entrypoint: /rails/entry.sh
