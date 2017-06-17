@@ -70,15 +70,17 @@
                 </label>
               </section>
               <section>
-                <label class="label">Update Type</label>
-                <label class="select">
-                  <select [(ngModel)]="deviceField.update_type" name="update_type">
-                    <option value="field_interval">timer</option>
-                    <option value="field_changed">changed</option>
-                  </select><i></i>
+                <label class="label">Update Rate</label>
+                <label class="input">
+                  <input [(ngModel)]="deviceField.update_rate" 
+                    type="number"
+                    name="update_rate" />
+                  <p class="help-block">
+                    When <code>Update Rate = 0</code> means this field's value could changed
+                  </p>
                 </label>
               </section>
-              <section *ngIf="deviceField.update_type == 'field_interval'">
+              <section *ngIf="deviceField.update_rate != 0">
                 <label class="label">Interval</label>
                 <label class="input">
 
@@ -88,9 +90,9 @@
               </section>
               <section>
                 <label class="label">Value</label>
-                <label class="input" [class.state-disabled]="deviceField.update_type == 'field_interval'">
+                <label class="input" [class.state-disabled]="deviceField.update_rate != 0">
                   <input [(ngModel)]="deviceField.value" 
-                    [disabled]="deviceField.update_type == 'field_interval'"
+                    [disabled]="deviceField.update_rate != 0"
                     #value="ngModel" name="value" />
                 </label>
               </section>

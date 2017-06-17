@@ -8,6 +8,11 @@ admin = User.create({
 })
 admin.add_role :admin
 
+user = User.create({
+  email: 'user@example.com',
+  password: '123456'
+})
+
 caudatfarm = User.create({
   email: 'caudatfarm@demeter.vn',
   password: '123456'

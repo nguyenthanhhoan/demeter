@@ -40,7 +40,8 @@ class AwsIotService
       endpoint: ENV.fetch('AWS_THING_SHADOW_REST_API')
     })
 
-    if device_field.field_changed?
+    # update_rate is 0 means this field can update value
+    if device_field.update_rate == 0
 
       value = device_field.value
       if device_field.integer?
