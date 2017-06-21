@@ -34,19 +34,14 @@
     ```
     ln -s dist public
     ```
-    3. Run docker
+    3. Copy AWS IoT certificates for `dmt-device` project
     ```
-    docker-compose -f docker-compose.test.yml up
+    scp -r certs root@demeter:~/workspace/demeter/dmt-device/
     ```
-    4. Deploy `aws-iot-device-js`
+    4. Run docker
     ```
-    cd aws-iot-device-js
-    npm i
-    scp -r certs root@demeter:~/workspace/demeter/aws-iot-device-js/
-    npm i forever -g
-    forever -o out.log -e err.log index.js
+    nohup docker-compose -f docker-compose.test.yml up &
     ```
-    
 
 4. How to develop
 
@@ -69,7 +64,7 @@
     2. Cannot build with unexpected result
 
         - Check at least 2GB Ram needed for the build task
-        - Stop docker-compose by `c stop`
+        - Stop docker-compose by `c stop`, `service docker stop`
 
     3. Cannot build due to `Module build failed: Error: ENOENT: no such file or directory, scandir '/root/workspace/demeter/node_modules/node-sass/vendor'`
 
