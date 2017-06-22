@@ -18,6 +18,7 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
 import { MonitoringControlModule } from './monitoring-control/monitoring-control.module';
+import { ZoneSettingModule } from './setting/zone-setting.module';
 
 import { ZoneFormComponent } from '../shared/zone-form/zone-form.component';
 import { SensorDataChartComponent } from '../shared/sensor-data-chart/sensor-data-chart.component';
@@ -37,9 +38,6 @@ import { ZoneSettingCameraComponent } from './setting/camera/zone-setting-camera
 import {
   CameraSelectModalComponent
 } from './setting/_camera-select-modal/camera-select-modal.component';
-import {
-  DeviceFieldSelectModalComponent
-} from './setting/_device-field-select-modal/device-field-select-modal.component';
 
 /* Daily report */
 import { ZoneDailyReportComponent } from './crop-management/daily-report/zone-daily-report.component';
@@ -106,7 +104,8 @@ import {
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
     WeatherForecastModule,
-    MonitoringControlModule
+    MonitoringControlModule,
+    ZoneSettingModule
   ],
   declarations: [
     ZoneFormComponent,
@@ -125,7 +124,6 @@ import {
     ZoneSettingSummaryComponent,
     ZoneSettingCameraComponent,
     CameraSelectModalComponent,
-    DeviceFieldSelectModalComponent,
 
     /* Daily report */
     ZoneDailyReportComponent,

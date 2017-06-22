@@ -15,7 +15,10 @@
       <a (click)="state.tabs.activeTab = 2"><i class="fa fa-camera"></i> Camera</a>
     </li>
     <li [class.active]="state.tabs.activeTab == 3">
-      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-gear"></i> Control</a>
+      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-leaf"></i> Environment</a>
+    </li>
+    <li [class.active]="state.tabs.activeTab == 4">
+      <a (click)="state.tabs.activeTab = 4"><i class="fa fa-gear"></i> Control</a>
     </li>
   </ul>
 
@@ -29,6 +32,9 @@
       </tab>
       <tab [active]="state.tabs.activeTab == 2">
         <zone-setting-camera [zone]="zone" (onRefresh)="loadZone()"></zone-setting-camera>
+      </tab>
+      <tab [active]="state.tabs.activeTab == 3">
+        <zone-setting-environment [zone]="zone" (onRefresh)="loadZone()"></zone-setting-environment>
       </tab>
     </tabset>
   </div>

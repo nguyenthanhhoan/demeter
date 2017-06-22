@@ -34,32 +34,6 @@
         </div>
       </div>
     </section>
-    <section class="table-section">
-      <label>List of Inputs</label>
-      <button 
-        class="demeter-btn create-btn primary pull-right"
-        (click)="deviceFieldSelectModal.show()">Add</button>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Display Name</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let input of zone.summary_device_fields" class="demeter-pane">
-            <td>{{input.name_display}}</td>
-            <td>{{input.name}}</td>
-            <td class="col-actions">
-              <a class="delete-action" (click)="unAssignDeviceField(input)">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
   </fieldset>
 
   <header>Recent Notifications</header>
@@ -177,4 +151,3 @@
 </form>
 
 <camera-select-modal #cameraSelectModal mode="assign_quick_view" (onResolve)="reloadZone()"></camera-select-modal>
-<device-field-select-modal #deviceFieldSelectModal (onResolve)="reloadZone()"></device-field-select-modal>

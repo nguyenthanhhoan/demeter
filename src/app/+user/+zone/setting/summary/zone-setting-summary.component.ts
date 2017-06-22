@@ -102,19 +102,4 @@ export class ZoneSettingSummaryComponent implements DoCheck {
       });
     });
   }
-
-  unAssignDeviceField(deviceField) {
-    this.notificationService.confirmBox({
-      content: 'Do you want to remove this Input?'
-    }, () => {
-      this.deviceFieldService.unassignDeviceToZone({
-        zone_id: this.zone_id,
-        link_type: 'summary',
-        device_field_id: deviceField.id
-      }).subscribe((fields) => {
-        this.notificationService.showMessage('Remove Input successfully!');
-        this.reloadZone();
-      });
-    });
-  }
 }
