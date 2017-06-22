@@ -50,7 +50,7 @@ export class DeviceFieldSelectModalComponent implements OnInit {
     this.deviceFieldService.assignDeviceToZone({
       device_field_id: this.selectedDeviceField.id,
       zone_id: this.zone_id,
-      link_type: 'summary'
+      link_type: 'data'
     }).subscribe(() => {
       this.isRequesting = false;
       this.modal.hide();

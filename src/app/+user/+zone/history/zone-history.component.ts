@@ -90,7 +90,7 @@ export class ZoneHistoryComponent implements OnInit {
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
     params.set('zone_id', this.zone_id.toString());
-    params.set('link_type', 'summary');
+    params.set('link_type', 'data');
     this.deviceFieldService.getListAssigned({
       search: params
     }).subscribe((fields) => {

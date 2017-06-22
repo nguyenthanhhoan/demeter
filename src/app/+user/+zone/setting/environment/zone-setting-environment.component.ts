@@ -57,7 +57,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
 
   initSortList() {
     this.sort_fields = [];
-    this.zone.summary_device_fields.forEach((field) => {
+    this.zone.data_device_fields.forEach((field) => {
       this.sort_fields.push({
         id: field.id,
         content: field.name
@@ -90,7 +90,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
     }, () => {
       this.deviceFieldService.unassignDeviceToZone({
         zone_id: this.zone_id,
-        link_type: 'summary',
+        link_type: 'data',
         device_field_id: deviceField.id
       }).subscribe((fields) => {
         this.notificationService.showMessage('Remove Input successfully!');
