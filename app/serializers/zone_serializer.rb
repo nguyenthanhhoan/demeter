@@ -34,7 +34,7 @@ class ZoneSerializer < ActiveModel::Serializer
   end
 
   def data_device_fields
-    object.data_device_fields.map { |device_field|
+    object.data_device_fields.order(:order).map { |device_field|
       device_field.device_field
     }
   end

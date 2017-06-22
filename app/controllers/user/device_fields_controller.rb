@@ -21,11 +21,20 @@ class User::DeviceFieldsController < AuthorizedController
   end
 
   def assign_device_to_zone
-    device_field = DeviceField.find params[:device_field_id]
+    device_field_id = params[:device_field_id]
+    zone_id = params[:zone_id]
+    link_type = params[:link_type]
+    device_field = DeviceField.find device_field_id
+
+    count = DeviceFieldsZone.where({
+      zone_id: zone_id,
+      link_type: link_type
+    }).count
     assigned_device = DeviceFieldsZone.create({
-      device_field_id: params[:device_field_id],
-      zone_id: params[:zone_id],
-      link_type: params[:link_type]
+      device_field_id: device_field_id,
+      zone_id: zone_id,
+      link_type: link_type,
+      order: count
     })
     render json: assigned_device
   end
@@ -45,9 +54,25 @@ class User::DeviceFieldsController < AuthorizedController
     device_field.value = params[:value]
     AwsIotService.update_thing_shadow(device_field)
 
-    # TODO: Should update this attribute in the subcribe topic from AWS IOT
     device_field.update_attribute(:value, params[:value])
     render json: device_field
+  end
+
+  def update_order
+    device_fields = params[:device_fields]
+
+    device_fields.each { |device_field|
+
+      DeviceFieldsZone.where({
+        device_field_id: device_field[:device_field_id],
+        zone_id: device_field[:zone_id],
+        link_type: device_field[:link_type]
+      }).update(order: device_field[:order])
+    }
+
+    render json: {
+      message: t(:order_successfully)
+    }
   end
 
 end

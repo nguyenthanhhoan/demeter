@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617075641) do
+ActiveRecord::Schema.define(version: 20170622143823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170617075641) do
     t.integer "device_field_id"
     t.integer "zone_id"
     t.integer "link_type",       default: 0
+    t.integer "order"
     t.index ["device_field_id", "zone_id", "link_type"], name: "device_fields_zones_index", unique: true, using: :btree
   end
 

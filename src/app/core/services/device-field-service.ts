@@ -33,4 +33,8 @@ export class DeviceFieldService {
   updateDeviceValue(data): Observable<any> {
     return this.apiService.post(`user/device_fields/update_device_value`, data);
   }
+
+  updateOrder(data): Observable<any[]> {
+    return this.apiService.post(`user/device_fields/update_order`, data);
+  }
 }

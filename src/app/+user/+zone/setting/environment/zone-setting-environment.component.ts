@@ -1,6 +1,7 @@
-import { Component, OnInit, DoCheck, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
@@ -17,6 +18,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
   zone: any;
 
   @Output() onRefresh = new EventEmitter();
+  @ViewChild('sortModal') public sortModal: ModalDirective;
 
   oldZone: any = {};
   project_id: number;
@@ -45,6 +47,12 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
     let changeDetected = false;
     if (this.zone && this.zone.id && this.oldZone.id !== this.zone.id) {
       changeDetected = true;
+    }
+
+    if (this.zone && this.zone.data_device_fields && this.zone.data_device_fields.length
+      && this.sort_fields.length !== this.zone.data_device_fields.length) {
+
+        changeDetected = true;
     }
 
     if (changeDetected) {
@@ -99,29 +107,26 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
     });
   }
 
-
   save() {
-    // let submit_okrs = [];
-    // this.sort_fields.forEach((element, index) => {
-    //   let submit_okr: any = {
-    //     zone_id: this.zone_id,
-    //     order: index
-    //   };
-    //   submit_okrs.push(submit_okr);
-    // });
+    let submit_device_fields = [];
+    this.sort_fields.forEach((element, index) => {
+      let submit_device_field: any = {
+        device_field_id: element.id,
+        link_type: 'data',
+        zone_id: this.zone_id,
+        order: index
+      };
+      submit_device_fields.push(submit_device_field);
+    });
 
-    alert('Not implemented yet!');
-
-    // this.isRequesting = true;
-    // this.okrService.update_batch(this.zone_id, {
-    //   okrs: submit_okrs
-    // })
-    // .subscribe(() => {
-    //   this.onResolve.emit();
-    //   this.okrConfigureModal.hide();
-    //   this.isRequesting = false;
-    // }, () => {
-    //   this.isRequesting = false;
-    // });
+    this.isRequesting = true;
+    this.deviceFieldService.updateOrder({device_fields: submit_device_fields})
+    .subscribe(() => {
+      this.reloadZone();
+      this.sortModal.hide();
+      this.isRequesting = false;
+    }, () => {
+      this.isRequesting = false;
+    });
   }
 }

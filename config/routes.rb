@@ -43,6 +43,7 @@ Rails.application.routes.draw do
         post 'assign_device_to_zone' => 'device_fields#assign_device_to_zone'
         post 'unassign_device_to_zone' => 'device_fields#unassign_device_to_zone'
         post 'update_device_value' => 'device_fields#update_device_value'
+        post 'update_order' => 'device_fields#update_order'
       end
     end
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
