@@ -71,7 +71,7 @@ worker:
     - .:/rails
   env_file: .env.web
   environment:
-    RAILS_ENV: test
+    RAILS_ENV: development
   links:
     - db
     - redis
