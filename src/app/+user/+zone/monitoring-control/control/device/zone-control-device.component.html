@@ -1,0 +1,61 @@
+<div class="smart-form">
+  <header>
+    List of Devices
+    <div class="btn-group pull-right">
+      <button 
+        class="demeter-btn create-btn primary"
+        (click)="deviceAddModal.show()"
+        >Add</button>
+    </div>
+  </header>
+</div>
+
+<alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0">
+  <i class="fa-fw fa fa-warning"></i>
+  <strong>No device available!</strong> Click 'Add' to add new one.
+</alert>
+
+<div class="smart-form device-control-form">
+  <div *ngFor="let field of fields" class="device-control">
+    <section class="device-name">
+      {{field.name_display}}
+
+      <a (click)="remove(field)" class="delete-action">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section>
+      <div>
+        <label class="label">Mode</label>
+        <div class="inline-group">
+          <label class="radio state-disabled">
+            <input type="radio" name="radio-inline" checked="checked" disabled>
+            <i></i>Manual</label>
+          <label class="radio state-disabled">
+            <input type="radio" name="radio-inline" disabled>
+            <i></i>Auto</label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div>
+        <label class="label">Control</label>
+        <div class="device-control-toggle">
+          <label class="toggle" [class.state-disabled]="field.isRunning">
+            <input type="checkbox" [ngModel]="field.value"
+              [disabled]="field.isRunning"
+              (click)="changeValue($event, field)">
+            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+          </label>
+          <div class="spinner-wrapper">
+            <app-spinner [isRunning]="field.isRunning"></app-spinner>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<device-add-modal #deviceAddModal (onResolve)="fetchListDevice()"></device-add-modal>
