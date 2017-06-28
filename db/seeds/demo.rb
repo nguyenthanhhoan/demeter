@@ -144,3 +144,28 @@ DeviceField.create([{
   field_attribute: :read_write,
   update_type: :field_changed
 }])
+
+device_field = DeviceField.find_by_field_id 'field18'
+DeviceValueHistory.create({
+  device_field: device_field,
+  value: 1,
+  created_at: Time.current.in_time_zone('Hanoi').beginning_of_day + 10 * 60 * 60
+})
+
+DeviceValueHistory.create({
+  device_field: device_field,
+  value: 0,
+  created_at: Time.current.in_time_zone('Hanoi').beginning_of_day + 12 * 60 * 60
+})
+
+DeviceValueHistory.create({
+  device_field: device_field,
+  value: 1,
+  created_at: Time.current.in_time_zone('Hanoi').beginning_of_day + 17 * 60 * 60
+})
+
+DeviceValueHistory.create({
+  device_field: device_field,
+  value: 0,
+  created_at: Time.current.in_time_zone('Hanoi').beginning_of_day + 18 * 60 * 60
+})

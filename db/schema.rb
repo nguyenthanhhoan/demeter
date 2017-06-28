@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622143823) do
+ActiveRecord::Schema.define(version: 20170627123402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20170622143823) do
     t.integer "link_type",       default: 0
     t.integer "order"
     t.index ["device_field_id", "zone_id", "link_type"], name: "device_fields_zones_index", unique: true, using: :btree
+  end
+
+  create_table "device_value_histories", force: :cascade do |t|
+    t.integer  "device_field_id"
+    t.string   "value"
+    t.datetime "updated_at",      null: false
+    t.datetime "created_at",      null: false
+    t.index ["device_field_id"], name: "index_device_value_histories_on_device_field_id", using: :btree
   end
 
   create_table "devices", force: :cascade do |t|
@@ -211,6 +219,7 @@ ActiveRecord::Schema.define(version: 20170622143823) do
   end
 
   add_foreign_key "device_fields", "devices"
+  add_foreign_key "device_value_histories", "device_fields"
   add_foreign_key "okr_objective_keys", "okr_objectives"
   add_foreign_key "okr_objectives", "okrs"
   add_foreign_key "okrs", "zones"

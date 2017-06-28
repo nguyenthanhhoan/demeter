@@ -50,5 +50,6 @@ Rails.application.routes.draw do
     get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
     get '/sensor_data/latest' => 'sensor_data#query_lastest'
     get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }
+    get '/device_value/lastest/gateway/:gateway/field_id/:field_id' => 'device_value_histories#query_lastest'
   end
 end

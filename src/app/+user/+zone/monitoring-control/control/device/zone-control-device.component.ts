@@ -6,8 +6,13 @@ import { ISubscription } from 'rxjs/Subscription';
 
 import { AppSettings } from '../../../../../app.settings';
 import { DeviceFieldService } from '../../../../../core/services/device-field-service';
+import {
+  DeviceValueHistoryService
+} from '../../../../../core/services/device-value-history.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 
+declare var Chart: any;
+declare var document: any;
 @Component({
   selector: 'zone-control-device',
   templateUrl: './zone-control-device.component.html',
@@ -15,10 +20,28 @@ import { NotificationService } from '../../../../../shared/utils/notification.se
 })
 export class ZoneControlDeviceComponent implements OnInit {
   fields: any[];
+
+  fieldCharts: any[] = [];
   zone_id: number;
+  options;
+  data;
+
+  charjsOptions = {
+    legend: {
+      display: false
+    },
+    scales: {
+        yAxes: [{
+            type: 'category',
+            position: 'left',
+            display: true,
+        }]
+    }
+  };
 
   constructor(private route: ActivatedRoute,
               private deviceFieldService: DeviceFieldService,
+              private deviceValueHistoryService: DeviceValueHistoryService,
               private ngZone: NgZone,
               private notificationService: NotificationService) {
     this.zone_id = +this.route.snapshot.params['id'];
@@ -38,12 +61,30 @@ export class ZoneControlDeviceComponent implements OnInit {
       this.transformDeviceValue(fields);
       this.fields = fields;
       this.subscribeWebSocket();
+      this.fetchLastestChart();
+    });
+  }
+
+  fetchLastestChart() {
+    this.fields.forEach((field, index) => {
+      this.fetchLastestChartForField(field, index);
+    });
+  }
+
+  fetchLastestChartForField(field, index) {
+    this.fieldCharts.push({
+      loading: true
+    });
+    this.deviceValueHistoryService.getLatest(field.device.name, field.field_id)
+    .subscribe(chartData => {
+      this.fieldCharts[index] = chartData;
     });
   }
 
   transformDeviceValue(fields) {
     fields.forEach(field => {
       field.value = parseInt(field.value, 10) === 1;
+      field.isRunning = false;
     });
   }
 

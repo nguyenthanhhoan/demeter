@@ -9,11 +9,16 @@
 
 .device-control {
   display: flex;
-  min-height: 50px;
+  flex-direction: column;
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
   padding-bottom: 20px;
   max-width: 500px;
+
+  .control-section {
+    display: flex;
+    min-height: 50px;
+  }
 
   &:last-child {
     border-bottom: none;
@@ -44,6 +49,10 @@
       display: inline;
       color: #900323;
     }
+  }
+
+  .chart-section {
+    margin-top: 10px;
   }
 }
 

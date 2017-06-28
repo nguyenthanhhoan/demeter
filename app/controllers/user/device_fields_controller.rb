@@ -53,8 +53,6 @@ class User::DeviceFieldsController < AuthorizedController
     device_field = DeviceField.find params[:device_field_id]
     device_field.value = params[:value]
     AwsIotService.update_thing_shadow(device_field)
-
-    device_field.update_attribute(:value, params[:value])
     render json: device_field
   end
 

@@ -19,6 +19,7 @@ import { VoiceRecognitionService } from '../shared/voice-control/voice-recogniti
 import { CoreService } from './services/core.service';
 import { ProjectService } from './services/project.service';
 import { ZoneService } from './services/zone.service';
+import { DeviceValueHistoryService } from './services/device-value-history.service';
 import { CameraService } from './services/camera.service';
 import { SensorDataService } from './services/sensor-data.service';
 import { DeviceFieldService } from './services/device-field-service';
@@ -56,7 +57,8 @@ import { OkrObjectiveService } from './services/okr-objective.service';
     WeatherService,
     MockDataService,
     OkrService,
-    OkrObjectiveService
+    OkrObjectiveService,
+    DeviceValueHistoryService
   ]
 })
 export class CoreModule {

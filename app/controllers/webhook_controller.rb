@@ -1,5 +1,6 @@
 class WebhookController < ActionController::Base
   before_action :authenticate
+  rescue_from Exception, with: :server_error
 
   def update_device_value
     gateway = params[:gateway]
@@ -12,8 +13,24 @@ class WebhookController < ActionController::Base
     })
 
     if field_value.present?
-      field_value.update_attribute(:value, value)
-      render :json => { message: 'Update successfully!' }
+      # Currently, support integer only
+      if field_value.integer?
+        old_value = Integer(field_value.value)
+        new_value = Integer(value)
+        if new_value != old_value
+          field_value.update_attribute(:value, value)
+          DeviceValueHistory.create!({
+            device_field: field_value,
+            value: new_value,
+            created_at: Time.new.to_i
+          })
+          render :json => { message: 'Update successfully!' }
+        else 
+          render :json => { message: 'Value not changed. Update not performed!' }
+        end
+      else
+        render :json => { message: 'Can only update for integer field!' }
+      end
     else
       self.status = :internal_server_error
       render :json => {
@@ -31,5 +48,14 @@ class WebhookController < ActionController::Base
           message: 'Authenticate false!',
         }
       end
+    end
+
+    def server_error(error)
+      logger.error error.message
+      error.backtrace[0..10].each { |line| logger.error line }
+      render json: {
+        error: error.message,
+        key: 'Exception'
+      }, status: :internal_server_error
     end
 end
