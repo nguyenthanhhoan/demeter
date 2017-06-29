@@ -18,13 +18,14 @@ function init(appOpts) {
   opts = appOpts;
 }
 
-function update_device_value(gateway, field_id, value) {
+function update_device_value(gateway, field_id, value, timestamp) {
   winston.log('info', `[Rest Service] Prepare to call webhook with [gateway=${gateway}], [field_id=${field_id}], [value=${value}]`);
   let update_path = opts.web_hook.web_hook_api + opts.web_hook.update_device_value_path;
   request(buildReq(update_path, {
     gateway: gateway,
     field_id: field_id,
-    value: value
+    value: value,
+    timestamp: timestamp
   }))
   .then(function () {
     winston.log('info', `[Rest Service] Request succeeded!`);

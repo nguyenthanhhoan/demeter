@@ -1,4 +1,6 @@
-import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, Input, NgZone, OnInit, QueryList, ViewChild, ViewChildren
+} from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
@@ -9,19 +11,21 @@ import { DeviceFieldService } from '../../../../../core/services/device-field-se
 import {
   DeviceValueHistoryService
 } from '../../../../../core/services/device-value-history.service';
+import { ChartJsComponent } from '../../../../../shared/graphs/chart-js';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 
-declare var Chart: any;
-declare var document: any;
+declare var moment: any;
 @Component({
   selector: 'zone-control-device',
   templateUrl: './zone-control-device.component.html',
   styleUrls: ['./zone-control-device.component.scss']
 })
-export class ZoneControlDeviceComponent implements OnInit {
+export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
   fields: any[];
 
   fieldCharts: any[] = [];
+  fieldChartComponents: any[] = [];
+  @ViewChildren('fieldChartEles') fieldChartEles: QueryList<ChartJsComponent>;
   zone_id: number;
   options;
   data;
@@ -49,6 +53,14 @@ export class ZoneControlDeviceComponent implements OnInit {
 
   ngOnInit() {
     this.fetchListDevice();
+  }
+
+  ngAfterViewInit() {
+    this.fieldChartEles.changes.subscribe(() => {
+      if (this.fieldChartEles.toArray().length) {
+        this.fieldChartComponents = this.fieldChartEles.toArray();
+      }
+    });
   }
 
   fetchListDevice() {
@@ -118,9 +130,25 @@ export class ZoneControlDeviceComponent implements OnInit {
   }
 
   updateDeviceValue(receivedData) {
-    this.fields.forEach((field) => {
-      if (field.device.name === receivedData.gateway && field.field_id === receivedData.field) {
-        field.value = parseInt(receivedData.value, 10) === 1;
+    let newValue = parseInt(receivedData.value, 10) === 1;
+    let timeFormatted = moment(receivedData.timestamp * 1000)
+      .format(AppSettings.date_time_format.date_time);
+
+    let valueLabel = newValue ? 'ON' : 'OFF';
+
+    this.fields.forEach((field, index) => {
+      if (field.device.name === receivedData.gateway && field.field_id === receivedData.field
+        && field.value !== newValue) {
+        field.value = newValue;
+        if (this.fieldChartComponents && this.fieldChartComponents[index] &&
+          this.fieldChartComponents[index].chart) {
+
+          this.fieldChartComponents[index].chart.data.xLabels.push(timeFormatted);
+          this.fieldChartComponents[index].chart.data.datasets[0].data.push(valueLabel);
+          this.fieldChartComponents[index].chart.update();
+        } else {
+          console.log(`The chart component ${index} hasnot initialized yet!`);
+        }
       }
     });
   }

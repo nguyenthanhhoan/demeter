@@ -57,7 +57,7 @@ var findDevice = function(cacheConnect, gateway, fieldId) {
   return foundDevice;
 }
 
-var notifySubcriber = function(gateway, field, value) {
+var notifySubcriber = function(gateway, field, value, timestamp) {
   winston.log('debug', `[WebSocket] NotifySubcriber: gateway = ${gateway}, field = ${field}, value = ${value}`);
   winston.log('debug', `[WebSocket] Number of connected sockets: ${cacheConnects.length}`);
   cacheConnects.forEach((cacheConnect) => {
@@ -66,7 +66,8 @@ var notifySubcriber = function(gateway, field, value) {
       let sentData = JSON.stringify({
         gateway: gateway,
         field: field,
-        value: value
+        value: value,
+        timestamp: timestamp
       });
       winston.log('debug', `[WebSocket] Prepare to send device data: ${sentData} to clientId: ${cacheConnect.clientId}`);
       cacheConnect.ws.send(sentData, function(error) {

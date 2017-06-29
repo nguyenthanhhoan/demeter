@@ -23,14 +23,15 @@ function registerThings(thingNames, thingShadows) {
 function processDelta(thingName, stateObject, websocket, restService) {
 
     let {state} = stateObject;
+    let {timestamp} = stateObject;
     let fields = Object.keys(state);
 
     fields.forEach((field) => {
         // Notify web api via websocket
-        websocket.notifySubcriber(thingName, field, state[field].value);
+        websocket.notifySubcriber(thingName, field, state[field].value, timestamp);
 
         // Update to db via webhook
-        restService.update_device_value(thingName, field, state[field].value);
+        restService.update_device_value(thingName, field, state[field].value, timestamp);
     });
 }
 

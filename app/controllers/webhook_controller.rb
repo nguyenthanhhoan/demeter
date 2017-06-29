@@ -6,6 +6,7 @@ class WebhookController < ActionController::Base
     gateway = params[:gateway]
     field_id = params[:field_id]
     value = params[:value]
+    timestamp = Integer(params[:timestamp])
 
     field_value = DeviceField.joins(:device).find_by({ 
       'devices.name': gateway,
@@ -22,7 +23,7 @@ class WebhookController < ActionController::Base
           DeviceValueHistory.create!({
             device_field: field_value,
             value: new_value,
-            created_at: Time.new.to_i
+            created_at: Time.at(timestamp).to_datetime
           })
           render :json => { message: 'Update successfully!' }
         else 

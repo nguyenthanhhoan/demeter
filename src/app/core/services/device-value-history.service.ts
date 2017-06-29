@@ -36,7 +36,7 @@ export class DeviceValueHistoryService {
       chartData.xLabels.push(item.created_at);
 
       // TODO: Need to check value data type before parsing.
-      if (parseInt(item.value) === 1) {
+      if (parseInt(item.value, 10) === 1) {
         chartData.datasets[0].data.push('ON');
       } else {
         chartData.datasets[0].data.push('OFF');

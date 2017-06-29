@@ -20,6 +20,7 @@ export class ChartJsComponent implements AfterContentInit {
   @Input() public options: any;
   @Input() public type:string;
   @Input() width:string = '100%';
+  chart: any;
 
   constructor(private el:ElementRef) {
   }
@@ -36,9 +37,8 @@ export class ChartJsComponent implements AfterContentInit {
     let options = presets[this.type] || {};
     Object.assign(options, this.options);
 
-    let chart = new Chart(ctx, {type: this.type, data: data, options: options});
-    chart.update();
-
+    this.chart = new Chart(ctx, {type: this.type, data: data, options: options});
+    this.chart.update();
   }
 
   private getCtx() {
