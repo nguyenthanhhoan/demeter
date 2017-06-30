@@ -5,6 +5,9 @@ import { SmartadminModule } from '../../../shared/smartadmin.module';
 import { ZoneControlComponent } from '../monitoring-control/control/zone-control.component';
 import { DeviceAddModalComponent } from './control/_device-add-modal/device-add-modal.component';
 import { ZoneControlDeviceComponent } from './control/device/zone-control-device.component';
+import {
+  ZoneControlExecutionComponent
+} from './control/execution/zone-control-execution.component';
 
 @NgModule({
   imports: [
@@ -16,6 +19,7 @@ import { ZoneControlDeviceComponent } from './control/device/zone-control-device
     ZoneControlComponent,
     DeviceAddModalComponent,
     ZoneControlDeviceComponent,
+    ZoneControlExecutionComponent
   ],
   providers: [
   ]

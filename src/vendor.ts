@@ -20,6 +20,17 @@ require('bootstrap/js/tab.js'); //
 require('bootstrap/js/modal.js'); //
 
 window['moment'] = require('moment');
+
+/*
+ * jQuery.extendext.js & doT are required by query-builder
+ * Currently, the query-builder library itself have problems with module package
+ * Need to modify source code to assets/js/query-builder.js
+ */
+import 'jquery-extendext/jQuery.extendext.js';
+import 'doT';
+// require('jQuery-QueryBuilder/dist/js/query-builder.standalone.js');
+import 'assets/js/query-builder.js';
+
 require('moment-timezone');
 
 // import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'

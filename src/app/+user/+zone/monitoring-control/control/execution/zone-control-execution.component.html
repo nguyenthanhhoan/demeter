@@ -1,0 +1,18 @@
+<div class="smart-form">
+  <header>
+    List of Executions
+    <div class="btn-group pull-right">
+      <button 
+        class="demeter-btn create-btn primary"
+        (click)="deviceAddModal.show()"
+        >Add</button>
+    </div>
+  </header>
+</div>
+
+<alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0">
+  <i class="fa-fw fa fa-warning"></i>
+  <strong>No device available!</strong> Click 'Add' to add new one.
+</alert>
+
+<div id="builder-basic" class="execution-builder"></div>
