@@ -24,8 +24,14 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
   fields: any[];
 
   fieldCharts: any[] = [];
+
+  // To keep refenrence chart component (used for update chart data later)
   fieldChartComponents: any[] = [];
   @ViewChildren('fieldChartEles') fieldChartEles: QueryList<ChartJsComponent>;
+
+  // To handle chart show/hide
+  fieldChartViews: boolean[] = [];
+
   zone_id: number;
   options;
   data;
@@ -84,9 +90,12 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
   }
 
   fetchLastestChartForField(field, index) {
-    this.fieldCharts.push({
-      loading: true
-    });
+    if (typeof this.fieldCharts[index] === 'undefined') {
+      this.fieldCharts[index] = {
+        loading: true
+      };
+    }
+
     this.deviceValueHistoryService.getLatest(field.device.name, field.field_id)
     .subscribe(chartData => {
       this.fieldCharts[index] = chartData;
@@ -94,9 +103,10 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
   }
 
   transformDeviceValue(fields) {
-    fields.forEach(field => {
+    fields.forEach((field, index) => {
       field.value = parseInt(field.value, 10) === 1;
       field.isRunning = false;
+      this.fieldChartViews[index] = false;
     });
   }
 
@@ -133,24 +143,32 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
     let newValue = parseInt(receivedData.value, 10) === 1;
     let timeFormatted = moment(receivedData.timestamp * 1000)
       .format(AppSettings.date_time_format.date_time);
-
     let valueLabel = newValue ? 'ON' : 'OFF';
 
     this.fields.forEach((field, index) => {
       if (field.device.name === receivedData.gateway && field.field_id === receivedData.field
         && field.value !== newValue) {
         field.value = newValue;
-        if (this.fieldChartComponents && this.fieldChartComponents[index] &&
-          this.fieldChartComponents[index].chart) {
-
-          this.fieldChartComponents[index].chart.data.xLabels.push(timeFormatted);
-          this.fieldChartComponents[index].chart.data.datasets[0].data.push(valueLabel);
-          this.fieldChartComponents[index].chart.update();
-        } else {
-          console.log(`The chart component ${index} hasnot initialized yet!`);
-        }
+        this.updateChart(receivedData, index);
       }
     });
+  }
+
+  updateChart(receivedData, index) {
+    let newValue = parseInt(receivedData.value, 10) === 1;
+    let timeFormatted = moment(receivedData.timestamp * 1000)
+      .format(AppSettings.date_time_format.date_time);
+
+    let valueLabel = newValue ? 'ON' : 'OFF';
+    if (this.fieldChartComponents && this.fieldChartComponents[index] &&
+        this.fieldChartComponents[index].chart) {
+
+        this.fieldChartComponents[index].chart.data.xLabels.push(timeFormatted);
+        this.fieldChartComponents[index].chart.data.datasets[0].data.push(valueLabel);
+        this.fieldChartComponents[index].chart.update();
+      } else {
+        console.log(`The chart component ${index} hasnot initialized yet!`);
+      }
   }
 
   remove(field) {

@@ -56,12 +56,19 @@
           </div>
         </div>
       </section>
+
+      <section>
+        <i 
+          [ngClass]="fieldChartViews[i] ? 'fa-chevron-up' : 'fa-chevron-down'"
+          class="toggle-btn fa " aria-hidden="true"
+          (click)="fieldChartViews[i] = !fieldChartViews[i]"></i>
+      </section>
     </div>
-    <div class="chart-section" *ngIf="fieldCharts[i] && fieldCharts[i].loading">
+    <div class="chart-section" *ngIf="fieldCharts[i] && fieldCharts[i].loading && fieldChartViews[i]">
       <app-spinner [isRunning]="fieldCharts[i].loading"></app-spinner>
     </div>
 
-    <div class="chart-section" *ngIf="fieldCharts[i] && fieldCharts[i].datasets && fieldCharts[i].datasets[0].data.length > 0">
+    <div class="chart-section" *ngIf="fieldCharts[i] && !fieldCharts[i].loading && fieldChartViews[i]">
       <sa-chart-js type="line" [data]="fieldCharts[i]" [options]="charjsOptions" #fieldChartEles></sa-chart-js>
     </div>
   </div>

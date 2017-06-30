@@ -13,23 +13,23 @@
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  max-width: 500px;
+  max-width: 550px;
 
   .control-section {
     display: flex;
     min-height: 50px;
+
+    > section {
+      align-self: stretch;
+      display: flex;
+      align-items:center;
+    }
   }
 
   &:last-child {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
-  }
-
-  > section {
-    align-self: stretch;
-    display: flex;
-    align-items:center;
   }
 
   .device-name {
@@ -97,4 +97,12 @@
   height: 34px;
   width: 98px;
   float: right;
+}
+
+.toggle-btn {
+  cursor: pointer;
+
+  &:hover {
+    color: #333;
+  }
 }
