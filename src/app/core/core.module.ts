@@ -27,6 +27,7 @@ import { MockDataService } from './services/mock-data.service';
 import { WeatherService } from './services/weather.service';
 import { OkrService } from './services/okr.service';
 import { OkrObjectiveService } from './services/okr-objective.service';
+import { ProgramExecutionService } from './services/program-execution.service';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { OkrObjectiveService } from './services/okr-objective.service';
     MockDataService,
     OkrService,
     OkrObjectiveService,
-    DeviceValueHistoryService
+    DeviceValueHistoryService,
+    ProgramExecutionService
   ]
 })
 export class CoreModule {

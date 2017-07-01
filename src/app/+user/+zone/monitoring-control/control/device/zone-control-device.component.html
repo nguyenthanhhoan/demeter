@@ -10,7 +10,8 @@
   </header>
 </div>
 
-<alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0">
+<alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0"
+  class="alert-no-item">
   <i class="fa-fw fa fa-warning"></i>
   <strong>No device available!</strong> Click 'Add' to add new one.
 </alert>

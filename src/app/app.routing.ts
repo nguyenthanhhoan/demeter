@@ -82,7 +82,8 @@ export const routes: Routes = [
                             }]
                         }, {
                             path: 'control',
-                            component: ZoneControlComponent
+                            loadChildren:
+                                'app/+user/+zone/monitoring-control/control/zone-control.module#ZoneControlModule',
                         }, {
                             path: 'weather', component: ZoneWeatherComponent
                         }, {
@@ -118,4 +119,4 @@ export const routes: Routes = [
 
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {useHash: true});
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true, enableTracing: true });

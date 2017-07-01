@@ -4,15 +4,45 @@
     <div class="btn-group pull-right">
       <button 
         class="demeter-btn create-btn primary"
-        (click)="deviceAddModal.show()"
+        routerLink="new"
         >Add</button>
     </div>
   </header>
 </div>
 
-<alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0">
+<alert type="warning" dismissible="true" *ngIf="programs && programs.length == 0"
+  class="alert-no-item">
   <i class="fa-fw fa fa-warning"></i>
-  <strong>No device available!</strong> Click 'Add' to add new one.
+  <strong>No program available!</strong> Click 'Add' to add new one.
 </alert>
 
-<div id="builder-basic" class="execution-builder"></div>
+<div class="smart-form program-form">
+  <div *ngFor="let program of programs; let i = index;" class="single-program">
+    <section class="program-name">
+
+      <a routerLink="{{program.id}}">
+        {{program.name}}
+      </a>
+
+      <a (click)="remove(program)" class="delete-action">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section>
+      <div>
+        <div class="device-control-toggle">
+          <label class="toggle" [class.state-disabled]="program.isRunning">
+            <input type="checkbox" [ngModel]="program.is_active"
+              [disabled]="program.isRunning"
+              (click)="changeValue($event, program)">
+            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+          </label>
+          <div class="spinner-wrapper">
+            <app-spinner [isRunning]="program.isRunning"></app-spinner>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

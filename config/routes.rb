@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         post 'update_batch' => 'okrs#update_batch'
       end
     end
+    resources :program_executions
     resources :okr_objectives
     resources :device_fields, only: [:index] do
       collection do

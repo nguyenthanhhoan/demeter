@@ -1,0 +1,54 @@
+<form #programForm="ngForm">
+
+  <div class="execution-name"
+    [ngClass]="name.valid || name.pristine ? '' : 'error'">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+    <input placeholder="Execution Name..." 
+      #name="ngModel"
+      [(ngModel)]="program.name" name="name" required />
+  </div>
+
+  <div class="note note-error execution-name-error" 
+    [hidden]="name.valid || name.pristine">This is a required field.
+  </div>
+
+  <div class="smart-form">
+    <header>
+      Input
+    </header>
+  </div>
+
+  <app-query-builder [filters]="filters" [rules]="program.input" #inputQueryBuilder></app-query-builder>
+
+  <div class="smart-form">
+    <header>
+      Output
+    </header>
+  </div>
+
+  <app-query-builder [filters]="filters" [rules]="program.output" #outputQueryBuilder></app-query-builder>
+
+  <div class="button-group">
+    <div class="button-group-right">
+      <button 
+        *ngIf="type != 'edit'"
+        [disabled]="!programForm.valid"
+        (click)="create()"
+        class="demeter-btn create-btn" type="submit">
+        Create
+      </button>
+
+      <button 
+        *ngIf="type == 'edit'"
+        [disabled]="!programForm.valid"
+        (click)="update()"
+        class="demeter-btn primary" type="submit">
+        Update
+      </button>
+      <button class="demeter-btn danger">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,51 @@
+.execution-name {
+  font-size: 22px;
+  display: -webkit-flex;
+  display: flex;
+
+  i, input {
+    align-self: center;
+  }
+
+  input {
+    flex: 1;
+    margin-left: 15px;
+    padding: 2px 10px;
+  }
+
+  &.error {
+    input {
+      background: #fff0f0;
+      border-color: #A90329;
+      border-style: solid;
+    }
+
+    i {
+      color: #A90329;
+    }
+  }
+}
+
+.execution-name-error {
+  font-size: 14px;
+  margin-left: 40px;
+}
+
+.execution-builder {
+  margin: 20px 30px 0;
+}
+
+.smart-form header {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 10px;
+
+  .button-group-right {
+    margin-left: auto;
+  }
+}

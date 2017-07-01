@@ -11,21 +11,25 @@
 
   <ul class="nav nav-tabs bordered">
     <li [class.active]="activeTab == 0">
-      <a (click)="activeTab = 0"><i class="fa fa-bars"></i> Devices</a>
+      <a (click)="goToDevices()">
+        <i class="fa fa-bars"></i> Devices
+      </a>
     </li>
     <li [class.active]="activeTab == 1">
-      <a (click)="activeTab = 1"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Executions</a>
+      <a (click)="goToExecutions()">
+        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Executions
+      </a>
     </li>
   </ul>
 
   <div class="demeter-pane-content">
     <tabset class="padding-10">
-      <tab [active]="activeTab == 0">
+      <div *ngIf="activeTab == 0">
         <zone-control-device></zone-control-device>
-      </tab>
-      <tab [active]="activeTab == 1">
+      </div>
+      <div *ngIf="activeTab == 1">
         <zone-control-execution></zone-control-execution>
-      </tab>
+      </div>
     </tabset>
   </div>
 </div>
