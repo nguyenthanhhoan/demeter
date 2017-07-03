@@ -5,7 +5,7 @@
  */
 (function(root, factory) {
     if (typeof define == 'function' && define.amd) {
-        define(['jquery', 'doT'], factory);
+        define(['jquery', 'dot'], factory);
     }
     else {
         factory(root.jQuery, root.doT);
