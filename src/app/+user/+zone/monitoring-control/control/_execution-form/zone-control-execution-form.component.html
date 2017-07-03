@@ -18,7 +18,11 @@
     </header>
   </div>
 
-  <app-query-builder [filters]="filters" [rules]="program.input" #inputQueryBuilder></app-query-builder>
+  <app-query-builder
+    *ngIf="filtersLoaded"
+    [filters]="filters" 
+    [rules]="program.input"
+    #inputQueryBuilder></app-query-builder>
 
   <div class="smart-form">
     <header>
@@ -26,7 +30,11 @@
     </header>
   </div>
 
-  <app-query-builder [filters]="filters" [rules]="program.output" #outputQueryBuilder></app-query-builder>
+  <app-query-builder
+    *ngIf="filtersLoaded"
+    [filters]="filters"
+    [rules]="program.output"
+    #outputQueryBuilder></app-query-builder>
 
   <div class="button-group">
     <div class="button-group-right">

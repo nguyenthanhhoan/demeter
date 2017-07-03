@@ -20,7 +20,9 @@
   <div *ngFor="let field of fields; let i = index;" class="device-control">
     <div class="control-section">
       <section class="device-name">
-        {{field.name_display}}
+        <span class="text">
+          {{field.name_display}}
+        </span>
 
         <a (click)="remove(field)" class="delete-action">
           <i class="fa fa-trash-o" aria-hidden="true"></i>

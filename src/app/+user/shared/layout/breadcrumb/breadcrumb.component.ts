@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router";
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-user-breadcrumb',
@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router";
 })
 export class BreadcrumbComponent {
 
-  resources: any[]
+  resources: any[];
   constructor(private router: Router,
               private route: ActivatedRoute) {
 
@@ -23,17 +23,21 @@ export class BreadcrumbComponent {
     let segments = this.route.snapshot['_urlSegment'].segments;
 
     this.resources = [];
-    for (let index = 1; index < segments.length - 1; index+=2) {
+    for (let index = 1; index < segments.length - 1; index += 2) {
       let resource_name = segments[index].path;
-      let resource_id = +segments[index + 1].path;
+
+      let resource_id = '';
+      if (segments[index + 1]) {
+        resource_id = segments[index + 1].path;
+      }
 
       let path;
 
-      //For the last segment, only get the resource
-      if (index != segments.length - 2) {
-        path = `${resource_name}/${resource_id}`
+      // For the last segment, only get the resource
+      if (index !== segments.length - 2) {
+        path = `${resource_name}/${resource_id}`;
       } else {
-        path = `${resource_name}`
+        path = `${resource_name}`;
       }
 
       if (index > 1) {
@@ -42,14 +46,13 @@ export class BreadcrumbComponent {
       }
 
       resource_name = resource_name.charAt(0).toUpperCase() + resource_name.slice(1);
-      if (resource_name == 'Okr') {
+      if (resource_name === 'Okr') {
         resource_name = resource_name.toUpperCase();
       }
       this.resources.push({
-        id: resource_id,
         name: resource_name,
         path: path
-      })
+      });
     }
   }
 }

@@ -25,13 +25,6 @@ export class ZoneControlExecutionEditComponent implements OnInit {
     this.programExecutionService.getOne(this.zone_id, this.program_id)
     .subscribe((program: any) => {
       this.program = program;
-
-      if (program && program.input && program.input.length > 0) {
-        this.program.input = JSON.parse(program.input);
-      }
-      if (program && program.output && program.output.length > 0) {
-        this.program.output = JSON.parse(program.output);
-      }
     });
   }
 }

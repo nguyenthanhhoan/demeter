@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 
+import { DeviceFieldService } from '../../../../../core/services/device-field-service';
 import { ProgramExecutionService } from '../../../../../core/services/program-execution.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 
@@ -21,6 +23,7 @@ export class ZoneControlExecutionFormComponent implements OnInit {
   @Input()
   type: string;
 
+  // For demo purpose. To be removed.
   input: any = {
     condition: 'AND',
     rules: [{
@@ -41,6 +44,7 @@ export class ZoneControlExecutionFormComponent implements OnInit {
     }]
   };
 
+  // For demo purpose. To be removed.
   output: any = {
     condition: 'AND',
     rules: [{
@@ -54,33 +58,22 @@ export class ZoneControlExecutionFormComponent implements OnInit {
     }]
   };
 
-  filters: any[] = [{
+  defaultFilters: any[] = [{
     id: 'time',
     label: 'Time',
     type: 'string'
-  }, {
-    id: 'temperature',
-    label: 'Temperature',
-    type: 'integer'
-  }, {
-    id: 'humidity',
-    label: 'Humidity',
-    type: 'integer'
-  }, {
-    id: 'pumb',
-    label: 'Pumb 1',
-    type: 'integer'
-  }, {
-    id: 'fan',
-    label: 'Fan 1',
-    type: 'integer'
   }];
+
+  filters: any[] = this.defaultFilters.slice();
+
+  filtersLoaded: boolean = false;
 
   @ViewChild('inputQueryBuilder') inputQueryBuilder: any;
   @ViewChild('outputQueryBuilder') outputQueryBuilder: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private deviceFieldService: DeviceFieldService,
               private programExecutionService: ProgramExecutionService,
               private notificationService: NotificationService) {
     this.zone_id = +this.route.snapshot.params['id'];
@@ -88,6 +81,30 @@ export class ZoneControlExecutionFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchListDevice();
+  }
+
+  fetchListDevice() {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('zone_id', this.zone_id.toString());
+    params.set('link_type', 'control');
+    this.deviceFieldService.getListAssigned({
+      search: params
+    }).subscribe((fields) => {
+      this.initDevices(fields);
+    });
+  }
+
+  initDevices(fields) {
+    this.filters = this.defaultFilters.slice();
+    fields.map((field) => {
+      this.filters.push({
+        id: field.name,
+        label: field.name_display,
+        type: field.value_data_type
+      });
+    });
+    this.filtersLoaded = true;
   }
 
   buildSubmitProgram(program) {
