@@ -27,7 +27,7 @@ window['moment'] = require('moment');
  * Need to modify source code to assets/js/query-builder.js
  */
 import 'jquery-extendext/jQuery.extendext.js';
-import 'doT';
+import 'dot';
 // require('jQuery-QueryBuilder/dist/js/query-builder.standalone.js');
 import 'assets/js/query-builder.js';
 
