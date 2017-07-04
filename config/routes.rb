@@ -53,4 +53,10 @@ Rails.application.routes.draw do
     get '/weather/:service_type/:location' => 'weather#query', constraints: { location: /[^\/]+/ }
     get '/device_value/lastest/gateway/:gateway/field_id/:field_id' => 'device_value_histories#query_lastest'
   end
+
+  require 'sidekiq/web'
+
+  authenticate :user, lambda { |u| u.is_admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

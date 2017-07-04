@@ -29,3 +29,6 @@ npm-debug.log
 /dist
 /.awcache
 .env.web
+.vscode
+npm-debug.*
+public
