@@ -160,7 +160,7 @@ body {
 .logo {
   width: 40px;
   height: 40px;
-  background: url('../img/cau-dat/logo.svg') center center no-repeat;
+  background: url('../assets/img/cau-dat/logo.svg') center center no-repeat;
   background-size: contain;
 }
 
@@ -225,7 +225,7 @@ body {
   content: "";
   width: 10px;
   height: 10px;
-  background: url(../img/cau-dat/icon/plus.png) no-repeat 0 0;
+  background: url(../assets/img/cau-dat/icon/plus.png) no-repeat 0 0;
   top: 12px;
   right: 11px;
   position: absolute;
@@ -369,25 +369,25 @@ body {
 .demeter-icon.location {
   width: 10px;
   height: 16px;
-  background-image: url(../img/cau-dat/icon/location.png);
+  background-image: url(../assets/img/cau-dat/icon/location.png);
 }
 
 .demeter-icon.surface {
   width: 13px;
   height: 16px;
-  background-image: url(../img/cau-dat/icon/surface.png);
+  background-image: url(../assets/img/cau-dat/icon/surface.png);
 }
 
 .demeter-icon.labour {
   width: 13px;
   height: 16px;
-  background-image: url(../img/cau-dat/icon/worker.png);
+  background-image: url(../assets/img/cau-dat/icon/worker.png);
 }
 
 .demeter-icon.zone {
   width: 16px;
   height: 16px;
-  background-image: url(../img/cau-dat/icon/zone.png);
+  background-image: url(../assets/img/cau-dat/icon/zone.png);
 }
 
 
@@ -452,7 +452,7 @@ body {
  * Upload
  */
 .upload-plus-icon {
-  background: transparent url(../img/cau-dat/icon/plus-grey.png) no-repeat 0 0;
+  background: transparent url(../assets/img/cau-dat/icon/plus-grey.png) no-repeat 0 0;
   background-size: contain;
 }
 
