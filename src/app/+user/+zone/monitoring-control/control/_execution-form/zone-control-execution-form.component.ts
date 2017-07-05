@@ -82,6 +82,9 @@ export class ZoneControlExecutionFormComponent implements OnInit {
 
   ngOnInit() {
     this.fetchListDevice();
+    $('.cron').cron({
+      initial: '42 3 * * 5'
+    });
   }
 
   fetchListDevice() {

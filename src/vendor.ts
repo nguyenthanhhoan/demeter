@@ -31,9 +31,10 @@ import 'dot';
 // require('jQuery-QueryBuilder/dist/js/query-builder.standalone.js');
 import 'assets/js/query-builder.js';
 
+import 'assets/js/jquery-cron.js';
+
 require('moment-timezone');
 
 // import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 
 require('smartadmin-plugins/notification/SmartNotification.min.js');
-

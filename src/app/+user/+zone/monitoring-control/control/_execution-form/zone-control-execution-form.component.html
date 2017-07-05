@@ -14,15 +14,25 @@
 
   <div class="smart-form">
     <header>
+      Scheduling
+    </header>
+  </div>
+
+  <div class="cron"></div>
+
+  <div class="smart-form">
+    <header>
       Input
     </header>
   </div>
 
-  <app-query-builder
-    *ngIf="filtersLoaded"
-    [filters]="filters" 
-    [rules]="program.input"
-    #inputQueryBuilder></app-query-builder>
+  <div class="query-builder-container">
+    <app-query-builder
+      *ngIf="filtersLoaded"
+      [filters]="filters" 
+      [rules]="program.input"
+      #inputQueryBuilder></app-query-builder>
+  </div>
 
   <div class="smart-form">
     <header>
@@ -30,11 +40,13 @@
     </header>
   </div>
 
-  <app-query-builder
-    *ngIf="filtersLoaded"
-    [filters]="filters"
-    [rules]="program.output"
-    #outputQueryBuilder></app-query-builder>
+  <div class="query-builder-container">
+    <app-query-builder
+      *ngIf="filtersLoaded"
+      [filters]="filters"
+      [rules]="program.output"
+      #outputQueryBuilder></app-query-builder>
+  </div>
 
   <div class="button-group">
     <div class="button-group-right">

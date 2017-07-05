@@ -26,6 +26,8 @@ import { ZoneModule } from './+user/+zone/zone.module';
 
 import { UserModule } from './+user/user.module';
 
+import '../styles/main.scss';
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
