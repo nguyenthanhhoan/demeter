@@ -9,6 +9,7 @@ gem 'pg'
 # Sidekiq
 gem 'sidekiq', '~> 4.2.2'
 gem 'sidekiq-client-cli'
+gem 'sidekiq-cron', '~> 0.4.0'
 gem 'whenever'
 gem 'redis-namespace'
 

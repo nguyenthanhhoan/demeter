@@ -73,21 +73,26 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.fetchListDevice();
-    this.init();
+    this.initCron();
   }
 
   ngOnChanges() {
     if (this.program && this.program.id && this.program.id !== this.oldProgram.id) {
       // Receive updated program, should init component
-      this.init();
+      this.updateCronValue();
     }
   }
 
-  init() {
+  initCron() {
     const { schedule } = this.program;
     $('.cron').cron({
       initial: schedule
     });
+  }
+
+  updateCronValue() {
+    const { schedule } = this.program;
+    $('.cron').cron('value', schedule);
   }
 
   fetchListDevice() {
