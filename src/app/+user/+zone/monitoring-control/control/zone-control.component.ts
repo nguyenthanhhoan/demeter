@@ -16,7 +16,7 @@ import { NotificationService } from '../../../../shared/utils/notification.servi
 export class ZoneControlComponent {
   project_id: number;
   zone_id: number;
-  activeTab: number = 0;
+  activeTab: number = -1;
 
   private routerSubscription: ISubscription;
 
@@ -42,6 +42,8 @@ export class ZoneControlComponent {
       if (event instanceof NavigationEnd) {
         if (this.route.snapshot.routeConfig.path === 'executions') {
           this.activeTab = 1;
+        } else {
+          this.activeTab = 0;
         }
       }
     });

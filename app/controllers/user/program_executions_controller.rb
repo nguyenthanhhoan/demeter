@@ -44,7 +44,7 @@ class User::ProgramExecutionsController < AuthorizedController
     end
 
     def program_execution_params
-      params.require(:program_execution).permit(:name, :zone_id, :is_active, :input, :output)
+      params.require(:program_execution).permit(:name, :zone_id, :is_active, :schedule, :input, :output)
     end
 
     def get_program_execution

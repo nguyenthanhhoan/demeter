@@ -1,5 +1,5 @@
 class ProgramExecutionSerializer < ActiveModel::Serializer
-  attributes :id, :name, :zone_id, :is_active, :input, :output
+  attributes :id, :name, :zone_id, :is_active, :schedule, :input, :output
 
   def input
     JSON.parse(object.input)

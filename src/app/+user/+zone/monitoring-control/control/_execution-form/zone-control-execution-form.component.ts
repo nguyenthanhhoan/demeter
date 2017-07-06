@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
@@ -13,34 +13,31 @@ declare var $: any;
   templateUrl: './zone-control-execution-form.component.html',
   styleUrls: ['./zone-control-execution-form.component.scss']
 })
-export class ZoneControlExecutionFormComponent implements OnInit {
+export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   project_id: number;
   zone_id: number;
 
   @Input()
-  program: any = {};
+  program: any = {
+    schedule: '0 0 * * *'
+  };
+
+  oldProgram: any = {};
 
   @Input()
   type: string;
 
   // For demo purpose. To be removed.
   input: any = {
-    condition: 'AND',
+    condition: 'OR',
     rules: [{
-      id: 'time',
-      operator: 'equal',
-      value: '7:00 AM'
+      id: 'temperature',
+      operator: 'greater',
+      value: 25
     }, {
-      condition: 'OR',
-      rules: [{
-        id: 'temperature',
-        operator: 'greater',
-        value: 25
-      }, {
-        id: 'humidity',
-        operator: 'less',
-        value: 50
-      }]
+      id: 'humidity',
+      operator: 'less',
+      value: 50
     }]
   };
 
@@ -58,13 +55,7 @@ export class ZoneControlExecutionFormComponent implements OnInit {
     }]
   };
 
-  defaultFilters: any[] = [{
-    id: 'time',
-    label: 'Time',
-    type: 'string'
-  }];
-
-  filters: any[] = this.defaultFilters.slice();
+  filters: any[];
 
   filtersLoaded: boolean = false;
 
@@ -82,8 +73,20 @@ export class ZoneControlExecutionFormComponent implements OnInit {
 
   ngOnInit() {
     this.fetchListDevice();
+    this.init();
+  }
+
+  ngOnChanges() {
+    if (this.program && this.program.id && this.program.id !== this.oldProgram.id) {
+      // Receive updated program, should init component
+      this.init();
+    }
+  }
+
+  init() {
+    const { schedule } = this.program;
     $('.cron').cron({
-      initial: '42 3 * * 5'
+      initial: schedule
     });
   }
 
@@ -99,7 +102,7 @@ export class ZoneControlExecutionFormComponent implements OnInit {
   }
 
   initDevices(fields) {
-    this.filters = this.defaultFilters.slice();
+    this.filters = [];
     fields.map((field) => {
       this.filters.push({
         id: field.name,
@@ -116,7 +119,8 @@ export class ZoneControlExecutionFormComponent implements OnInit {
       name: program.name,
       input: JSON.stringify(this.inputQueryBuilder.getRules()),
       output: JSON.stringify(this.outputQueryBuilder.getRules()),
-      zone_id: this.zone_id
+      zone_id: this.zone_id,
+      schedule: $('.cron').cron('value')
     };
     return submitProgram;
   }
