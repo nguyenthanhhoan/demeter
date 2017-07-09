@@ -1,8 +1,8 @@
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
 import { ISubscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import { AppSettings } from '../../../../app.settings';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
@@ -20,20 +20,28 @@ export class ZoneControlComponent {
 
   private routerSubscription: ISubscription;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private store: Store<any>,
               private deviceFieldService: DeviceFieldService,
               private ngZone: NgZone,
               private notificationService: NotificationService) {
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
+
   }
 
   ngOnInit() {
     this.subscribeRouterEvent();
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+      this.project_id = zoneModel.projectId;
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
 

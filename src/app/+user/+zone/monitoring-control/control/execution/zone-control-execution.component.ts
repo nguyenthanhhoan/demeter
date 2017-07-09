@@ -2,8 +2,7 @@ import {
   Component, OnInit
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { ISubscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import { ProgramExecutionService } from '../../../../../core/services/program-execution.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
@@ -15,21 +14,29 @@ import { NotificationService } from '../../../../../shared/utils/notification.se
 })
 export class ZoneControlExecutionComponent {
 
-  zone_id: number;
+  zoneId: number;
   programs: any[];
 
-  constructor(private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private programExecutionService: ProgramExecutionService,
               private notificationService: NotificationService) {
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
-    this.loadPrograms();
+    this.store.select('zone')
+    .takeWhile((zoneModel: any) => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel) => {
+      if (zoneModel.zoneId) {
+        this.zoneId = zoneModel.zoneId;
+        this.loadPrograms();
+      }
+    });
   }
 
   loadPrograms() {
-    this.programExecutionService.list(this.zone_id)
+    this.programExecutionService.list(this.zoneId)
     .subscribe((programs) => {
       this.programs = programs;
     });
@@ -40,7 +47,7 @@ export class ZoneControlExecutionComponent {
       content: `Do you want to remove this execution?`
     }, () => {
       this.notificationService.showMessage(`Remove execution successfully!`);
-      this.programExecutionService.delete(this.zone_id, program.id)
+      this.programExecutionService.delete(this.zoneId, program.id)
       .subscribe((fields) => {
         this.loadPrograms();
       });
@@ -56,7 +63,7 @@ export class ZoneControlExecutionComponent {
       newValue = false;
     }
     program.isRunning = true;
-    this.programExecutionService.put(this.zone_id, {
+    this.programExecutionService.put(this.zoneId, {
       id: program.id,
       is_active: newValue
     })

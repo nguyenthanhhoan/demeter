@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ModalDirective } from 'ng2-bootstrap';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
@@ -16,8 +17,7 @@ export class DeviceFieldSelectModalComponent implements OnInit {
 
   @Output() onResolve = new EventEmitter();
 
-  project_id: number;
-  zone_id: number;
+  zoneId: number;
   isRequesting = false;
 
   deviceFields = [];
@@ -25,17 +25,27 @@ export class DeviceFieldSelectModalComponent implements OnInit {
 
   @ViewChild('modal') public modal: ModalDirective;
 
-  constructor(private router: Router,
+  constructor(private store: Store<any>,
+              private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
               private zoneService: ZoneService,
               private deviceFieldService: DeviceFieldService) {
 
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zoneId = zoneModel.zoneId;
+      this.load();
+    });
+  }
+
+  load() {
     this.deviceFieldService.getList().subscribe((deviceFields) => {
       this.deviceFields = deviceFields;
     });
@@ -49,7 +59,7 @@ export class DeviceFieldSelectModalComponent implements OnInit {
   assignDeviceField() {
     this.deviceFieldService.assignDeviceToZone({
       device_field_id: this.selectedDeviceField.id,
-      zone_id: this.zone_id,
+      zone_id: this.zoneId,
       link_type: 'data'
     }).subscribe(() => {
       this.isRequesting = false;

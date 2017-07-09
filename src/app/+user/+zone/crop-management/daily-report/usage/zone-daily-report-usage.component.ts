@@ -127,8 +127,6 @@ export class ZoneDailyReportUsageComponent implements OnInit, DoCheck {
               private zoneService: ZoneService,
               private cameraService: CameraService) {
 
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {

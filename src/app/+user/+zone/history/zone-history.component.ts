@@ -1,6 +1,9 @@
 import { URLSearchParams } from '@angular/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Rx';
+import { ISubscription } from 'rxjs/Subscription';
 import * as Chartist from 'chartist';
 
 import {
@@ -23,9 +26,6 @@ declare var moment: any;
 })
 export class ZoneHistoryComponent implements OnInit {
 
-  @Input()
-  zone: any = {};
-  project_id: number;
   zone_id: number;
   chartData: any = {
     xAxis: {
@@ -37,9 +37,12 @@ export class ZoneHistoryComponent implements OnInit {
   filter: any = {};
   charts: any[] = [];
   fields: any[];
+  private zoneObservable: Observable<any>;
+  private zoneSubscription: ISubscription;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
+    private store: Store<any>,
     private zoneService: ZoneService,
     private sensorDataService: SensorDataService,
     private deviceFieldService: DeviceFieldService,
@@ -48,11 +51,20 @@ export class ZoneHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.zone_id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
-    this.zoneService.getOne(project_id, this.zone_id).subscribe(data => {
-      Object.assign(this.zone, data);
-    });
+    this.zoneObservable = this.store.select('zone');
+
+    this.zoneSubscription = this.zoneObservable.subscribe(this.init.bind(this));
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
+  }
+
+  init(zoneModel) {
+    if (zoneModel.loaded) {
+      let { zone } = zoneModel;
+      this.zone_id = zone.id;
+    }
   }
 
   queryHistoryData() {

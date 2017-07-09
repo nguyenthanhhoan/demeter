@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Chartist from 'chartist';
 
@@ -15,33 +16,35 @@ declare var $: any;
 export class ZoneWeatherComponent implements OnInit {
 
   zone: any;
+  projectId: number;
+  zoneId: number;
   weather: any = {};
   weatherForecasts: any[];
   currentWeatherLoaded: boolean = false;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private zoneService: ZoneService,
-    private weatherService: WeatherService) {
+              private route: ActivatedRoute,
+              private store: Store<any>,
+              private zoneService: ZoneService,
+              private weatherService: WeatherService) {
 
   }
 
   ngOnInit() {
-    let id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
-    if (id) {
-      this.zone = {
-        image: 'assets/img/cau-dat/cau-dat-farm.png'
-      };
-      this.zoneService.getOne(project_id, id).subscribe(data => {
-        Object.assign(this.zone, data);
+    let needToLoad = true;
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (needToLoad);
+    })
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        this.zoneId = zoneModel.zoneId;
+        this.projectId = zoneModel.projectId;
+        this.zone = zoneModel.zone;
         this.fetchWeatherData();
-      });
-    } else {
-      Object.assign(this.zone, {
-        image: 'assets/img/cau-dat/cau-dat-farm.png'
-      });
-    }
+        needToLoad = false;
+      }
+    });
   }
 
   fetchWeatherData() {

@@ -1,5 +1,6 @@
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
@@ -12,7 +13,7 @@ import { ZoneService } from '../../../../core/services/zone.service';
   templateUrl: './zone-setting-environment.component.html',
   styleUrls: ['./zone-setting-environment.component.scss']
 })
-export class ZoneSettingEnvironmentComponent implements DoCheck {
+export class ZoneSettingEnvironmentComponent implements DoCheck, OnInit {
 
   @Input()
   zone: any;
@@ -21,22 +22,28 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
   @ViewChild('sortModal') public sortModal: ModalDirective;
 
   oldZone: any = {};
-  project_id: number;
-  zone_id: number;
+  zoneId: number;
   sortableList: any;
 
   sort_fields = [];
   isRequesting = false;
 
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private notificationService: NotificationService,
               private deviceFieldService: DeviceFieldService,
               private zoneService: ZoneService) {
 
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
+  }
+
+  ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zoneId = zoneModel.zoneId;
+    });
   }
 
   reloadZone() {
@@ -97,7 +104,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
       content: 'Do you want to remove this Input?'
     }, () => {
       this.deviceFieldService.unassignDeviceToZone({
-        zone_id: this.zone_id,
+        zone_id: this.zoneId,
         link_type: 'data',
         device_field_id: deviceField.id
       }).subscribe((fields) => {
@@ -113,7 +120,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck {
       let submit_device_field: any = {
         device_field_id: element.id,
         link_type: 'data',
-        zone_id: this.zone_id,
+        zone_id: this.zoneId,
         order: index
       };
       submit_device_fields.push(submit_device_field);

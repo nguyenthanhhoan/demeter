@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { queryDef } from '@angular/core/src/view/query';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { ProgramExecutionService } from '../../../../../core/services/program-execution.service';
 
@@ -10,19 +11,32 @@ import { ProgramExecutionService } from '../../../../../core/services/program-ex
 })
 export class ZoneControlExecutionEditComponent implements OnInit {
 
-  program_id: number;
-  zone_id: number;
+  programId: number;
+  zoneId: number;
   program: any = {};
 
-  constructor(private programExecutionService: ProgramExecutionService,
+  constructor(private store: Store<any>,
+              private programExecutionService: ProgramExecutionService,
               private route: ActivatedRoute) {
+
   }
 
   ngOnInit() {
-    this.program_id = +this.route.snapshot.params['program_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
+    this.programId = this.route.snapshot.params['program_id'];
+    this.store.select('zone')
+    .takeWhile((zoneModel: any) => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel) => {
+      if (zoneModel.zoneId) {
+        this.zoneId = zoneModel.zoneId;
+        this.loadProgram();
+      }
+    });
+  }
 
-    this.programExecutionService.getOne(this.zone_id, this.program_id)
+  loadProgram() {
+    this.programExecutionService.getOne(this.zoneId, this.programId)
     .subscribe((program: any) => {
       this.program = program;
     });

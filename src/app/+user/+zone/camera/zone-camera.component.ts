@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { CameraService } from '../../../core/services/camera.service';
 import { ZoneService } from '../../../core/services/zone.service';
@@ -10,23 +10,26 @@ import { ZoneService } from '../../../core/services/zone.service';
 })
 export class ZoneCameraComponent implements OnInit {
 
-  zone: any = {};
   cameras: any[] = [];
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private cameraService: CameraService,
               private zoneService: ZoneService) {
 
   }
 
   ngOnInit() {
-
-    let zone_id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
-    this.zoneService.getOne(project_id, zone_id).subscribe(data => {
-      Object.assign(this.zone, data);
-      Object.assign(this.cameras, data.cameras);
+    let needToLoad = true;
+    this.store.select('zone')
+    .takeWhile((zoneModel: any) => {
+      return (needToLoad);
+    })
+    .subscribe((zoneModel) => {
+      if (zoneModel.loaded) {
+        let { zone } = zoneModel;
+        this.cameras = zone.cameras;
+        needToLoad = false;
+      }
     });
   }
 }

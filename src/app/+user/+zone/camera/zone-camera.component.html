@@ -1,16 +1,16 @@
-    <div class="content-header">
-      <div class="demeter-title">Camera</div>
+<div class="content-header">
+  <div class="demeter-title">Camera</div>
+  <button 
+    class="demeter-btn create-btn primary pull-right">Add Camera</button>
+</div>
+<div class="demeter-pane">
+  <div class="row">
+    <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
+      <app-camera [camera]="camera"></app-camera>
+      <p class="camera-name">{{camera.camera_name}}</p>
       <button 
-        class="demeter-btn create-btn primary pull-right">Add Camera</button>
+        routerLink="{{camera.id}}"
+        class="demeter-btn primary pull-right playback-btn">Playback</button>
     </div>
-    <div class="demeter-pane">
-      <div class="row">
-        <div class="col-md-6 camera-item" *ngFor="let camera of cameras">
-          <app-camera [camera]="camera"></app-camera>
-          <p class="camera-name">{{camera.camera_name}}</p>
-          <button 
-            routerLink="{{camera.id}}"
-            class="demeter-btn primary pull-right playback-btn">Playback</button>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>

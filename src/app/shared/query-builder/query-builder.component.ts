@@ -10,6 +10,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
 
   @Input() filters: any[];
   @Input() rules: any[];
+  @Input() opts: any = {};
 
   queryBuilder;
 
@@ -29,10 +30,12 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
     if (ele.queryBuilder) {
       ele.queryBuilder('destroy');
     }
-    this.queryBuilder = ele.queryBuilder({
+    let opts = this.opts;
+    opts = Object.assign(opts, {
       filters: this.filters,
       rules: this.rules
     });
+    this.queryBuilder = ele.queryBuilder(opts);
   }
 
   getRules() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
@@ -18,24 +19,33 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
   @Output() onRefresh = new EventEmitter();
 
   oldZone: any = {};
-  project_id: number;
-  zone_id: number;
+  projectId: number;
+  zoneId: number;
 
   cameras = [];
 
   all_cameras = [];
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private notificationService: NotificationService,
               private zoneService: ZoneService,
               private cameraService: CameraService) {
 
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zoneId = zoneModel.zoneId;
+      this.projectId = zoneModel.projectId;
+      this.load();
+    });
+  }
+
+  load() {
     this.cameraService.getList().subscribe((cameras) => {
       this.all_cameras = cameras;
     });
@@ -65,7 +75,7 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
     this.notificationService.confirmBox({
       content: 'Do you want to remove this Camera?'
     }, () => {
-      this.zoneService.unAssignCamera(this.project_id, this.zone_id, camera.id)
+      this.zoneService.unAssignCamera(this.projectId, this.zoneId, camera.id)
       .subscribe((data) => {
         this.notificationService.showMessage('Remove camera successfully!');
         this.reloadZone();

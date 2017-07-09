@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AppSettings } from '../../../../../app.settings';
 import { ZoneService } from '../../../../../core/services/zone.service';
@@ -25,15 +26,26 @@ export class OKRFormComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private store: Store<any>,
               private zoneService: ZoneService,
               private notificationService: NotificationService,
               private okrObjectiveService: OkrObjectiveService) {
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
     this.objective_id = +this.route.snapshot.params['objective_id'];
   }
 
   ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+      this.project_id = zoneModel.project_id;
+      this.loadOkrObjective();
+    });
+  }
+
+  loadOkrObjective() {
     this.okrObjectiveService.getOne(this.objective_id)
     .subscribe((objective) => {
       this.objective = objective;

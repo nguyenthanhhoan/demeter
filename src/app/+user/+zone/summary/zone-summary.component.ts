@@ -1,15 +1,20 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChildren } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChildren } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as Chartist from 'chartist';
+import { Observable } from 'rxjs/Rx';
+import { ISubscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import { ZoneService } from '../../../core/services/zone.service';
-import { SensorDataChartComponent } from '../../shared/sensor-data-chart/sensor-data-chart.component';
+import {
+  SensorDataChartComponent
+} from '../../shared/sensor-data-chart/sensor-data-chart.component';
 
 @Component({
   templateUrl: './zone-summary.component.html',
   styleUrls: ['./zone-summary.component.css']
 })
-export class ZoneSummaryComponent implements OnInit, AfterViewInit {
+export class ZoneSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   zone: any = {};
   project: {} = {};
@@ -17,24 +22,36 @@ export class ZoneSummaryComponent implements OnInit, AfterViewInit {
   project_id: number;
   zone_id: number;
   cameraQuickViews = [];
+  private viewSubscription: ISubscription;
 
   @ViewChildren('environmentChart')
   private environmentChart;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private zoneService: ZoneService) {
+              private zoneService: ZoneService,
+              private store: Store<any>) {
   }
 
   ngOnInit() {
-    let zone_id = +this.route.snapshot.params['id'];
-    let project_id = +this.route.snapshot.params['project_id'];
-    this.zoneService.getOne(project_id, zone_id).subscribe(data => {
-      Object.assign(this.zone, data);
-      Object.assign(this.project, this.zone.project);
-      Object.assign(this.setting, this.zone.setting);
-      this.buildCameraQuickView();
+    let needToLoad = true;
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (needToLoad);
+    })
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        this.zone = zoneModel.zone;
+        this.project = this.zone.project;
+        this.setting = this.zone.setting;
+        this.buildCameraQuickView();
+        needToLoad = false;
+      }
     });
+  }
+
+  ngOnDestroy() {
+    this.viewSubscription.unsubscribe();
   }
 
   buildCameraQuickView() {
@@ -51,12 +68,17 @@ export class ZoneSummaryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.environmentChart.changes.subscribe(item => {
+    this.viewSubscription = this.environmentChart.changes.subscribe(item => {
       if (this.environmentChart.toArray().length) {
         this.environmentChart.toArray().forEach(element => {
           element.initData();
         });
       }
     });
+    if (this.environmentChart.toArray().length) {
+      this.environmentChart.toArray().forEach(element => {
+        element.initData();
+      });
+    }
   }
 }

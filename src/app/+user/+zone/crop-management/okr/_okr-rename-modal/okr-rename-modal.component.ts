@@ -3,6 +3,7 @@ import {
   Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import * as _ from 'lodash';
 import { ModalDirective } from 'ng2-bootstrap/modal';
@@ -26,11 +27,17 @@ export class OKRRenameModalComponent implements OnChanges {
   okrList: any[];
   isRequesting = false;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private notificationService: NotificationService,
               private okrService: OkrService) {
-    this.zone_id = +this.route.snapshot.params['id'];
+
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+    });
   }
 
   ngOnChanges() {

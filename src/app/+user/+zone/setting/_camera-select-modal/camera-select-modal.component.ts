@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ModalDirective } from 'ng2-bootstrap';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
@@ -16,8 +17,8 @@ export class CameraSelectModalComponent implements OnInit {
 
   @Output() onResolve = new EventEmitter();
 
-  project_id: number;
-  zone_id: number;
+  projectId: number;
+  zoneId: number;
   isRequesting = false;
 
   cameras = [];
@@ -25,17 +26,26 @@ export class CameraSelectModalComponent implements OnInit {
 
   @ViewChild('modal') public modal: ModalDirective;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private notificationService: NotificationService,
               private zoneService: ZoneService,
               private cameraService: CameraService) {
 
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zoneId = zoneModel.zoneId;
+      this.projectId = zoneModel.projectId;
+      this.load();
+    });
+  }
+
+  load() {
     this.cameraService.getList().subscribe((cameras) => {
       this.cameras = cameras;
     });
@@ -51,7 +61,7 @@ export class CameraSelectModalComponent implements OnInit {
   }
 
   assignCamera() {
-    this.zoneService.assignCamera(this.project_id, this.zone_id, this.selectedCamera.id)
+    this.zoneService.assignCamera(this.projectId, this.zoneId, this.selectedCamera.id)
     .subscribe((data) => {
       this.isRequesting = false;
       this.modal.hide();
@@ -63,7 +73,7 @@ export class CameraSelectModalComponent implements OnInit {
   }
 
   assignQuickView() {
-    this.zoneService.assignQuickViewCamera(this.project_id, this.zone_id, this.selectedCamera.id)
+    this.zoneService.assignQuickViewCamera(this.projectId, this.zoneId, this.selectedCamera.id)
     .subscribe((data) => {
       this.isRequesting = false;
       this.modal.hide();

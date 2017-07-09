@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import { DeviceFieldService } from '../../../../../core/services/device-field-service';
 import { ProgramExecutionService } from '../../../../../core/services/program-execution.service';
@@ -14,8 +14,8 @@ declare var $: any;
   styleUrls: ['./zone-control-execution-form.component.scss']
 })
 export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
-  project_id: number;
-  zone_id: number;
+  projectId: number;
+  zoneId: number;
 
   @Input()
   program: any = {
@@ -55,6 +55,12 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
     }]
   };
 
+  outputOpts = {
+    allow_groups: false,
+    conditions: ['AND'],
+    operators: ['equal']
+  };
+
   filters: any[];
 
   filtersLoaded: boolean = false;
@@ -62,18 +68,29 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   @ViewChild('inputQueryBuilder') inputQueryBuilder: any;
   @ViewChild('outputQueryBuilder') outputQueryBuilder: any;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private store: Store<any>,
+              private route: ActivatedRoute,
               private router: Router,
               private deviceFieldService: DeviceFieldService,
               private programExecutionService: ProgramExecutionService,
               private notificationService: NotificationService) {
-    this.zone_id = +this.route.snapshot.params['id'];
-    this.project_id = +this.route.snapshot.params['project_id'];
   }
 
   ngOnInit() {
-    this.fetchListDevice();
-    this.initCron();
+    this.store.select('zone')
+    .takeWhile((zoneModel: any) => {
+      return (typeof this.zoneId === 'undefined');
+    })
+    .subscribe((zoneModel) => {
+      if (zoneModel.zoneId) {
+        this.zoneId = zoneModel.zoneId;
+        this.projectId = zoneModel.projectId;
+
+        // TODO: Should check if stored input/output match with list device or not
+        this.fetchListDevice();
+        this.initCron();
+      }
+    });
   }
 
   ngOnChanges() {
@@ -97,7 +114,7 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
 
   fetchListDevice() {
     let params: URLSearchParams = new URLSearchParams();
-    params.set('zone_id', this.zone_id.toString());
+    params.set('zone_id', this.zoneId.toString());
     params.set('link_type', 'control');
     this.deviceFieldService.getListAssigned({
       search: params
@@ -109,11 +126,17 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   initDevices(fields) {
     this.filters = [];
     fields.map((field) => {
-      this.filters.push({
-        id: field.name,
-        label: field.name_display,
-        type: field.value_data_type
-      });
+
+      if (field.value_data_type === 'integer' || field.value_data_type === 'float') {
+        const type = field.value_data_type === 'integer' ? 'integer' : 'double';
+        this.filters.push({
+          id: field.field_id,
+          label: field.name_display,
+          type: type
+        });
+      } else {
+        console.log('Only support integer or float!!!. Please check field: ', field);
+      }
     });
     this.filtersLoaded = true;
   }
@@ -124,7 +147,7 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
       name: program.name,
       input: JSON.stringify(this.inputQueryBuilder.getRules()),
       output: JSON.stringify(this.outputQueryBuilder.getRules()),
-      zone_id: this.zone_id,
+      zone_id: this.zoneId,
       schedule: $('.cron').cron('value')
     };
     return submitProgram;
@@ -139,11 +162,11 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
       return;
     }
     let submitProgram = this.buildSubmitProgram(this.program);
-    this.programExecutionService.post(this.zone_id, submitProgram)
+    this.programExecutionService.post(this.zoneId, submitProgram)
     .subscribe(() => {
       this.notificationService.showMessage('Program Execution created successfully!');
       this.router
-      .navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/control/executions`]);
+      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}/control/executions`]);
     });
   }
 
@@ -152,11 +175,11 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
       return;
     }
     let submitProgram = this.buildSubmitProgram(this.program);
-    this.programExecutionService.put(this.zone_id, submitProgram)
+    this.programExecutionService.put(this.zoneId, submitProgram)
     .subscribe(() => {
       this.notificationService.showMessage('Program Execution updated successfully!');
       this.router
-      .navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/control/executions`]);
+      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}/control/executions`]);
     });
   }
 }

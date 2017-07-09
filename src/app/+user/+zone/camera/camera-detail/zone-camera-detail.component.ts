@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CameraService } from '../../../../core/services/camera.service';
 
@@ -26,7 +26,7 @@ export class ZoneCameraDetailComponent implements OnInit {
     this.cameraService.getOne(camera_id)
     .subscribe(data => {
       this.camera = data;
-    })
+    });
   }
 
 }

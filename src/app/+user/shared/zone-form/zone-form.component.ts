@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef, Component, DoCheck, ElementRef, Input, OnChanges, OnInit
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as Chartist from 'chartist';
 
 import { NotificationService } from '../../../shared/utils/notification.service';
@@ -19,7 +20,7 @@ declare var $: any;
   templateUrl: './zone-form.component.html',
   styleUrls: ['./zone-form.component.css']
 })
-export class ZoneFormComponent implements OnInit, OnChanges, DoCheck {
+export class ZoneFormComponent implements OnInit, DoCheck {
 
   @Input()
   zone: any;
@@ -122,9 +123,10 @@ export class ZoneFormComponent implements OnInit, OnChanges, DoCheck {
       }
     }
   }
-  constructor(private router: Router,
+  constructor(private store: Store<any>,
               private ref: ChangeDetectorRef,
               private zoneService: ZoneService,
+              private router: Router,
               private route: ActivatedRoute,
               private el: ElementRef,
               private notificationService: NotificationService) {
@@ -141,20 +143,14 @@ export class ZoneFormComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit() {
-    this.parseParam();
-  }
-
-  ngOnChanges() {
-    this.parseParam();
-  }
-
-  parseParam() {
-    if (this.type === 'edit') {
-      this.project_id = +this.route.snapshot.params['project_id'];
-      this.zone_id = +this.route.snapshot.params['id'];
-    } else {
-      this.project_id = +this.route.snapshot.params['id'];
-    }
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+      this.project_id = zoneModel.projectId;
+    });
   }
 
   onSubmit() {

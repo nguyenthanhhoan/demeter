@@ -5,6 +5,7 @@ import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { ISubscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import { AppSettings } from '../../../../../app.settings';
 import { DeviceFieldService } from '../../../../../core/services/device-field-service';
@@ -49,16 +50,23 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private deviceFieldService: DeviceFieldService,
               private deviceValueHistoryService: DeviceValueHistoryService,
               private ngZone: NgZone,
               private notificationService: NotificationService) {
-    this.zone_id = +this.route.snapshot.params['id'];
+
   }
 
   ngOnInit() {
-    this.fetchListDevice();
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+      this.fetchListDevice();
+    });
   }
 
   ngAfterViewInit() {

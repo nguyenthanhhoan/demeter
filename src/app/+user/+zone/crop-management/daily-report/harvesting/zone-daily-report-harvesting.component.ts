@@ -16,7 +16,6 @@ export class ZoneDailyReportHarvestingComponent implements OnInit, DoCheck {
   @Input()
   zone: any;
   oldZone: any = {};
-  project_id: number;
   zone_id: number;
 
   harvesting_reports = [{
@@ -50,9 +49,6 @@ export class ZoneDailyReportHarvestingComponent implements OnInit, DoCheck {
               private route: ActivatedRoute,
               private notificationService: NotificationService,
               private zoneService: ZoneService) {
-
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.zone_id = +this.route.snapshot.params['id'];
   }
 
   ngOnInit() {

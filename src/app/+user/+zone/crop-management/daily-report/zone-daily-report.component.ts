@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Rx';
+import { ISubscription } from 'rxjs/Subscription';
 import * as Chartist from 'chartist';
 
 import { AppSettings } from '../../../../app.settings';
@@ -25,23 +27,32 @@ export class ZoneDailyReportComponent implements OnInit {
   };
   path: string;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private store: Store<any>,
               private zoneService: ZoneService) {
 
   }
 
   ngOnInit() {
-    this.zone_id = +this.route.snapshot.params['id'];
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.path = `user/project/${this.project_id}/zone/${this.project_id}/daily-report/`;
-    this.zoneService.getOne(this.project_id, this.zone_id).subscribe(data => {
-      Object.assign(this.zone, data);
+    let needToLoad = true;
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (needToLoad);
+    })
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        let { zone } = zoneModel;
+        this.zone_id = zone.id;
+        this.project_id = zone.project.id;
+        this.path = `user/project/${this.project_id}/zone/${this.project_id}/daily-report/`;
+        this.zone = zone;
+        this.initDateFilter();
+        needToLoad = false;
+      }
     });
-    this.initDateFilter();
   }
 
   initDateFilter() {
+    this.dates = [];
     let today_date = new Date();
     today_date.setHours(0, 0, 0, 0);
     let today = moment(today_date);

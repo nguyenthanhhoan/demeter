@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as Chartist from 'chartist';
 import { ModalDirective } from 'ng2-bootstrap';
 import * as _ from 'lodash';
@@ -30,12 +31,24 @@ export class ZoneOKRComponent implements OnInit {
   objective: any = {};
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private zoneService: ZoneService,
-    private okrService: OkrService,
-    private notificationService: NotificationService,
-    private okrObjectiveService: OkrObjectiveService) {
+              private store: Store<any>,
+              private route: ActivatedRoute,
+              private zoneService: ZoneService,
+              private okrService: OkrService,
+              private notificationService: NotificationService,
+              private okrObjectiveService: OkrObjectiveService) {
 
+  }
+
+  ngOnInit() {
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (!this.zone_id);
+    })
+    .subscribe((zoneModel: any) => {
+      this.zone_id = zoneModel.zoneId;
+      this.loadOKR();
+    });
   }
 
   removeTab(event, ork_tab) {
@@ -49,11 +62,6 @@ export class ZoneOKRComponent implements OnInit {
         this.okr_tabs.splice(index, 1);
       });
     });
-  }
-
-  ngOnInit() {
-    this.zone_id = +this.route.snapshot.params['id'];
-    this.loadOKR();
   }
 
   loadOKR() {

@@ -2,6 +2,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { StoreModule } from '@ngrx/store';
 import { Angular2TokenService, A2tUiModule } from 'angular2-token';
 
 /*
@@ -19,6 +20,7 @@ import {AdminLayoutModule} from "./+admin/shared/layout/layout.module";
 import {UserLayoutModule} from "./+user/shared/layout/layout.module";
 import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
+import { zoneReducer } from './core/reducers/zone-reducer';
 
 // Application modules
 import { ProjectModule } from './+user/+project/project.module';
@@ -60,6 +62,8 @@ type StoreType = {
     AdminLayoutModule,
     UserLayoutModule,
     routing,
+
+    StoreModule.provideStore({ zone: zoneReducer }),
 
     //user modules
     UserModule,

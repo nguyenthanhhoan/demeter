@@ -11,6 +11,7 @@ import { AuthGuard } from './+auth/auth-guard.service';
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
 import { ProjectListComponent } from './+user/+project/list/project-list.component';
 
+import { ZoneComponent } from './+user/+zone/zone.component';
 import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
 import { ZoneFormComponent } from './+user/+zone/form/zone-form.component';
 import {
@@ -67,6 +68,7 @@ export const routes: Routes = [
                     component: ZoneFormComponent
                 }, {
                     path: ':project_id/zone/:id',
+                    component: ZoneComponent,
                     children: [{
                             path: '', redirectTo: 'summary', pathMatch: 'full'
                         }, {

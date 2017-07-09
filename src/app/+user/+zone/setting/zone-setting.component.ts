@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as Chartist from 'chartist';
 
@@ -20,22 +21,33 @@ export class ZoneSettingComponent implements OnInit {
     }
   };
 
-  constructor(private router: Router,
+  constructor(private store: Store<any>,
+              private router: Router,
               private route: ActivatedRoute,
               private zoneService: ZoneService) {
 
   }
 
   ngOnInit() {
-    this.zone_id = +this.route.snapshot.params['id'];
-    this.project_id = +this.route.snapshot.params['project_id'];
-    this.loadZone();
+    let needToLoad = true;
+    this.store.select('zone')
+    .takeWhile(() => {
+      return (needToLoad);
+    })
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        this.zone = zoneModel.zone;
+        this.project_id = zoneModel.projectId;
+        this.zone_id = zoneModel.zoneId;
+        needToLoad = false;
+      }
+    });
   }
 
   loadZone() {
-    this.zoneService.getOne(this.project_id, this.zone_id).subscribe(data => {
-      Object.assign(this.zone, data);
-      console.log('zone detail loaded!');
+    this.zoneService.getOne(this.project_id, this.zone_id)
+    .subscribe((zone) => {
+      this.zone = zone;
     });
   }
 }

@@ -14,6 +14,7 @@ import { BreadcrumbModule } from '../shared/layout/breadcrumb/breadcrumb.module'
 import { IntegrationModule } from '../../shared/integration/integration.module';
 import { CameraModule } from '../../shared/camera/camera.module';
 
+import { ZoneComponent } from './zone.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
@@ -108,6 +109,7 @@ import {
     ZoneSettingModule
   ],
   declarations: [
+    ZoneComponent,
     ZoneFormComponent,
     SensorDataChartComponent,
 
