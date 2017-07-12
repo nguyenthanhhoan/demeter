@@ -1,4 +1,4 @@
-class ZoneSerializer < ActiveModel::Serializer
+class ZoneSerializer < ApplicationSerializer
   attributes :id, :zone_id, :name, :start_date, :end_date,
     :plant, :plant_variety, :plant_quantity, :plant_quantity_unit,
     :production_type, :estimate_yield, :estimate_yield_unit, :surface, :surface_unit,
@@ -12,11 +12,11 @@ class ZoneSerializer < ActiveModel::Serializer
   has_many :cameras
 
   def start_date
-    object.start_date.to_s
+    date_to_s(object.start_date)
   end
 
   def end_date
-    object.end_date.to_s
+    date_to_s(object.end_date)
   end
 
   def setting

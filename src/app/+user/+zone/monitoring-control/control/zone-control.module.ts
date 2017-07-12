@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { routing } from './zone-control.routing';
 import { ChartJsModule } from '../../../../shared/graphs/chart-js/chart-js.module';
 import { SmartadminModule } from '../../../../shared/smartadmin.module';
+import { SmartadminInputModule } from '../../../../shared/forms/input/smartadmin-input.module';
 import { ZoneControlComponent } from './zone-control.component';
 import { DeviceAddModalComponent } from './_device-add-modal/device-add-modal.component';
 import { ZoneControlDeviceComponent } from './device/zone-control-device.component';
@@ -26,6 +27,7 @@ import { QueryBuilderModule } from '../../../../shared/query-builder/query-build
   imports: [
     CommonModule,
     SmartadminModule,
+    SmartadminInputModule,
     ChartJsModule,
     QueryBuilderModule,
     routing

@@ -15,7 +15,8 @@ export class AppSettings {
     date: 'MM/DD/YYYY',
     date_iso: 'YYYY-MM-DD',
     date_time: 'MM/DD/YYYY HH:mm',
-    time: 'hh:mm A'
+    time: 'hh:mm A',
+    date_picker_date_format: 'mm/dd/yy'
   };
 
   public static irrigationType = {

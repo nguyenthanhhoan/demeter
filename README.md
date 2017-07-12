@@ -81,6 +81,17 @@
 
         `sudo ufw allow 9090/tcp`
 
+## Development Notes
+
+1. Shouldnot override default Date/Time format.
+
+Change this will make other libraries cannot work properly, ex. `sidekiq-cron` will enqueued the job to redis with the new date format, that could make the cron job cannot executed
+
+```
+Date::DATE_FORMATS[:default]="%m/%d/%Y"
+Time::DATE_FORMATS[:default]="%m/%d/%Y %H:%M"
+```
+
 ## References
 
 1. Install Node

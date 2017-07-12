@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706122057) do
+ActiveRecord::Schema.define(version: 20170711062017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20170706122057) do
     t.datetime "updated_at",         null: false
     t.string   "chart_value_suffix"
     t.float    "chart_value_diff"
+    t.integer  "value_in_int"
+    t.float    "value_in_float"
     t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
   end
 
@@ -123,6 +125,8 @@ ActiveRecord::Schema.define(version: 20170706122057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "schedule"
+    t.datetime "from_time"
+    t.datetime "to_time"
     t.index ["zone_id"], name: "index_program_executions_on_zone_id", using: :btree
   end
 
@@ -220,13 +224,13 @@ ActiveRecord::Schema.define(version: 20170706122057) do
     t.string   "ownership_type"
     t.integer  "labour"
     t.string   "location"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "image"
     t.string   "location_geometry"
     t.string   "setting"
     t.string   "device_gateway"
-    t.string   "time_zone",              default: "Hanoi"
+    t.string   "time_zone",              default: "Asia/Ho_Chi_Minh"
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 

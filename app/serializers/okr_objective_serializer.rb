@@ -1,12 +1,12 @@
-class OkrObjectiveSerializer < ActiveModel::Serializer
+class OkrObjectiveSerializer < ApplicationSerializer
   attributes :id, :date_from, :date_to, :objective, :key_results
 
   def date_from
-    object.date_from.to_s
+    date_to_s(object.date_from)
   end
 
   def date_to
-    object.date_to.to_s
+    date_to_s(object.date_to)
   end
 
   has_many :key_results, serializer: OkrObjectiveKeySerializer

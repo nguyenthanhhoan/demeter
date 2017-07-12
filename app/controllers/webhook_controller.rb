@@ -20,6 +20,7 @@ class WebhookController < ActionController::Base
         new_value = Integer(value)
         if new_value != old_value
           field_value.update_attribute(:value, value)
+          field_value.update_attribute(:value_in_int, new_value)
           DeviceValueHistory.create!({
             device_field: field_value,
             value: new_value,

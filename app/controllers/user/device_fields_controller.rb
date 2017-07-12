@@ -9,10 +9,16 @@ class User::DeviceFieldsController < AuthorizedController
   end
 
   def list_device_assigned
-    device_fields_zones = DeviceFieldsZone.where({
-      zone_id: params[:zone_id],
-      link_type: params[:link_type]
-    })
+
+    where_query = {
+      zone_id: params[:zone_id]
+    }
+
+    if params[:link_type].present?
+      where_query[:link_type] = params[:link_type]
+    end
+
+    device_fields_zones = DeviceFieldsZone.where(where_query)
 
     device_assigned = device_fields_zones.map { | device_fields_zone |
       device_fields_zone.device_field

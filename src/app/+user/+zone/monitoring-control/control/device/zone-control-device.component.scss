@@ -59,6 +59,11 @@
   .chart-section {
     margin-top: 10px;
   }
+
+  .chart-loading-section {
+    min-height: 100px;
+    position: relative;
+  }
 }
 
 .device-control-toggle {

@@ -67,7 +67,7 @@
           (click)="fieldChartViews[i] = !fieldChartViews[i]"></i>
       </section>
     </div>
-    <div class="chart-section" *ngIf="fieldCharts[i] && fieldCharts[i].loading && fieldChartViews[i]">
+    <div class="chart-section chart-loading-section" *ngIf="fieldCharts[i] && fieldCharts[i].loading && fieldChartViews[i]">
       <app-spinner [isRunning]="fieldCharts[i].loading"></app-spinner>
     </div>
 

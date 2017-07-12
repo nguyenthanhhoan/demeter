@@ -57,3 +57,24 @@
     margin-left: auto;
   }
 }
+
+.effective-period-group {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.demeter-form-group {
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 12px;
+
+  .control-label {
+    align-self: center;
+    margin-bottom: 0;
+    width: 100px;
+  }
+
+  .control {
+    flex: 1;
+  }
+}

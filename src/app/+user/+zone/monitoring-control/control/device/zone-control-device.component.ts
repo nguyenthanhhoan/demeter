@@ -156,6 +156,8 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
     this.fields.forEach((field, index) => {
       if (field.device.name === receivedData.gateway && field.field_id === receivedData.field
         && field.value !== newValue) {
+
+        console.log(`Received updated value field=${field.field_id}, value=${newValue}`);
         field.value = newValue;
         this.updateChart(receivedData, index);
       }
@@ -168,15 +170,18 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
       .format(AppSettings.date_time_format.date_time);
 
     let valueLabel = newValue ? 'ON' : 'OFF';
-    if (this.fieldChartComponents && this.fieldChartComponents[index] &&
-        this.fieldChartComponents[index].chart) {
-
-        this.fieldChartComponents[index].chart.data.xLabels.push(timeFormatted);
-        this.fieldChartComponents[index].chart.data.datasets[0].data.push(valueLabel);
-        this.fieldChartComponents[index].chart.update();
-      } else {
-        console.log(`The chart component ${index} hasnot initialized yet!`);
-      }
+    if (this.fieldCharts[index]) {
+      let chartData = this.fieldCharts[index];
+      chartData.xLabels.push(timeFormatted);
+      chartData.datasets[0].data.push(valueLabel);
+    }
+    if (this.fieldChartViews[index]) {
+      this.fieldCharts[index].loading = true;
+      let timer = Observable.timer(500);
+      timer.subscribe(() => {
+        this.fieldCharts[index].loading = false;
+      });
+    }
   }
 
   remove(field) {

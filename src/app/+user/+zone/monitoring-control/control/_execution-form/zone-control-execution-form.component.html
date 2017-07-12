@@ -14,11 +14,51 @@
 
   <div class="smart-form">
     <header>
-      Scheduling
+      Effective Period
+    </header>
+  </div>
+  <div class="effective-period-group">
+    <div class="demeter-form-group">
+      <label class="control-label">Effective From</label>
+      <div class="control">
+        <div class="input-group">
+          <input type="text" name="from_date" 
+            placeholder="Select a date" 
+            [(ngModel)]="program.from_time"
+            (valueChange)="program.from_time=$event"
+            class="form-control datepicker"
+            [saUiDatepicker]="datepickerOpts" >
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demeter-form-group">
+      <label class="control-label">Effective To</label>
+      <div class="control">
+        <div class="input-group">
+          <input type="text" name="to_date" 
+          placeholder="Select a date" 
+          [(ngModel)]="program.to_time"
+          (valueChange)="program.to_time=$event"
+          class="form-control datepicker"
+          [saUiDatepicker]="datepickerOpts">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="smart-form">
+    <header>
+      Scheduler
     </header>
   </div>
 
-  <div class="cron"></div>
+  <div class="schedule-container">
+    <div class="cron"></div>
+  </div>
 
   <div class="smart-form">
     <header>
@@ -43,7 +83,7 @@
   <div class="query-builder-container">
     <app-query-builder
       *ngIf="filtersLoaded"
-      [filters]="filters"
+      [filters]="outputFilters"
       [rules]="program.output"
       [opts]="outputOpts"
       #outputQueryBuilder></app-query-builder>

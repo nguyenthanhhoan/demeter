@@ -16,7 +16,7 @@ class CacheService
     cached_key = CacheService.build_key(gateway_name, date_s)
     redis = CacheService.get_redis
 
-    date = Date.parse(date_s).in_time_zone('Hanoi')
+    date = Date.parse(date_s).in_time_zone('Asia/Ho_Chi_Minh')
 
     start_timestamp = date.beginning_of_day.to_f * 1000
     end_timestamp = date.end_of_day.to_f * 1000

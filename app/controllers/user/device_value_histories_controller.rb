@@ -10,6 +10,6 @@ class User::DeviceValueHistoriesController < AuthorizedController
     })
 
     render json: DeviceValueHistory.where(device_field: device_field).
-      where('created_at > ?', Time.current.in_time_zone('Hanoi') - 24 * 60 * 60).order(id: :asc)
+      where('created_at > ?', Time.current.in_time_zone('Asia/Ho_Chi_Minh') - 24 * 60 * 60).order(id: :asc)
   end
 end

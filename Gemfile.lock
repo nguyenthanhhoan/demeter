@@ -1,4 +1,21 @@
 GIT
+  remote: git://github.com/activerecord-hackery/ransack.git
+  revision: c9eff619dc8d07f4943c2b7632a4321e54fa8b4c
+  specs:
+    ransack (1.8.3)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.3)
+
+GIT
+  remote: git://github.com/jonatack/will_paginate.git
+  revision: 3c861498bdbc643638c1f25bdbe67f93d03be79b
+  specs:
+    will_paginate (3.0.4)
+
+GIT
   remote: git://github.com/plataformatec/devise.git
   revision: bf4641c8cfd5b16526133fb71bb8600127e7a0b6
   specs:
@@ -141,6 +158,8 @@ GEM
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
+    polyamorous (1.3.1)
+      activerecord (>= 3.0)
     puma (3.6.0)
     rack (2.0.1)
     rack-cors (0.4.1)
@@ -268,6 +287,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.0, >= 5.0.0.1)
+  ransack!
   redis-namespace
   rest-client
   rolify
@@ -283,6 +303,7 @@ DEPENDENCIES
   unicorn
   web-console
   whenever
+  will_paginate!
 
 BUNDLED WITH
    1.14.6

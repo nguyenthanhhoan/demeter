@@ -13,7 +13,9 @@ export class ZoneControlExecutionEditComponent implements OnInit {
 
   programId: number;
   zoneId: number;
-  program: any = {};
+  program: any = {
+    schedule: '0 0 * * *'
+  };
 
   constructor(private store: Store<any>,
               private programExecutionService: ProgramExecutionService,

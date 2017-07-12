@@ -3,6 +3,8 @@ import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { AppSettings } from '../../../../../app.settings';
+import { AppUtils } from '../../../../../app.utils';
 import { DeviceFieldService } from '../../../../../core/services/device-field-service';
 import { ProgramExecutionService } from '../../../../../core/services/program-execution.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
@@ -16,10 +18,13 @@ declare var $: any;
 export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   projectId: number;
   zoneId: number;
+  zone: any;
 
   @Input()
   program: any = {
-    schedule: '0 0 * * *'
+    schedule: '0 0 * * *',
+    from_time: '',
+    to_time: ''
   };
 
   oldProgram: any = {};
@@ -62,8 +67,13 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   };
 
   filters: any[];
+  outputFilters: any[];
 
   filtersLoaded: boolean = false;
+
+  datepickerOpts = {
+    dateFormat: AppSettings.date_time_format.date_picker_date_format
+  };
 
   @ViewChild('inputQueryBuilder') inputQueryBuilder: any;
   @ViewChild('outputQueryBuilder') outputQueryBuilder: any;
@@ -79,47 +89,54 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.store.select('zone')
     .takeWhile((zoneModel: any) => {
-      return (typeof this.zoneId === 'undefined');
+      return (!this.zoneId);
     })
     .subscribe((zoneModel) => {
-      if (zoneModel.zoneId) {
+      if (zoneModel.loaded) {
         this.zoneId = zoneModel.zoneId;
         this.projectId = zoneModel.projectId;
+        this.zone = zoneModel.zone;
 
         // TODO: Should check if stored input/output match with list device or not
         this.fetchListDevice();
-        this.initCron();
       }
     });
+    this.initCron();
   }
 
   ngOnChanges() {
     if (this.program && this.program.id && this.program.id !== this.oldProgram.id) {
       // Receive updated program, should init component
+
+      Object.assign(this.oldProgram, this.program);
       this.updateCronValue();
     }
   }
 
   initCron() {
     const { schedule } = this.program;
-    $('.cron').cron({
-      initial: schedule
-    });
+    if (schedule && schedule.length > 0) {
+      $('.cron').cron({
+        initial: schedule
+      });
+    }
   }
 
   updateCronValue() {
     const { schedule } = this.program;
-    $('.cron').cron('value', schedule);
+    if (schedule && schedule.length > 0) {
+      $('.cron').cron('value', schedule);
+    }
   }
 
   fetchListDevice() {
     let params: URLSearchParams = new URLSearchParams();
     params.set('zone_id', this.zoneId.toString());
-    params.set('link_type', 'control');
     this.deviceFieldService.getListAssigned({
       search: params
     }).subscribe((fields) => {
       this.initDevices(fields);
+      this.initOutputFilters(fields);
     });
   }
 
@@ -141,10 +158,32 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
     this.filtersLoaded = true;
   }
 
+  /**
+   * Output filter is used for `read_write` device_field
+   */
+  initOutputFilters(fields) {
+    this.outputFilters = [];
+    fields.forEach((field) => {
+
+      if (field.field_attribute === 'read_write' && (field.value_data_type === 'integer'
+          || field.value_data_type === 'float')) {
+
+        const type = field.value_data_type === 'integer' ? 'integer' : 'double';
+        this.outputFilters.push({
+          id: field.field_id,
+          label: field.name_display,
+          type: type
+        });
+      }
+    });
+  }
+
   buildSubmitProgram(program) {
     let submitProgram = {
       id: program.id,
       name: program.name,
+      from_time: AppUtils.getSubmitDate(program.from_time),
+      to_time: AppUtils.getSubmitDate(program.to_time),
       input: JSON.stringify(this.inputQueryBuilder.getRules()),
       output: JSON.stringify(this.outputQueryBuilder.getRules()),
       zone_id: this.zoneId,
