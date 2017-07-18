@@ -1,0 +1,34 @@
+<div class="smart-form">
+  <header>
+    Recent Alerts
+  </header>
+</div>
+
+<alert type="warning" dismissible="true" *ngIf="alerts && alerts.length == 0"
+  class="alert-no-item">
+
+  <i class="fa-fw fa fa-warning"></i>
+  There is no alert available!
+</alert>
+
+<div class="alert-list">
+  <div *ngFor="let alert of alerts" class="alert-single">
+    <span class="device-icon">
+      <span class="icon-dmt" [ngClass]="alert.icon"></span>
+    </span>
+    <span class="content">
+      <p class="time">{{alert.time_display}}</p>
+      <p>{{alert.alert_content}}</p>
+    </span>
+  </div>
+
+  <pagination 
+    [boundaryLinks]="true" 
+    [totalItems]="totalItems" 
+    [(ngModel)]="currentPage"
+    [maxSize]="5"
+    [rotate]="false"
+    previousText="&lsaquo;" nextText="&rsaquo;"
+    firstText="&laquo;" lastText="&raquo;"
+    (pageChanged)="pageChanged($event)"></pagination>
+</div>

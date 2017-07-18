@@ -1,0 +1,101 @@
+<form #form="ngForm" class="smart-form">
+
+  <div class="rule-name"
+    [ngClass]="name.valid || name.pristine ? '' : 'error'">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+    <input placeholder="Rule Name..." 
+      #name="ngModel"
+      [(ngModel)]="alertRule.name" name="name" required />
+  </div>
+
+  <div class="note note-error rule-name-error" 
+    [hidden]="name.valid || name.pristine">This is a required field.
+  </div>
+
+  <header class="demeter-header">
+    Rule
+  </header>
+
+  <div class="rule-builder">
+    <div class="source-form-group">
+      <label>Source</label>
+      <label class="select">
+        <select [(ngModel)]="alertRule.device_field" name="device_field_id" required>
+          <option *ngFor="let device of devices" [ngValue]="device">{{device.name}}</option>
+        </select><i></i>
+      </label>
+    </div>
+    <div class="condition-form-group">
+      <label>Condition</label>
+      <label class="select">
+        <select [(ngModel)]="alertRule.condition" name="condition" required>
+          <option value="eq">equal</option>
+          <option value="gt">greater</option>
+          <option value="gteq">greater or equal</option>
+          <option value="lt">less</option>
+          <option value="lteq">less or equal</option>
+        </select><i></i>
+      </label>
+    </div>
+    <div class="value-form-group">
+      <label>Value</label>
+      <label class="input">
+        <input [(ngModel)]="alertRule.value" name="value" type="number" required />
+      </label>
+    </div>
+  </div>
+
+  <div class="interval-option">
+    <div class="interval-form-group">
+      <label class="form-label">Interval event trigger(s)</label>
+      <label class="input">
+        <input type="number" name="interval" required
+          [(ngModel)]="alertRule.interval">
+        <i></i>
+      </label>
+    </div>
+    <div class="note note-error" >
+      0: Only one time.
+    </div>
+  </div>
+
+  <header class="demeter-header" *ngIf="alertRule.device_field">
+    Chart Option
+  </header>
+
+  <div class="chart-option"  *ngIf="alertRule.device_field">
+    <label class="checkbox">
+      Apply rule to <strong>{{alertRule.device_field.name}}</strong> live-chart
+      <input type="checkbox" name="live_chart_rule"
+        [(ngModel)]="alertRule.live_chart_rule">
+      <i></i>&nbsp;
+    </label>
+  </div>
+
+  <div class="button-group">
+    <div class="button-group-right">
+      <button 
+        *ngIf="type != 'edit'"
+        [disabled]="!form.valid"
+        (click)="create()"
+        [ngClass]="form.valid ? '' : 'disabled'"
+        class="demeter-btn create-btn" type="submit">
+        Create
+      </button>
+
+      <button 
+        *ngIf="type == 'edit'"
+        [disabled]="!form.valid"
+        (click)="update()"
+        [ngClass]="form.valid ? '' : 'disabled'"
+        class="demeter-btn primary" type="submit">
+        Update
+      </button>
+      <button class="demeter-btn danger"
+        routerLink="../">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+</form>

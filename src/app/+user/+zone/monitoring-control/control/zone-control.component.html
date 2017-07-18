@@ -4,11 +4,6 @@
 
 <div class="demeter-pane demeter-tabbed-pane">
 
-  <alert type="warning" dismissible="true" *ngIf="fields && fields.length == 0">
-    <i class="fa-fw fa fa-warning"></i>
-    <strong>No device available!</strong> Click 'Add' to add new one.
-  </alert>
-
   <ul class="nav nav-tabs bordered">
     <li [class.active]="activeTab == 0">
       <a (click)="goToDevices()">

@@ -1,16 +1,12 @@
 class User::ProgramExecutionsController < AuthorizedController
   before_action :get_zone
-  before_action :get_program_execution, only: [:show, :edit, :update, :destroy]
+  before_action :get_program_execution, only: [:show, :update, :destroy]
 
   def index
     render json: ProgramExecution.where({ zone: @zone }).order(id: :desc)
   end
 
   def show
-    render json: @program_execution
-  end
-
-  def edit
     render json: @program_execution
   end
 

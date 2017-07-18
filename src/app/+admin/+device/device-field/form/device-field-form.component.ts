@@ -8,7 +8,7 @@ import { DeviceFieldService } from '../../../shared/services/device-field.servic
 @Component({
   selector: 'device-field-form',
   templateUrl: './device-field-form.component.html',
-  styleUrls: ['./device-field-form.component.css']
+  styleUrls: ['./device-field-form.component.scss']
 })
 export class DeviceFieldFormComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class DeviceFieldFormComponent implements OnInit {
   mode: string;
   device_id: number;
   field_id: number;
+  icons: any[] = ['dmt-thermometer', 'dmt-humidity', 'dmt-pump'];
 
   constructor(private router: Router,
               private route: ActivatedRoute,

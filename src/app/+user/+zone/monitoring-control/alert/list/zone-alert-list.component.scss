@@ -1,0 +1,28 @@
+.alert-list {
+  margin: 15px 30px;
+
+  .alert-single {
+    max-width: 500px;
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 20px;
+
+    .device-icon {
+      align-self: center;
+      width: 40px;
+    }
+
+    .content {
+      align-self: center;
+      padding-left: 10px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    p.time {
+      margin-bottom: 3px;
+    }
+  }
+}

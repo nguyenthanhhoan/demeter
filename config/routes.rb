@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       end
     end
     resources :program_executions
+    resources :alert_rules
+    resources :alerts, only: [:index]
     resources :okr_objectives
     resources :device_fields, only: [:index] do
       collection do

@@ -66,31 +66,6 @@
   }
 }
 
-.device-control-toggle {
-  height: 34px;
-  width: 140px;
-}
-
-.smart-form .toggle i {
-  width: 65px;
-  height: 25px;
-  right: inherit;
-
-  &:after {
-    font-size: 15px;
-    top: 7px;
-  }
-
-  &:before {
-    top: 8px;
-    right: 8px;
-  }
-}
-
-.smart-form .toggle input:checked+i:before {
-  right: 42px;
-}
-
 .device-control-form section {
   margin-bottom: 0;
   border-right: 1px solid #ddd;

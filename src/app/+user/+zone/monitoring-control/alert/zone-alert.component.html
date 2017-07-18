@@ -1,0 +1,28 @@
+<div class="content-header">
+  <div class="demeter-title">Alert</div>
+</div>
+
+<div class="demeter-pane demeter-tabbed-pane">
+
+  <ul class="nav nav-tabs bordered">
+    <li [class.active]="activeTab == 0">
+      <a (click)="goToAlert()">
+        <i class="fa fa-bars"></i> Alerts
+      </a>
+    </li>
+    <li [class.active]="activeTab == 1">
+      <a (click)="goToSettings()">
+        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Settings
+      </a>
+    </li>
+  </ul>
+
+  <div class="demeter-pane-content">
+    <div *ngIf="activeTab == 0">
+      <zone-alert-list></zone-alert-list>
+    </div>
+    <div *ngIf="activeTab == 1">
+      <zone-alert-setting></zone-alert-setting>
+    </div>
+  </div>
+</div>

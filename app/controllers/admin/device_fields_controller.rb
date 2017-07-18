@@ -43,7 +43,7 @@ class Admin::DeviceFieldsController < Admin::AdminController
     def device_field_params
       params.require(:device_field).permit(:device_id, :field_id, :name, :name_display, :description,
         :value, :value_data_type, :interval, :field_attribute, :update_rate,
-        :chart_value_suffix, :chart_value_diff)
+        :chart_value_suffix, :chart_value_diff, :icon)
     end
 
     def get_device_field

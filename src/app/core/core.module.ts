@@ -28,6 +28,7 @@ import { WeatherService } from './services/weather.service';
 import { OkrService } from './services/okr.service';
 import { OkrObjectiveService } from './services/okr-objective.service';
 import { ProgramExecutionService } from './services/program-execution.service';
+import { AlertRuleService } from './services/alert-rule.service';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { ProgramExecutionService } from './services/program-execution.service';
     OkrService,
     OkrObjectiveService,
     DeviceValueHistoryService,
-    ProgramExecutionService
+    ProgramExecutionService,
+    AlertRuleService
   ]
 })
 export class CoreModule {

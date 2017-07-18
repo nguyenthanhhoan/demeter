@@ -50,7 +50,7 @@ class ProgramExecutionService
       # Destroy the job
       #
       Rails.logger.info "[ProgramExecutionWorker] [program_execution_id=#{program_execution_id}] is not active. Prepare to destroy the job"
-      job_name = ProgramExecutionService.get_job_name(program_execution_id)
+      job_name = get_job_name(program_execution_id)
       Sidekiq::Cron::Job.destroy job_name
       return
     end
@@ -159,9 +159,9 @@ class ProgramExecutionService
 
       rule_query = {
         g: [{
-          # field_id_eq: field_id,
+          field_id_eq: field_id,
           "value_in_int_#{ransack_operator}": Integer(rule[:value]),
-          # device_name_eq: zone.device_gateway
+          device_name_eq: zone.device_gateway
         }]
       }
       ransack_query[:g] << rule_query

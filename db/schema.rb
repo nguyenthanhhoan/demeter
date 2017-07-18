@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711062017) do
+ActiveRecord::Schema.define(version: 20170714164602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alert_rules", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "device_field_id"
+    t.integer  "zone_id"
+    t.string   "condition"
+    t.string   "value"
+    t.integer  "interval"
+    t.boolean  "live_chart_rule"
+    t.boolean  "is_active"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["device_field_id"], name: "index_alert_rules_on_device_field_id", using: :btree
+    t.index ["zone_id"], name: "index_alert_rules_on_zone_id", using: :btree
+  end
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "alert_rule_id"
+    t.integer  "zone_id"
+    t.string   "alert_content"
+    t.string   "icon"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["alert_rule_id"], name: "index_alerts_on_alert_rule_id", using: :btree
+    t.index ["zone_id"], name: "index_alerts_on_zone_id", using: :btree
+  end
 
   create_table "cameras", force: :cascade do |t|
     t.string   "camera_no"
@@ -54,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170711062017) do
     t.float    "chart_value_diff"
     t.integer  "value_in_int"
     t.float    "value_in_float"
+    t.string   "icon"
     t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
   end
 
@@ -234,6 +261,10 @@ ActiveRecord::Schema.define(version: 20170711062017) do
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 
+  add_foreign_key "alert_rules", "device_fields"
+  add_foreign_key "alert_rules", "zones"
+  add_foreign_key "alerts", "alert_rules"
+  add_foreign_key "alerts", "zones"
   add_foreign_key "device_fields", "devices"
   add_foreign_key "device_value_histories", "device_fields"
   add_foreign_key "okr_objective_keys", "okr_objectives"

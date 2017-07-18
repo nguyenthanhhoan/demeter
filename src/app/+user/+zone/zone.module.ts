@@ -18,7 +18,6 @@ import { ZoneComponent } from './zone.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 import { WeatherForecastModule } from '../shared/weather-forecast/weather-forecast.module';
-import { MonitoringControlModule } from './monitoring-control/monitoring-control.module';
 import { ZoneSettingModule } from './setting/zone-setting.module';
 
 import { ZoneFormComponent } from '../shared/zone-form/zone-form.component';
@@ -105,7 +104,6 @@ import {
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
     WeatherForecastModule,
-    MonitoringControlModule,
     ZoneSettingModule
   ],
   declarations: [

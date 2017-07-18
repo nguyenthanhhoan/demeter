@@ -1,0 +1,50 @@
+<header class="demeter-header header-with-btn">
+  Alert Settings
+
+  <div class="btn-group pull-right">
+    <button 
+      class="demeter-btn create-btn primary"
+      routerLink="new"
+      >Add</button>
+  </div>
+</header>
+
+<alert type="warning" dismissible="true" *ngIf="alert_rules && alert_rules.length == 0"
+  class="alert-no-item">
+
+  <i class="fa-fw fa fa-warning"></i>
+  There is no alert rule available!
+</alert>
+
+<div class="smart-form dmt-table">
+  <div *ngFor="let alert_rule of alert_rules; let i = index;" class="dmt-tr">
+    <section class="name">
+
+      <span class="text">
+        <a routerLink="{{alert_rule.id}}">
+          {{alert_rule.name}}
+        </a>
+      </span>
+
+      <a (click)="remove(alert_rule)" class="delete-action">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section>
+      <div>
+        <div class="dmt-control-toggle">
+          <label class="toggle" [class.state-disabled]="alert_rule.isRunning">
+            <input type="checkbox" [ngModel]="alert_rule.is_active"
+              [disabled]="alert_rule.isRunning"
+              (click)="changeValue(alert_rule)">
+            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+          </label>
+          <div class="spinner-wrapper">
+            <app-spinner [isRunning]="alert_rule.isRunning"></app-spinner>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

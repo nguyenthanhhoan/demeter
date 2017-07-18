@@ -30,17 +30,15 @@
     </section>
 
     <section>
-      <div>
-        <div class="device-control-toggle">
-          <label class="toggle" [class.state-disabled]="program.isRunning">
-            <input type="checkbox" [ngModel]="program.is_active"
-              [disabled]="program.isRunning"
-              (click)="changeValue($event, program)">
-            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
-          </label>
-          <div class="spinner-wrapper">
-            <app-spinner [isRunning]="program.isRunning"></app-spinner>
-          </div>
+      <div class="dmt-control-toggle">
+        <label class="toggle" [class.state-disabled]="program.isRunning">
+          <input type="checkbox" [ngModel]="program.is_active"
+            [disabled]="program.isRunning"
+            (click)="changeValue($event, program)">
+          <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+        </label>
+        <div class="spinner-wrapper">
+          <app-spinner [isRunning]="program.isRunning"></app-spinner>
         </div>
       </div>
     </section>

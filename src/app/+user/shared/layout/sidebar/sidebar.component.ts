@@ -17,9 +17,9 @@ export class SidebarComponent implements OnInit {
 
   goToPage(name) {
     let segments = this.route.snapshot['_urlSegment'].segments;
-    var zone_id, project_id;
+    let zone_id, project_id;
     for (let index = 0; index < segments.length; index++) {
-      var element = segments[index];
+      let element = segments[index];
       if (element.path === 'project') {
         project_id = +segments[index + 1].path;
       }
@@ -29,8 +29,8 @@ export class SidebarComponent implements OnInit {
       }
     }
 
-    //If project_id present in url -> it's was link to zone detail page
-    var url = `/user`;
+    // If project_id present in url -> it's was link to zone detail page
+    let url = `/user`;
     if (project_id && zone_id) {
       url += `/project/${project_id}/zone/${zone_id}`;
       this.router.navigate([`${url}/${name}`]);

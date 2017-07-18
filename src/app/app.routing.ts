@@ -83,9 +83,9 @@ export const routes: Routes = [
                                 path: ':camera_id', component: ZoneCameraDetailComponent
                             }]
                         }, {
-                            path: 'control',
+                            path: 'monitoring-control',
                             loadChildren:
-                                'app/+user/+zone/monitoring-control/control/zone-control.module#ZoneControlModule',
+                                'app/+user/+zone/monitoring-control/monitoring-control.module#MonitoringControlModule',
                         }, {
                             path: 'weather', component: ZoneWeatherComponent
                         }, {

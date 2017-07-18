@@ -1,0 +1,157 @@
+@import 'variables';
+
+.demeter-tabbed-pane {
+  padding: 0;
+  .nav-tabs {
+    background: #F5F3EB;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .demeter-pane-content {
+    padding: 0 25px;
+
+    // Prevent margin collapsing
+    padding-bottom: 0.1px;
+  }
+}
+
+.alert-no-item {
+  display: block;
+  margin: 10px 30px;
+}
+
+.demeter-header {
+  display: block;
+  border-bottom: 1px dashed rgba(0,0,0,.2);
+  font-size: 16px;
+  font-weight: 300;
+  color: #232323;
+  margin: 10px 14px 0;
+
+  &.header-with-btn {
+    margin-top: 22px;
+    .btn-group {
+      margin-top: -17px;
+    }
+  }
+}
+
+
+/*
+ * Used in demeter form.
+ * Align button to the right.
+ */
+.button-group {
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 10px;
+
+  .button-group-right {
+    margin-left: auto;
+  }
+}
+
+/*
+ * Toggle ON/OFF control
+ */
+.dmt-control-toggle {
+  height: 34px;
+  width: 140px;
+
+  .spinner-wrapper {
+    position: relative;
+    height: 34px;
+    width: 98px;
+    float: right;
+  }
+
+  .toggle i {
+    width: 65px;
+    height: 25px;
+    right: inherit;
+
+    &:after {
+      font-size: 15px;
+      top: 7px;
+    }
+
+    &:before {
+      top: 8px;
+      right: 8px;
+    }
+  }
+
+  .toggle input:checked+i:before {
+    right: 42px;
+  }
+}
+
+/*
+ * Demeter a
+ */
+// .user-side a {
+//   color: #111;
+
+//   &:hover {
+//     color: $main-color;
+//   }
+// }
+
+/*
+ * Demeter table.
+ */
+.dmt-table {
+  .dmt-tr {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    max-width: 550px;
+
+    > section {
+      min-height: 50px;
+      align-self: stretch;
+      display: flex;
+      align-items:center;
+      margin-bottom: 0;
+      border-right: 1px solid #ddd;
+      margin-right: 10px;
+      padding-right: 10px;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  section.name {
+    min-width: 100px;
+    font-size: 2em;
+    flex: 1;
+
+    .text {
+      width: calc(100% - 15px);
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .delete-action {
+      display: none;
+      font-size: 15px;
+      margin-left: 10px;
+      color: #a90329;
+    }
+
+    &:hover .delete-action {
+      display: inline;
+      color: #900323;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}

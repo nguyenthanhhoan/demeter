@@ -1,12 +1,7 @@
-import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { URLSearchParams } from '@angular/http';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import { AppSettings } from '../../../../app.settings';
-import { DeviceFieldService } from '../../../../core/services/device-field-service';
-import { NotificationService } from '../../../../shared/utils/notification.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'zone-control',
@@ -22,10 +17,7 @@ export class ZoneControlComponent {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private store: Store<any>,
-              private deviceFieldService: DeviceFieldService,
-              private ngZone: NgZone,
-              private notificationService: NotificationService) {
+              private store: Store<any>) {
 
   }
 
@@ -60,14 +52,20 @@ export class ZoneControlComponent {
   goToExecutions() {
     if (this.activeTab !== 1) {
       this.router
-      .navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/control/executions`]);
+      .navigate([
+        `/user/project/${this.project_id}/zone/${this.zone_id}`
+        + `/monitoring-control/control/executions`
+      ]);
     }
   }
 
   goToDevices() {
     if (this.activeTab !== 0) {
       this.router
-      .navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/control`]);
+      .navigate([
+        `/user/project/${this.project_id}/zone/${this.zone_id}`
+        + `/monitoring-control/control`
+      ]);
     }
   }
 

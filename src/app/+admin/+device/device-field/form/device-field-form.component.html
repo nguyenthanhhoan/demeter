@@ -110,6 +110,16 @@
                   <input [(ngModel)]="deviceField.chart_value_diff" name="chart_value_diff" />
                 </label>
               </section>
+              <header>Icons</header>
+              <section class="icon-section">
+                <div class="icon-single"
+                  *ngFor="let icon of icons"
+                  (click)="deviceField.icon = icon"
+                  [ngClass]="deviceField.icon === icon ? 'active' : ''">
+
+                  <span class="icon-dmt" [ngClass]="icon"></span>
+                </div>
+              </section>
               <div class="button-group-wrap">
                 <div class="button-group pull-right">
                   <button type="button" 
