@@ -1,3 +1,4 @@
+import { URLSearchParams } from '@angular/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AlertService } from '../../../../../core/services/alert.service';
@@ -11,27 +12,15 @@ declare var moment;
 })
 export class ZoneAlertListComponent implements OnInit {
 
-  alerts: any[] = [{
-    time_display: moment('07/13/2017 00:00', 'MM/DD/YYYY HH:mm').fromNow(),
-    alert_content: 'Temperature is 40°C',
-    icon: 'dmt-thermometer'
-  }, {
-    time_display: moment('07/10/2017 00:00', 'MM/DD/YYYY HH:mm').fromNow(),
-    alert_content: 'Humidity is 80%',
-    icon: 'dmt-humidity'
-  }, {
-    time_display: moment('07/10/2017 00:00', 'MM/DD/YYYY HH:mm').fromNow(),
-    alert_content: 'Pump is ON',
-    icon: 'dmt-pump'
-  }];
+  alerts: any[];
 
   zoneId: number;
   collection: string[] = ['a', 'b', '34'];
-  page: number = 1;
 
-  public totalItems: number = 64;
-  public currentPage: number = 4;
-  public smallnumPages: number = 0;
+  totalItems: number;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  loading: boolean = false;
 
   constructor(private store: Store<any>,
               private alertService: AlertService) {
@@ -51,18 +40,24 @@ export class ZoneAlertListComponent implements OnInit {
   }
 
   loadAlerts() {
-    this.alertService.list(this.zoneId)
-    .subscribe((alerts) => {
-      this.alerts = alerts;
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('zone_id', this.zoneId.toString());
+    params.set('page', this.currentPage.toString());
+    params.set('per_page', this.itemsPerPage.toString());
+    this.loading = true;
+    this.alertService.list({
+      search: params
+    })
+    .delay(1000)
+    .subscribe((res: any) => {
+      this.loading = false;
+      this.alerts = res.items;
+      this.totalItems = res.total_items;
     });
   }
 
-  public setPage(pageNo: number): void {
-    this.currentPage = pageNo;
-  }
-
   public pageChanged(event: any): void {
-    console.log('Page changed to: ' + event.page);
-    console.log('Number items per page: ' + event.itemsPerPage);
+    this.currentPage = event.page;
+    this.loadAlerts();
   }
 }

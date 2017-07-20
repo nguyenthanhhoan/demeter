@@ -16,7 +16,7 @@ export class DeviceFieldFormComponent implements OnInit {
   mode: string;
   device_id: number;
   field_id: number;
-  icons: any[] = ['dmt-thermometer', 'dmt-humidity', 'dmt-pump', 'dmt-fan'];
+  icons: any[] = ['dmt-thermometer', 'dmt-humidity', 'dmt-pump', 'dmt-fan', 'dmt-light-bulb'];
 
   constructor(private router: Router,
               private route: ActivatedRoute,

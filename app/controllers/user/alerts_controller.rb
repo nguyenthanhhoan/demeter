@@ -2,7 +2,21 @@ class User::AlertsController < AuthorizedController
   before_action :get_zone
 
   def index
-    render json: Alert.where({ zone: @zone }).order(id: :desc)
+
+    total_items = Alert.where({ zone: @zone }).count
+
+    ransack = Alert.ransack({
+      zone_id_eq: @zone.id
+    })
+    ransack.sorts = 'id desc'
+
+    items = ransack.result.paginate(page: params[:page], per_page: params[:per_page])
+    items_json = ActiveModelSerializers::SerializableResource.new(items)
+
+    render json: {
+      items: items_json,
+      total_items: total_items
+    }, each_serializer: AlertSerializer, adapter: :json, root_key: 'items'
   end
 
   private

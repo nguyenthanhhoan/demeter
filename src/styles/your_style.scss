@@ -104,7 +104,8 @@ body {
   width: 100%;
 
   // Since datepicker has z-index 2000
-  z-index: 2001;
+  // TODO: This one have limitation, can hide the modal's header
+  // z-index: 2001;
 }
 
 .user-side .sidebar {

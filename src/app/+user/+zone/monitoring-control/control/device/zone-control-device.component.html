@@ -20,6 +20,7 @@
   <div *ngFor="let field of fields; let i = index;" class="device-control">
     <div class="control-section">
       <section class="device-name">
+        <span class="icon-dmt" [ngClass]="field.icon"></span>
         <span class="text">
           {{field.name_display}}
         </span>

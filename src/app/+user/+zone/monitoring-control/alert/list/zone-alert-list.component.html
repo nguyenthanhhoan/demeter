@@ -11,24 +11,29 @@
   There is no alert available!
 </alert>
 
-<div class="alert-list">
-  <div *ngFor="let alert of alerts" class="alert-single">
-    <span class="device-icon">
-      <span class="icon-dmt" [ngClass]="alert.icon"></span>
-    </span>
-    <span class="content">
-      <p class="time">{{alert.time_display}}</p>
-      <p>{{alert.alert_content}}</p>
-    </span>
+<div class="alert-pagination" [ngClass]="loading ? 'loading' : ''">
+  <div class="alert-list">
+    <div *ngFor="let alert of alerts" class="alert-single">
+      <span class="device-icon">
+        <span class="icon-dmt" [ngClass]="alert.icon"></span>
+      </span>
+      <span class="content">
+        <p class="time">{{alert.time_display}}</p>
+        <p>{{alert.alert_content}}</p>
+      </span>
+    </div>
   </div>
 
   <pagination 
     [boundaryLinks]="true" 
     [totalItems]="totalItems" 
     [(ngModel)]="currentPage"
+    [(itemsPerPage)]="itemsPerPage"
     [maxSize]="5"
     [rotate]="false"
     previousText="&lsaquo;" nextText="&rsaquo;"
     firstText="&laquo;" lastText="&raquo;"
     (pageChanged)="pageChanged($event)"></pagination>
+
+  <app-spinner [isRunning]="loading" class="spinner"></app-spinner>
 </div>

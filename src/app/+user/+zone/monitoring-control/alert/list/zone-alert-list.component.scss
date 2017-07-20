@@ -1,8 +1,14 @@
-.alert-list {
+.alert-pagination {
   margin: 15px 30px;
+  max-width: 500px;
+
+  .alert-list {
+    min-height: 200px;
+    transition: opacity 0.2s linear;
+    opacity: 1;
+  }
 
   .alert-single {
-    max-width: 500px;
     display: -webkit-flex;
     display: flex;
     margin-bottom: 20px;
@@ -24,5 +30,22 @@
     p.time {
       margin-bottom: 3px;
     }
+  }
+
+  &.loading {
+    position: relative;
+    pointer-events: none;
+
+    .alert-list {
+      opacity: 0.7;
+    }
+
+    .spinner {
+      display: block;
+    }
+  }
+
+  .spinner {
+    display: none;
   }
 }

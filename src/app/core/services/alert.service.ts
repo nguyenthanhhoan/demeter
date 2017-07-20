@@ -9,7 +9,7 @@ export class AlertService {
 
   constructor (private apiService: ApiService) {}
 
-  list(zone_id): Observable<any[]> {
-    return this.apiService.fetch(`${this.resourceUrl}?zone_id=${zone_id}`);
+  list(options): Observable<any[]> {
+    return this.apiService.fetch(`${this.resourceUrl}`, options);
   }
 }
