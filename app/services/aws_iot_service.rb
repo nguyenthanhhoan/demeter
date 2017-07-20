@@ -22,13 +22,17 @@ class AwsIotService
     })
   end
 
-  def self.get_thing_shadow(thing_name)
-    client = Aws::IoTDataPlane::Client.new({
+  def get_client 
+    Aws::IoTDataPlane::Client.new({
       region: ENV.fetch('AWS_DYNAMODB_REGION'),
       endpoint: ENV.fetch('AWS_THING_SHADOW_REST_API')
     })
+  end
+
+  def get_thing_shadow(thing_name)
+    client = get_client
     thing = client.get_thing_shadow({
-      thing_name: 'RGBLedLamp'
+      thing_name: thing_name
     })
     payload = thing.payload.to_json
     thing_state = JSON.parse(JSON.parse(payload)[0])

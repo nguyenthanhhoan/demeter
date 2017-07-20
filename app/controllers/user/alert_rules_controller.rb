@@ -14,8 +14,11 @@ class User::AlertRulesController < AuthorizedController
     @alert_rule = AlertRule.new(alert_rule_params)
 
     if @alert_rule.save
-      # ProgramExecutionService.new.update_job(@alert_rule)
-      render json: @alert_rule
+      job = AlertService.new.update_job(@alert_rule)
+      render json: {
+        alert_rule: @alert_rule,
+        job: job
+      }
     else
       render :json => { errors: @alert_rule.errors }, :status => :bad_request
     end
@@ -23,10 +26,10 @@ class User::AlertRulesController < AuthorizedController
 
   def update
     if @alert_rule.update(alert_rule_params)
-      # job = ProgramExecutionService.new.update_job(@alert_rule)
+      job = AlertService.new.update_job(@alert_rule)
       render json: {
         alert_rule: @alert_rule,
-        # job: job
+        job: job
       }
     else
       render :json => { errors: @alert_rule.errors }, :status => :bad_request
@@ -34,7 +37,7 @@ class User::AlertRulesController < AuthorizedController
   end
 
   def destroy
-    # ProgramExecutionService.new.remove_job(@alert_rule)
+    AlertService.new.remove_job(@alert_rule)
     @alert_rule.destroy
     render json: @alert_rule
   end
@@ -46,7 +49,7 @@ class User::AlertRulesController < AuthorizedController
     end
 
     def alert_rule_params
-      params.require(:alert_rule).permit(:name, :device_field_id, :zone_id,
+      params.require(:alert_rule).permit(:id, :name, :device_field_id, :zone_id, :schedule,
         :condition, :value, :interval, :live_chart_rule, :is_active)
     end
 

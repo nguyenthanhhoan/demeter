@@ -52,7 +52,7 @@ class AlertService
 
     if rule_match?(alert_rule, zone.device_gateway)
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule match. Prepare to create alert"
-      create_alert(alert_rule)
+      create_alert(alert_rule, zone)
     else 
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule not match. Alert wont be created"
     end
@@ -68,9 +68,9 @@ class AlertService
     DeviceField.ransack(ransack_query).result.count > 0
   end
 
-  def create_alert(alert_rule)
+  def create_alert(alert_rule, zone)
     alert_content = "#{alert_rule.device_field.name_display} is #{alert_rule.value}"
-    Alert.new({
+    Alert.create({
       alert_rule: alert_rule,
       zone: zone,
       alert_content: alert_content,

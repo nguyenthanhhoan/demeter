@@ -45,19 +45,11 @@
     </div>
   </div>
 
-  <div class="interval-option">
-    <div class="interval-form-group">
-      <label class="form-label">Interval event trigger(s)</label>
-      <label class="input">
-        <input type="number" name="interval" required
-          [(ngModel)]="alertRule.interval">
-        <i></i>
-      </label>
-    </div>
-    <div class="note note-error" >
-      0: Only one time.
-    </div>
-  </div>
+  <header class="demeter-header">
+    Scheduler
+  </header>
+
+  <div class="cron"></div>
 
   <header class="demeter-header" *ngIf="alertRule.device_field">
     Chart Option

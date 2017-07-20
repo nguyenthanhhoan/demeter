@@ -29,6 +29,7 @@ import { OkrService } from './services/okr.service';
 import { OkrObjectiveService } from './services/okr-objective.service';
 import { ProgramExecutionService } from './services/program-execution.service';
 import { AlertRuleService } from './services/alert-rule.service';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { AlertRuleService } from './services/alert-rule.service';
     OkrObjectiveService,
     DeviceValueHistoryService,
     ProgramExecutionService,
-    AlertRuleService
+    AlertRuleService,
+    AlertService
   ]
 })
 export class CoreModule {

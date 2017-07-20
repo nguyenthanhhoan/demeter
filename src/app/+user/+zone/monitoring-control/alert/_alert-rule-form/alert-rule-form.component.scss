@@ -60,6 +60,8 @@
 .interval-option {
   display: flex;
   margin: 10px 20px 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .interval-option {
@@ -83,4 +85,9 @@
     flex: 1;
     margin: 0 10px 0px 0;
   }
+}
+
+.cron {
+  text-align: center;
+  margin-top: 10px;
 }

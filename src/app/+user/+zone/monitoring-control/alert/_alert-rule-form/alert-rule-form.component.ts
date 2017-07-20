@@ -7,6 +7,7 @@ import { DeviceFieldService } from '../../../../../core/services/device-field-se
 import { AlertRuleService } from '../../../../../core/services/alert-rule.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
 
+declare var $: any;
 @Component({
   selector: 'alert-rule-form',
   templateUrl: './alert-rule-form.component.html',
@@ -18,8 +19,11 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
 
   @ViewChild('form') form: any;
   submitClicked: boolean = false;
+
   @Input()
-  alertRule: any = {};
+  alertRule: any = {
+    schedule: '0 0 * * *'
+  };
 
   oldAlertRule: any = {};
 
@@ -47,12 +51,30 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
         this.fetchListDevice();
       }
     });
+    this.initCron();
   }
 
   ngOnChanges() {
     if (this.alertRule.id && this.alertRule.id !== this.oldAlertRule.id) {
       Object.assign(this.oldAlertRule, this.alertRule);
       this.mapDevice();
+      this.updateCronValue();
+    }
+  }
+
+  initCron() {
+    const { schedule } = this.alertRule;
+    if (schedule && schedule.length > 0) {
+      $('.cron').cron({
+        initial: schedule
+      });
+    }
+  }
+
+  updateCronValue() {
+    const { schedule } = this.alertRule;
+    if (schedule && schedule.length > 0) {
+      $('.cron').cron('value', schedule);
     }
   }
 
@@ -86,7 +108,8 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
       condition: rule.condition,
       value: rule.value,
       interval: rule.interval,
-      live_chart_rule: rule.live_chart_rule
+      live_chart_rule: rule.live_chart_rule,
+      schedule: $('.cron').cron('value')
     };
     return submitRule;
   }

@@ -14,7 +14,9 @@ export class AlertRuleEditComponent {
 
   alertRuleId: number;
   zoneId: number;
-  alertRule: any = {};
+  alertRule: any = {
+    schedule: '0 0 * * *'
+  };
   constructor(private store: Store<any>,
               private route: ActivatedRoute,
               private alertRuleService: AlertRuleService) {

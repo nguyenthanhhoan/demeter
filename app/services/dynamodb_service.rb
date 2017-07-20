@@ -58,4 +58,19 @@ class DynamodbService
       points.to_json
     end
   end
+
+  # TODO
+  def get_lastest_data(device_gateway)
+    start_timestamp = Date.current.to_f * 1000
+    end_timestamp = start_time - 60 * 1000
+
+    # Query data within last minute
+    points = DynamodbService.get_data_in(start_timestamp, end_timestamp, device_gateway)
+
+    if points.count > 0
+      points[points.count - 1].payload.data
+    else
+      Rails.logger.info "Within last minute. There is no data update from #{device_gateway} gateway"
+    end
+  end
 end

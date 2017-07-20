@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AlertService } from '../../../../../core/services/alert.service';
 
 declare var moment;
 
@@ -23,6 +25,7 @@ export class ZoneAlertListComponent implements OnInit {
     icon: 'dmt-pump'
   }];
 
+  zoneId: number;
   collection: string[] = ['a', 'b', '34'];
   page: number = 1;
 
@@ -30,16 +33,34 @@ export class ZoneAlertListComponent implements OnInit {
   public currentPage: number = 4;
   public smallnumPages: number = 0;
 
-  constructor() {
+  constructor(private store: Store<any>,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.store.select('zone')
+    .takeWhile((zoneModel: any) => {
+      return (!this.zoneId);
+    })
+    .subscribe((zoneModel) => {
+      if (zoneModel.zoneId) {
+        this.zoneId = zoneModel.zoneId;
+        this.loadAlerts();
+      }
+    });
+  }
+
+  loadAlerts() {
+    this.alertService.list(this.zoneId)
+    .subscribe((alerts) => {
+      this.alerts = alerts;
+    });
   }
 
   public setPage(pageNo: number): void {
     this.currentPage = pageNo;
   }
- 
+
   public pageChanged(event: any): void {
     console.log('Page changed to: ' + event.page);
     console.log('Number items per page: ' + event.itemsPerPage);
