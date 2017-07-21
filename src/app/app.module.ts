@@ -67,8 +67,7 @@ type StoreType = {
 
     //user modules
     UserModule,
-    ProjectModule,
-    ZoneModule
+    ProjectModule
   ],
   exports: [
   ],

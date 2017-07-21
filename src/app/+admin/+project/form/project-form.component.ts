@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import * as Chartist from 'chartist';
 
 import { ProjectService } from '../../../core/services/project.service';
-import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 import { GoogleAPI } from '../../../shared/integration/gloader';
 import {
   ChartType,
@@ -60,7 +59,6 @@ export class ProjectFormComponent implements OnInit {
   constructor(private router: Router,
               private googleAPI: GoogleAPI,
               private ref: ChangeDetectorRef,
-              private localStorageService: LocalStorageService,
               private projectService: ProjectService,
               private el:ElementRef) { 
 

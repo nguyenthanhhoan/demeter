@@ -1,9 +1,8 @@
 import { Component, OnInit, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import * as Chartist from 'chartist';
 
 import { ProjectService } from '../../../core/services/project.service';
-import { LocalStorageService } from '../../../shared/utils/localstorage.service';
 import { GoogleAPI } from '../../../shared/integration/gloader';
 import {
   ChartType,
@@ -60,9 +59,8 @@ export class ProjectFormComponent implements OnInit {
   constructor(private router: Router,
               private googleAPI: GoogleAPI,
               private ref: ChangeDetectorRef,
-              private localStorageService: LocalStorageService,
               private projectService: ProjectService,
-              private el:ElementRef) { 
+              private el: ElementRef) {
 
     this.project = {
       name: '',
@@ -71,10 +69,10 @@ export class ProjectFormComponent implements OnInit {
       location: ''
     };
 
-    //TODO: Refactor later
+    // TODO: Refactor later
     setInterval(() => {
       this.ref.markForCheck();
-    },1000);
+    }, 1000);
   }
 
   ngOnInit() {
@@ -106,7 +104,7 @@ export class ProjectFormComponent implements OnInit {
 
   openSelectFile() {
     let file = $(this.el.nativeElement).find('.file-input');
-    file.trigger('click'); 
+    file.trigger('click');
   }
 
   readURL(input) {

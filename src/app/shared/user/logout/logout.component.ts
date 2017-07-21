@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 
-import {NotificationService} from "../../utils/notification.service";
-import { LocalStorageService } from '../../utils/localstorage.service';
+import { NotificationService } from '../../utils/notification.service';
 
 declare var $:any;
 
@@ -12,7 +11,7 @@ declare var $:any;
   template: `
 <div id="logout" (click)="showPopup()" class="btn-header transparent pull-right">
         <span> <a routerlink="/auth/login" title="Sign Out" data-action="userLogout"
-                  data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i
+            data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i
           class="fa fa-sign-out"></i></a> </span>
     </div>
   `,
@@ -26,13 +25,13 @@ export class LogoutComponent implements OnInit {
 
   showPopup(){
     this.notificationService.smartMessageBox({
-      title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
-      content : "You can improve your security further after logging out by closing this opened browser",
+      title : '<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>' + $('#show-shortcut').text() + '</strong></span> ?',
+      content : 'You can improve your security further after logging out by closing this opened browser',
       buttons : '[No][Yes]'
 
     }, (ButtonPressed) => {
-      if (ButtonPressed == "Yes") {
-        this.logout()
+      if (ButtonPressed === 'Yes') {
+        this.logout();
       }
     });
   }
@@ -42,13 +41,10 @@ export class LogoutComponent implements OnInit {
       res => {
         this.router.navigate(['/auth/login']);
       }
-    )
+    );
   }
 
   ngOnInit() {
 
   }
-
-
-
 }

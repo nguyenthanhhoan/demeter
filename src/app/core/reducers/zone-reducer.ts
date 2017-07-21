@@ -42,7 +42,6 @@ export function zoneReducer(state = initialState, action: zone.Actions): State {
   }
 }
 
-
 export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;

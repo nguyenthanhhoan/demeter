@@ -11,28 +11,6 @@ import { AuthGuard } from './+auth/auth-guard.service';
 import { ProjectFormComponent } from './+user/+project/form/project-form.component';
 import { ProjectListComponent } from './+user/+project/list/project-list.component';
 
-import { ZoneComponent } from './+user/+zone/zone.component';
-import { ZoneListComponent } from './+user/+zone/list/zone-list.component';
-import { ZoneFormComponent } from './+user/+zone/form/zone-form.component';
-import {
-    ZoneControlComponent
-} from './+user/+zone/monitoring-control/control/zone-control.component';
-import { ZoneSummaryComponent } from './+user/+zone/summary/zone-summary.component';
-import { ZoneHistoryComponent } from './+user/+zone/history/zone-history.component';
-import { ZoneCameraComponent } from './+user/+zone/camera/zone-camera.component';
-import {
-    ZoneCameraDetailComponent
-} from './+user/+zone/camera/camera-detail/zone-camera-detail.component';
-
-import { ZoneOKRComponent } from './+user/+zone/crop-management/okr/zone-okr.component';
-import { OKRFormComponent } from './+user/+zone/crop-management/okr/okr-form/okr-form.component';
-import { ZoneWeatherComponent } from './+user/+zone/crop-management/weather/zone-weather.component';
-import {
-    ZoneDailyReportComponent
-} from './+user/+zone/crop-management/daily-report/zone-daily-report.component';
-
-import { ZoneSettingComponent } from './+user/+zone/setting/zone-setting.component';
-
 export const routes: Routes = [
     {
         path: '', redirectTo: 'user', pathMatch: 'full'
@@ -55,57 +33,12 @@ export const routes: Routes = [
                     path: '',
                     component: ProjectListComponent
                 }, {
-                    path: 'new', component: ProjectFormComponent 
+                    path: 'new', component: ProjectFormComponent
                 }]
             }, {
                 path: 'project',
-                component: UserLayoutComponent,
-                children: [{
-                    path: ':id',
-                    component: ZoneListComponent
-                }, {
-                    path: ':id/zone/new',
-                    component: ZoneFormComponent
-                }, {
-                    path: ':project_id/zone/:id',
-                    component: ZoneComponent,
-                    children: [{
-                            path: '', redirectTo: 'summary', pathMatch: 'full'
-                        }, {
-                            path: 'summary', component: ZoneSummaryComponent
-                        }, {
-                            path: 'history', component: ZoneHistoryComponent
-                        }, {
-                            path: 'camera',
-                            children: [{
-                                path: '', component: ZoneCameraComponent
-                            }, {
-                                path: ':camera_id', component: ZoneCameraDetailComponent
-                            }]
-                        }, {
-                            path: 'monitoring-control',
-                            loadChildren:
-                                'app/+user/+zone/monitoring-control/monitoring-control.module#MonitoringControlModule',
-                        }, {
-                            path: 'weather', component: ZoneWeatherComponent
-                        }, {
-                            path: 'setting', component: ZoneSettingComponent
-                        }, {
-                            path: 'daily-report',
-                            children: [{
-                                path: '', component: ZoneDailyReportComponent
-                            }, {
-                                path: ':date', component: ZoneDailyReportComponent
-                            }]
-                        }, {
-                            path: 'okr',
-                            children: [{
-                                path: '', component: ZoneOKRComponent,
-                            }, {
-                                path: ':objective_id', component: OKRFormComponent
-                            }]
-                        }]
-                }]
+                loadChildren:
+                    'app/+user/+zone/zone.module#ZoneModule'
         }],
         canActivate: [AuthGuard]
     },

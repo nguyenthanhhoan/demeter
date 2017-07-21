@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import * as Chartist from 'chartist';
 
 import { ZoneService } from '../../../core/services/zone.service';
-import { LocalStorageService } from '../../../shared/utils/localstorage.service';
-
-import {
-  ChartType,
-  ChartEvent
-} from '../../../shared/graphs/chartist/chartist.component';
 
 @Component({
   selector: 'app-zone',
@@ -19,8 +12,7 @@ export class ZoneListComponent implements OnInit {
   zones: any[];
   projectId: number;
 
-  constructor(private localStorageService: LocalStorageService,
-              private router: Router,
+  constructor(private router: Router,
               private route: ActivatedRoute,
               private zoneService: ZoneService) {
   }

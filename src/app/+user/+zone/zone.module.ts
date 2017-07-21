@@ -8,11 +8,14 @@ import { SmartadminValidationModule }
 import { SmartadminInputModule } from '../../shared/forms/input/smartadmin-input.module';
 import { NestableListModule } from '../../shared/ui/nestable-list/nestable-list.module';
 
+import { routing } from './zone.routing';
+
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
 import { BreadcrumbModule } from '../shared/layout/breadcrumb/breadcrumb.module';
 import { IntegrationModule } from '../../shared/integration/integration.module';
 import { CameraModule } from '../../shared/camera/camera.module';
+import { UserLayoutModule } from '../shared/layout/layout.module';
 
 import { ZoneComponent } from './zone.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
@@ -104,7 +107,9 @@ import {
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
     WeatherForecastModule,
-    ZoneSettingModule
+    ZoneSettingModule,
+    UserLayoutModule,
+    routing
   ],
   declarations: [
     ZoneComponent,
