@@ -16,13 +16,14 @@
   <strong>No program available!</strong> Click 'Add' to add new one.
 </alert>
 
-<div class="smart-form program-form">
-  <div *ngFor="let program of programs; let i = index;" class="single-program">
-    <section class="program-name">
-
-      <a routerLink="{{program.id}}">
-        {{program.name}}
-      </a>
+<div class="smart-form dmt-table">
+  <div *ngFor="let program of programs; let i = index;" class="dmt-tr">
+    <section class="name">
+      <span class="text">
+        <a routerLink="{{program.id}}">
+          {{program.name}}
+        </a>
+      </span>
 
       <a (click)="remove(program)" class="delete-action">
         <i class="fa fa-trash-o" aria-hidden="true"></i>

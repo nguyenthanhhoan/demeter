@@ -3,7 +3,7 @@
   max-width: 500px;
 
   .alert-list {
-    min-height: 200px;
+    min-height: 100px;
     transition: opacity 0.2s linear;
     opacity: 1;
   }
@@ -11,7 +11,6 @@
   .alert-single {
     display: -webkit-flex;
     display: flex;
-    margin-bottom: 20px;
 
     .device-icon {
       align-self: center;
@@ -30,6 +29,10 @@
     p.time {
       margin-bottom: 3px;
     }
+  }
+
+  .alert-single:not(:last-child) {
+    margin-bottom: 20px;
   }
 
   &.loading {

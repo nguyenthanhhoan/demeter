@@ -69,7 +69,15 @@ class AlertService
   end
 
   def create_alert(alert_rule, zone)
-    alert_content = "#{alert_rule.device_field.name_display} is #{alert_rule.value}"
+
+    alert_value = alert_rule.value
+    device_field = alert_rule.device_field
+
+    # TODO: Currently, assume that read_write field is ON/OFF field
+    if device_field.read_write? && device_field.integer?
+      alert_value = device_field.value_in_int == 1 ? 'ON' : 'OFF'
+    end
+    alert_content = "#{alert_rule.device_field.name_display} is #{alert_value}"
     Alert.create({
       alert_rule: alert_rule,
       zone: zone,

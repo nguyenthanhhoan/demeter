@@ -1,0 +1,12 @@
+.user-side .user-header {
+  position: fixed;
+  width: 100%;
+
+  // Since datepicker has z-index 2000
+  // TODO: This one have limitation, can hide the modal's header
+  // z-index: 2001;
+
+  // To handle background-color cases
+  // To handle '.smart-form .toggle i:before' case: z-index 1
+  z-index: 2;
+}
