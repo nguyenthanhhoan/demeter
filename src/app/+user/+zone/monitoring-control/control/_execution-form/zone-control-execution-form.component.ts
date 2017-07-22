@@ -88,13 +88,13 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
+    .takeWhile(() => {
       return (!this.zoneId);
     })
-    .subscribe((zoneModel) => {
-      if (zoneModel.loaded) {
-        this.zoneId = zoneModel.zoneId;
-        this.projectId = zoneModel.projectId;
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.zone && zoneModel.zone.id) {
+        this.zoneId = zoneModel.zone.id;
+        this.projectId = zoneModel.zone.project.id;
         this.zone = zoneModel.zone;
 
         // TODO: Should check if stored input/output match with list device or not
@@ -205,7 +205,8 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
     .subscribe(() => {
       this.notificationService.showMessage('Program Execution created successfully!');
       this.router
-      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}/control/executions`]);
+      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}`
+        + `/monitoring-control/control/executions`]);
     });
   }
 
@@ -218,7 +219,14 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
     .subscribe(() => {
       this.notificationService.showMessage('Program Execution updated successfully!');
       this.router
-      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}/control/executions`]);
+      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}`
+        + `/monitoring-control/control/executions`]);
     });
+  }
+
+  cancel() {
+    this.router
+      .navigate([`/user/project/${this.projectId}/zone/${this.zoneId}`
+        + `/monitoring-control/control/executions`]);
   }
 }

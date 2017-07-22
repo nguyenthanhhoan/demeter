@@ -9,8 +9,8 @@ import { ISubscription } from 'rxjs/Subscription';
   styleUrls: ['./zone-alert.component.scss']
 })
 export class ZoneAlertComponent implements OnInit {
-  project_id: number;
-  zone_id: number;
+  projectId: number;
+  zoneId: number;
   activeTab: number = -1;
 
   private routerSubscription: ISubscription;
@@ -24,11 +24,13 @@ export class ZoneAlertComponent implements OnInit {
     this.subscribeRouterEvent();
     this.store.select('zone')
     .takeWhile(() => {
-      return (!this.zone_id);
+      return (!this.zoneId);
     })
     .subscribe((zoneModel: any) => {
-      this.zone_id = zoneModel.zoneId;
-      this.project_id = zoneModel.projectId;
+      if (zoneModel.zone && zoneModel.zone.id) {
+        this.zoneId = zoneModel.zone.id;
+        this.projectId = zoneModel.zone.project.id;
+      }
     });
   }
 
@@ -52,7 +54,7 @@ export class ZoneAlertComponent implements OnInit {
     if (this.activeTab !== 0) {
       this.router
       .navigate([
-        `/user/project/${this.project_id}/zone/${this.zone_id}`
+        `/user/project/${this.projectId}/zone/${this.zoneId}`
         + `/monitoring-control/alert`
       ]);
     }
@@ -62,7 +64,7 @@ export class ZoneAlertComponent implements OnInit {
     if (this.activeTab !== 1) {
       this.router
       .navigate([
-        `/user/project/${this.project_id}/zone/${this.zone_id}`
+        `/user/project/${this.projectId}/zone/${this.zoneId}`
         + `/monitoring-control/alert/alert-rule`
       ]);
     }

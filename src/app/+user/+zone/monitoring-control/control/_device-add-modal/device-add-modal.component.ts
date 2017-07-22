@@ -15,7 +15,6 @@ export class DeviceAddModalComponent implements OnInit {
 
   @Output() onResolve = new EventEmitter();
 
-  project_id: number;
   zone_id: number;
   isRequesting = false;
 
@@ -33,7 +32,6 @@ export class DeviceAddModalComponent implements OnInit {
     })
     .subscribe((zoneModel: any) => {
       this.zone_id = zoneModel.zoneId;
-      this.project_id = zoneModel.projectId;
     });
   }
 

@@ -41,14 +41,13 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
+    .takeWhile(() => {
       return (!this.zoneId);
     })
-    .subscribe((zoneModel) => {
-      if (zoneModel.zoneId) {
-        this.zoneId = zoneModel.zoneId;
-        this.projectId = zoneModel.projectId;
-        this.fetchListDevice();
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.zone && zoneModel.zone.id) {
+        this.zoneId = zoneModel.zone.id;
+        this.projectId = zoneModel.zone.project.id;
       }
     });
     this.initCron();
