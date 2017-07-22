@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FadeZoomInTop } from "../../../../shared/animations/fade-zoom-in-top.decorator";
+import { FadeZoomInTop } from '../../../../shared/animations/fade-zoom-in-top.decorator';
 
 @FadeZoomInTop()
 @Component({

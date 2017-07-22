@@ -19,7 +19,6 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
   @Output() onRefresh = new EventEmitter();
 
   oldZone: any = {};
-  projectId: number;
   zoneId: number;
 
   cameras = [];
@@ -40,7 +39,6 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
     })
     .subscribe((zoneModel: any) => {
       this.zoneId = zoneModel.zoneId;
-      this.projectId = zoneModel.projectId;
       this.load();
     });
   }
@@ -75,7 +73,7 @@ export class ZoneSettingCameraComponent implements OnInit, DoCheck {
     this.notificationService.confirmBox({
       content: 'Do you want to remove this Camera?'
     }, () => {
-      this.zoneService.unAssignCamera(this.projectId, this.zoneId, camera.id)
+      this.zoneService.unAssignCamera(this.zoneId, camera.id)
       .subscribe((data) => {
         this.notificationService.showMessage('Remove camera successfully!');
         this.reloadZone();

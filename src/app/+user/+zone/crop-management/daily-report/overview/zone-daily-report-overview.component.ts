@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 
 import { AppSettings } from '../../../../../app.settings';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
-import { ZoneService } from '../../../../../core/services/zone.service';
 import { CameraService } from '../../../../../core/services/camera.service';
 
 declare var moment: any;
@@ -143,7 +142,6 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
-              private zoneService: ZoneService,
               private cameraService: CameraService) {
 
   }

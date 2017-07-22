@@ -12,7 +12,6 @@ import { ZoneService } from '../../../core/services/zone.service';
 export class ZoneSettingComponent implements OnInit {
 
   zone: any = {};
-  project_id: number;
   zone_id: number;
 
   public state: any = {
@@ -37,7 +36,6 @@ export class ZoneSettingComponent implements OnInit {
     .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
         this.zone = zoneModel.zone;
-        this.project_id = zoneModel.projectId;
         this.zone_id = zoneModel.zoneId;
         needToLoad = false;
       }
@@ -45,7 +43,7 @@ export class ZoneSettingComponent implements OnInit {
   }
 
   loadZone() {
-    this.zoneService.getOne(this.project_id, this.zone_id)
+    this.zoneService.getOne(this.zone_id)
     .subscribe((zone) => {
       this.zone = zone;
     });

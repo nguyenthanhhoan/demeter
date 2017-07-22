@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 
 import { NotificationService } from '../../../../../shared/utils/notification.service';
-import { ZoneService } from '../../../../../core/services/zone.service';
 import { CameraService } from '../../../../../core/services/camera.service';
 
 declare var moment: any;
@@ -124,7 +123,6 @@ export class ZoneDailyReportUsageComponent implements OnInit, DoCheck {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
-              private zoneService: ZoneService,
               private cameraService: CameraService) {
 
   }

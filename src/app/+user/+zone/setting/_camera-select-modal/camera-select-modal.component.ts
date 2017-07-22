@@ -61,7 +61,7 @@ export class CameraSelectModalComponent implements OnInit {
   }
 
   assignCamera() {
-    this.zoneService.assignCamera(this.projectId, this.zoneId, this.selectedCamera.id)
+    this.zoneService.assignCamera(this.zoneId, this.selectedCamera.id)
     .subscribe((data) => {
       this.isRequesting = false;
       this.modal.hide();
@@ -73,7 +73,7 @@ export class CameraSelectModalComponent implements OnInit {
   }
 
   assignQuickView() {
-    this.zoneService.assignQuickViewCamera(this.projectId, this.zoneId, this.selectedCamera.id)
+    this.zoneService.assignQuickViewCamera(this.zoneId, this.selectedCamera.id)
     .subscribe((data) => {
       this.isRequesting = false;
       this.modal.hide();

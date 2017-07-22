@@ -23,9 +23,6 @@ import { AuthService } from './+auth/auth.service';
 import { zoneReducer } from './core/reducers/zone-reducer';
 
 // Application modules
-import { ProjectModule } from './+user/+project/project.module';
-import { ZoneModule } from './+user/+zone/zone.module';
-
 import { UserModule } from './+user/user.module';
 
 import '../styles/main.scss';
@@ -66,8 +63,7 @@ type StoreType = {
     StoreModule.provideStore({ zone: zoneReducer }),
 
     //user modules
-    UserModule,
-    ProjectModule
+    UserModule
   ],
   exports: [
   ],

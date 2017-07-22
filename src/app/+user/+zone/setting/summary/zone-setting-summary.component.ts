@@ -46,7 +46,7 @@ export class ZoneSettingSummaryComponent implements DoCheck {
   }
 
   updateSetting() {
-    this.zoneService.updateSetting(this.project_id, this.zone_id, {
+    this.zoneService.updateSetting(this.zone_id, {
       setting: JSON.stringify(this.setting)
     }).subscribe(() => {
       this.notificationService.showMessage('Setting updated!');
@@ -102,7 +102,7 @@ export class ZoneSettingSummaryComponent implements DoCheck {
     this.notificationService.confirmBox({
       content: 'Do you want to remove this Camera?'
     }, () => {
-      this.zoneService.unAssignQuickViewCamera(this.project_id, this.zone_id, camera.camera_id)
+      this.zoneService.unAssignQuickViewCamera(this.zone_id, camera.camera_id)
       .subscribe((data) => {
         this.notificationService.showMessage('Remove camera successfully!');
         this.reloadZone();

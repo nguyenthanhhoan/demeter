@@ -26,7 +26,6 @@ import { ZoneSettingModule } from './setting/zone-setting.module';
 import { ZoneFormComponent } from '../shared/zone-form/zone-form.component';
 import { SensorDataChartComponent } from '../shared/sensor-data-chart/sensor-data-chart.component';
 
-import { ZoneListComponent } from './list/zone-list.component';
 import { ZoneFormComponent as ZoneAddFormComponent } from './form/zone-form.component';
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
 import { ZoneHistoryComponent } from './history/zone-history.component';
@@ -116,7 +115,6 @@ import {
     ZoneFormComponent,
     SensorDataChartComponent,
 
-    ZoneListComponent,
     ZoneAddFormComponent,
     ZoneSummaryComponent,
     ZoneHistoryComponent,

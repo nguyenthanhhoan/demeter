@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 
 import { AppUtils } from '../../../../app.utils';
 
-import { ZoneService } from '../../../../core/services/zone.service';
 import { NotificationService } from '../../../../shared/utils/notification.service';
 import { OkrService } from '../../../../core/services/okr.service';
 import { OkrObjectiveService } from '../../../../core/services/okr-objective.service';
@@ -33,7 +32,6 @@ export class ZoneOKRComponent implements OnInit {
   constructor(private router: Router,
               private store: Store<any>,
               private route: ActivatedRoute,
-              private zoneService: ZoneService,
               private okrService: OkrService,
               private notificationService: NotificationService,
               private okrObjectiveService: OkrObjectiveService) {

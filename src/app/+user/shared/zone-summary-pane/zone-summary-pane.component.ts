@@ -1,8 +1,7 @@
 import { Component, OnInit, DoCheck, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { AppSettings } from '../../../app.settings';
-import { ZoneService } from '../../../core/services/zone.service';
 
 declare var moment: any;
 
@@ -14,17 +13,16 @@ declare var moment: any;
 export class ZoneSummaryPaneComponent implements OnInit, DoCheck {
 
   @Input()
-  zone: any
+  zone: any;
 
-  oldZone: any = {}
+  oldZone: any = {};
 
-  //'list' or 'detail' page
+  // 'list' or 'detail' page
   @Input()
   mode: string;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private zoneService: ZoneService) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -56,7 +54,7 @@ export class ZoneSummaryPaneComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
+    if (this.zone && this.zone.id && this.oldZone.id !== this.zone.id) {
       this.calculateProgress();
       this.oldZone = this.zone;
     }

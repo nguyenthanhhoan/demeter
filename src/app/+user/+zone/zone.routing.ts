@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserLayoutComponent } from '../shared/layout/user-layout/user-layout.component';
-import { ZoneListComponent } from './list/zone-list.component';
 import { ZoneFormComponent } from './form/zone-form.component';
 import { ZoneComponent } from './zone.component';
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
@@ -20,13 +19,10 @@ export const routes: Routes = [{
   path: '',
   component: UserLayoutComponent,
   children: [{
-    path: ':id',
-    component: ZoneListComponent,
-  }, {
-      path: ':id/zone/new',
+      path: 'new',
       component: ZoneFormComponent
   }, {
-    path: ':project_id/zone/:id',
+    path: ':id',
     component: ZoneComponent,
     children: [{
       path: '', redirectTo: 'summary', pathMatch: 'full'

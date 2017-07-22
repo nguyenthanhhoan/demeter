@@ -6,7 +6,6 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
-import { ZoneService } from '../../../../core/services/zone.service';
 
 @Component({
   selector: 'zone-setting-environment',
@@ -31,8 +30,7 @@ export class ZoneSettingEnvironmentComponent implements DoCheck, OnInit {
 
   constructor(private store: Store<any>,
               private notificationService: NotificationService,
-              private deviceFieldService: DeviceFieldService,
-              private zoneService: ZoneService) {
+              private deviceFieldService: DeviceFieldService) {
 
   }
 

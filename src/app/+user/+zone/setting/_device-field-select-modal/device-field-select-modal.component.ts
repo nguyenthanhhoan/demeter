@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { ModalDirective } from 'ng2-bootstrap';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
-import { ZoneService } from '../../../../core/services/zone.service';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
 
 @Component({
@@ -29,7 +28,6 @@ export class DeviceFieldSelectModalComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
-              private zoneService: ZoneService,
               private deviceFieldService: DeviceFieldService) {
 
   }

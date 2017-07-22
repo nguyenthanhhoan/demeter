@@ -14,7 +14,6 @@ import { ISubscription } from 'rxjs/Subscription';
 export class ZoneComponent implements OnInit, OnDestroy {
 
   private routerSubscription: ISubscription;
-  private projectId: number;
   private zoneId: number;
   private lastZoneId: number;
   private zone: any;
@@ -35,22 +34,21 @@ export class ZoneComponent implements OnInit, OnDestroy {
   handleRouteParam(event) {
     if (event instanceof NavigationEnd) {
       this.zoneId = +this.route.snapshot.params['id'];
-      this.projectId = +this.route.snapshot.params['project_id'];
 
       this.store.dispatch(new IdPopulatedAction({
-        zoneId: this.zoneId,
-        projectId: this.projectId
+        zoneId: this.zoneId
       }));
-      if (this.zoneId && this.projectId &&
+      if (this.zoneId &&
         (typeof this.lastZoneId === 'undefined' || this.lastZoneId !== this.zoneId)) {
-        this.lastZoneId = this.zoneId;
-        this.loadZoneDetail();
+
+          this.lastZoneId = this.zoneId;
+          this.loadZoneDetail();
       }
     }
   }
 
   loadZoneDetail() {
-    this.zoneService.getOne(this.projectId, this.zoneId).subscribe(data => {
+    this.zoneService.getOne(this.zoneId).subscribe(data => {
       this.zone = data;
       this.store.dispatch(new LoadedAction(data));
     });

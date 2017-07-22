@@ -48,8 +48,8 @@ export class ZoneFormComponent implements OnInit, DoCheck {
         { id: 9, name: 'Strawberry'},
         { id: 10, name: 'Melon'}
       ]
-    }, { 
-      id: 2, 
+    }, {
+      id: 2,
       name: 'Vegetable',
       varieties: [
         { id: 1, name: 'Carrot'},
@@ -166,11 +166,11 @@ export class ZoneFormComponent implements OnInit, DoCheck {
       this.transformSubmitZone(submitZone);
 
       if (this.type === 'edit') {
-        this.zoneService.put(this.project_id, submitZone).subscribe(data => {
+        this.zoneService.put(submitZone).subscribe(data => {
           this.router.navigate([`/user/project/${this.project_id}`]);
         });
       } else {
-        this.zoneService.post(this.project_id, submitZone).subscribe(data => {
+        this.zoneService.post(submitZone).subscribe(data => {
           this.router.navigate([`/user/project/${this.project_id}`]);
         });
       }
@@ -198,7 +198,7 @@ export class ZoneFormComponent implements OnInit, DoCheck {
       if (fileList.length > 0) {
         submitImage = fileList[0];
       }
-      this.zoneService.updateImage(this.project_id, this.zone_id, submitImage)
+      this.zoneService.updateImage(this.zone_id, submitImage)
       .subscribe((image) => {
         this.zone.image = image;
         this.notificationService.showMessage('Change image successfully!');

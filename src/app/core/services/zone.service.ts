@@ -7,11 +7,12 @@ import { ApiService } from '../api/api.service';
 
 @Injectable()
 export class ZoneService {
+  private resourceUrl = 'user/zones';
 
   constructor (private apiService: ApiService) {}
 
   getList (project_id): Observable<any[]> {
-    return this.apiService.fetch(`projects/${project_id}/zones`);
+    return this.apiService.fetch(`${this.resourceUrl}?project_id=${project_id}`);
   }
 
   buildFormData(zone) {
@@ -43,53 +44,53 @@ export class ZoneService {
     return formData;
   }
 
-  post (project_id, zone): Observable<any[]> {
+  post (zone): Observable<any[]> {
     let formData: FormData = this.buildFormData(zone);
-    return this.apiService.postFormData(`projects/${project_id}/zones`, formData);
+    return this.apiService.postFormData(`${this.resourceUrl}`, formData);
   }
 
-  put (project_id, zone): Observable<any[]> {
+  put (zone): Observable<any[]> {
     let formData: FormData = this.buildFormData(zone);
-    return this.apiService.putFormData(`projects/${project_id}/zones/${zone.id}`, formData);
+    return this.apiService.putFormData(`${this.resourceUrl}/${zone.id}`, formData);
   }
 
-  updateImage (project_id, zone_id, image): Observable<any> {
+  updateImage (zone_id, image): Observable<any> {
     let formData: FormData = new FormData();
     formData.append('zone[image]', image);
     return this.apiService
-            .putFormData(`projects/${project_id}/zones/${zone_id}/update_image`, formData);
+            .putFormData(`${this.resourceUrl}/${zone_id}/update_image`, formData);
   }
 
-  getOne (project_id, id): Observable<any> {
-    return this.apiService.fetch(`projects/${project_id}/zones/${id}`);
+  getOne (id): Observable<any> {
+    return this.apiService.fetch(`${this.resourceUrl}/${id}`);
   }
 
-  updateSetting(project_id, id, setting): Observable<any> {
-    return this.apiService.post(`projects/${project_id}/zones/${id}/setting`, setting);
+  updateSetting(id, setting): Observable<any> {
+    return this.apiService.post(`${this.resourceUrl}/${id}/setting`, setting);
   }
 
-  assignCamera(project_id, zone_id, camera_id): Observable<any> {
-    return this.apiService.post(`projects/${project_id}/zones/${zone_id}/assign_camera`, {
+  assignCamera(zone_id, camera_id): Observable<any> {
+    return this.apiService.post(`${this.resourceUrl}/${zone_id}/assign_camera`, {
       camera_id: camera_id
     });
   }
 
-  unAssignCamera(project_id, zone_id, camera_id): Observable<any> {
-    return this.apiService.post(`projects/${project_id}/zones/${zone_id}/unassign_camera`, {
+  unAssignCamera(zone_id, camera_id): Observable<any> {
+    return this.apiService.post(`${this.resourceUrl}/${zone_id}/unassign_camera`, {
       camera_id: camera_id
     });
   }
 
-  assignQuickViewCamera(project_id, zone_id, camera_id): Observable<any> {
+  assignQuickViewCamera(zone_id, camera_id): Observable<any> {
     return this.apiService
-      .post(`projects/${project_id}/zones/${zone_id}/assign_quick_view_camera`, {
+      .post(`${this.resourceUrl}/${zone_id}/assign_quick_view_camera`, {
       camera_id: camera_id
     });
   }
 
-  unAssignQuickViewCamera(project_id, zone_id, camera_id): Observable<any> {
+  unAssignQuickViewCamera(zone_id, camera_id): Observable<any> {
     return this.apiService
-      .post(`projects/${project_id}/zones/${zone_id}/unassign_quick_view_camera`, {
+      .post(`${this.resourceUrl}/${zone_id}/unassign_quick_view_camera`, {
       camera_id: camera_id
     });
   }

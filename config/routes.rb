@@ -2,18 +2,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   
   # TODO: Move to namespace /user
-  resources :projects do
-    resources :zones do
-      member do
-        post 'setting' => 'zones#update_setting'
-        post 'assign_camera' => 'zones#assign_camera'
-        post 'unassign_camera' => 'zones#unassign_camera'
-        post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
-        post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
-        put 'update_image' => 'zones#update_image'
-      end
-    end
-  end
+  resources :projects
   resources :cameras
 
   get '/current_user' => 'profile#get_current_user'
@@ -30,6 +19,16 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
+    resources :zones do
+      member do
+        post 'setting' => 'zones#update_setting'
+        post 'assign_camera' => 'zones#assign_camera'
+        post 'unassign_camera' => 'zones#unassign_camera'
+        post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
+        post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
+        put 'update_image' => 'zones#update_image'
+      end
+    end
     resources :okrs do
       collection do
         post 'update_batch' => 'okrs#update_batch'

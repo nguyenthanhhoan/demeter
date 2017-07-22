@@ -23,6 +23,7 @@ export class ZoneSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   zone_id: number;
   cameraQuickViews = [];
   private viewSubscription: ISubscription;
+  private storeSubscription: ISubscription;
 
   @ViewChildren('environmentChart')
   private environmentChart;
@@ -34,24 +35,20 @@ export class ZoneSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    let needToLoad = true;
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (needToLoad);
-    })
+    this.storeSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      if (zoneModel.loaded) {
+      if (zoneModel.zone && zoneModel.zone.id) {
         this.zone = zoneModel.zone;
         this.project = this.zone.project;
         this.setting = this.zone.setting;
         this.buildCameraQuickView();
-        needToLoad = false;
       }
     });
   }
 
   ngOnDestroy() {
     this.viewSubscription.unsubscribe();
+    this.storeSubscription.unsubscribe();
   }
 
   buildCameraQuickView() {

@@ -23,22 +23,12 @@ export const routes: Routes = [
     },
     {
         path: 'user',
-        children: [
-            {
-                path: '', redirectTo: 'project', pathMatch: 'full'
-            }, {
-                path: 'project',
-                component: UserLayoutProjectListComponent,
-                children: [{
-                    path: '',
-                    component: ProjectListComponent
-                }, {
-                    path: 'new', component: ProjectFormComponent
-                }]
-            }, {
-                path: 'project',
-                loadChildren:
-                    'app/+user/+zone/zone.module#ZoneModule'
+        children: [{
+            path: '', redirectTo: 'project', pathMatch: 'full'
+        }, {
+            path: 'project',
+            loadChildren:
+                'app/+user/+project/project.module#ProjectModule',
         }],
         canActivate: [AuthGuard]
     },

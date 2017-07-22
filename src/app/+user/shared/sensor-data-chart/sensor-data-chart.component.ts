@@ -6,7 +6,6 @@ import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { NotificationService } from '../../../shared/utils/notification.service';
-import { ZoneService } from '../../../core/services/zone.service';
 import { SensorDataService } from '../../../core/services/sensor-data.service';
 import { DeviceFieldService } from '../../../core/services/device-field-service';
 

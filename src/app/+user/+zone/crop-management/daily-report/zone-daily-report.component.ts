@@ -5,7 +5,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import * as Chartist from 'chartist';
 
 import { AppSettings } from '../../../../app.settings';
-import { ZoneService } from '../../../../core/services/zone.service';
+import {  } from '../../../../core/services/zone.service';
 
 declare var moment: any;
 @Component({
@@ -27,8 +27,7 @@ export class ZoneDailyReportComponent implements OnInit {
   };
   path: string;
 
-  constructor(private store: Store<any>,
-              private zoneService: ZoneService) {
+  constructor(private store: Store<any>) {
 
   }
 

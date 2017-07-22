@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { CameraService } from '../../../core/services/camera.service';
-import { ZoneService } from '../../../core/services/zone.service';
 
 @Component({
   templateUrl: './zone-camera.component.html',
@@ -13,8 +12,7 @@ export class ZoneCameraComponent implements OnInit {
   cameras: any[] = [];
 
   constructor(private store: Store<any>,
-              private cameraService: CameraService,
-              private zoneService: ZoneService) {
+              private cameraService: CameraService) {
 
   }
 
