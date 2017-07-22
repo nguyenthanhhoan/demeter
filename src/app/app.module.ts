@@ -8,19 +8,20 @@ import { Angular2TokenService, A2tUiModule } from 'angular2-token';
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { routing } from './app.routing'
+import { routing } from './app.routing';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
 // Core providers
-import {CoreModule} from "./core/core.module";
-import {AdminLayoutModule} from "./+admin/shared/layout/layout.module";
-import {UserLayoutModule} from "./+user/shared/layout/layout.module";
+import { CoreModule } from './core/core.module';
+import { AdminLayoutModule } from './+admin/shared/layout/layout.module';
+import { UserLayoutModule } from './+user/shared/layout/layout.module';
 import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
 import { zoneReducer } from './core/reducers/zone-reducer';
+import { projectReducer } from './core/reducers/project-reducer';
 
 // Application modules
 import { UserModule } from './+user/user.module';
@@ -49,7 +50,7 @@ type StoreType = {
   declarations: [
     AppComponent,
   ],
-  imports: [ // import Angular's modules
+  imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -60,9 +61,8 @@ type StoreType = {
     UserLayoutModule,
     routing,
 
-    StoreModule.provideStore({ zone: zoneReducer }),
+    StoreModule.provideStore({ zone: zoneReducer, project: projectReducer }),
 
-    //user modules
     UserModule
   ],
   exports: [

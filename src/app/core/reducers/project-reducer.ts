@@ -1,46 +1,42 @@
-import * as zone from '../actions/zone-action';
+import * as project from '../actions/project-action';
 
 export interface State {
   loaded: boolean;
   loading: boolean;
-  zoneId;
   projectId;
-  zone: {};
+  project: {};
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
-  zoneId: undefined,
   projectId: undefined,
-  zone: {}
+  project: {}
 };
 
-export function zoneReducer(state = initialState, action: zone.Actions): State {
+export function projectReducer(state = initialState, action: project.Actions): State {
   switch (action.type) {
-    case zone.RESET: {
+    case project.RESET: {
       return Object.assign({}, state, {
         loaded: false,
         loading: false,
-        zone: {}
+        project: {}
       });
     }
 
-    case zone.LOADED: {
-      const zone = action.payload;
+    case project.LOADED: {
+      const project = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        zone: zone
+        project: project
       });
     }
 
-    case zone.ID_POPULATED: {
-      const { zoneId } = action.payload;
+    case project.ID_POPULATED: {
       const { projectId } = action.payload;
       return Object.assign({}, state, {
-        zoneId: zoneId,
-        projectId: projectId,
+        projectId: projectId
       });
     }
 

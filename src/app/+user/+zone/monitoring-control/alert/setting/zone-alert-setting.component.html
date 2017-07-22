@@ -19,7 +19,7 @@
 <div class="smart-form dmt-table">
   <div *ngFor="let alert_rule of alert_rules; let i = index;" class="dmt-tr">
     <section class="name">
-      <span class="icon-dmt" [ngClass]="alert_rule.device_field.icon"></span>
+      <span class="icon-dmt" [ngClass]="alert_rule.device_field.icon ? alert_rule.device_field.icon : 'dmt-no-icon'"></span>
       <span class="text">
         <a routerLink="{{alert_rule.id}}">
           {{alert_rule.name}}

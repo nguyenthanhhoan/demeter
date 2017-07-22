@@ -1,29 +1,30 @@
-import { LoadedAction, IdPopulatedAction, ResetAction } from '../../core/actions/zone-action';
-import { ZoneService } from '../../core/services/zone.service';
-
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { ISubscription } from 'rxjs/Subscription';
 
+import { LoadedAction, IdPopulatedAction, ResetAction } from '../../core/actions/project-action';
+import { ProjectService } from '../../core/services/project.service';
+
 @Component({
-  selector: 'zone-component',
+  selector: 'project-component',
   template: '<router-outlet></router-outlet>',
 })
-export class ZoneComponent implements OnInit, OnDestroy {
+export class ProjectComponent implements OnInit, OnDestroy {
 
   private routerSubscription: ISubscription;
-  private zoneId: number;
-  private lastZoneId: number;
-  private zone: any;
+  private lastProjectId: number;
+  private projectId: number;
+  private project: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private zoneService: ZoneService,
+              private projectService: ProjectService,
               private store: Store<any>) { }
 
   ngOnInit() {
+    // Clear previous data
     this.store.dispatch(new ResetAction());
     this.subscribeRouterEvent();
   }
@@ -34,23 +35,23 @@ export class ZoneComponent implements OnInit, OnDestroy {
 
   handleRouteParam(event) {
     if (event instanceof NavigationEnd) {
-      this.zoneId = +this.route.snapshot.params['id'];
+      this.projectId = +this.route.snapshot.params['id'];
 
       this.store.dispatch(new IdPopulatedAction({
-        zoneId: this.zoneId
+        projectId: this.projectId
       }));
-      if (this.zoneId &&
-        (typeof this.lastZoneId === 'undefined' || this.lastZoneId !== this.zoneId)) {
+      if (this.projectId &&
+        (typeof this.lastProjectId === 'undefined' || this.lastProjectId !== this.projectId)) {
 
-          this.lastZoneId = this.zoneId;
+          this.lastProjectId = this.projectId;
           this.loadZoneDetail();
       }
     }
   }
 
   loadZoneDetail() {
-    this.zoneService.getOne(this.zoneId).subscribe(data => {
-      this.zone = data;
+    this.projectService.getOne(this.projectId).subscribe(data => {
+      this.project = data;
       this.store.dispatch(new LoadedAction(data));
     });
   }

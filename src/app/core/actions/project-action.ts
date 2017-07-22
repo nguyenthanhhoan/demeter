@@ -1,9 +1,8 @@
 import { Action } from '@ngrx/store';
 
 export const RESET =  '[Project] Reset';
-export const ID_POPULATED =  '[Zone] ID_POPULATED';
-export const LOADED =  '[Zone] Loaded';
-
+export const ID_POPULATED =  '[Project] ID_POPULATED';
+export const LOADED =  '[Project] Loaded';
 
 export class ResetAction implements Action {
   readonly type = RESET;

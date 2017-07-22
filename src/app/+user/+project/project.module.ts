@@ -14,6 +14,7 @@ import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-
 
 import { routing } from './project.routing';
 
+import { ProjectComponent } from './project.component';
 import { ProjectFormComponent } from './form/project-form.component';
 import { ProjectListComponent } from './list/project-list.component';
 import { ProjectSummaryComponent } from './summary/project-summary.component';
@@ -34,6 +35,7 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
     routing
   ],
   declarations: [
+    ProjectComponent,
     ProjectFormComponent,
     ProjectListComponent,
     ProjectSummaryComponent

@@ -48,6 +48,7 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
       if (zoneModel.zone && zoneModel.zone.id) {
         this.zoneId = zoneModel.zone.id;
         this.projectId = zoneModel.zone.project.id;
+        this.fetchListDevice();
       }
     });
     this.initCron();

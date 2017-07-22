@@ -2,6 +2,13 @@
   <a routerLink="/user/project">
     <i ng-reflect-class-name="fa-fw fa fa-home" class="fa-fw fa fa-home"></i>Home
   </a>
+  
+  <span *ngIf="project.id">
+    <a routerLink="/user/project/{{project.id}}"> > {{project.name}}</a>
+  </span>
+  <span *ngIf="zone.id">
+    <a routerLink="/user/project/{{project.id}}/zone/{{zone.id}}"> > {{zone.name}}</a>
+  </span>
   <span *ngFor="let resource of resources">
     <a routerLink="/user/{{resource.path}}"> > {{resource.name}}</a>
   </span>
