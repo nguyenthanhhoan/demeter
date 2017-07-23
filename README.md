@@ -92,6 +92,41 @@ Date::DATE_FORMATS[:default]="%m/%d/%Y"
 Time::DATE_FORMATS[:default]="%m/%d/%Y %H:%M"
 ```
 
+2. Proper way to dealing with `ngrx/store`
+
+```
+/* should avoid */
+this.store.select('project')
+.takeWhile((projectModel: any) => {
+    return (!projectModel.loaded);
+})
+.subscribe((projectModel) => {
+    if (projectModel.loaded) {
+    this.project = projectModel.project;
+    }
+});
+```
+
+The subcribe method won't called when project has loaded
+
+```
+/* recommended */
+
+/* clear state */
+this.store.dispatch(new LoadedAction({}));
+this.store.select('project')
+.takeWhile((projectModel: any) => {
+    return (typeof this.project.id === 'undefined');
+})
+.subscribe((projectModel) => {
+    if (projectModel.project && projectModel.project.id) {
+    this.project = projectModel.project;
+    }
+});
+```
+
+Use internal variable to check
+
 ## References
 
 1. Install Node

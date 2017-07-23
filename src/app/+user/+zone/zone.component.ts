@@ -1,4 +1,5 @@
 import { LoadedAction, IdPopulatedAction, ResetAction } from '../../core/actions/zone-action';
+import { LoadedAction as ProjectLoadedAction } from '../../core/actions/project-action';
 import { ZoneService } from '../../core/services/zone.service';
 
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
@@ -52,6 +53,7 @@ export class ZoneComponent implements OnInit, OnDestroy {
     this.zoneService.getOne(this.zoneId).subscribe(data => {
       this.zone = data;
       this.store.dispatch(new LoadedAction(data));
+      this.store.dispatch(new ProjectLoadedAction(data.project));
     });
   }
 

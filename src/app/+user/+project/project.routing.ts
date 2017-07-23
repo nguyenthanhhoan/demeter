@@ -6,8 +6,9 @@ import {
 import { UserLayoutComponent } from '../shared/layout/user-layout/user-layout.component';
 import { ProjectComponent } from './project.component';
 import { ProjectListComponent } from './list/project-list.component';
-import { ProjectFormComponent } from './form/project-form.component';
+import { ProjectNewComponent } from './project-new/project-new.component';
 import { ProjectSummaryComponent } from './summary/project-summary.component';
+import { ProjectSettingComponent } from './setting/project-setting.component';
 
 export const routes: Routes = [{
   path: '',
@@ -17,7 +18,7 @@ export const routes: Routes = [{
     component: ProjectListComponent,
   }, {
     path: 'new',
-    component: ProjectFormComponent
+    component: ProjectNewComponent
   }]
 }, {
   path: ':id',
@@ -28,6 +29,9 @@ export const routes: Routes = [{
     children: [{
       path: '',
       component: ProjectSummaryComponent,
+    }, {
+      path: 'setting',
+      component: ProjectSettingComponent,
     }]
   }]
 }, {

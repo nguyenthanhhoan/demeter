@@ -1,20 +1,20 @@
 .project-image-holder {
   border: 1px solid #ccc;
-  height: 142px;
-  width: 53.33333333%;
+  height: 207px;
+  width: 207px;
   background-color: #fff;
-  margin: auto 0 auto auto;
+  margin: 0 auto;
   position: relative;
 }
 
 .img-wrap {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   top: 50%;
   left: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
+  margin-top: -70px;
+  margin-left: -70px;
   cursor: pointer;
 }
 
@@ -24,11 +24,11 @@
 }
 
 .upload-plus-icon {
-  width: 50px;
-  height: 50px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
   display: block;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .col-padding-map {
@@ -43,11 +43,6 @@
   margin-top: 20px;
 }
 
-.form-group-height {
-  height: 47px;
-}
-
-.form-group .control-label {
-  padding-left: 0;
-  padding-right: 0;
+.demeter-btn.danger {
+  margin-left: 10px;
 }

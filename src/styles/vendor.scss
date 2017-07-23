@@ -76,3 +76,11 @@
     background-color: $background-color;
   }
 }
+
+/**
+ * The z-index of datepicker to high: 2000
+ * Need !important to override
+ **/
+.input-group .form-control {
+  z-index: 1 !important;
+}

@@ -12,7 +12,6 @@ import { ZoneService } from '../../../core/services/zone.service';
 export class ZoneSettingComponent implements OnInit {
 
   zone: any = {};
-  zone_id: number;
 
   public state: any = {
     tabs: {
@@ -20,32 +19,19 @@ export class ZoneSettingComponent implements OnInit {
     }
   };
 
-  constructor(private store: Store<any>,
-              private router: Router,
-              private route: ActivatedRoute,
-              private zoneService: ZoneService) {
+  constructor(private store: Store<any>) {
 
   }
 
   ngOnInit() {
-    let needToLoad = true;
     this.store.select('zone')
     .takeWhile(() => {
-      return (needToLoad);
+      return (typeof this.zone.id === 'undefined');
     })
     .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
-        this.zone = zoneModel.zone;
-        this.zone_id = zoneModel.zoneId;
-        needToLoad = false;
+        this.zone = Object.assign({}, zoneModel.zone);;
       }
-    });
-  }
-
-  loadZone() {
-    this.zoneService.getOne(this.zone_id)
-    .subscribe((zone) => {
-      this.zone = zone;
     });
   }
 }

@@ -10,7 +10,7 @@ export class ResetAction implements Action {
 
 export class LoadedAction implements Action {
   readonly type = LOADED;
-  constructor(public payload: {}) { }
+  constructor(public payload: any) { }
 }
 
 export class IdPopulatedAction implements Action {

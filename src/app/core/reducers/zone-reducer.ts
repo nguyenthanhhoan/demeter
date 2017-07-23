@@ -5,7 +5,7 @@ export interface State {
   loading: boolean;
   zoneId;
   projectId;
-  zone: {};
+  zone: any;
 };
 
 const initialState: State = {
@@ -31,7 +31,9 @@ export function zoneReducer(state = initialState, action: zone.Actions): State {
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        zone: zone
+        zone: zone,
+        zoneId: zone.id,
+        projectId: zone.project.id
       });
     }
 

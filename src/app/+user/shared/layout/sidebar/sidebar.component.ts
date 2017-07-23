@@ -34,6 +34,9 @@ export class SidebarComponent implements OnInit {
     if (project_id && zone_id) {
       url += `/project/${project_id}/zone/${zone_id}`;
       this.router.navigate([`${url}/${name}`]);
+    } else if (name === 'setting') {
+      url += `/project/${project_id}`;
+      this.router.navigate([`${url}/${name}`]);
     } else {
       url += `/project/${project_id}`;
       alert ('This page is implementing!');

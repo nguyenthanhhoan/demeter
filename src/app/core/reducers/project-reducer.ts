@@ -29,7 +29,8 @@ export function projectReducer(state = initialState, action: project.Actions): S
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        project: project
+        project: project,
+        projectId: project.id
       });
     }
 

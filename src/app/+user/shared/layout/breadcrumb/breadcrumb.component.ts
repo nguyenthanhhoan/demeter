@@ -1,3 +1,4 @@
+import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,6 +16,9 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   resources: any[];
   project: any = {};
   zone: any = {};
+
+  private projectSubscription: ISubscription;
+  private zoneSubscription: ISubscription;
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<any>) {
@@ -28,22 +32,16 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(new ProjectResetAction());
-    this.store.select('project')
-    .takeWhile((projectModel: any) => {
-      return (typeof this.project.id === 'undefined');
-    })
-    .subscribe((projectModel) => {
+    this.projectSubscription = this.store.select('project')
+    .subscribe((projectModel: any) => {
       if (projectModel.project && projectModel.project.id) {
         this.project = projectModel.project;
       }
     });
 
     this.store.dispatch(new ResetAction());
-    this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
-      return (typeof this.zone.id === 'undefined');
-    })
-    .subscribe((zoneModel) => {
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
       if (zoneModel.zone && zoneModel.zone.id) {
         this.zone = zoneModel.zone;
         this.project = zoneModel.zone.project;
@@ -52,7 +50,8 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.projectSubscription.unsubscribe();
+    this.zoneSubscription.unsubscribe();
   }
 
   update() {

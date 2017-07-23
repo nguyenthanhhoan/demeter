@@ -28,4 +28,5 @@ export const routes: Routes = [{
   path: '**', redirectTo: 'miscellaneous/error404',
 }];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true, enableTracing: true });
+export const routing: ModuleWithProviders =
+  RouterModule.forRoot(routes, { useHash: true, enableTracing: true });

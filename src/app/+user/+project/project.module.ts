@@ -14,10 +14,12 @@ import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-
 
 import { routing } from './project.routing';
 
+import { ProjectFormComponent } from './_shared/project-form/project-form.component';
 import { ProjectComponent } from './project.component';
-import { ProjectFormComponent } from './form/project-form.component';
 import { ProjectListComponent } from './list/project-list.component';
+import { ProjectNewComponent } from './project-new/project-new.component';
 import { ProjectSummaryComponent } from './summary/project-summary.component';
+import { ProjectSettingComponent } from './setting/project-setting.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 
 @NgModule({
@@ -38,7 +40,9 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
     ProjectComponent,
     ProjectFormComponent,
     ProjectListComponent,
-    ProjectSummaryComponent
+    ProjectNewComponent,
+    ProjectSummaryComponent,
+    ProjectSettingComponent
   ]
 })
 export class ProjectModule { }

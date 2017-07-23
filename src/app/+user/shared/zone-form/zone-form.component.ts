@@ -30,7 +30,6 @@ export class ZoneFormComponent implements OnInit, DoCheck {
 
   oldZone: any = {};
   project_id;
-  zone_id;
 
   plants = [
     {
@@ -64,8 +63,8 @@ export class ZoneFormComponent implements OnInit, DoCheck {
         { id: 10, name: 'Eggplant'},
         { id: 10, name: 'Cabbagge'}
       ]
-    }, { 
-      id: 3, 
+    }, {
+      id: 3,
       name: 'Flower',
       varieties: [
         { id: 1, name: 'Rose'},
@@ -74,8 +73,8 @@ export class ZoneFormComponent implements OnInit, DoCheck {
         { id: 4, name: 'Sunflower'},
         { id: 5, name: 'Orchid'}
       ]
-    }, { 
-      id: 4, 
+    }, {
+      id: 4,
       name: 'Industrial Plant',
       varieties: [
         { id: 1, name: 'Coffee'},
@@ -85,7 +84,7 @@ export class ZoneFormComponent implements OnInit, DoCheck {
         { id: 5, name: 'Cotton'},
         { id: 5, name: 'Soybean'}
       ]},
-    { id: 5, 
+    { id: 5,
       name: 'Other',
       varieties: []
     }
@@ -95,7 +94,7 @@ export class ZoneFormComponent implements OnInit, DoCheck {
   production_types = ['conventinal', 'organic', 'intergrated'];
   surface_units = ['m2', 'ha'];
   zone_types = ['greenhouse', 'orchard', 'field crop', 'special'];
-  growing_condition_types = ['soil', 'medium', 'hydroponic', 'aeroponic', 'aquaponic', 'other']
+  growing_condition_types = ['soil', 'medium', 'hydroponic', 'aeroponic', 'aquaponic', 'other'];
   ownership_types = ['private', 'contract farming', 'rent'];
 
   validatorOptions = {
@@ -122,7 +121,7 @@ export class ZoneFormComponent implements OnInit, DoCheck {
         }
       }
     }
-  }
+  };
   constructor(private store: Store<any>,
               private ref: ChangeDetectorRef,
               private zoneService: ZoneService,
@@ -143,13 +142,14 @@ export class ZoneFormComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.store.select('zone')
+    this.store.select('project')
     .takeWhile(() => {
-      return (!this.zone_id);
+      return (typeof this.project_id === 'undefined');
     })
-    .subscribe((zoneModel: any) => {
-      this.zone_id = zoneModel.zoneId;
-      this.project_id = zoneModel.projectId;
+    .subscribe((projectModel: any) => {
+      if (projectModel.projectId) {
+        this.project_id = projectModel.projectId;
+      }
     });
   }
 
@@ -198,7 +198,7 @@ export class ZoneFormComponent implements OnInit, DoCheck {
       if (fileList.length > 0) {
         submitImage = fileList[0];
       }
-      this.zoneService.updateImage(this.zone_id, submitImage)
+      this.zoneService.updateImage(this.zone.id, submitImage)
       .subscribe((image) => {
         this.zone.image = image;
         this.notificationService.showMessage('Change image successfully!');
@@ -229,21 +229,21 @@ export class ZoneFormComponent implements OnInit, DoCheck {
   }
 
   transformZone() {
-    let plant = this.plants.find((plant) => {
-      return (plant.id === parseInt(this.zone.plant));
+    let plant = this.plants.find((each_plant) => {
+      return (each_plant.id === parseInt(this.zone.plant, 10));
     });
     this.zone.plant = plant;
 
     if (plant && plant.varieties) {
-      let plant_variety = plant.varieties.find((plant_variety) => {
-        return (plant_variety.id === parseInt(this.zone.plant_variety));
+      let plant_variety = plant.varieties.find((each_plant_variety) => {
+        return (each_plant_variety.id === parseInt(this.zone.plant_variety, 10));
       });
       this.zone.plant_variety = plant_variety;
     }
   }
 
   ngDoCheck() {
-    if (this.zone && this.zone.id && this.oldZone.id != this.zone.id) {
+    if (this.zone && this.zone.id && this.oldZone.id !== this.zone.id) {
       this.oldZone = this.zone;
       this.transformZone();
       this.ref.markForCheck();

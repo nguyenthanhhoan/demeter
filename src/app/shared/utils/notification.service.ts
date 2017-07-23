@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 declare var $: any;
 
@@ -9,24 +9,24 @@ export class NotificationService {
   }
 
   smallBox(data, cb?) {
-    $.smallBox(data, cb)
+    $.smallBox(data, cb);
   }
 
   bigBox(data, cb?) {
-    $.bigBox(data, cb)
+    $.bigBox(data, cb);
   }
 
   smartMessageBox(data, cb?) {
-    $.SmartMessageBox(data, cb)
+    $.SmartMessageBox(data, cb);
   }
 
   confirmBox(options, cb?) {
     this.smartMessageBox({
-      title: "Confirm!",
+      title: 'Confirm!',
       content: options.content,
       buttons: '[OK][Cancel]'
     }, (ButtonPressed) => {
-      if (ButtonPressed === "OK") {
+      if (ButtonPressed === 'OK') {
         cb();
       }
     });
@@ -37,9 +37,9 @@ export class NotificationService {
       this.bigBox({
         title: error.title,
         content: error.content,
-        color: "#C46A69",
-        icon: "fa fa-warning shake animated",
-        number: "1",
+        color: '#C46A69',
+        icon: 'fa fa-warning shake animated',
+        number: '1',
         timeout: 5000
       });
     });
@@ -49,7 +49,7 @@ export class NotificationService {
     setTimeout(() => {
       this.smallBox({
         title: msg,
-        color: "#296191",
+        color: '#296191',
         timeout: 4000
       });
     });
