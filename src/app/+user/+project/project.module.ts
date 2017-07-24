@@ -6,6 +6,7 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 import {
   SmartadminValidationModule
 } from '../../shared/forms/validation/smartadmin-validation.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { HeaderModule } from '../shared/layout/header/header.module';
 import { IntegrationModule } from '../../shared/integration/integration.module';
@@ -25,6 +26,7 @@ import { ProjectSummaryModule } from '../shared/project-summary/project-summary.
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     SmartadminModule,
     BsDropdownModule,
     SmartadminValidationModule,

@@ -1,9 +1,11 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { Angular2TokenService, A2tUiModule } from 'angular2-token';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -42,6 +44,11 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
+
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
@@ -57,6 +64,13 @@ type StoreType = {
 
     CoreModule,
     A2tUiModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    }),
     AdminLayoutModule,
     UserLayoutModule,
     routing,

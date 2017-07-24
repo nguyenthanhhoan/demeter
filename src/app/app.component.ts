@@ -1,6 +1,7 @@
-import { AppSettings } from './app.settings';
 import { Component, ViewContainerRef } from '@angular/core';
 import { Angular2TokenService } from 'angular2-token';
+import { TranslateService } from '@ngx-translate/core';
+import { AppSettings } from './app.settings';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ export class AppComponent {
   public title = 'app works!';
 
   public constructor(private viewContainerRef: ViewContainerRef,
+                    private translate: TranslateService,
                     private _tokenService: Angular2TokenService) {
     this._tokenService.init({
       apiBase:                    AppSettings.api,
@@ -48,5 +50,8 @@ export class AppComponent {
           }
       }
     });
+
+    translate.addLangs(['en', 'vi']);
+    translate.setDefaultLang('en');
   }
 }
