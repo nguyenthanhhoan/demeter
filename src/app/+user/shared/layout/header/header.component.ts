@@ -8,7 +8,7 @@ declare var $: any;
 @Component({
   selector: 'demeter-user-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
@@ -22,6 +22,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (window.innerWidth < 1000) {
+      this.isSidebarOpen = false;
+      $('.sidebar').removeClass('show');
+      $('.user-side').removeClass('side-bar-open');
+    } else {
+      $('.sidebar').addClass('show');
+      $('.user-side').addClass('side-bar-open');
+    }
   }
 
   logout(){

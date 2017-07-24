@@ -1,0 +1,65 @@
+.user-header {
+  height: 60px;
+  background-color: #40403D;
+  color: #E6E6E6;
+  display: flex;
+  display: -webkit-flex;
+}
+
+.button-group-right {
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.icon-button {
+  list-style: none;
+  display: inline-block;
+  padding: 19px 5px;
+  font-size: 16px;
+  color: #C0C0C0;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: #fff;
+}
+
+.back-btn {
+  height: 30px;
+  margin-left: 5px;
+  align-self: center;
+}
+
+.brand {
+  display: flex;
+  display: -webkit-flex;
+
+  .toogle {
+    font-size: 30px;
+    align-self: center;
+    margin-left: auto;
+    color: #ccc;
+  }
+
+  .toogle:hover {
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .brand {
+    .back-btn {
+      display: none;
+    }
+
+    .toogle {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .brand {
+    width: 250px;
+  }
+}

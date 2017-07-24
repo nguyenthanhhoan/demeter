@@ -1,37 +1,35 @@
 <header class="user-header">
 
   <div class="brand">
-    <a (click)="back()">
+    <a (click)="back()" class="back-btn">
       <img src="assets/img/cau-dat/icon/back.png" class="back-btn pull-left" />
     </a>
-    <a class="toogle pull-right" (click)="toggleSidebar()" *ngIf="hasSidebar">
+    <a class="toogle" (click)="toggleSidebar()" *ngIf="hasSidebar">
       <i class="fa {{ isSidebarOpen ? 'fa-chevron-left' : 'fa-chevron-right'}}"></i>
     </a>
   </div>
-  <div class="container-fluid">
-    <ul class="button-group-right pull-right">
-      <li class="icon-button">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </li>
-      <li class="icon-button">
-        <i class="fa fa-bell-o" aria-hidden="true"></i>
-      </li>
-      <li class="icon-button">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-      </li>
-      <li class="icon-button dropdown" dropdown>
-        <span class="dropdown-toggle" dropdownToggle>
-          <i class="fa fa-user" aria-hidden="true"></i>
-          <i class="fa fa-angle-down"></i> 
-        </span>
-        <ul class="dropdown-menu pull-right">
-          <li>
-            <a (click)="logout()">
-              <i class="fa fa-sign-out"></i>&nbsp; Logout
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+  <ul class="button-group-right">
+    <li class="icon-button">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </li>
+    <li class="icon-button">
+      <i class="fa fa-bell-o" aria-hidden="true"></i>
+    </li>
+    <li class="icon-button">
+      <i class="fa fa-comments-o" aria-hidden="true"></i>
+    </li>
+    <li class="icon-button dropdown" dropdown>
+      <span class="dropdown-toggle" dropdownToggle>
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <i class="fa fa-angle-down"></i> 
+      </span>
+      <ul class="dropdown-menu pull-right">
+        <li>
+          <a (click)="logout()">
+            <i class="fa fa-sign-out"></i>&nbsp; Logout
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </header>

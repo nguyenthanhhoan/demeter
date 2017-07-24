@@ -54,7 +54,7 @@ var data = {
 @Component({
   selector: 'app-project-summary',
   templateUrl: './project-summary.component.html',
-  styleUrls: ['./project-summary.component.css']
+  styleUrls: ['./project-summary.component.scss']
 })
 export class ProjectSummaryComponent implements OnInit {
   chart: Chart;
