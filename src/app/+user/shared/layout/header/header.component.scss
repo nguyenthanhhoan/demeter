@@ -48,28 +48,6 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .desktop-toogle {
-    display: none;
-  }
-  .mobile-toogle {
-    display: inline;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .desktop-toogle {
-    display: inline;
-  }
-  .mobile-toogle {
-    display: none;
-  }
-  .brand {
-    width: 250px;
-  }
-}
-
-
 .menu-header {
   transition: height 0.5s;
   -o-transition: height 0.5s;
@@ -80,9 +58,8 @@
   overflow: hidden;
   background-color: #40403D;
   color: #E6E6E6;
-  margin: 70px 10px 0 10px;
-  margin-top: 40px;
-  padding: 10px;
+  margin: 0 10px;
+  margin-top: 50px;
 
   .menu-group {
 
@@ -90,6 +67,7 @@
       font-size: 15px;
       display: flex;
       display: -webkit-flex;
+      margin-top: 10px;
     }
     img {
       width: 15px;
@@ -129,5 +107,44 @@
         color: #fff;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .desktop-toogle {
+    display: none;
+  }
+  .mobile-toogle {
+    display: inline;
+  }
+
+
+  /**
+   * In the mobile view,
+   * The header is not fixed anymore
+   **/
+  .menu-header {
+    margin-top: 10px;
+
+    &.open {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .desktop-toogle {
+    display: inline;
+  }
+  .mobile-toogle {
+    display: none;
+  }
+  .brand {
+    width: 250px;
+  }
+
+  .user-header {
+    position: fixed;
+    top: 0;
   }
 }
