@@ -1,6 +1,25 @@
-.sidebar .menu-group {
-  background-color: #F5F3EB;
-  margin-bottom: 5px;
+.sidebar {
+  width: 250px;
+  position: fixed;
+  overflow-y: scroll;
+  top: 60px;
+  bottom: 0;
+
+  left: -250px;
+  transition: left 0.5s;
+  -o-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -webkit-transition: left 0.5s;
+
+  &.show {
+    left: 0;
+    display: block;
+  }
+
+  .menu-group {
+    background-color: #F5F3EB;
+    margin-bottom: 5px;
+  }
 }
 
 .menu-group-title {

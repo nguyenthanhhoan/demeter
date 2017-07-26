@@ -10,3 +10,10 @@
   // To handle '.smart-form .toggle i:before' case: z-index 1
   z-index: 2;
 }
+
+.user-side.side-bar-open {
+
+  .user-content {
+    padding-left: 270px;
+  }
+}

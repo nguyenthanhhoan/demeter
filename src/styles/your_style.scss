@@ -91,7 +91,6 @@ body {
 }
 
 .user-side .user-main {
-  margin-top: 75px;
   min-height: calc( 100vh - 75px );
 }
 
@@ -99,36 +98,12 @@ body {
   padding-left: 0px;
 }
 
-.user-side .sidebar {
-  width: 250px;
-  position: fixed;
-  overflow-y: scroll;
-  top: 60px;
-  bottom: 0;
-
-  left: -250px;
-  transition: left 0.5s;
-  -o-transition: left 0.5s;
-  -moz-transition: left 0.5s;
-  -webkit-transition: left 0.5s;
-}
-
-.user-side .sidebar.show {
-  left: 0;
-  display: block;
-}
-
-
 .user-side .user-content {
   padding-left: 15px;
   transition: padding-left 0.5s;
   -o-transition: padding-left 0.5s;
   -moz-transition: padding-left 0.5s;
   -webkit-transition: padding-left 0.5s;
-}
-
-.user-side.side-bar-open .user-content {
-  padding-left: 270px;
 }
 
 .logo {
@@ -300,6 +275,7 @@ body {
   color: #fff;
   padding-top: 35px;
   padding-left: 40px;
+  margin-top: 40px;
 }
 
 .demeter-list-container {

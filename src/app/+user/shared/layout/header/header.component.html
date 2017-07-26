@@ -1,11 +1,13 @@
 <header class="user-header">
-
   <div class="brand">
-    <a (click)="back()" class="back-btn">
-      <img src="assets/img/cau-dat/icon/back.png" class="back-btn pull-left" />
-    </a>
-    <a class="toogle" (click)="toggleSidebar()" *ngIf="hasSidebar">
-      <i class="fa {{ isSidebarOpen ? 'fa-chevron-left' : 'fa-chevron-right'}}"></i>
+    <span class="dmt-logo">
+      <a routerLink="/user/project">
+        <img src="assets/img/cau-dat/logo.svg" alt="demeter" class="img-responsive">
+      </a>
+    </span>
+
+    <a class="desktop-toogle" (click)="toggleSidebar()" *ngIf="hasSidebar">
+      <i class="fa fa-reorder" aria-hidden="true"></i>
     </a>
   </div>
   <ul class="button-group-right">
@@ -31,5 +33,37 @@
         </li>
       </ul>
     </li>
+    <li class="icon-button mobile-toogle" 
+      (click)="toggleHeaderMenu()">
+      <i class="fa fa-reorder" aria-hidden="true"></i>
+    </li>
   </ul>
 </header>
+
+<div class="menu-header" [ngClass]="isHeaderMenuOpen ? 'open' : ''">
+  <ul>
+    <li class="menu-group">
+      <span class="menu-group-name">
+        <img src="assets/img/cau-dat/icon/monitor-control.png">
+        <span class="text">Monitoring &amp; Control</span>
+      </span>
+      <ul class="menu-list">
+        <li>
+          <a (click)="goToPage('summary')">Summary</a>
+        </li>
+        <li>
+          <a (click)="goToPage('history')">History</a>
+        </li>
+        <li>
+          <a (click)="goToPage('camera')">Camera</a>
+        </li>
+        <li>
+          <a (click)="goToPage('monitoring-control/alert')">Alert</a>
+        </li>
+        <li>
+          <a (click)="goToPage('monitoring-control/control')">Control</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
