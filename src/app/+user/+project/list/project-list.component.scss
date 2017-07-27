@@ -1,0 +1,33 @@
+.button-group {
+  display: flex;
+  display: -webkit-flex;
+  margin-top: 0;
+
+  .demeter-btn {
+    margin-left: auto;
+  }
+}
+
+.project-summary {
+  margin-top: 30px;
+  display: block;
+}
+
+.spinner-wrapper {
+  height: 100px;
+}
+
+.demeter-list-container {
+  background-color: #DFDFDF;
+  padding: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+  .demeter-list-container {
+    padding: 15px;
+  }
+
+  .project-summary {
+    margin-top: 15px;
+  }
+}

@@ -4,6 +4,10 @@
 
 .device-control-form {
   margin: 20px 30px 0;
+
+  @media only screen and (max-width: 768px) {
+    margin: 10px 15px 0;
+  }
 }
 
 .device-control {
@@ -18,10 +22,26 @@
     display: flex;
     min-height: 50px;
 
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+
+      > section {
+        border-right: none;
+      }
+    }
+
     > section {
       align-self: stretch;
       display: flex;
       align-items:center;
+      margin-bottom: 0;
+      border-right: 1px solid #ddd;
+      margin-right: 10px;
+      padding-right: 10px;
+
+      &:last-child {
+        border-right: none;
+      }
     }
   }
 
@@ -70,17 +90,6 @@
   .chart-loading-section {
     min-height: 100px;
     position: relative;
-  }
-}
-
-.device-control-form section {
-  margin-bottom: 0;
-  border-right: 1px solid #ddd;
-  margin-right: 10px;
-  padding-right: 10px;
-
-  &:last-child {
-    border-right: none;
   }
 }
 

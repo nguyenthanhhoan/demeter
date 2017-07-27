@@ -88,3 +88,9 @@
     width: 66%;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .project-summary {
+    padding: 15px;
+  }
+}
