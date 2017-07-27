@@ -8,7 +8,7 @@ declare var moment: any;
 @Component({
   selector: 'app-zone-summary-pane',
   templateUrl: './zone-summary-pane.component.html',
-  styleUrls: ['./zone-summary-pane.component.css']
+  styleUrls: ['./zone-summary-pane.component.scss']
 })
 export class ZoneSummaryPaneComponent implements OnInit, DoCheck {
 

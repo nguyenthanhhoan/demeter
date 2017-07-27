@@ -1,0 +1,19 @@
+.demeter-pane {
+  display: flex;
+  display: -webkit-flex;
+
+  .zone-image {
+    width: 150px;
+  }
+
+  .zone-info {
+    flex: 1;
+    margin-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .zone-info {
+    margin-left: 15px;
+  }
+}

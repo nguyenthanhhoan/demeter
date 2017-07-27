@@ -1,48 +1,46 @@
 <div class="demeter-pane">
-  <div class="row">
-    <div class="col-md-2 zone-image" *ngIf="mode == 'detail'">
-      <img class="img-responsive" 
-        src="{{zone.image?.thumb?.url || 'assets/img/cau-dat/cau-dat-farm.png'}}" />
-    </div>
+  <div class="zone-image" *ngIf="mode == 'detail'">
+    <img class="img-responsive" 
+      src="{{zone.image?.thumb?.url || 'assets/img/flat-icon/picture.svg'}}" />
+  </div>
 
-    <div class="col-md-2" *ngIf="mode == 'list'">
-      <a routerLink="zone/{{zone.id}}/summary">
-        <img class="img-responsive" src="{{zone.image?.thumb?.url || 'assets/img/cau-dat/tomato.png'}}" />
-      </a>
-      <button 
-        routerLink="zone/{{zone.id}}/summary"
-        class="demeter-btn detail-btn primary">Detail</button>
+  <div class="zone-image" *ngIf="mode == 'list'">
+    <a routerLink="zone/{{zone.id}}/summary">
+      <img class="img-responsive" src="{{zone.image?.thumb?.url || 'assets/img/flat-icon/picture.svg'}}" />
+    </a>
+    <button 
+      routerLink="zone/{{zone.id}}/summary"
+      class="demeter-btn detail-btn primary">Detail</button>
+  </div>
+  <div class="zone-info">
+    <a routerLink="zone/{{zone.id}}/summary" *ngIf="mode == 'list'">
+      <p class="demeter-title">{{zone.name}}</p>
+    </a>
+    <p class="demeter-title" *ngIf="mode == 'detail'">
+      {{zone.name}}
+    </p>
+    <div class="zone-status-group">
+      <span class="status-percent">{{zone.percent | number:'2.2-2'}}%</span>
+      <div class="green-bar-wrapper">
+        <div class="green-bar" [style.width]="zone.percent + '%'"></div>
+      </div>
+      <div class="date-time-wrapper">
+        <div class="start-date pull-left">
+          <p class="date-label">Start date</p>
+          <p>{{zone.start_date}}</p>
+        </div>
+        <div class="end-date pull-right">
+          <p class="date-label">End date</p>
+          <p>{{zone.end_date}}</p>
+        </div>
+      </div>
     </div>
-    <div class="col-md-10">
-      <a routerLink="zone/{{zone.id}}/summary" *ngIf="mode == 'list'">
-        <p class="demeter-title">{{zone.name}}</p>
-      </a>
-      <p class="demeter-title" *ngIf="mode == 'detail'">
-        {{zone.name}}
-      </p>
-      <div class="zone-status-group">
-        <span class="status-percent">{{zone.percent | number:'2.2-2'}}%</span>
-        <div class="green-bar-wrapper">
-          <div class="green-bar" [style.width]="zone.percent + '%'"></div>
-        </div>
-        <div class="date-time-wrapper">
-          <div class="start-date pull-left">
-            <p class="date-label">Start date</p>
-            <p>{{zone.start_date}}</p>
-          </div>
-          <div class="end-date pull-right">
-            <p class="date-label">End date</p>
-            <p>{{zone.end_date}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="clearfix"></div>
-      <div class="line-info">
-        <p><b>Location: </b>{{zone.location}}</p>
-        <p><b>Surface: </b>{{zone.surface}}</p>
-        <p><b>Worker: </b>{{zone.labour}}</p>
-        <p><b>ID: </b>{{zone.zone_id}}</p>
-      </div>
+    <div class="clearfix"></div>
+    <div class="line-info">
+      <p><b>Location: </b>{{zone.location}}</p>
+      <p><b>Surface: </b>{{zone.surface}}</p>
+      <p><b>Worker: </b>{{zone.labour}}</p>
+      <p><b>ID: </b>{{zone.zone_id}}</p>
     </div>
   </div>
 </div>

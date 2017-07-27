@@ -264,6 +264,10 @@ body {
   background-color: #F5F3EB;
   padding: 25px;
   margin-bottom: 15px;
+
+  @media only screen and (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .demeter-container-title {
