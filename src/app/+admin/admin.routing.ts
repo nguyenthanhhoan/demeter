@@ -57,6 +57,10 @@ export const routes: Routes = [{
         path: 'edit', component: DeviceFieldFormComponent
       }]
     }]
+  }, {
+    path: 'user',
+    loadChildren:
+      'app/+admin/+user/user.module#UserModule',
   }
 ];
 

@@ -7,7 +7,6 @@ import {FooterComponent} from "./footer/footer.component";
 import {NavigationModule} from "./navigation/navigation.module";
 import {RibbonComponent} from "./ribbon/ribbon.component";
 import {ToggleActiveDirective} from "../utils/toggle-active.directive";
-import {LayoutSwitcherComponent} from "./layout-switcher.component";
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import {RouterModule} from "@angular/router";
 import {TooltipModule, BsDropdownModule} from "ng2-bootstrap";
@@ -31,7 +30,6 @@ import {UtilsModule} from "../../../shared/utils/utils.module";
   declarations: [
     FooterComponent,
     RibbonComponent,
-    LayoutSwitcherComponent,
     AdminLayoutComponent,
     RouteBreadcrumbsComponent
   ],
@@ -39,8 +37,7 @@ import {UtilsModule} from "../../../shared/utils/utils.module";
     HeaderModule,
     NavigationModule,
     FooterComponent,
-    RibbonComponent,
-    LayoutSwitcherComponent,
+    RibbonComponent
   ]
 })
 export class AdminLayoutModule {

@@ -1,13 +1,19 @@
 <div class="container demeter-container-title" translate>list_of_project</div>
 <div class="container demeter-list-container">
   <div class="button-group">
-    <button class="demeter-btn create-btn" (click)="goToCreate()">
-      Create Project
+    <button class="demeter-btn create-btn" (click)="goToCreate()" translate>
+      create_project
     </button>
   </div>
   <div class="spinner-wrapper" *ngIf="isRequesting">
     <app-spinner [isRunning]="isRequesting"></app-spinner>
   </div>
+  <alert type="warning" dismissible="true" *ngIf="projects && projects.length == 0"
+    class="alert-no-item">
+
+    <i class="fa-fw fa fa-warning"></i>
+    <span [innerHTML]="'no_project_msg' | translate"></span>
+  </alert>
   <div *ngFor="let project of projects">
     <app-project-summary 
       [project]="project"

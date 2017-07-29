@@ -1,0 +1,26 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['User Management']" icon="user" class="col-md-12"></sa-big-breadcrumbs>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <button 
+                class="demeter-btn create-btn primary pull-right"
+                routerLink="new">Create User</button>
+            <sa-datatable [options]="options" 
+                (setDatatableEle)="setDatatableEle($event)"
+                tableClass="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th [style.width]="'8%'" data-hide="mobile-p">User ID</th>
+                        <th [style.width]="'8%'" data-hide="mobile-p">Email</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </sa-datatable>
+        </div>
+    </div>
+  </div>
+</div>

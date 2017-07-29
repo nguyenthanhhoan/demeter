@@ -33,7 +33,8 @@
         </li>
       </ul>
     </li>
-    <li class="icon-button mobile-toogle" 
+    <li class="icon-button mobile-toogle"
+      *ngIf="hasSidebar"
       (click)="toggleHeaderMenu()">
       <i class="fa fa-reorder" aria-hidden="true"></i>
     </li>

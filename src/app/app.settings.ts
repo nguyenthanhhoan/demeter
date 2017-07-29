@@ -29,4 +29,8 @@ export class AppSettings {
       label: 'Watering & Fertilizer'
     }
   };
+
+  public static validation = {
+    email: '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+  };
 }

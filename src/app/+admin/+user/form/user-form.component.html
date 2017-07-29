@@ -1,0 +1,87 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['User Management', mode + ' User']" icon="user" class="col-md-12"></sa-big-breadcrumbs>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <form class="smart-form" #form="ngForm">
+              <section>
+                <label class="label">Email</label>
+                <label class="input"
+                  [ngClass]="user_email.valid || user_email.pristine ? '' : 'state-error'">
+
+                  <input [(ngModel)]="user.email" 
+                    #user_email="ngModel" name="user_email"
+                    required 
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                </label>
+                <div class="note note-error" 
+                  [hidden]="user_email.pristine || !user_email.errors?.required">This is a required field.
+                </div>
+                <div class="note note-error" 
+                  [hidden]="user_email.pristine || !user_email.errors?.pattern">Please enter a VALID email address.
+                </div>
+              </section>
+              <section>
+                <label class="label">Name</label>
+                <label class="input">
+
+                  <input [(ngModel)]="user.name" 
+                    #name="ngModel" name="name" />
+                </label>
+              </section>
+              <div *ngIf="mode == 'new'">
+                <section>
+                  <label class="label">Password</label>
+                  <label class="input">
+
+                    <input [(ngModel)]="user.password" 
+                      #password="ngModel" name="password"
+                      type="password" />
+                  </label>
+                </section>
+                <section>
+                  <label class="label">Confirm Password</label>
+                  <label class="input">
+
+                    <input [(ngModel)]="user.password_confirmation" 
+                      #password_confirmation="ngModel" name="password_confirmation"
+                      type="password" />
+                  </label>
+                </section>
+              </div>
+              <section>
+                <label class="checkbox">
+                  Is Company Admin
+                  <input [(ngModel)]="user.is_company_admin" name="is_company_admin" type="checkbox"/>
+                  <i></i>&nbsp;
+                </label>
+                <div class="note">Used to create project.</div>
+              </section>
+              <header>
+                Assigned Project(s)/Zone(s)
+              </header>
+              <div class="dmt-action-buttons">
+                <div class="action-buttons">
+                  <button type="button" 
+                    [disabled]="!form.valid"
+                    [ngClass]="form.valid ? '' : 'disabled'"
+                    class="demeter-btn primary" (click)="saveOrUpdate()">
+                    OK
+                  </button>
+                  <button type="button" 
+                    *ngIf="mode == 'edit'"
+                    class="demeter-btn secondary" (click)="openChangePassword()">
+                    Change Password
+                  </button>
+                  <button class="demeter-btn danger" routerLink="/admin/user">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

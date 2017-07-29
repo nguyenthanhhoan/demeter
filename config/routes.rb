@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   
   # TODO: Move to namespace /user
-  resources :projects
   resources :cameras
 
   get '/current_user' => 'profile#get_current_user'
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   post '/webhook/update_device_value' => 'webhook#update_device_value'
 
   namespace :admin do
+    resources :users
     resources :projects
     resources :zones
     resources :cameras
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
+    resources :projects
     resources :zones do
       member do
         post 'setting' => 'zones#update_setting'

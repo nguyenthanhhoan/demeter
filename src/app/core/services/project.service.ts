@@ -7,12 +7,12 @@ import { ApiService } from '../api/api.service';
 
 @Injectable()
 export class ProjectService {
-  private projectsUrl = 'projects';
+  private resourceUrl = 'user/projects';
 
   constructor (private apiService: ApiService) {}
 
   getProjects (): Observable<any[]> {
-    return this.apiService.fetch(`${this.projectsUrl}`);
+    return this.apiService.fetch(`${this.resourceUrl}`);
   }
 
   buildFormData(project) {
@@ -30,22 +30,22 @@ export class ProjectService {
 
   put(project): Observable<any[]> {
     let formData: FormData = this.buildFormData(project);
-    return this.apiService.putFormData(`${this.projectsUrl}/${project.id}`, formData);
+    return this.apiService.putFormData(`${this.resourceUrl}/${project.id}`, formData);
   }
 
   post(project): Observable<any[]> {
     let formData: FormData = this.buildFormData(project);
-    return this.apiService.postFormData(this.projectsUrl, formData);
+    return this.apiService.postFormData(this.resourceUrl, formData);
   }
 
   updateImage (project_id, image): Observable<any> {
     let formData: FormData = new FormData();
     formData.append('project[image]', image);
     return this.apiService
-            .putFormData(`${this.projectsUrl}/${project_id}`, formData);
+            .putFormData(`${this.resourceUrl}/${project_id}`, formData);
   }
 
   getOne (id): Observable<any[]> {
-    return this.apiService.fetch(`${this.projectsUrl}/${id}`);
+    return this.apiService.fetch(`${this.resourceUrl}/${id}`);
   }
 }

@@ -23,6 +23,10 @@
 .alert-no-item {
   display: block;
   margin: 10px 30px;
+
+  @media only screen and (max-width: 768px) {
+    margin: 10px;
+  }
 }
 
 .demeter-header {
@@ -170,5 +174,22 @@
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
+  }
+}
+
+/**
+ * Actions button (Ex. OK, Cancel)
+ * Used in form (Ex. admin-user-form)
+ **/
+.dmt-action-buttons {
+  display: flex;
+  display: -webkit-flex;
+
+  .action-buttons {
+    margin-left: auto;
+  }
+
+  button {
+    margin-left: 5px;
   }
 }

@@ -22,3 +22,4 @@
 en:
   registration_successfully: 'Thank your for your registration. We will contact you soon!'
   order_successfully: 'Order was performed successfully!'
+  only_allow_company_admin: 'Only Company Admin can perform this action!'

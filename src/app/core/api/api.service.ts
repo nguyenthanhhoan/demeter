@@ -1,3 +1,4 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
@@ -133,13 +134,21 @@ export class ApiService {
   }
 
   private handleError(error: any) {
-    let errMsg: string;
+    let errMsg: string = '';
     if (error instanceof Response) {
       const body = error.json() || '';
       if (body.errors) {
+        let {errors} = body;
+        if (typeof errors.length === 'undefined') {
+          // The formatted returned is object (Ex. Rails ORM validation)
+          Object.keys(errors).forEach((key) => {
+            errMsg += `<p>${key}: ${errors[key]}</p>`;
+          });
+        } else {
 
-        // The formatted returned by devise_token_auth
-        errMsg = body.errors.join('\n');
+          // The formatted returned by devise_token_auth
+          errMsg = errors.join('\n');
+        }
       } else {
         errMsg = body.error || 'Service is temporarily unavailable';
       }
