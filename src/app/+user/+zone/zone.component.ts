@@ -35,7 +35,7 @@ export class ZoneComponent implements OnInit, OnDestroy {
 
   handleRouteParam(event) {
     if (event instanceof NavigationEnd) {
-      this.zoneId = +this.route.snapshot.params['id'];
+      this.zoneId = this.route.snapshot.params['id'];
 
       this.store.dispatch(new IdPopulatedAction({
         zoneId: this.zoneId

@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
-    resources :projects
-    resources :zones do
+    resources :projects, param: :hash_id
+    resources :zones, param: :hash_id do
       member do
         post 'setting' => 'zones#update_setting'
         post 'assign_camera' => 'zones#assign_camera'

@@ -5,4 +5,8 @@ class ProjectSerializer < ActiveModel::Serializer
   def num_of_zone
     object.zones.count
   end
+
+  def id
+    object.hash_id
+  end
 end

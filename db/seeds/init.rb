@@ -17,3 +17,19 @@ caudatfarm = User.create({
   email: 'caudatfarm@demeter.vn',
   password: '123456'
 })
+
+# Loop all projects, zones, devices then create hashid
+Project.all.each { |project|
+  hash_id = HashIdService.new.encode project.id
+  project.update_attribute(:hash_id, hash_id)
+}
+
+Zone.all.each { |project|
+  hash_id = HashIdService.new.encode project.id
+  project.update_attribute(:hash_id, hash_id)
+}
+
+DeviceField.all.each { |project|
+  hash_id = HashIdService.new.encode project.id
+  project.update_attribute(:hash_id, hash_id)
+}

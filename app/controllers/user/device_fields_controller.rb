@@ -1,4 +1,6 @@
 class User::DeviceFieldsController < AuthorizedController
+  before_action :get_zone_id, only: [:list_device_assigned, 
+    :assign_device_to_zone, :unassign_device_to_zone]
 
   def index
     render json: DeviceField.all.order(id: :desc)
@@ -11,7 +13,7 @@ class User::DeviceFieldsController < AuthorizedController
   def list_device_assigned
 
     where_query = {
-      zone_id: params[:zone_id]
+      zone_id: @zone_id
     }
 
     if params[:link_type].present?
@@ -28,17 +30,16 @@ class User::DeviceFieldsController < AuthorizedController
 
   def assign_device_to_zone
     device_field_id = params[:device_field_id]
-    zone_id = params[:zone_id]
     link_type = params[:link_type]
     device_field = DeviceField.find device_field_id
 
     count = DeviceFieldsZone.where({
-      zone_id: zone_id,
+      zone_id: @zone_id,
       link_type: link_type
     }).count
     assigned_device = DeviceFieldsZone.create({
       device_field_id: device_field_id,
-      zone_id: zone_id,
+      zone_id: @zone_id,
       link_type: link_type,
       order: count
     })
@@ -48,7 +49,7 @@ class User::DeviceFieldsController < AuthorizedController
   def unassign_device_to_zone
     assigned_device = DeviceFieldsZone.find_by({
       device_field_id: params[:device_field_id],
-      zone_id: params[:zone_id],
+      zone_id: @zone_id,
       link_type: params[:link_type]
     })
     assigned_device.destroy
@@ -77,6 +78,11 @@ class User::DeviceFieldsController < AuthorizedController
     render json: {
       message: t(:order_successfully)
     }
+  end
+
+  def get_zone_id
+    hash_id = params[:zone_id]
+    @zone_id = HashIdService.new.decode(hash_id)
   end
 
 end

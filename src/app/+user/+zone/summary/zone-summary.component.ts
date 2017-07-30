@@ -52,6 +52,7 @@ export class ZoneSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   buildCameraQuickView() {
+    this.cameraQuickViews = [];
     this.zone.cameras_zones.forEach((camera_zone) => {
       if (camera_zone.is_primary) {
         let camera = this.zone.cameras.find((loopCamera) => {

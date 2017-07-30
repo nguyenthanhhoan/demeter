@@ -1,12 +1,12 @@
 class User::SensorDataController < AuthorizedController
+  before_action :get_zone
 
   def query_in_timestamp
     start_timestamp = params[:start_timestamp].to_i
     end_timestamp = params[:end_timestamp].to_i
-    zone = Zone.find params[:zone_id].to_i
     # sensor_data = CacheService.get_cached_data_in(start_timestamp, end_timestamp)
     # unless sensor_data.present?
-      sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, zone.device_gateway)
+      sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, @zone.device_gateway)
     # end
 
     sensor_data_normalized = DynamodbService.normalize_data(sensor_data, 300)
@@ -14,9 +14,8 @@ class User::SensorDataController < AuthorizedController
   end
 
   def query_in_date
-    zone = Zone.find params[:zone_id].to_i
     date = params[:date]
-    gateway_name = zone.device_gateway
+    gateway_name = @zone.device_gateway
 
     redis = CacheService.get_redis
     cached_key = CacheService.build_key(gateway_name, date)
@@ -36,9 +35,8 @@ class User::SensorDataController < AuthorizedController
 
 
   def query_lastest
-    zone = Zone.find params[:zone_id].to_i
     date = params[:date]
-    gateway_name = zone.device_gateway
+    gateway_name = @zone.device_gateway
 
     redis = CacheService.get_redis
     cached_key = CacheService.build_key_lastest(gateway_name)
@@ -57,4 +55,11 @@ class User::SensorDataController < AuthorizedController
     sensor_data_parsed = DynamodbService.normalize_data(sensor_data_parsed, 300)
     render json: sensor_data_parsed
   end
+
+  private
+    def get_zone
+      hash_id = params[:zone_id]
+      id = HashIdService.new.decode(hash_id)
+      @zone = Zone.find(id)
+    end
 end

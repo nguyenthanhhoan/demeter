@@ -45,7 +45,9 @@ class User::ProjectsController < AuthorizedController
     end
 
     def get_project
-      @project = Project.find(params[:id])
+      hash_id = params[:hash_id]
+      id = HashIdService.new.decode(hash_id)
+      @project = Project.find(id)
     end
 
     def check_company_admin

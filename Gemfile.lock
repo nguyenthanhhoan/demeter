@@ -118,6 +118,7 @@ GEM
       activesupport (>= 4.1.0)
     habtm_generator (0.5)
       activerecord
+    hashids (1.0.3)
     hashie (3.5.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -278,6 +279,7 @@ DEPENDENCIES
   devise!
   devise_token_auth
   habtm_generator
+  hashids (~> 1.0, >= 1.0.3)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

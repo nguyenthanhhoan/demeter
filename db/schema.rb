@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718160129) do
+ActiveRecord::Schema.define(version: 20170729080335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170718160129) do
     t.integer  "value_in_int"
     t.float    "value_in_float"
     t.string   "icon"
+    t.string   "hash_id"
     t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
   end
 
@@ -168,6 +169,7 @@ ActiveRecord::Schema.define(version: 20170718160129) do
     t.datetime "updated_at",        null: false
     t.string   "image"
     t.string   "location_geometry"
+    t.string   "hash_id"
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
@@ -259,6 +261,7 @@ ActiveRecord::Schema.define(version: 20170718160129) do
     t.string   "setting"
     t.string   "device_gateway"
     t.string   "time_zone",              default: "Asia/Ho_Chi_Minh"
+    t.string   "hash_id"
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
   end
 

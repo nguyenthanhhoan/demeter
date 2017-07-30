@@ -16,7 +16,7 @@ export class ProjectSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    let projectId = +this.route.snapshot.params['id'];
+    let projectId = this.route.snapshot.params['id'];
     this.zoneService.getList(projectId).subscribe(data => {
       this.zones = data;
     });

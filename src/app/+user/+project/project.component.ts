@@ -14,8 +14,8 @@ import { ProjectService } from '../../core/services/project.service';
 export class ProjectComponent implements OnInit, OnDestroy {
 
   private routerSubscription: ISubscription;
-  private lastProjectId: number;
-  private projectId: number;
+  private lastProjectId: string;
+  private projectId: string;
   private project: any;
 
   constructor(private route: ActivatedRoute,
@@ -35,7 +35,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   handleRouteParam(event) {
     if (event instanceof NavigationEnd) {
-      this.projectId = +this.route.snapshot.params['id'];
+      this.projectId = this.route.snapshot.params['id'];
 
       this.store.dispatch(new IdPopulatedAction({
         projectId: this.projectId

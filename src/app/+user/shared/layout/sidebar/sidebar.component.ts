@@ -21,11 +21,11 @@ export class SidebarComponent implements OnInit {
     for (let index = 0; index < segments.length; index++) {
       let element = segments[index];
       if (element.path === 'project') {
-        project_id = +segments[index + 1].path;
+        project_id = segments[index + 1].path;
       }
 
       if (element.path === 'zone') {
-        zone_id = +segments[index + 1].path;
+        zone_id = segments[index + 1].path;
       }
     }
 

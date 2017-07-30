@@ -5,7 +5,9 @@ class User::ZonesController < AuthorizedController
     :destroy]
 
   def index
-    render json: Zone.where({ project: params[:project_id] }).order(id: :desc)
+    hash_project_id = params[:project_id]
+    project_id = HashIdService.new.decode(hash_project_id)
+    render json: Zone.where({ project: project_id }).order(id: :desc)
   end
 
   def show
@@ -93,6 +95,8 @@ class User::ZonesController < AuthorizedController
   private
 
     def zone_params
+      project_id = params["zone"]["project_id"]
+      params["zone"]["project_id"] = HashIdService.new.decode(project_id)
       params.require(:zone).permit(:project_id, :name, :zone_id, :start_date, :end_date,
         :plant, :plant_variety, :plant_quantity, :plant_quantity_unit, :device_gateway,
         :production_type, :estimate_yield, :estimate_yield_unit, :surface, :surface_unit,
@@ -108,6 +112,8 @@ class User::ZonesController < AuthorizedController
     end
 
     def get_zone
-      @zone = Zone.find(params[:id])
+      hash_id = params[:hash_id]
+      id = HashIdService.new.decode(hash_id)
+      @zone = Zone.find(id)
     end
 end

@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ISubscription } from 'rxjs/Subscription';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import * as Chartist from 'chartist';
 
 import { ZoneService } from '../../../core/services/zone.service';
+import { LoadedAction } from '../../../core/actions/zone-action';
 
 @Component({
   templateUrl: './zone-setting.component.html',
   styleUrls: ['./zone-setting.component.css']
 })
-export class ZoneSettingComponent implements OnInit {
+export class ZoneSettingComponent implements OnInit, OnDestroy {
 
   zone: any = {};
 
@@ -19,19 +19,30 @@ export class ZoneSettingComponent implements OnInit {
     }
   };
 
-  constructor(private store: Store<any>) {
+  subscription: ISubscription;
 
+  constructor(private store: Store<any>,
+              private zoneService: ZoneService) {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (typeof this.zone.id === 'undefined');
-    })
+    this.subscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
-        this.zone = Object.assign({}, zoneModel.zone);;
+        this.zone = Object.assign({}, zoneModel.zone);
       }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  loadZone() {
+    let zoneId = this.zone.id;
+    this.zoneService.getOne(zoneId).subscribe(data => {
+      this.zone = data;
+      this.store.dispatch(new LoadedAction(data));
     });
   }
 }

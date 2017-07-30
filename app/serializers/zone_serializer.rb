@@ -38,4 +38,8 @@ class ZoneSerializer < ApplicationSerializer
       device_field.device_field
     }
   end
+
+  def id
+    object.hash_id
+  end
 end

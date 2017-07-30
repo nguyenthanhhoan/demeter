@@ -22,6 +22,8 @@ class User::AlertsController < AuthorizedController
   private
 
     def get_zone
-      @zone = Zone.find(params[:zone_id])
+      hash_id = params[:zone_id]
+      id = HashIdService.new.decode(hash_id)
+      @zone = Zone.find(id)
     end
 end
