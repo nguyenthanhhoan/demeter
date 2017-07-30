@@ -193,3 +193,42 @@
     margin-left: 5px;
   }
 }
+
+.dmt-header {
+  border-bottom: 1px dashed rgba(0,0,0,.2);
+  font-size: 16px;
+  font-weight: 300;
+  color: #232323;
+  margin-bottom: 15px;
+}
+
+/**
+ * Demeter form style
+ **/
+.dmt-input {
+  input {
+    padding: 2px 5px;
+    border: 1px solid #BDBDBD;
+    transition: border-color .3s;
+    -o-transition: border-color .3s;
+    -ms-transition: border-color .3s;
+    -moz-transition: border-color .3s;
+    -webkit-transition: border-color .3s;
+
+    &:hover, &:focus {
+      border-color: #5D98CC;
+    }
+  }
+
+  &.error {
+    input {
+      background: #fff0f0;
+      border-color: #A90329;
+      border-style: solid;
+    }
+
+    i {
+      color: #A90329;
+    }
+  }
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170729080335) do
+ActiveRecord::Schema.define(version: 20170730090506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,16 @@ ActiveRecord::Schema.define(version: 20170729080335) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "role"
+    t.string   "token"
+    t.string   "resource_name"
+    t.integer  "resource_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "okr_objective_keys", force: :cascade do |t|

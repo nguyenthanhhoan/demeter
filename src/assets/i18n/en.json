@@ -1,5 +1,8 @@
 {
   "list_of_project": "List of Projects:",
   "no_project_msg": "There is no project available! Click <strong>Create Project</strong> to create new one.",
-  "create_project": "Create Project"
+  "create_project": "Create Project",
+
+  "no_admin_in_project": "There is no admin in this project!",
+  "no_user_in_project": "There is no user in this project!"
 }

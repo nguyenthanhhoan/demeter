@@ -8,7 +8,6 @@ import { ProjectComponent } from './project.component';
 import { ProjectListComponent } from './list/project-list.component';
 import { ProjectNewComponent } from './project-new/project-new.component';
 import { ProjectSummaryComponent } from './summary/project-summary.component';
-import { ProjectSettingComponent } from './setting/project-setting.component';
 
 export const routes: Routes = [{
   path: '',
@@ -31,7 +30,7 @@ export const routes: Routes = [{
       component: ProjectSummaryComponent,
     }, {
       path: 'setting',
-      component: ProjectSettingComponent,
+      loadChildren: 'app/+user/+project/setting/project-setting.module#ProjectSettingModule'
     }]
   }]
 }, {

@@ -1,0 +1,110 @@
+<header class="dmt-header">Project Admin</header>
+<div class="content">
+  <alert type="info" *ngIf="admins && admins.length == 0">
+    <i class="fa-fw fa fa-info"></i>
+    <span translate>no_admin_in_project</span>
+  </alert>
+
+  <div class="line-item-container">
+    <span class="line-item" *ngFor="let user of admins">
+      <div class="avatar">
+        <img src="assets/img/flat-icon/avatar.svg" />
+      </div>
+      <div class="email" title="{{user.email}}">{{user.email}}</div> 
+      <button 
+        (click)="removeUser(user)"
+        class="demeter-btn danger remove-btn">Remove</button>
+    </span>
+  </div>
+</div>
+
+<header class="dmt-header">Project User</header>
+<div class="content">
+  <alert type="info" *ngIf="users && users.length == 0">
+    <i class="fa-fw fa fa-info"></i>
+    <span translate>no_user_in_project</span>
+  </alert>
+
+  <div class="line-item-container">
+    <span class="line-item" *ngFor="let user of users">
+      <div class="avatar">
+        <img src="assets/img/flat-icon/avatar.svg" />
+      </div>
+      <div class="email" title="{{user.email}}">{{user.email}}</div> 
+      <button 
+        (click)="removeUser(user)"
+        class="demeter-btn danger remove-btn">Remove</button>
+    </span>
+  </div>
+</div>
+
+<div
+  class="pending-invitation"
+  *ngIf="invitations && invitations.length > 0">
+
+  <header class="dmt-header">Pending Invitation(s)</header>
+
+  <div class="content">
+    <div class="line-item-container">
+      <span class="line-item" *ngFor="let invitation of invitations">
+        <div class="avatar">
+          <img src="assets/img/flat-icon/avatar.svg" />
+        </div>
+        <div class="email" title="{{invitation.email}}">{{invitation.email}}</div> 
+        <button 
+          (click)="removeInvitation(invitation)"
+          class="demeter-btn danger remove-btn">Remove</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<header class="dmt-header">Add New Member</header>
+
+<div class="content">
+  <form #inviteForm="ngForm" class="add-member-form">
+    <div class="dmt-form-group">
+      <span class="dmt-label">Email</span>
+      <span class="dmt-input"
+        [ngClass]="invite_email.valid || invite_email.pristine ? '' : 'error'">
+        <input [(ngModel)]="newMember.email"
+          name="invite_email"
+          #invite_email="ngModel"
+          required
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+
+        <div class="note note-error" 
+          [hidden]="invite_email.pristine || !invite_email.errors?.required">This is a required field.
+        </div>
+        <div class="note note-error" 
+          [hidden]="invite_email.pristine || !invite_email.errors?.pattern">Please enter a VALID email address.
+        </div>
+      </span>
+    </div>
+    <div class="dmt-form-group">
+      <span class="dmt-label">Role</span>
+
+      <div class="smart-form role-form-group">
+        <label class="radio">
+          <input type="radio" name="member_role" 
+            [(ngModel)]="newMember.role" value="project_admin">
+          <i></i>Admin
+        </label>
+        <label class="radio">
+          <input type="radio" name="member_role" checked="checked"
+            [(ngModel)]="newMember.role" value="project_user">
+          <i></i>User
+        </label>
+      </div>
+    </div>
+
+    <div class="dmt-form-group">
+      <button class="demeter-btn primary invite-btn"
+        (click)="addNewMember(newMember)"
+        [ngClass]="invite_email.valid ? '' : 'disabled'">
+        Add
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,10 +1,10 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+// TODO: Should move to shared module
 import {
   TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertModule
 } from 'ng2-bootstrap';
 
-import { IntegrationModule } from '../shared/integration/integration.module';
 import { JsonApiService } from './api/json-api.service';
 import { ApiService } from './api/api.service';
 import { LayoutService } from '../shared/layout/layout.service';
@@ -30,11 +30,10 @@ import { OkrObjectiveService } from './services/okr-objective.service';
 import { ProgramExecutionService } from './services/program-execution.service';
 import { AlertRuleService } from './services/alert-rule.service';
 import { AlertService } from './services/alert.service';
+import { InvitationService } from './services/invitation.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    IntegrationModule,
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     ProgressbarModule.forRoot(),
@@ -64,7 +63,8 @@ import { AlertService } from './services/alert.service';
     DeviceValueHistoryService,
     ProgramExecutionService,
     AlertRuleService,
-    AlertService
+    AlertService,
+    InvitationService
   ]
 })
 export class CoreModule {

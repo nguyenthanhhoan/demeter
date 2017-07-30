@@ -2,6 +2,29 @@
   <div class="demeter-title">Setting</div>
 </div>
 
-<div class="demeter-pane">
-  <project-form [project]="project" [mode]="'edit'"></project-form>
+<div class="demeter-pane demeter-tabbed-pane">
+
+  <ul class="nav nav-tabs bordered">
+    <li [class.active]="activeTab == 0">
+      <a (click)="goToProject()">
+        <i class="fa fa-bars"></i> Project
+      </a>
+    </li>
+    <li [class.active]="activeTab == 1">
+      <a (click)="goToMember()">
+        <i class="fa fa-user" aria-hidden="true"></i> Member
+      </a>
+    </li>
+  </ul>
+
+  <div class="demeter-pane-content">
+    <tabset class="padding-10">
+      <div *ngIf="activeTab == 0">
+        <project-setting-project></project-setting-project>
+      </div>
+      <div *ngIf="activeTab == 1">
+        <project-setting-member></project-setting-member>
+      </div>
+    </tabset>
+  </div>
 </div>

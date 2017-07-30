@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   rescue_from Exception, with: :server_error
 
+  def render_message(msg)
+    render json: {
+      message: msg
+    }
+  end
   def user_not_authorized
     message = 'You are not authorized to perform this action.'
     self.status = :unauthorized

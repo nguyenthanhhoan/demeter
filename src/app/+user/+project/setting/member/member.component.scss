@@ -1,0 +1,82 @@
+.dmt-form-group {
+  display: flex;
+  display: -webkit-flex;
+  margin-bottom: 15px;
+  width: 300px;
+
+  .dmt-input {
+    flex: 1;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .dmt-label {
+    width: 60px;
+    margin-top: 3px;
+  }
+
+  .invite-btn {
+    margin-left: auto;
+  }
+
+  .role-form-group {
+    display: flex;
+
+    label:last-child {
+      margin-left: 10px;
+    }
+  }
+}
+
+.line-item-container {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+.line-item {
+  display: flex;
+  display: -webkit-flex;
+  width: 300px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  padding: 5px;
+  position: relative;
+
+  .remove-btn {
+    display: none;
+    position: absolute;
+    padding: 3px;
+    width: 20px;
+    left: 50%;
+    bottom: 2px;
+    margin-left: -26px;
+    font-size: 12px;
+    text-transform: none;
+    width: 52px;
+  }
+
+  &:hover {
+    border: 2px solid #bbb;
+
+    .remove-btn {
+      display: block;
+    }
+  }
+
+  .avatar img {
+    width: 40px;
+  }
+
+  .email {
+    width: calc(100% - 15px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.content {
+  margin: 0 10px;
+}

@@ -19,7 +19,13 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
-    resources :projects, param: :hash_id
+    resources :projects, param: :hash_id do
+      member do
+        get 'list_member' => 'projects#list_member'
+        post 'add_member' => 'projects#add_member'
+        post 'remove_member' => 'projects#remove_member'
+      end
+    end
     resources :zones, param: :hash_id do
       member do
         post 'setting' => 'zones#update_setting'
@@ -49,6 +55,7 @@ Rails.application.routes.draw do
         post 'update_order' => 'device_fields#update_order'
       end
     end
+    resources :invitations, only: [:destroy]
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
     get '/sensor_data/latest' => 'sensor_data#query_lastest'

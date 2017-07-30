@@ -45,7 +45,19 @@ export class ProjectService {
             .putFormData(`${this.resourceUrl}/${project_id}`, formData);
   }
 
-  getOne (id): Observable<any[]> {
+  getOne(id): Observable<any[]> {
     return this.apiService.fetch(`${this.resourceUrl}/${id}`);
+  }
+
+  listMember(id): Observable<any[]> {
+    return this.apiService.fetch(`${this.resourceUrl}/${id}/list_member`);
+  }
+
+  addNewMember(project_id, data): Observable<any[]> {
+    return this.apiService.post(`${this.resourceUrl}/${project_id}/add_member`, data);
+  }
+
+  removeMember(project_id, data): Observable<any[]> {
+    return this.apiService.post(`${this.resourceUrl}/${project_id}/remove_member`, data);
   }
 }
