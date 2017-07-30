@@ -22,6 +22,8 @@ class User::ZonesController < AuthorizedController
     @zone = Zone.new(zone_params)
 
     if @zone.save
+      hash_id = HashIdService.new.encode(@zone.id)
+      @zone.update_attribute(:hash_id, hash_id)
       render json: @zone
     else
       render :json => { errors: @zone.errors }, :status => :bad_request

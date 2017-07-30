@@ -19,6 +19,8 @@ class User::ProjectsController < AuthorizedController
     @project.user = current_user
 
     if @project.save
+      hash_id = HashIdService.new.encode(@project.id)
+      @project.update_attribute(:hash_id, hash_id)
       render json: @project
     else
       render :json => { errors: @project.errors }, :status => :bad_request
