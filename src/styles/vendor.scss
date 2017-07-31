@@ -16,7 +16,16 @@
     background-color: #fff;
     min-width: 60px;
   }
+
+  select[name="cron-period"] {
+    width: 80px;
+  }
+
+  select[name="cron-month"] {
+    width: 100px;
+  }
 }
+
 
 /*
  * Override query-builder library

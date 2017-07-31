@@ -2,8 +2,13 @@
   margin: 15px 30px;
   max-width: 500px;
 
+  &.loading {
+    .alert-list {
+      min-height: 100px;
+    }
+  }
+
   .alert-list {
-    min-height: 100px;
     transition: opacity 0.2s linear;
     opacity: 1;
   }
