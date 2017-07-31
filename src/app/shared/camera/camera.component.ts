@@ -1,9 +1,9 @@
 import { Component, Input, ElementRef } from '@angular/core';
 import { ApiService } from '../../core/api/api.service';
 
-declare var flowplayer: any;
 declare var moment: any;
 declare var $: any;
+declare var MediaElement:any;
 
 @Component({
   selector: 'app-camera',
@@ -15,6 +15,8 @@ export class CameraComponent {
   @Input() camera: any;
   @Input() live: boolean = true;
   player: any;
+  src: any;
+  autoplay: boolean;
 
   constructor(private el: ElementRef,
               private apiService: ApiService) {
@@ -24,26 +26,21 @@ export class CameraComponent {
 
     if (this.live) {
       this.playLive();
-    } else {
-      this.initPlayer('', false, true);
     }
   }
 
-  initPlayer(src, autoplay, splash?) {
-    let cameraHolder = $(this.el.nativeElement).find('.camera-pic-holder');
-    this.player = flowplayer(cameraHolder[0], {
-      autoplay: autoplay,
-      splash: splash,
-      ratio: 9/16,
-      clip: {
-        live: true,
-        sources: [{
-          type: 'application/x-mpegurl',
-          src: src
-          //Demo src: //nasatv-lh.akamaihd.net/i/NASA_101@319270/master.m3u8
-        }]
-      }
-    });
+  initPlayer(src, autoplay) {
+    this.autoplay = autoplay;
+    this.src = src;
+    let videoEle = $(this.el.nativeElement).find('.camera-pic-holder').find('video');
+    setTimeout(() => {
+      $(videoEle).mediaelementplayer({
+        stretching: 'responsive',
+        success: (media) => {
+          this.player = media;
+        }
+      })[0];
+    }, 1000);
   }
 
   playLive() {
@@ -77,13 +74,14 @@ export class CameraComponent {
       &starttime=${starttime}&duration=${duration}&hash=${hash}&secret_id=1`;
     this.apiService.fetchExternal(playbackUrl)
       .subscribe(data => {
-        this.player.unload();
-        this.player.load({
-          sources: [{ 
-            type: 'application/x-mpegurl',
-            src: data
-          }]
-        });
+
+        if (typeof this.player === 'undefined') {
+          this.initPlayer(data, true);
+        } else {
+          this.player.pause();
+          this.player.setSrc(data);
+          this.player.load();
+        }
       });
   }
 }

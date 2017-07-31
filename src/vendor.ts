@@ -1,6 +1,6 @@
-// jQuery
-declare var jQuery: any;
-
+/**
+ * `require` can see global variable (Ex. jQuery)
+ */
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/mergeMap';
 // Smartadmin Dependencies
 window['jQuery'] = require('jquery');
 window['$'] = window['jQuery'];
-window['flowplayer'] = require('flowplayer/dist/flowplayer.js');
+
 window['blueimp'] = require('blueimp-gallery/js/jquery.blueimp-gallery.min.js');
 import 'jquery-ui-npm/jquery-ui.min.js';
 
@@ -32,6 +32,7 @@ import 'dot';
 import 'assets/js/query-builder.js';
 
 import 'assets/js/jquery-cron.js';
+require('mediaelement/build/mediaelement-and-player.js');
 
 require('moment-timezone');
 
