@@ -48,11 +48,17 @@ class AlertService
       return
     end
 
+    unless TimeService.new.in_period?(alert_rule.from_time, alert_rule.to_time, time_zone)
+      Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] not in period. Skip running"
+      return
+    end
+
     Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] is about to perform"
 
     if rule_match?(alert_rule, zone.device_gateway)
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule match. Prepare to create alert"
       create_alert(alert_rule, zone)
+      email_alert(alert_rule)
     else 
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule not match. Alert wont be created"
     end
@@ -69,20 +75,33 @@ class AlertService
   end
 
   def create_alert(alert_rule, zone)
-
-    alert_value = alert_rule.value
-    device_field = alert_rule.device_field
-
-    # TODO: Currently, assume that read_write field is ON/OFF field
-    if device_field.read_write? && device_field.integer?
-      alert_value = device_field.value_in_int == 1 ? 'ON' : 'OFF'
-    end
-    alert_content = "#{alert_rule.device_field.name_display} is #{alert_value}"
+    alert_content = build_alert_message(alert_rule)
     Alert.create({
       alert_rule: alert_rule,
       zone: zone,
       alert_content: alert_content,
       icon: alert_rule.device_field.icon
     })
+  end
+
+  def build_alert_message(alert_rule)
+    alert_value = alert_rule.value
+    device_field = alert_rule.device_field
+    # TODO: Currently, assume that read_write field is ON/OFF field
+    if device_field.read_write? && device_field.integer?
+      alert_value = device_field.value_in_int == 1 ? 'ON' : 'OFF'
+    end
+    alert_content = "#{alert_rule.device_field.name_display} is #{alert_value}"
+    alert_content
+  end
+
+  def email_alert(alert_rule)
+    alert_content = build_alert_message(alert_rule)
+    if alert_rule.trigger_email?
+      emails = alert_rule.trigger_emails.split(';')
+      emails.each { |email| 
+        AlertMailer.send_email(alert_content, email).deliver_later
+      }
+    end
   end
 end

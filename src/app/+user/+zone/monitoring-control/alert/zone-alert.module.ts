@@ -1,9 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { SmartadminModule } from '../../../../shared/smartadmin.module';
-import { SmartadminInputModule } from '../../../../shared/forms/input/smartadmin-input.module';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { routing } from './zone-alert.routing';
 import { ZoneAlertComponent } from './zone-alert.component';
@@ -12,13 +7,11 @@ import { ZoneAlertSettingComponent } from './setting/zone-alert-setting.componen
 import { AlertRuleFormComponent } from './_alert-rule-form/alert-rule-form.component';
 import { AlertRuleNewComponent } from './alert-rule-new/alert-rule-new.component';
 import { AlertRuleEditComponent } from './alert-rule-edit/alert-rule-edit.component';
+import { SharedModule } from '../_shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    SmartadminModule,
-    SmartadminInputModule,
-    PaginationModule.forRoot(),
+    SharedModule,
     routing
   ],
   declarations: [

@@ -1,0 +1,58 @@
+<header class="dmt-header">Effective Period</header>
+
+<div class="effective-period-group">
+  <div class="demeter-form-group">
+    <label class="control-label">Effective From</label>
+    <div class="control">
+      <div class="input-group dmt-input"
+        [ngClass]="valid ? '': 'error'">
+        <input type="text"
+          name="from_date" 
+          placeholder="Select a date" 
+          [(ngModel)]="effectiveFrom.date"
+          (valueChange)="effectiveFrom.date=$event"
+          class="form-control datepicker"
+          [saUiDatepicker]="datepickerOpts" >
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+    </div>
+    <div class="input-group time-input-group dmt-input"
+      [ngClass]="valid ? '': 'error'">
+      <input class="form-control"
+        name="from_time"
+        [(value)]="effectiveFrom.time"
+        placeholder="Time"
+        smartClockpicker type="text" data-autoclose="true">
+      <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    </div>
+  </div>
+
+  <div class="demeter-form-group">
+    <label class="control-label">Effective To</label>
+    <div class="control">
+      <div class="input-group dmt-input"
+        [ngClass]="valid ? '': 'error'">
+        <input type="text" name="to_date" 
+        placeholder="Select a date" 
+        [(ngModel)]="effectiveTo.date"
+        (valueChange)="effectiveTo.date=$event"
+        class="form-control datepicker"
+        [saUiDatepicker]="datepickerOpts">
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+    </div>
+    <div class="input-group time-input-group dmt-input"
+      [ngClass]="valid ? '': 'error'">
+      <input class="form-control"
+        name="to_time"
+        [(value)]="effectiveTo.time"
+        placeholder="Time"
+        smartClockpicker type="text" data-autoclose="true">
+      <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    </div>
+  </div>
+  <div class="note note-error" 
+    [hidden]="valid">Please input all fields or let them blank.
+  </div>
+  
+</div>

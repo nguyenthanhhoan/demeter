@@ -32,13 +32,6 @@ class ProgramExecutionService
     Sidekiq::Cron::Job.destroy job_name
   end
 
-  def in_period?(from_time, to_time, time_zone)
-    current_time = Time.current.in_time_zone(time_zone)
-    from_time_tz = from_time.in_time_zone(time_zone)
-    to_time_tz = to_time.in_time_zone(time_zone)
-    from_time_tz <= current_time && to_time_tz >= current_time
-  end
-
   def execute(program_execution_id)
     program_execution = ProgramExecution.find program_execution_id
     zone = program_execution.zone
@@ -55,7 +48,7 @@ class ProgramExecutionService
       return
     end
 
-    unless in_period?(program_execution.from_time, program_execution.to_time, time_zone)
+    unless TimeService.new.in_period?(program_execution.from_time, program_execution.to_time, time_zone)
       Rails.logger.info "[ProgramExecutionWorker] [program_execution_id=#{program_execution_id}] not in period. Skip running"
       return
     end

@@ -1,0 +1,29 @@
+.effective-period-group {
+  max-width: 400px;
+  margin-left: 15px;
+  .note-error {
+    margin-left: 100px;
+  }
+}
+
+.demeter-form-group {
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 12px;
+
+  .control-label {
+    align-self: center;
+    margin-bottom: 0;
+    width: 100px;
+  }
+
+  .control {
+    flex: 1;
+  }
+
+  .time-input-group {
+    width: 120px;
+    margin-left: 10px;
+  }
+
+}

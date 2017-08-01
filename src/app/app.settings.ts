@@ -14,8 +14,9 @@ export class AppSettings {
   public static date_time_format = {
     date: 'MM/DD/YYYY',
     date_iso: 'YYYY-MM-DD',
+    date_time_iso: 'YYYY-MM-DDTHH:mm',
     date_time: 'MM/DD/YYYY HH:mm',
-    time: 'hh:mm A',
+    time: 'HH:mm',
     date_picker_date_format: 'mm/dd/yy'
   };
 

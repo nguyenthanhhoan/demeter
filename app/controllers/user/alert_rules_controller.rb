@@ -50,8 +50,13 @@ class User::AlertRulesController < AuthorizedController
     end
 
     def alert_rule_params
-      params.require(:alert_rule).permit(:id, :name, :device_field_id, :zone_id, :schedule,
-        :condition, :value, :interval, :live_chart_rule, :is_active)
+      zone_id = params[:zone_id]
+      params["alert_rule"]["zone_id"] = HashIdService.new.decode(zone_id)
+      params.require(:alert_rule).permit(
+        :id, :name, :device_field_id, :zone_id, :schedule,
+        :condition, :value, :interval, :live_chart_rule, :is_active,
+        :from_time, :to_time, :trigger_email, :trigger_emails,
+        :trigger_message, :trigger_messages, :trigger_call, :trigger_calls)
     end
 
     def get_alert_rule

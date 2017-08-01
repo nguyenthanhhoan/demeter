@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730090506) do
+ActiveRecord::Schema.define(version: 20170801124515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,17 @@ ActiveRecord::Schema.define(version: 20170730090506) do
     t.integer  "interval"
     t.boolean  "live_chart_rule"
     t.boolean  "is_active"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "schedule"
+    t.datetime "from_time"
+    t.datetime "to_time"
+    t.boolean  "trigger_email"
+    t.string   "trigger_emails"
+    t.boolean  "trigger_message"
+    t.string   "trigger_messages"
+    t.boolean  "trigger_call"
+    t.string   "trigger_calls"
     t.index ["device_field_id"], name: "index_alert_rules_on_device_field_id", using: :btree
     t.index ["zone_id"], name: "index_alert_rules_on_zone_id", using: :btree
   end

@@ -13,9 +13,11 @@
 
   select {
     height: 32px;
+    line-height: 32px;
+    padding: 0 5px;
     border: 1px solid #ccc;
     background-color: #fff;
-    min-width: 60px;
+    min-width: 40px;
   }
 
   select[name="cron-period"] {
@@ -24,6 +26,20 @@
 
   select[name="cron-month"] {
     width: 100px;
+  }
+
+  select[name="cron-dow"] {
+    width: 110px;
+  }
+
+  select[name="cron-dom"] {
+    width: 80px;
+  }
+
+  select[name="cron-time-hour"],
+  select[name="cron-time-min"],
+  select[name="cron-mins"] {
+    width: 60px;
   }
 }
 
@@ -93,4 +109,11 @@
  **/
 .input-group .form-control {
   z-index: 1 !important;
+}
+
+/**
+ * Override smart admin theme
+ **/
+.smart-form {
+  color: #333;
 }

@@ -7,7 +7,7 @@ class ApplicationSerializer < ActiveModel::Serializer
 
   def time_to_s(date_time)
     if date_time.present?
-      date_time.strftime('%m/%d/%Y %H:%M')
+      date_time.iso8601
     end
   end
 end

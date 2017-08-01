@@ -1,24 +1,35 @@
-<form #form="ngForm" class="smart-form">
+<form #form="ngForm">
 
-  <div class="rule-name"
-    [ngClass]="name.valid || name.pristine ? '' : 'error'">
-    <i class="fa fa-file-text-o" aria-hidden="true"></i>
-    <input placeholder="Rule Name..." 
-      #name="ngModel"
-      [(ngModel)]="alertRule.name" name="name" required />
+  <div class="rule-name-group">
+    <div class="rule-name"
+      [ngClass]="name.valid || name.pristine ? '' : 'error'">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <input placeholder="Rule Name..." 
+        #name="ngModel"
+        [(ngModel)]="alertRule.name" name="name" required />
+    </div>
+    <div class="note note-error rule-name-error" 
+      [hidden]="name.valid || name.pristine">This is a required field.
+    </div>
   </div>
 
-  <div class="note note-error rule-name-error" 
-    [hidden]="name.valid || name.pristine">This is a required field.
+  <effective-period 
+    #effectivePeriodComponent
+    [fromTime]="alertRule.from_time"
+    [toTime]="alertRule.to_time"></effective-period>
+
+  <header class="dmt-header">Scheduler</header>
+
+  <div class="cron-group">
+    <div class="cron"></div>
   </div>
+  
 
-  <header class="demeter-header">
-    Rule
-  </header>
+  <header class="dmt-header">Rule</header>
 
-  <div class="rule-builder">
+  <div class="rule-builder smart-form">
     <div class="source-form-group">
-      <label>Source</label>
+      <label class="form-label">Source</label>
       <label class="select">
         <select [(ngModel)]="alertRule.device_field" name="device_field_id" required>
           <option *ngFor="let device of devices" [ngValue]="device">{{device.name}}</option>
@@ -45,23 +56,64 @@
     </div>
   </div>
 
-  <header class="demeter-header">
-    Scheduler
-  </header>
-
-  <div class="cron"></div>
-
-  <header class="demeter-header" *ngIf="alertRule.device_field">
+  <header class="dmt-header" *ngIf="alertRule.device_field">
     Chart Option
   </header>
 
-  <div class="chart-option"  *ngIf="alertRule.device_field">
+  <div class="chart-option smart-form"  *ngIf="alertRule.device_field">
     <label class="checkbox">
       Apply rule to <strong>{{alertRule.device_field.name}}</strong> live-chart
       <input type="checkbox" name="live_chart_rule"
         [(ngModel)]="alertRule.live_chart_rule">
       <i></i>&nbsp;
     </label>
+  </div>
+
+  <header class="dmt-header">
+    Triggers
+  </header>
+
+  <div class="trigger-group">
+    <div class="smart-form">
+      <label class="checkbox state-disabled">
+        Web
+        <input type="checkbox" name="trigger_email" checked disabled>
+        <i></i>&nbsp;
+      </label>
+
+      <div class="trigger-item"
+        [ngClass]="alertRule.trigger_email ? 'open' : ''">
+        <label class="checkbox">
+          Email
+          <input type="checkbox" name="trigger_email"
+            [(ngModel)]="alertRule.trigger_email">
+          <i></i>&nbsp;
+        </label>
+
+        <div *ngIf="alertRule.trigger_email"
+          class="email-form">
+          <label class="textarea">
+            <textarea [(ngModel)]="alertRule.trigger_emails" name="trigger_emails" rows="3"></textarea>
+          </label>
+          <div class="note">Emails should be seperated by <code>;</code>
+          </div>
+        </div>
+      </div>
+
+      <label class="checkbox">
+        Message
+        <input type="checkbox" name="trigger_message"
+          [(ngModel)]="alertRule.trigger_message">
+        <i></i>&nbsp;
+      </label>
+
+      <label class="checkbox">
+        Call
+        <input type="checkbox" name="trigger_call"
+          [(ngModel)]="alertRule.trigger_call">
+        <i></i>&nbsp;
+      </label>
+    </div>
   </div>
 
   <div class="button-group">

@@ -10,10 +10,10 @@ class ProgramExecutionSerializer < ApplicationSerializer
   end
 
   def from_time
-    date_to_s(object.from_time)
+    time_to_s(object.from_time)
   end
 
   def to_time
-    date_to_s(object.to_time)
+    time_to_s(object.to_time)
   end
 end

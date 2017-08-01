@@ -7,13 +7,14 @@ declare var $:any;
 })
 export class UiDatepickerDirective implements OnInit {
 
-  private el: any;
-
-  constructor(el:ElementRef) {
-    this.el = el.nativeElement;
-  }
   @Input() saUiDatepicker:any;
   @Output() valueChange = new EventEmitter();
+  private el: any;
+  private calendarValue: string;
+
+  constructor(el: ElementRef) {
+    this.el = el.nativeElement;
+  }
 
   ngOnInit() {
     let onSelectCallbacks = [];
@@ -21,17 +22,17 @@ export class UiDatepickerDirective implements OnInit {
     let element = $(this.el);
 
     if (saUiDatepicker.minRestrict) {
-      onSelectCallbacks.push((selectedDate)=> {
+      onSelectCallbacks.push((selectedDate) => {
         $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);
       });
     }
     if (saUiDatepicker.maxRestrict) {
-      onSelectCallbacks.push((selectedDate)=> {
+      onSelectCallbacks.push((selectedDate) => {
         $(saUiDatepicker.maxRestrict).datepicker('option', 'maxDate', selectedDate);
       });
     }
 
-    //Let others know about changes to the data field
+    // Let others know about changes to the data field
     onSelectCallbacks.push((selectedDate) => {
       this.valueChange.emit(selectedDate);
     });
@@ -39,10 +40,10 @@ export class UiDatepickerDirective implements OnInit {
     let options = $.extend(saUiDatepicker, {
       prevText: '<i class="fa fa-chevron-left"></i>',
       nextText: '<i class="fa fa-chevron-right"></i>',
-      onSelect: (selectedDate) =>{
+      onSelect: (selectedDate) => {
         onSelectCallbacks.forEach((callback) =>{
-          callback.call(callback, selectedDate)
-        })
+          callback.call(callback, selectedDate);
+        });
       },
       beforeShow: function() {
         element.css('z-index', 2000);

@@ -1,22 +1,20 @@
 <form #programForm="ngForm">
 
-  <div class="execution-name"
-    [ngClass]="name.valid || name.pristine ? '' : 'error'">
-    <i class="fa fa-file-text-o" aria-hidden="true"></i>
-    <input placeholder="Execution Name..." 
-      #name="ngModel"
-      [(ngModel)]="program.name" name="name" required />
+  <div class="rule-name-group">
+    <div class="execution-name"
+      [ngClass]="name.valid || name.pristine ? '' : 'error'">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <input placeholder="Execution Name..." 
+        #name="ngModel"
+        [(ngModel)]="program.name" name="name" required />
+    </div>
+
+    <div class="note note-error execution-name-error" 
+      [hidden]="name.valid || name.pristine">This is a required field.
+    </div>
   </div>
 
-  <div class="note note-error execution-name-error" 
-    [hidden]="name.valid || name.pristine">This is a required field.
-  </div>
-
-  <div class="smart-form">
-    <header>
-      Effective Period
-    </header>
-  </div>
+  <header class="dmt-header">Effective Period</header>
   <div class="effective-period-group">
     <div class="demeter-form-group">
       <label class="control-label">Effective From</label>
@@ -50,19 +48,11 @@
 
   </div>
 
-  <div class="smart-form">
-    <header>
-      Scheduler
-    </header>
-  </div>
+  <header class="dmt-header">Scheduler</header>
 
   <div class="cron"></div>
 
-  <div class="smart-form">
-    <header>
-      Input
-    </header>
-  </div>
+  <header class="dmt-header">Input</header>
 
   <div class="query-builder-container">
     <app-query-builder
@@ -72,11 +62,7 @@
       #inputQueryBuilder></app-query-builder>
   </div>
 
-  <div class="smart-form">
-    <header>
-      Output
-    </header>
-  </div>
+  <header class="dmt-header">Output</header>
 
   <div class="query-builder-container">
     <app-query-builder

@@ -1,3 +1,7 @@
+.rule-name-group {
+  margin-bottom: 15px;
+}
+
 .rule-name {
   font-size: 22px;
   display: -webkit-flex;
@@ -42,6 +46,7 @@
   margin-left: 40px;
 }
 
+
 .source-form-group,
 .condition-form-group,
 .value-form-group {
@@ -55,13 +60,21 @@
   }
 }
 
+.source-form-group {
+  width: 300px;
+  label.form-label {
+    width: 100px;
+  }
+  label.select {
+    margin-left: 0px;
+  }
+}
+
 .rule-builder,
 .chart-option,
 .interval-option {
   display: flex;
-  margin: 10px 20px 0;
-  align-items: center;
-  justify-content: center;
+  margin-top: 10px;
 }
 
 .interval-option {
@@ -88,6 +101,25 @@
 }
 
 .cron {
-  text-align: center;
+  margin-left: 100px;
   margin-top: 10px;
+}
+
+.rule-builder,
+.trigger-group,
+.chart-option,
+.cron-group {
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
+.email-form {
+  margin-left: 24px;
+  max-width: 400px;
+}
+
+.trigger-group .smart-form {
+  .trigger-item.open {
+    margin-bottom: 15px;
+  }
 }

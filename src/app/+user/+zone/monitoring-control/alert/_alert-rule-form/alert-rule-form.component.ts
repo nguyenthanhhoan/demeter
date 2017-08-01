@@ -20,9 +20,13 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
   @ViewChild('form') form: any;
   submitClicked: boolean = false;
 
+  @ViewChild('effectivePeriodComponent') effectivePeriodComponent: any;
+
   @Input()
   alertRule: any = {
-    schedule: '0 0 * * *'
+    from_time: '',
+    to_time: '',
+    schedule: '0 0 * * *',
   };
 
   oldAlertRule: any = {};
@@ -100,21 +104,23 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
   }
 
   buildSubmitAlertRule(rule) {
-    let submitRule = {
-      id: rule.id,
-      zone_id: this.zoneId,
-      name: rule.name,
-      device_field_id: rule.device_field.id,
-      condition: rule.condition,
-      value: rule.value,
-      interval: rule.interval,
-      live_chart_rule: rule.live_chart_rule,
-      schedule: $('.cron').cron('value')
-    };
+    let submitRule = Object.assign({}, rule);
+    delete submitRule.device_field;
+    submitRule.zone_id = this.zoneId;
+    submitRule.device_field_id = rule.device_field.id;
+    submitRule.schedule = $('.cron').cron('value');
     return submitRule;
   }
 
   create() {
+    let effectivePeriod = this.effectivePeriodComponent.getEffectivePeriod();
+    if (effectivePeriod) {
+      this.alertRule.from_time = effectivePeriod.from_time;
+      this.alertRule.to_time = effectivePeriod.to_time;
+    } else {
+      // There is validation error
+      return false;
+    }
     let submitAlertRule = this.buildSubmitAlertRule(this.alertRule);
     this.alertRuleService.post(this.zoneId, submitAlertRule)
     .subscribe(() => {
@@ -126,6 +132,14 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
   }
 
   update() {
+    let effectivePeriod = this.effectivePeriodComponent.getEffectivePeriod();
+    if (effectivePeriod) {
+      this.alertRule.from_time = effectivePeriod.from_time;
+      this.alertRule.to_time = effectivePeriod.to_time;
+    } else {
+      // There is validation error
+      return false;
+    }
     let submitAlertRule = this.buildSubmitAlertRule(this.alertRule);
     this.alertRuleService.put(this.zoneId, submitAlertRule)
     .subscribe(() => {
