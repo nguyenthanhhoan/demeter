@@ -72,7 +72,7 @@
           name="invite_email"
           #invite_email="ngModel"
           required
-          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+          pattern="^[ ]*\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+[ ]*$" />
 
         <div class="note note-error" 
           [hidden]="invite_email.pristine || !invite_email.errors?.required">This is a required field.

@@ -1,3 +1,4 @@
+import { AppSettings } from '../../../../app.settings';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,6 +18,7 @@ export class MemberComponent implements OnInit {
   admins: any[];
   users: any[];
   invitations: any[];
+  emailPattern: RegExp;
 
   newMember: any = {
     email: '',
@@ -27,6 +29,7 @@ export class MemberComponent implements OnInit {
               private invitationService: InvitationService,
               private projectService: ProjectService,
               private notification: NotificationService) {
+    this.emailPattern = AppSettings.validation.email;
   }
 
   ngOnInit() {
@@ -55,6 +58,10 @@ export class MemberComponent implements OnInit {
   }
 
   addNewMember(member) {
+    if (!this.emailPattern.test(member.email)) {
+      return;
+    }
+    member.email = member.email.trim();
     this.projectService.addNewMember(this.projectId, member).subscribe((res: any) => {
       if (res && res.message) {
         this.notification.showMessage(res.message);
