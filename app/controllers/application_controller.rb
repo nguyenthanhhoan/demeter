@@ -10,7 +10,10 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     message = 'You are not authorized to perform this action.'
     self.status = :unauthorized
-    render json: { error: message }
+
+    # resource_protected is used to differentiate with default devise unauthorized
+    # (which is not required re-login)
+    render json: { error: message, type: :resource_protected}
   end
 
   def server_error(error)

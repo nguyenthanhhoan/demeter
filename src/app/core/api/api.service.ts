@@ -1,4 +1,4 @@
-import { forEach } from '@angular/router/src/utils/collection';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
@@ -18,6 +18,7 @@ export class ApiService {
   public replaySubject: ReplaySubject<any> = new ReplaySubject(1);
 
   constructor(private http: Http,
+              private router: Router,
               private notificationService: NotificationService,
               private tokenService: Angular2TokenService) {}
 
@@ -133,33 +134,67 @@ export class ApiService {
     }
   }
 
+  private handleUnAuthorized(error: Response) {
+    if (error.status === 401 && error.statusText === 'Unauthorized') {
+      const body = error.json() || {};
+
+      // resource_protected is used to differentiate with default devise unauthorized
+      // (which is not required login again)
+      if (body.type === 'resource_protected') {
+        this.showErrorBox(error.statusText, body.error);
+      } else {
+        console.log('User is unauthorized. Need redirect to login page!');
+        this.router.navigate(['auth/login']);
+      }
+      return true;
+    }
+  }
+
+  /**
+   * Parse the error object, it can be an array or object
+   * @param error The error object from server
+   */
+  private parseErrors(error: Response) {
+    let errMsg: string = '';
+    const body = error.json() || '';
+    if (body.errors) {
+      let {errors} = body;
+      if (typeof errors.length === 'undefined') {
+        // The formatted returned is object (Ex. Rails ORM validation)
+        Object.keys(errors).forEach((key) => {
+          errMsg += `<p>${key}: ${errors[key]}</p>`;
+        });
+      } else {
+
+        // The formatted returned by devise_token_auth
+        errMsg = errors.join('\n');
+      }
+    } else {
+      errMsg = body.error || 'Service is temporarily unavailable';
+    }
+    return errMsg;
+  }
+
   private handleError(error: any) {
     let errMsg: string = '';
     if (error instanceof Response) {
-      const body = error.json() || '';
-      if (body.errors) {
-        let {errors} = body;
-        if (typeof errors.length === 'undefined') {
-          // The formatted returned is object (Ex. Rails ORM validation)
-          Object.keys(errors).forEach((key) => {
-            errMsg += `<p>${key}: ${errors[key]}</p>`;
-          });
-        } else {
-
-          // The formatted returned by devise_token_auth
-          errMsg = errors.join('\n');
-        }
-      } else {
-        errMsg = body.error || 'Service is temporarily unavailable';
-      }
+      if (this.handleUnAuthorized(error)) {
+        return Observable.throw(error);
+      };
+      errMsg = this.parseErrors(error);
     } else {
       let msgObj = JSON.parse(error._body);
       errMsg = msgObj.error || 'Service is temporarily unavailable';
     }
 
+    this.showErrorBox(error.statusText, errMsg);
+    return Observable.throw(error);
+  }
+
+  private showErrorBox(title, errMsg) {
     setTimeout(() => {
       this.notificationService.bigBox({
-        title: error.statusText,
+        title: title,
         content: errMsg,
         color: '#C46A69',
         icon: 'fa fa-warning shake animated',
@@ -167,6 +202,5 @@ export class ApiService {
         timeout: 5000
       });
     });
-    return Observable.throw(error);
   }
 }
