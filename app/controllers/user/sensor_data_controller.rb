@@ -35,7 +35,6 @@ class User::SensorDataController < AuthorizedController
 
 
   def query_lastest
-    date = params[:date]
     gateway_name = @zone.device_gateway
 
     redis = CacheService.get_redis
@@ -48,7 +47,7 @@ class User::SensorDataController < AuthorizedController
     if sensor_data.present? 
       sensor_data_parsed = JSON.parse(sensor_data)
     else
-      logger.info "Latets data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
+      logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
       sensor_data_parsed = CacheService.build_cache_data_lastest(gateway_name)
     end
 

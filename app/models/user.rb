@@ -3,11 +3,22 @@ class User < ApplicationRecord
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  # note that this include statement comes AFTER the devise block above
   include DeviseTokenAuth::Concerns::User
 
   has_many :projects
 
   after_create :assign_default_role
+
+  # List all project that user has been assigned to
+  def assigned_projects
+    Project.with_roles([:project_admin, :project_user], self)
+  end
+
+  def count_project
+    self.projects.count + self.assigned_projects.count
+  end
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?

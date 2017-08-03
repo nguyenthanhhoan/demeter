@@ -156,23 +156,28 @@ export class ApiService {
    */
   private parseErrors(error: Response) {
     let errMsg: string = '';
-    const body = error.json() || '';
-    if (body.errors) {
-      let {errors} = body;
-      if (typeof errors.length === 'undefined') {
-        // The formatted returned is object (Ex. Rails ORM validation)
-        Object.keys(errors).forEach((key) => {
-          errMsg += `<p>${key}: ${errors[key]}</p>`;
-        });
-      } else {
 
-        // The formatted returned by devise_token_auth
-        errMsg = errors.join('\n');
+    try {
+      const body = error.json() || '';
+      if (body.errors) {
+        let {errors} = body;
+        if (typeof errors.length === 'undefined') {
+          // The formatted returned is object (Ex. Rails ORM validation)
+          Object.keys(errors).forEach((key) => {
+            errMsg += `<p>${key}: ${errors[key]}</p>`;
+          });
+        } else {
+
+          // The formatted returned by devise_token_auth
+          errMsg = errors.join('\n');
+        }
+      } else {
+        errMsg = body.error || 'Service is temporarily unavailable';
       }
-    } else {
-      errMsg = body.error || 'Service is temporarily unavailable';
+      return errMsg;
+    } catch (err) {
+      return error['_body'];
     }
-    return errMsg;
   }
 
   private handleError(error: any) {
@@ -183,6 +188,8 @@ export class ApiService {
       };
       errMsg = this.parseErrors(error);
     } else {
+
+      // Not a Response type, might be network error
       let msgObj = JSON.parse(error._body);
       errMsg = msgObj.error || 'Service is temporarily unavailable';
     }

@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate() {
-    // If user is not logged in we'll send them to the login page 
+    // If user is not logged in we'll send them to the login page
     if (!this.auth.loggedIn()) {
       console.log('User havenot logged in yet! Go to login page!');
       this.router.navigate(['/auth/login']);
@@ -17,5 +17,4 @@ export class AuthGuard implements CanActivate {
     }
     return true;
   }
-
 }

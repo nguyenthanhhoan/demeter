@@ -1,0 +1,42 @@
+<div class="animated fadeInDown" class="auth-container">
+    <div class="auth-wrapper">
+      <div class="main-content">
+          <header>
+            <h2>
+                <div class="logo large"></div>
+                <div class="header">
+                    Account Registration
+                </div>
+            </h2>
+          </header>
+          <form class="smart-form">
+            <div class="ui segment">
+              <section>
+                <label class="input state-disabled"> <i class="icon-prepend fa fa-user"></i>
+                  <input [(ngModel)]="user.email" 
+                    placeholder="Email"
+                    maxlength="50"
+                    disabled
+                    name="email">
+                </label>
+              </section>
+              <section>
+                <label class="input"> <i class="icon-prepend fa fa-lock"></i>
+                  <input type="password" name="password" data-smart-validate-input="" data-required="" data-minlength="3" 
+                    placeholder="Password"
+                    maxlength="20"
+                    [(ngModel)]="user.password" name="password">
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter
+                    your password</b> </label>
+              </section>
+              <section>
+                <p><a routerLink="/auth/login">Login</a></p>
+              </section>
+              <button (click)="register()" class="btn main-action-btn">
+                Register
+              </button>
+            </div>
+          </form>
+      </div>
+    </div>
+</div>

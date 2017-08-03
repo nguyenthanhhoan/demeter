@@ -24,4 +24,5 @@ class ApplicationController < ActionController::Base
       key: 'Exception'
     }, status: :internal_server_error
   end
+
 end

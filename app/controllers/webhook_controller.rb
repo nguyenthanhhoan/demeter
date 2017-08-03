@@ -1,4 +1,4 @@
-class WebhookController < ActionController::Base
+class WebhookController < ApplicationController
   before_action :authenticate
   rescue_from Exception, with: :server_error
 

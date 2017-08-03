@@ -16,14 +16,14 @@ class AddMemberService
       end
       invitation = Invitation.new({
         email: email,
-        role: role,
+        role: role.to_sym,
         resource_name: 'project',
         resource_id: project.id
       })
       invitation.token = SecureRandom.uuid
 
       if invitation.save
-        # TODO: Send email
+        InvitationMailer.invite_to_project(invitation, email).deliver_later
         result[:code] = :sent_email_invitation
         result[:invitation] = invitation
       else

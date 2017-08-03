@@ -1,9 +1,9 @@
 class User::ProjectsController < AuthorizedController
   before_action :get_project, only: [:show, :edit, :update, :destroy, :add_member, :list_member, :remove_member]
-  before_action :check_company_admin, only: [:index, :create]
+  before_action :check_company_admin, only: [:create]
 
   def index
-    render json: Project.where({ user: current_user }).order(id: :desc)
+    render json: (current_user.projects.order(id: :desc) + current_user.assigned_projects)
   end
 
   def show
@@ -98,7 +98,8 @@ class User::ProjectsController < AuthorizedController
     def check_company_admin
       unless current_user.is_company_admin?
         render json: {
-            errors: [t(:only_allow_company_admin)]
+            error: [t(:only_allow_company_admin)],
+            type: :resource_protected
           }, status: :unauthorized
         return false
       end

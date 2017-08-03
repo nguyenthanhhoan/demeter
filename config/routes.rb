@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   get '/current_user' => 'profile#get_current_user'
   post '/register' => 'registrations#create'
+  post '/create_user_from_invitation' => 'registrations#create_user_from_invitation'
   post '/webhook/update_device_value' => 'webhook#update_device_value'
+  get '/invitations/:uuid' => 'invitations#get_invitation'
 
   namespace :admin do
     resources :users

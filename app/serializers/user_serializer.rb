@@ -2,6 +2,6 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :role
 
   has_one :has_project do
-    object.projects.count > 0
+    object.count_project > 0
   end
 end
