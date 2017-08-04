@@ -32,15 +32,16 @@ class DeviceService
   # }
   def sync_with_latest_state(devices, device_gateway)
     latest_state = AwsIotService.new.get_thing_shadow device_gateway
-    latest_state["state"]["report"].each do |key, report_field|
+    Rails.logger.info "State=#{latest_state.to_json}"
+    latest_state["state"]["reported"].each do |key, reported_field|
       field_id = key
-      field_value = report_field["value"]
+      field_value = reported_field["value"]
       field = devices.select { |device|
         device.field_id == field_id && device.device.name == device_gateway
       }[0]
       
       if field.present?
-        next unless is_match_data_type?(field, report_field)
+        next unless is_match_data_type?(field, reported_field)
         case field.value_data_type
         when :integer
           if Integer(field.value) != field_value
