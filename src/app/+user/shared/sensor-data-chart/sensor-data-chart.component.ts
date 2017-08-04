@@ -26,16 +26,6 @@ export class SensorDataChartComponent implements OnDestroy {
   first_loaded = false;
   last_timestamp: any;
 
-  // TODO: This configure should come from db
-  fieldNames: any = {
-    field1: 'Temp(°C)',
-    field2: 'Humidity(%)',
-    field3: 'Illuminances(lx)',
-    field4: 'EC(mS/cm)',
-    field5: 'pH',
-    field6: 'Water Temp(°C)'
-  };
-
   chartTabs: any[] = [];
   activeChartTab = this.chartTabs[0];
   chartInit = false;
@@ -129,7 +119,7 @@ export class SensorDataChartComponent implements OnDestroy {
               chartTab.chart_series = data.series[index];
               let length = data.series[index].data.length;
               chartTab.lastest_data = data.series[index].data[length - 1];
-              chartTab.name = this.fieldNames[field.field_id];
+              chartTab.name = field.name_display + `(${field.chart_value_suffix})`;
               this.chartTabs.push(chartTab);
             });
             this.activeChartTab = this.chartTabs[0];
