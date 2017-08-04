@@ -20,6 +20,11 @@ function registerThings(thingNames, thingShadows) {
     });
 }
 
+/**
+ * Delta state is a virtual type of state that contains the difference between the desired and reported states. 
+ * Fields in the desired section that are not in the reported section are included in the delta. 
+ * Fields that are in the reported section and not in the desired section are not included in the delta. 
+ */
 function processDelta(thingName, stateObject, websocket, restService) {
 
     let {state} = stateObject;

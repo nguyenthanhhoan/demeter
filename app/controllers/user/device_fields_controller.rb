@@ -25,6 +25,9 @@ class User::DeviceFieldsController < AuthorizedController
     device_assigned = device_fields_zones.map { | device_fields_zone |
       device_fields_zone.device_field
     }
+
+    device_gateway = (Zone.find @zone_id).device_gateway
+    DeviceService.new.sync_with_latest_state(device_assigned, device_gateway)
     render json: device_assigned
   end
 
