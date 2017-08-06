@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../../../shared/shared.module';
 import { routing } from './zone-daily-report.routing';
+import { OverviewModule } from './overview/overview.module';
 
 import { ZoneDailyReportComponent } from './zone-daily-report.component';
 
@@ -10,7 +11,6 @@ import { HarvestingFormComponent } from './harvesting/harvesting-form/harvesting
 import { ZoneDailyReportHarvestingComponent } from './harvesting/zone-daily-report-harvesting.component';
 
 import { NoteFormComponent } from './overview/note-form/note-form.component';
-import { ImageReportFormComponent } from './overview/image-report-form/image-report-form.component';
 import { PestDiseaseFormComponent } from './overview/pest-disease-form/pest-disease-form.component';
 import { IrrigationFormComponent } from './overview/irrigation-form/irrigation-form.component';
 import { ZoneDailyReportOverviewComponent } from './overview/zone-daily-report-overview.component';
@@ -26,7 +26,8 @@ import { ZoneDailyReportUsageComponent } from './usage/zone-daily-report-usage.c
 @NgModule({
   imports: [
     SharedModule,
-    routing
+    routing,
+    OverviewModule
   ],
   declarations: [
     ZoneDailyReportComponent,
@@ -39,7 +40,6 @@ import { ZoneDailyReportUsageComponent } from './usage/zone-daily-report-usage.c
     ZoneDailyReportUsageComponent,
     IrrigationFormComponent,
     PestDiseaseFormComponent,
-    ImageReportFormComponent,
     NoteFormComponent,
     WorkHourFormComponent,
     MachineryFormComponent,

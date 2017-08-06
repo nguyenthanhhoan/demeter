@@ -73,63 +73,6 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     amount: 0.2
   }];
 
-  image_report_types: any[] = [{
-    name: 'Growing Images'
-  }, {
-    name: 'Leaves Images'
-  }, {
-    name: 'Height Images'
-  }];
-
-  image_reports: any[] = [{
-    id: 1,
-    src: 'assets/img/demo/s1.jpg',
-    type: this.image_report_types[0],
-    title: 'Date 1'
-  }, {
-    id: 2,
-    src: 'assets/img/demo/s2.jpg',
-    type: this.image_report_types[0],
-    title: 'Date 1'
-  }, {
-    id: 3,
-    src: 'assets/img/demo/s3.jpg',
-    type: this.image_report_types[0],
-    title: 'Date 1'
-  }, {
-    id: 4,
-    src: 'assets/img/demo/s1.jpg',
-    type: this.image_report_types[1],
-    title: 'Date 1'
-  }, {
-    id: 5,
-    src: 'assets/img/demo/s2.jpg',
-    type: this.image_report_types[1],
-    title: 'Date 1'
-  }, {
-    id: 6,
-    src: 'assets/img/demo/s3.jpg',
-    type: this.image_report_types[1],
-    title: 'Date 1'
-  }, {
-    id: 7,
-    src: 'assets/img/demo/s1.jpg',
-    type: this.image_report_types[2],
-    title: 'Date 1'
-  }, {
-    id: 8,
-    src: 'assets/img/demo/s2.jpg',
-    type: this.image_report_types[2],
-    title: 'Date 1'
-  }, {
-    id: 9,
-    src: 'assets/img/demo/s3.jpg',
-    type: this.image_report_types[2],
-    title: 'Date 1'
-  }];
-
-  image_report_groups: any[] = [];
-
   notes = [{
     id: 1,
     name: 'Note 1',
@@ -150,8 +93,6 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     this.irrigations.forEach((irrigation) => {
       irrigation.event = this.irrigationType[irrigation.event];
     });
-
-    this.buildImageReportGroups();
   }
 
   ngDoCheck() {
@@ -186,20 +127,6 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
     }
   }
 
-  imageReportFormResolve(image_report) {
-    if (image_report.id) {
-      let found = this.image_reports.find((loop_image_report) => {
-        return loop_image_report.id === image_report.id;
-      });
-      Object.assign(found, image_report);
-    } else {
-      let clone_irr = Object.assign({}, image_report);
-      clone_irr.id = (new Date()).getTime();
-      this.image_reports.push(clone_irr);
-    }
-    this.buildImageReportGroups();
-  }
-
   noteFormResolve(note) {
     if (note.id) {
       let found = this.notes.find((loop_note) => {
@@ -225,9 +152,6 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
         case 'Pests / Disease':
           items = this.pest_diseases;
           break;
-        case 'Image':
-          items = this.image_reports;
-          break;
         case 'Note':
           items = this.notes;
           break;
@@ -237,21 +161,7 @@ export class ZoneDailyReportOverviewComponent implements OnInit, DoCheck {
       let index = items.indexOf(item);
       items.splice(index, 1);
       this.notificationService.showMessage(`Remove ${type} successfully!`);
-      this.buildImageReportGroups();
     });
   }
 
-  buildImageReportGroups() {
-    this.image_reports.forEach((image_report) => {
-      image_report.type_name = image_report.type.name;
-    });
-    let result = _.chain(this.image_reports)
-    .groupBy('type_name')
-    .toPairs()
-    .map(function(currentItem) {
-      return _.zipObject(['type_name', 'images'], currentItem);
-    })
-    .value();
-    this.image_report_groups = result;
-  }
 }

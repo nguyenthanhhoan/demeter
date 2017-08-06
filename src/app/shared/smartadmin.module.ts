@@ -31,15 +31,10 @@ import {UtilsModule} from "./utils/utils.module";
 // import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.module";
 
 import { SpinnerModule } from './spinner/spinner.module';
-import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
-
 
 @NgModule({
   imports: [
     CommonModule, FormsModule, HttpModule, RouterModule,
-  ],
-  declarations: [
-    ImageGalleryDirective
   ],
   exports: [
     CommonModule, FormsModule, HttpModule, RouterModule,
@@ -76,8 +71,7 @@ import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
     // StatsModule,
 
     // VoiceControlModule,
-    SpinnerModule,
-    ImageGalleryDirective
+    SpinnerModule
 
   ]
 })

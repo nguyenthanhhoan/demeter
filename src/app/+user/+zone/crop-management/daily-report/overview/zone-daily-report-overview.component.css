@@ -29,29 +29,6 @@
   top: -66px;
 }
 
-.image-title {
-  margin-top: 5px;
-}
-
-.image-actions {
-  opacity: 0;
-  position: absolute;
-  right: 20px;
-  bottom: 0px;
-}
-
-.image-single img {
-  cursor: pointer;
-}
-
-.image-single:hover .image-actions {
-  opacity: 1;
-}
-
-.image-actions a {
-  padding: 0 3px;
-}
-
 .smart-form .col-lg-1, .smart-form .col-lg-10, .smart-form .col-lg-11, .smart-form .col-lg-12, .smart-form .col-lg-2, .smart-form .col-lg-3, 
 .smart-form .col-lg-4, .smart-form .col-lg-5, .smart-form .col-lg-6, .smart-form .col-lg-7, .smart-form .col-lg-8, .smart-form .col-lg-9, 
 .smart-form .col-md-1, .smart-form .col-md-10, .smart-form .col-md-11, .smart-form .col-md-12, .smart-form .col-md-2, .smart-form .col-md-3, 
@@ -62,4 +39,8 @@
 .smart-form .col-xs-4, .smart-form .col-xs-5, .smart-form .col-xs-6, .smart-form .col-xs-7, .smart-form .col-xs-8, .smart-form .col-xs-9 {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.note-of-day {
+  margin-top: 30px;
 }

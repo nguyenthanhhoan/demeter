@@ -88,34 +88,11 @@
       </table>
     </section>
   </fieldset>
+</form>
 
-  <header>Image Report</header>
-  <fieldset>
-    <section class="no-margin">
-      <button 
-        class="demeter-btn create-btn primary pull-right"
-        (click)="imageReportForm.open()">Add</button>
-    </section>
-    <section *ngFor="let image_report_group of image_report_groups">
-      <p>{{image_report_group.type_name}}</p>
-      <div class="row" image-gallery [images]="image_report_group.images">
-        <div class="col-lg-2 col-md-3 col-sm-6 image-single" *ngFor="let image of image_report_group.images; let i = index">
-          <img src="{{image.src}}" class="img-responsive" [attr.data-id]="i"/>
-          <p class="image-title">{{image.title}}</p>
+<image-report></image-report>
 
-          <div class="image-actions">
-            <a (click)="imageReportForm.open(image)">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a class="delete-action" (click)="remove(image, 'Image')">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </fieldset>
-
+<form class="smart-form note-of-day">
   <header>Notes of Day</header>
   <fieldset>
     <section>
@@ -153,8 +130,6 @@
 
 <irrigation-form #irrigationForm (resolve)="irrigationFormResolve($event)"></irrigation-form>
 <pest-disease-form #pestDiseaseForm (resolve)="pestDiseaseFormResolve($event)"></pest-disease-form>
-<image-report-form #imageReportForm 
-  (resolve)="imageReportFormResolve($event)"
-  [imageReportTypes]="image_report_types"></image-report-form>
+
 <note-form #noteForm
   (resolve)="noteFormResolve($event)"></note-form>
