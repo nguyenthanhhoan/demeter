@@ -1,10 +1,12 @@
 class DynamodbService
 
-  def self.get_data_in(start_timestamp, end_timestamp, device_gateway)
-    client = Aws::DynamoDB::Client.new(region: ENV.fetch('AWS_DYNAMODB_REGION'))
+  def get_client
+    Aws::DynamoDB::Client.new(region: ENV.fetch('AWS_DYNAMODB_REGION'))
+  end
 
+  def get_data_in(start_timestamp, end_timestamp, device_gateway)
+    client = get_client
     items = []
-
     query_obj = {
       key_conditions: {
         'deviceId' => {
@@ -36,7 +38,7 @@ class DynamodbService
   end
 
   # Incase have more than max_point data points, we should normalize into max_point points only
-  def self.normalize_data(points, max_point)
+  def normalize_data(points, max_point)
     if points.length > max_point
       start_time = Integer(points[0]['timestamp'].to_f)
       end_time = Integer(points[points.count - 1]['timestamp'].to_f)
@@ -59,18 +61,37 @@ class DynamodbService
     end
   end
 
-  # TODO
-  def get_lastest_data(device_gateway)
-    start_timestamp = Date.current.to_f * 1000
-    end_timestamp = start_time - 60 * 1000
+  #
+  # Query last 1 hour data and get the latest
+  #
+  def get_lastest_data(device_gateway, field_id)
+    client = get_client
+    items = []
+    result = {}
+    query_obj = {
+      key_conditions: {
+        'deviceId' => {
+          comparison_operator: 'EQ',
+          attribute_value_list: ['dmt-client']
+        },
+        'timestamp' => {
+          comparison_operator: 'BETWEEN',
+          attribute_value_list: [
+            Time.now.to_i * 1000 - 60 * 60 * 1000,
+            Time.now.to_i * 1000
+          ]
+        }
+      },
+      table_name: 'gateway_data'
+    }
 
-    # Query data within last minute
-    points = DynamodbService.get_data_in(start_timestamp, end_timestamp, device_gateway)
-
-    if points.count > 0
-      points[points.count - 1].payload.data
-    else
-      Rails.logger.info "Within last minute. There is no data update from #{device_gateway} gateway"
+    query_result = client.query(query_obj)
+    items = query_result[:items]
+    unless items.empty?
+      latest_item = items[items.length - 1]
+      result[:timestamp] = latest_item["timestamp"].to_i / 1000
+      result[:value] = latest_item["payload"]["data"][field_id]
     end
+    result
   end
 end

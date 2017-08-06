@@ -21,8 +21,8 @@ class CacheService
     start_timestamp = date.beginning_of_day.to_f * 1000
     end_timestamp = date.end_of_day.to_f * 1000
 
-    sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, gateway_name)
-    sensor_data_normalized = DynamodbService.normalize_data(sensor_data, 300)
+    sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
+    sensor_data_normalized = DynamodbService.new.normalize_data(sensor_data, 300)
     redis.set(cached_key, sensor_data_normalized)
     sensor_data_normalized
   end
@@ -48,7 +48,7 @@ class CacheService
       end
     end
 
-    sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, gateway_name)
+    sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
     cached_data += sensor_data
 
     # Clear old data

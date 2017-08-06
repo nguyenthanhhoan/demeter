@@ -82,9 +82,38 @@ class DeviceService
     end
     unless result
       Rails.logger.warn "[DeviceService][sync_with_latest_state] Data type not match"
-      Rails.logger.warn "db_field data type: #{db_fied.value_data_type.to_s}."
+      Rails.logger.warn "db_field data type: #{db_field.value_data_type.to_s}."
       Rails.logger.warn "gw_field value: #{gw_value}."
     end
     result
+  end
+
+  #
+  # Update latest field for value
+  # Latest value can get from dynamodb (read_only field) or shadow state (read_write field)
+  #
+  def update_latest_value(db_field)
+    device_gateway = db_field.device.name
+    if db_field.read_only?
+      latest_result = DynamodbService.new.get_lastest_data(device_gateway, db_field.field_id)
+      if latest_result.empty?
+        Rails.logger.warn "There is not updated value for #{db_field.field_id}"
+      else
+        db_field.update_attribute(:value_updated_at, Time.at(latest_result[:timestamp]))
+        update_value(db_field, latest_result[:value])
+      end
+    end
+  end
+
+  #
+  # Update value to db based on the value_data_type
+  #
+  def update_value(device_field, value)
+    device_field.update_attribute(:value, value)
+    if device_field.integer?
+      device_field.update_attribute(:value_in_int, value.to_i)
+    else device_field.float?
+      device_field.update_attribute(:value_in_float, value.to_f)
+    end
   end
 end

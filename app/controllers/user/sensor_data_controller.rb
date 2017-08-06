@@ -6,10 +6,10 @@ class User::SensorDataController < AuthorizedController
     end_timestamp = params[:end_timestamp].to_i
     # sensor_data = CacheService.get_cached_data_in(start_timestamp, end_timestamp)
     # unless sensor_data.present?
-      sensor_data = DynamodbService.get_data_in(start_timestamp, end_timestamp, @zone.device_gateway)
+      sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, @zone.device_gateway)
     # end
 
-    sensor_data_normalized = DynamodbService.normalize_data(sensor_data, 300)
+    sensor_data_normalized = DynamodbService.new.normalize_data(sensor_data, 300)
     render json: sensor_data_normalized
   end
 
@@ -51,7 +51,7 @@ class User::SensorDataController < AuthorizedController
       sensor_data_parsed = CacheService.build_cache_data_lastest(gateway_name)
     end
 
-    sensor_data_parsed = DynamodbService.normalize_data(sensor_data_parsed, 300)
+    sensor_data_parsed = DynamodbService.new.normalize_data(sensor_data_parsed, 300)
     render json: sensor_data_parsed
   end
 

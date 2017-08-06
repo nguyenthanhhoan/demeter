@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801124515) do
+ActiveRecord::Schema.define(version: 20170806052747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170801124515) do
     t.float    "value_in_float"
     t.string   "icon"
     t.string   "hash_id"
+    t.datetime "value_updated_at"
     t.index ["device_id"], name: "index_device_fields_on_device_id", using: :btree
   end
 
