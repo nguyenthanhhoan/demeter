@@ -5,13 +5,7 @@ import { ZoneFormComponent } from './form/zone-form.component';
 import { ZoneComponent } from './zone.component';
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
 import { ZoneHistoryComponent } from './history/zone-history.component';
-import { OKRFormComponent } from './crop-management/okr/okr-form/okr-form.component';
-import { ZoneOKRComponent } from './crop-management/okr/zone-okr.component';
-import {
-  ZoneDailyReportComponent
-} from './crop-management/daily-report/zone-daily-report.component';
 import { ZoneSettingComponent } from './setting/zone-setting.component';
-import { ZoneWeatherComponent } from './crop-management/weather/zone-weather.component';
 import { ZoneCameraDetailComponent } from './camera/camera-detail/zone-camera-detail.component';
 import { ZoneCameraComponent } from './camera/zone-camera.component';
 
@@ -42,24 +36,13 @@ export const routes: Routes = [{
         loadChildren:
           'app/+user/+zone/monitoring-control/monitoring-control.module#MonitoringControlModule',
       }, {
-        path: 'weather', component: ZoneWeatherComponent
+        path: 'crop-management',
+        loadChildren:
+          'app/+user/+zone/crop-management/crop-management.module#CropManagementModule',
       }, {
         path: 'setting', component: ZoneSettingComponent
-      }, {
-        path: 'daily-report',
-        children: [{
-          path: '', component: ZoneDailyReportComponent
-        }, {
-          path: ':date', component: ZoneDailyReportComponent
-        }]
-      }, {
-        path: 'okr',
-        children: [{
-          path: '', component: ZoneOKRComponent,
-        }, {
-          path: ':objective_id', component: OKRFormComponent
-        }]
-    }]
+      }
+    ]
   }]
 }];
 

@@ -42,7 +42,7 @@ export class ZoneDailyReportComponent implements OnInit {
         let { zone } = zoneModel;
         this.zone_id = zone.id;
         this.project_id = zone.project.id;
-        this.path = `user/project/${this.project_id}/zone/${this.project_id}/daily-report/`;
+        this.path = `user/project/${this.project_id}/zone/${this.project_id}/crop-management/daily-report/`;
         this.zone = zone;
         this.initDateFilter();
         needToLoad = false;

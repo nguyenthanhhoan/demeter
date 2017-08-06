@@ -1,0 +1,27 @@
+import { OKRFormComponent } from './okr/okr-form/okr-form.component';
+import { ZoneOKRComponent } from './okr/zone-okr.component';
+import { ZoneDailyReportComponent } from './daily-report/zone-daily-report.component';
+import { ZoneWeatherComponent } from './weather/zone-weather.component';
+import { Routes, RouterModule } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: 'weather', component: ZoneWeatherComponent
+  }, {
+    path: 'daily-report',
+    loadChildren:
+      'app/+user/+zone/crop-management/daily-report/zone-daily-report.module#ZoneDailyReportModule'
+  }, {
+      path: 'okr',
+      children:
+        [
+          {
+            path: '', component: ZoneOKRComponent,
+          }, {
+            path: ':objective_id', component: OKRFormComponent
+          }
+        ]
+    }
+  ];
+
+export const routing = RouterModule.forChild(routes);
