@@ -3,22 +3,16 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as Chartist from 'chartist';
 
-import { NotificationService } from '../../../shared/utils/notification.service';
-import { ZoneService } from '../../../core/services/zone.service';
-
-import {
-  ChartType,
-  ChartEvent
-} from '../../../shared/graphs/chartist/chartist.component';
+import { NotificationService } from '../../../../shared/utils/notification.service';
+import { ZoneService } from '../../../../core/services/zone.service';
 
 declare var $: any;
 
 @Component({
   selector: 'zone-form',
   templateUrl: './zone-form.component.html',
-  styleUrls: ['./zone-form.component.css']
+  styleUrls: ['./zone-form.component.scss']
 })
 export class ZoneFormComponent implements OnInit, DoCheck {
 

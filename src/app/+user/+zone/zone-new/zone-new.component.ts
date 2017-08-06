@@ -4,13 +4,13 @@ declare var $: any;
 
 @Component({
   selector: 'zone-add-form',
-  templateUrl: './zone-form.component.html'
+  templateUrl: './zone-new.component.html'
 })
-export class ZoneFormComponent {
+export class ZoneNewComponent {
 
   zone: any;
 
-  constructor() { 
+  constructor() {
 
   }
 

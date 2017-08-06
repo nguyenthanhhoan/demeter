@@ -7,9 +7,13 @@ import { SmartadminModule } from './smartadmin.module';
 import { SmartadminInputModule } from './forms/input/smartadmin-input.module';
 import { NestableListModule } from './ui/nestable-list/nestable-list.module';
 
+import { IntegrationModule } from './integration/integration.module';
 import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
 
 @NgModule({
+    imports: [
+        IntegrationModule
+    ],
     declarations: [
         ImageGalleryDirective
     ],
@@ -20,6 +24,7 @@ import { ImageGalleryDirective } from './image-gallery/image-gallery.directive';
         SmartadminValidationModule,
         SmartadminInputModule,
         NestableListModule,
+        IntegrationModule,
         ImageGalleryDirective
     ]
 })
