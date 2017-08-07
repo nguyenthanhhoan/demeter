@@ -22,6 +22,8 @@ export function zoneReducer(state = initialState, action: zone.Actions): State {
       return Object.assign({}, state, {
         loaded: false,
         loading: false,
+        zoneId: undefined,
+        projectId: undefined,
         zone: {}
       });
     }
@@ -39,10 +41,8 @@ export function zoneReducer(state = initialState, action: zone.Actions): State {
 
     case zone.ID_POPULATED: {
       const { zoneId } = action.payload;
-      const { projectId } = action.payload;
       return Object.assign({}, state, {
-        zoneId: zoneId,
-        projectId: projectId,
+        zoneId: zoneId
       });
     }
 

@@ -1,3 +1,4 @@
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -12,17 +13,16 @@ import { LoadedAction } from '../../../core/actions/zone-action';
 export class ZoneSettingComponent implements OnInit, OnDestroy {
 
   zone: any = {};
-
-  public state: any = {
-    tabs: {
-      activeTab: 0
-    }
-  };
-
-  subscription: ISubscription;
+  activeTab: string;
+  projectId: number;
+  zoneId: number;
+  private subscription: ISubscription;
+  private routerSubscription: ISubscription;
 
   constructor(private store: Store<any>,
-              private zoneService: ZoneService) {
+              private zoneService: ZoneService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -30,8 +30,11 @@ export class ZoneSettingComponent implements OnInit, OnDestroy {
     .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
         this.zone = Object.assign({}, zoneModel.zone);
+        this.zoneId = zoneModel.zoneId;
+        this.projectId = zoneModel.projectId;
       }
     });
+    this.subscribeRouterEvent();
   }
 
   ngOnDestroy() {
@@ -44,5 +47,22 @@ export class ZoneSettingComponent implements OnInit, OnDestroy {
       this.zone = data;
       this.store.dispatch(new LoadedAction(data));
     });
+  }
+
+  subscribeRouterEvent() {
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.activeTab = this.route.snapshot.routeConfig.path;
+      }
+    });
+  }
+
+  goToTab(tab) {
+    let settingPath = `/user/project/${this.projectId}/zone/${this.zoneId}/setting`;
+    if (tab && tab.length > 0) {
+      this.router.navigate([`${settingPath}/${tab}`]);
+    } else {
+      this.router.navigate([`${settingPath}`]);
+    }
   }
 }

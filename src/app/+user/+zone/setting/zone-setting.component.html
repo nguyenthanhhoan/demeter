@@ -2,40 +2,55 @@
   <div class="demeter-title">Setting</div>
 </div>
 
-<div class="demeter-pane">
+<div class="demeter-pane demeter-tabbed-pane">
 
-  <ul id="myTab1" class="nav nav-tabs bordered">
-    <li [class.active]="state.tabs.activeTab == 0">
-      <a (click)="state.tabs.activeTab = 0"><i class="fa fa-bars"></i> Details</a>
+  <ul class="nav nav-tabs bordered">
+    <li [class.active]="activeTab == ''">
+      <a (click)="goToTab('')">
+        <i class="fa fa-bars"></i> Zone
+      </a>
     </li>
-    <li [class.active]="state.tabs.activeTab == 1">
-      <a (click)="state.tabs.activeTab = 1"><i class="fa fa-bookmark-o" aria-hidden="true"></i> Summary</a>
+    <li [class.active]="activeTab == 'member'">
+      <a (click)="goToTab('member')">
+        <i class="fa fa-user" aria-hidden="true"></i> Member
+      </a>
     </li>
-    <li [class.active]="state.tabs.activeTab == 2">
-      <a (click)="state.tabs.activeTab = 2"><i class="fa fa-camera"></i> Camera</a>
+    <li [class.active]="activeTab == 'summary'">
+      <a (click)="goToTab('summary')">
+        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Summary
+      </a>
     </li>
-    <li [class.active]="state.tabs.activeTab == 3">
-      <a (click)="state.tabs.activeTab = 3"><i class="fa fa-leaf"></i> Environment</a>
+    <li [class.active]="activeTab == 'camera'">
+      <a (click)="goToTab('camera')">
+        <i class="fa fa-camera"></i> Camera
+      </a>
     </li>
-    <li [class.active]="state.tabs.activeTab == 4">
-      <a (click)="state.tabs.activeTab = 4"><i class="fa fa-gear"></i> Control</a>
+    <li [class.active]="activeTab == 'environment'">
+      <a (click)="goToTab('environment')">
+        <i class="fa fa-leaf"></i> Environment
+      </a>
+    </li>
+    <li [class.active]="activeTab == 'control'">
+      <a (click)="goToTab('control')">
+        <i class="fa fa-gear"></i> Control
+      </a>
     </li>
   </ul>
 
   <div class="demeter-pane-content">
     <tabset class="padding-10">
-      <tab [active]="state.tabs.activeTab == 0">
+      <div *ngIf="activeTab == ''">
         <zone-form [zone]="zone" [type]="'edit'"></zone-form>
-      </tab>
-      <tab [active]="state.tabs.activeTab == 1">
+      </div>
+      <div *ngIf="activeTab == 'summary'">
         <zone-setting-summary [zone]="zone" (onRefresh)="loadZone()"></zone-setting-summary>
-      </tab>
-      <tab [active]="state.tabs.activeTab == 2">
+      </div>
+      <div *ngIf="activeTab == 'camera'">
         <zone-setting-camera [zone]="zone" (onRefresh)="loadZone()"></zone-setting-camera>
-      </tab>
-      <tab [active]="state.tabs.activeTab == 3">
+      </div>
+      <div *ngIf="activeTab == 'environment'">
         <zone-setting-environment [zone]="zone" (onRefresh)="loadZone()"></zone-setting-environment>
-      </tab>
+      </div>
     </tabset>
   </div>
 </div>
