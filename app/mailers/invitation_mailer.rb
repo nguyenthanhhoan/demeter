@@ -5,4 +5,10 @@ class InvitationMailer < ApplicationMailer
     @deploy_path = ENV['DEPLOYED_PATH']
     mail(to: email, subject: t(:email_invite_to_project_title))
   end
+
+  def invite_to_zone(invitation, email)
+    @invitation = invitation
+    @deploy_path = ENV['DEPLOYED_PATH']
+    mail(to: email, subject: t(:email_invite_to_zone_title))
+  end
 end

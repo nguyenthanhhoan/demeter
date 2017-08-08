@@ -42,6 +42,9 @@
       <div *ngIf="activeTab == ''">
         <zone-form [zone]="zone" [type]="'edit'"></zone-form>
       </div>
+      <div *ngIf="activeTab == 'member'">
+        <dmt-member type="zone"></dmt-member>
+      </div>
       <div *ngIf="activeTab == 'summary'">
         <zone-setting-summary [zone]="zone" (onRefresh)="loadZone()"></zone-setting-summary>
       </div>

@@ -23,12 +23,15 @@ export class AuthService {
     this.tokenService.signIn(user).subscribe(
       res => {
         this.apiService.fetch('current_user')
-          .subscribe(res => {
-            if (res.role == AppSettings.role.admin.name) {
+          .subscribe(userRes => {
+            if (userRes.role === AppSettings.role.admin.name) {
               this.router.navigate(['/admin']);
             } else {
-              if (res.has_project) {
+              if (userRes.has_project) {
                 this.router.navigate(['/user/project']);
+              } else if (userRes.assigned_zone) {
+                let {assigned_zone} = userRes;
+                this.router.navigate([`/user/project/${assigned_zone.project_id}/zone/${assigned_zone.zone_id}`]);
               } else {
                 this.router.navigate(['/user/project/new']);
               }

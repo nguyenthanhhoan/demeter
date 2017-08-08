@@ -94,4 +94,16 @@ export class ZoneService {
       camera_id: camera_id
     });
   }
+
+  listMember(id): Observable<any[]> {
+    return this.apiService.fetch(`${this.resourceUrl}/${id}/list_member`);
+  }
+
+  addNewMember(zone_id, data): Observable<any[]> {
+    return this.apiService.post(`${this.resourceUrl}/${zone_id}/add_member`, data);
+  }
+
+  removeMember(zone_id, data): Observable<any[]> {
+    return this.apiService.post(`${this.resourceUrl}/${zone_id}/remove_member`, data);
+  }
 }

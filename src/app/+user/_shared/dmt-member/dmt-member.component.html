@@ -1,8 +1,16 @@
-<header class="dmt-header">Project Admin</header>
+<header *ngIf="type == 'project'"
+  class="dmt-header"
+  translate>member_project_admin</header>
+
+<header *ngIf="type == 'zone'"
+  class="dmt-header"
+  translate>member_zone_admin</header>
+
 <div class="content">
   <alert type="info" *ngIf="admins && admins.length == 0">
     <i class="fa-fw fa fa-info"></i>
-    <span translate>no_admin_in_project</span>
+    <span *ngIf="type == 'project'" translate>no_admin_in_project</span>
+    <span *ngIf="type == 'zone'" translate>no_user_in_zone</span>
   </alert>
 
   <div class="line-item-container">
@@ -18,11 +26,19 @@
   </div>
 </div>
 
-<header class="dmt-header">Project User</header>
+<header *ngIf="type == 'project'"
+  class="dmt-header"
+  translate>member_project_user</header>
+
+<header *ngIf="type == 'zone'"
+  class="dmt-header"
+  translate>member_zone_user</header>
+
 <div class="content">
   <alert type="info" *ngIf="users && users.length == 0">
     <i class="fa-fw fa fa-info"></i>
-    <span translate>no_user_in_project</span>
+    <span *ngIf="type == 'project'" translate>no_user_in_project</span>
+    <span *ngIf="type == 'zone'" translate>no_user_in_zone</span>
   </alert>
 
   <div class="line-item-container">
@@ -42,7 +58,7 @@
   class="pending-invitation"
   *ngIf="invitations && invitations.length > 0">
 
-  <header class="dmt-header">Pending Invitation(s)</header>
+  <header class="dmt-header" translate>pending_invitation</header>
 
   <div class="content">
     <div class="line-item-container">
@@ -85,7 +101,7 @@
     <div class="dmt-form-group">
       <span class="dmt-label">Role</span>
 
-      <div class="smart-form role-form-group">
+      <div class="smart-form role-form-group" *ngIf="type == 'project'">
         <label class="radio">
           <input type="radio" name="member_role" 
             [(ngModel)]="newMember.role" value="project_admin">
@@ -94,6 +110,19 @@
         <label class="radio">
           <input type="radio" name="member_role" checked="checked"
             [(ngModel)]="newMember.role" value="project_user">
+          <i></i>User
+        </label>
+      </div>
+
+      <div class="smart-form role-form-group" *ngIf="type == 'zone'">
+        <label class="radio">
+          <input type="radio" name="member_role" 
+            [(ngModel)]="newMember.role" value="zone_admin">
+          <i></i>Admin
+        </label>
+        <label class="radio">
+          <input type="radio" name="member_role" checked="checked"
+            [(ngModel)]="newMember.role" value="zone_user">
           <i></i>User
         </label>
       </div>

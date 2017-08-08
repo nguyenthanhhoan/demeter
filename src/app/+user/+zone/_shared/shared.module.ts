@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule as AppSharedModule } from '../../../shared/shared.module';
+import { SharedModule as AppSharedModule } from '../../_shared/shared.module';
 import { IntegrationModule } from '../../../shared/integration/integration.module';
 import { ZoneFormComponent } from './zone-form/zone-form.component';
 

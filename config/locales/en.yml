@@ -23,5 +23,7 @@ en:
   registration_successfully: 'Thank your for your registration. We will contact you soon!'
   order_successfully: 'Order was performed successfully!'
   only_allow_company_admin: 'Only Company Admin can perform this action!'
+  only_allow_project_user: 'Only Project User can perform this action!'
 
   email_invite_to_project_title: 'You has been invited to a project on Demeter'
+  email_invite_to_zone_title: 'You has been invited to a zone on Demeter'

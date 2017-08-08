@@ -20,6 +20,11 @@ class User < ApplicationRecord
     self.projects.count + self.assigned_projects.count
   end
 
+  def assigned_zone
+    # TODO: Later on, should query list of zone instead
+    Zone.with_roles([:zone_admin, :zone_user], self).first
+  end
+
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
   end

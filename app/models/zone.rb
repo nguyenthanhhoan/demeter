@@ -1,5 +1,5 @@
 class Zone < ApplicationRecord
-
+  resourcify
   has_and_belongs_to_many :device_fields
 
   has_many :cameras_zones

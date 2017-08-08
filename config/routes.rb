@@ -36,6 +36,9 @@ Rails.application.routes.draw do
         post 'assign_quick_view_camera' => 'zones#assign_quick_view_camera'
         post 'unassign_quick_view_camera' => 'zones#unassign_quick_view_camera'
         put 'update_image' => 'zones#update_image'
+        get 'list_member' => 'zones#list_member'
+        post 'add_member' => 'zones#add_member'
+        post 'remove_member' => 'zones#remove_member'
       end
     end
     resources :okrs do

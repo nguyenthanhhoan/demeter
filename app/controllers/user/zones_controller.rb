@@ -1,13 +1,22 @@
 class User::ZonesController < AuthorizedController
-  before_action :get_zone, only: [:show, :edit, :update, :update_setting,
-    :assign_camera, :unassign_camera,
-    :assign_quick_view_camera, :unassign_quick_view_camera, :update_image,
-    :destroy]
+  before_action :get_zone, except: [:index, :create]
 
   def index
     hash_project_id = params[:project_id]
     project_id = HashIdService.new.decode(hash_project_id)
-    render json: Zone.where({ project: project_id }).order(id: :desc)
+    project = Project.find project_id
+
+    is_owner = current_user == project.user
+    has_admin_role = current_user.has_role? :project_admin, project
+    has_user_role = current_user.has_role? :project_user, project
+    unless is_owner || has_admin_role || has_user_role
+      render json: {
+          error: [t(:only_allow_project_user)],
+          type: :resource_protected
+        }, status: :unauthorized
+    else
+      render json: Zone.where({ project: project_id }).order(id: :desc)
+    end
   end
 
   def show
@@ -92,6 +101,49 @@ class User::ZonesController < AuthorizedController
   def destroy
     @zone.destroy
     render json: @zone
+  end
+
+  def add_member
+    email = params[:email]
+    role = params[:role]
+    add_member_result = AddMemberService.new.add_member_to_zone(@zone, email, role)
+    case add_member_result[:code]
+    when :error
+      render :json => { errors: add_member_result[:errors] }, :status => :bad_request
+    when :sent_email_invitation
+      render_message "User not found. Sent email invitation to #{email}"
+    when :member_added
+      render :json => { errors: ["User with email: #{email} already added before"] }, :status => :bad_request
+    when :member_added_success
+      render_message "User with email: #{email} has been added to zone"
+    when :invitation_dupplicated
+      render :json => { errors: ["User with email: #{email} has already invited before"] }, :status => :bad_request
+    end
+  end
+
+  def remove_member 
+    email = params[:email]
+    user = User.find_by_email email
+    if user.has_role? :zone_admin, @zone
+      user.remove_role :zone_admin, @zone
+    end
+    if user.has_role? :zone_user, @zone
+      user.remove_role :zone_user, @zone
+    end
+    render_message "Remove member out of zone successfully!"
+  end
+
+  def list_member
+    render json: {
+      members: {
+        admins: User.with_role(:zone_admin, @zone),
+        users: User.with_role(:zone_user, @zone)
+      },
+      invitations: Invitation.where({
+        resource_name: 'zone',
+        resource_id: @zone.id
+      }).order(id: :desc)
+    }
   end
 
   private
