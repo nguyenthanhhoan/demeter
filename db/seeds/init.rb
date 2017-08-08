@@ -33,3 +33,9 @@ DeviceField.all.each { |project|
   hash_id = HashIdService.new.encode project.id
   project.update_attribute(:hash_id, hash_id)
 }
+
+# Loop all zone, assign project's user as zone's user
+Zone.all.each { |zone|
+  user_id = zone.project.user_id
+  zone.update_attribute(:user_id, user_id)
+}

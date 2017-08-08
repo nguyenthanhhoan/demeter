@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806052747) do
+ActiveRecord::Schema.define(version: 20170808152536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,7 +281,9 @@ ActiveRecord::Schema.define(version: 20170806052747) do
     t.string   "device_gateway"
     t.string   "time_zone",              default: "Asia/Ho_Chi_Minh"
     t.string   "hash_id"
+    t.integer  "user_id"
     t.index ["project_id"], name: "index_zones_on_project_id", using: :btree
+    t.index ["user_id"], name: "index_zones_on_user_id", using: :btree
   end
 
   add_foreign_key "alert_rules", "device_fields"
@@ -295,4 +297,5 @@ ActiveRecord::Schema.define(version: 20170806052747) do
   add_foreign_key "okrs", "zones"
   add_foreign_key "program_executions", "zones"
   add_foreign_key "zones", "projects"
+  add_foreign_key "zones", "users"
 end
