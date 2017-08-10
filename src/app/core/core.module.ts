@@ -31,6 +31,7 @@ import { ProgramExecutionService } from './services/program-execution.service';
 import { AlertRuleService } from './services/alert-rule.service';
 import { AlertService } from './services/alert.service';
 import { InvitationService } from './services/invitation.service';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { InvitationService } from './services/invitation.service';
     ProgramExecutionService,
     AlertRuleService,
     AlertService,
-    InvitationService
+    InvitationService,
+    ProfileService
   ]
 })
 export class CoreModule {

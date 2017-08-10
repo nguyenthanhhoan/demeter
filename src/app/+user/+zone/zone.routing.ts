@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { UserLayoutComponent } from '../shared/layout/user-layout/user-layout.component';
+import { UserLayoutComponent } from '../_shared/layout/user-layout/user-layout.component';
 import { ZoneComponent } from './zone.component';
 import { ZoneNewComponent } from './zone-new/zone-new.component';
 import { ZoneSummaryComponent } from './summary/zone-summary.component';

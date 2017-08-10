@@ -138,3 +138,8 @@ Use internal variable to check
     ```
     npm install -g @angular/cli
     ```
+3. How to debug
+    ```
+    c stop web
+    c run --service-ports web
+    ```

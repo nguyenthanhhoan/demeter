@@ -1,3 +1,17 @@
+.dmt-user-side {
+  background: none;
+  background-color: #DBDBCC;
+
+  .user-header {
+    width: 100%;
+    z-index: 2;
+  }
+
+  .dmt-user-main {
+    min-height: 100vh;
+  }
+}
+
 .user-side .user-header {
   width: 100%;
 

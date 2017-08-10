@@ -1,5 +1,5 @@
 class UserProfileSerializer < ActiveModel::Serializer
-  attributes :id, :email, :role
+  attributes :id, :email, :role, :full_name, :image
 
   has_one :has_project do
     object.count_project > 0

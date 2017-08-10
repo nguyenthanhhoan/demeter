@@ -1,0 +1,55 @@
+<div class="demeter-pane dmt-profile">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <img 
+          placement="bottom" tooltip="Change"
+          (click)="openSelectFile()"
+          [src]="user.image?.thumb?.url ? user.image.thumb.url : 'assets/img/flat-icon/avatar.svg'" 
+          class="img-responsive avatar"/>
+        <input type="file" 
+            class="file-input hiddenfile"
+            (change)="fileChange($event)" accept="image/*" />
+      </div>
+
+      <div class="col-xs-12 col-md-8">
+        <form class="smart-form" #form="ngForm">
+          <section>
+            <label class="label">Full Name <span class="req-field">*</span></label>
+            <label class="input"
+              [ngClass]="full_name.valid || full_name.pristine ? '' : 'state-error'">
+
+              <input [(ngModel)]="user.full_name" 
+                #full_name="ngModel" name="full_name" required />
+            </label>
+            <div class="note note-error" 
+              [hidden]="full_name.valid || full_name.pristine">This is a required field.
+            </div>
+          </section>
+          <section>
+            <label class="label">Email</label>
+            <label class="input state-disabled">
+
+              <input [value]="user.email" disabled />
+            </label>
+          </section>
+
+          <div class="button-group">
+            <div class="button-group-right">
+              <button 
+                [disabled]="!form.valid"
+                (click)="save()"
+                [ngClass]="form.valid ? '' : 'disabled'"
+                class="demeter-btn primary" type="submit">
+                Save
+              </button>
+              <button class="demeter-btn danger"
+                (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>

@@ -3,7 +3,6 @@ import { BsDropdownModule } from 'ng2-bootstrap';
 import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 
 import { HeaderModule } from '../shared/layout/header/header.module';
-import { UserLayoutModule } from '../shared/layout/layout.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 
 import { routing } from './project.routing';
@@ -22,7 +21,6 @@ import { ProjectSummaryComponent } from './summary/project-summary.component';
     ChartistModule,
     HeaderModule,
     ProjectSummaryModule,
-    UserLayoutModule,
     ZoneSummaryPaneModule,
     SharedModule,
     routing

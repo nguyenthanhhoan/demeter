@@ -1,13 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import {
-  UserLayoutProjectListComponent
-} from '../shared/layout/user-layout/user-layout-project-list.component';
-import { UserLayoutComponent } from '../shared/layout/user-layout/user-layout.component';
+import { UserLayoutComponent } from '../_shared/layout/user-layout/user-layout.component';
 import { ProjectComponent } from './project.component';
 import { ProjectListComponent } from './list/project-list.component';
 import { ProjectNewComponent } from './project-new/project-new.component';
 import { ProjectSummaryComponent } from './summary/project-summary.component';
+import { UserLayoutProjectListComponent } from '../_shared/layout/user-layout/user-layout-project-list.component';
 
 export const routes: Routes = [{
   path: '',

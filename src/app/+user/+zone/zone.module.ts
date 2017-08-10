@@ -10,7 +10,6 @@ import { HeaderModule } from '../shared/layout/header/header.module';
 import { SidebarModule } from '../shared/layout/sidebar/sidebar.module';
 import { BreadcrumbModule } from '../shared/layout/breadcrumb/breadcrumb.module';
 import { CameraModule } from '../../shared/camera/camera.module';
-import { UserLayoutModule } from '../shared/layout/layout.module';
 
 import { ZoneComponent } from './zone.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
@@ -39,7 +38,6 @@ import { ZoneCameraDetailComponent } from './camera/camera-detail/zone-camera-de
     ZoneSummaryPaneModule,
     WeatherForecastModule,
     ZoneSettingModule,
-    UserLayoutModule,
     routing
   ],
   declarations: [

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :projects
 
   after_create :assign_default_role
+  mount_uploader :image, ImageUploader
 
   # List all project that user has been assigned to
   def assigned_projects

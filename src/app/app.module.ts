@@ -19,7 +19,6 @@ import { AppState, InternalStateType } from './app.service';
 // Core providers
 import { CoreModule } from './core/core.module';
 import { AdminLayoutModule } from './+admin/shared/layout/layout.module';
-import { UserLayoutModule } from './+user/shared/layout/layout.module';
 import { AuthGuard } from './+auth/auth-guard.service';
 import { AuthService } from './+auth/auth.service';
 import { zoneReducer } from './core/reducers/zone-reducer';
@@ -72,7 +71,6 @@ export function HttpLoaderFactory(http: Http) {
       }
     }),
     AdminLayoutModule,
-    UserLayoutModule,
     routing,
 
     StoreModule.provideStore({ zone: zoneReducer, project: projectReducer }),

@@ -13,13 +13,7 @@ export const routes: Routes = [{
   canActivate: [AuthGuard]
 }, {
   path: 'user',
-  children: [{
-    path: '', redirectTo: 'project', pathMatch: 'full'
-  }, {
-    path: 'project',
-    loadChildren:
-    'app/+user/+project/project.module#ProjectModule',
-  }],
+  loadChildren: 'app/+user/user.module#UserModule',
   canActivate: [AuthGuard]
 }, {
   path: 'auth', component: AuthLayoutComponent,
