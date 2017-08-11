@@ -16,9 +16,12 @@
   <div class="line-item-container">
     <span class="line-item" *ngFor="let user of admins">
       <div class="avatar">
-        <img src="assets/img/flat-icon/avatar.svg" />
+        <img [src]="user.image?.thumb?.url ? user.image.thumb.url : 'assets/img/flat-icon/avatar.svg'" />
       </div>
-      <div class="email" title="{{user.email}}">{{user.email}}</div> 
+      <div class="user-info">
+        <p class="email" title="{{user.email}}">{{user.email}}</p> 
+        <p class="full-name" title="{{user.full_name}}">{{user.full_name}}</p> 
+      </div>
       <button 
         (click)="removeUser(user)"
         class="demeter-btn danger remove-btn">Remove</button>

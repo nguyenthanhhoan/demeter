@@ -67,13 +67,19 @@
   }
 
   .avatar img {
-    width: 40px;
+    width: 60px;
   }
 
-  .email {
+  .user-info {
     width: calc(100% - 15px);
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-left: 8px;
+    align-self: center;
+
+    .email, .full-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0;
+    }
   }
 }
 
