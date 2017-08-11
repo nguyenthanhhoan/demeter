@@ -27,3 +27,6 @@ en:
 
   email_invite_to_project_title: 'You has been invited to a project on Demeter'
   email_invite_to_zone_title: 'You has been invited to a zone on Demeter'
+
+  email_added_to_project_title: 'You has been added to a project on Demeter'
+  email_added_to_zone_title: 'You has been added to a zone on Demeter'

@@ -34,6 +34,7 @@ class AddMemberService
     else 
       has_admin_role = user.has_role? :project_admin, project
       has_user_role = user.has_role? :project_user, project
+      InvitationMailer.added_to_project(project, email).deliver_later
       if has_admin_role || has_user_role
         result[:code] = :member_added
         return result
@@ -85,6 +86,7 @@ class AddMemberService
       end
     end
     user.add_role(role.to_sym, zone)
+    InvitationMailer.added_to_zone(zone, email).deliver_later
     result[:code] = :member_added_success
     result
   end

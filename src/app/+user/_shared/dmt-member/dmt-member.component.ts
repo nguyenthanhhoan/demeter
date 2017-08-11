@@ -144,6 +144,7 @@ export class MemberComponent implements OnInit {
       }
       observable.subscribe(() => {
         this.loadMember();
+        this.notification.showMessage('Member was removed successfully!');
       });
     });
   }
