@@ -12,6 +12,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   userRole: string;
   showSetting: boolean = true;
+  mode: string;
+  private projectId: number;
+  private zoneId: number;
   private projectSubscription: ISubscription;
   private zoneSubscription: ISubscription;
 
@@ -23,18 +26,38 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.projectSubscription = this.store.select('project')
     .subscribe((projectModel: any) => {
-      if (projectModel.loaded) {
+      if (projectModel.loaded && this.mode === 'project') {
         this.userRole = projectModel.project.current_user_role;
         this.buildViewModel();
       }
     });
     this.zoneSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      if (zoneModel.loaded) {
+      if (zoneModel.loaded && this.mode === 'zone') {
         this.userRole = zoneModel.zone.current_user_role;
         this.buildViewModel();
       }
     });
+    this.checkMode();
+  }
+
+  checkMode() {
+    let segments = this.route.snapshot['_urlSegment'].segments;
+    for (let index = 0; index < segments.length; index++) {
+      let element = segments[index];
+      if (element.path === 'project') {
+        this.projectId = segments[index + 1].path;
+      }
+      if (element.path === 'zone') {
+        this.zoneId = segments[index + 1].path;
+      }
+    }
+
+    if (this.projectId && this.zoneId) {
+      this.mode = 'zone';
+    } else {
+      this.mode = 'project';
+    }
   }
 
   ngOnDestroy() {
@@ -43,7 +66,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   buildViewModel() {
-    if (this.userRole === 'user') {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
       this.showSetting = false;
     } else {
       this.showSetting = true;
@@ -51,27 +74,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   goToPage(name) {
-    let segments = this.route.snapshot['_urlSegment'].segments;
-    let zone_id, project_id;
-    for (let index = 0; index < segments.length; index++) {
-      let element = segments[index];
-      if (element.path === 'project') {
-        project_id = segments[index + 1].path;
-      }
-      if (element.path === 'zone') {
-        zone_id = segments[index + 1].path;
-      }
-    }
-
     let url = `/user`;
-    if (project_id && zone_id) {
-      url += `/project/${project_id}/zone/${zone_id}`;
+    if (this.mode === 'zone') {
+      url += `/project/${this.projectId}/zone/${this.zoneId}`;
       this.router.navigate([`${url}/${name}`]);
     } else if (name === 'setting') {
-      url += `/project/${project_id}`;
+      url += `/project/${this.projectId}`;
       this.router.navigate([`${url}/${name}`]);
     } else {
-      url += `/project/${project_id}`;
+      url += `/project/${this.projectId}`;
       alert ('This page is implementing!');
     }
   }

@@ -35,7 +35,11 @@ class DeviceService
     Rails.logger.info "State=#{latest_state.to_json}"
     latest_state["state"]["reported"].each do |key, reported_field|
       field_id = key
-      field_value = reported_field["value"]
+      if reported_field.is_a? Hash
+        field_value =  reported_field["value"]
+      else
+        field_value =  reported_field
+      end
       field = devices.select { |device|
         device.field_id == field_id && device.device.name == device_gateway
       }[0]
@@ -69,7 +73,11 @@ class DeviceService
   # Check correct data_type in db_field and gw_field
   def is_match_data_type?(db_field, gw_field)
     result = true
-    gw_value = gw_field["value"]
+    if gw_field.is_a? Hash
+      gw_value = gw_field["value"]
+    else
+      gw_value = gw_field
+    end
     case db_field.value_data_type
     when :integer
       if gw_value.class != Fixnum

@@ -20,6 +20,9 @@ class RegistrationsController < ApplicationController
         if invitation.resource_name.to_sym == :project
           project = Project.find invitation.resource_id
           user.add_role(invitation.role.to_sym, project)
+        elsif invitation.resource_name.to_sym == :zone
+          zone = Zone.find invitation.resource_id
+          user.add_role(invitation.role.to_sym, zone)
         end
         invitation.destroy
         render json: user
