@@ -4,8 +4,7 @@ import { CoreService } from '../../core/services/core.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['../auth.component.scss']
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
 

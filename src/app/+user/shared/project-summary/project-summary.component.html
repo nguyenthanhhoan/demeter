@@ -1,4 +1,4 @@
-<summary class="project-summary">
+<div class="project-summary">
   <div class="project-img">
     <a routerLink="/user/project/{{project.id}}">
       <img src="{{project.image?.thumb?.url || 'assets/img/cau-dat/cau-dat-farm.png'}}" />
@@ -40,4 +40,4 @@
   <div class="weather-forecast">
     <app-weather-forecast [project]="project"></app-weather-forecast>
   </div>
-</summary>
+</div>

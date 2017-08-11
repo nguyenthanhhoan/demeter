@@ -79,7 +79,9 @@
           box-shadow: none;
 
           height: 42px;
-          line-height: 42px;
+
+          // Fix for safari placeholder
+          line-height: normal;
         }
 
         .input .icon-prepend {
