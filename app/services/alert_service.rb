@@ -121,7 +121,7 @@ class AlertService
     if alert_rule.trigger_email?
       emails = alert_rule.trigger_emails.split(';')
       emails.each { |email| 
-        AlertMailer.send_email(alert_content, email).deliver_later
+        AlertMailer.send_email(alert_rule, alert_content, email).deliver_later
       }
     end
   end

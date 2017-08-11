@@ -10,8 +10,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
-  projectId: number;
-  zoneId: number;
   userRole: string;
   showSetting: boolean = true;
   private projectSubscription: ISubscription;
@@ -26,7 +24,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.projectSubscription = this.store.select('project')
     .subscribe((projectModel: any) => {
       if (projectModel.loaded) {
-        this.projectId = projectModel.projectId;
         this.userRole = projectModel.project.current_user_role;
         this.buildViewModel();
       }
@@ -34,12 +31,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.zoneSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
-        this.zoneId = zoneModel.zoneId;
-        this.projectId = zoneModel.projectId;
         this.userRole = zoneModel.zone.current_user_role;
         this.buildViewModel();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
+    this.projectSubscription.unsubscribe();
   }
 
   buildViewModel() {
@@ -50,16 +50,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.zoneSubscription.unsubscribe();
-    this.projectSubscription.unsubscribe();
-  }
-
   goToPage(name) {
-    let project_id = this.projectId;
-    let zone_id = this.zoneId;
+    let segments = this.route.snapshot['_urlSegment'].segments;
+    let zone_id, project_id;
+    for (let index = 0; index < segments.length; index++) {
+      let element = segments[index];
+      if (element.path === 'project') {
+        project_id = segments[index + 1].path;
+      }
+      if (element.path === 'zone') {
+        zone_id = segments[index + 1].path;
+      }
+    }
 
-    // If project_id present in url -> it's was link to zone detail page
     let url = `/user`;
     if (project_id && zone_id) {
       url += `/project/${project_id}/zone/${zone_id}`;

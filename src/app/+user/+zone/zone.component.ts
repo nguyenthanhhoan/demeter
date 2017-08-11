@@ -29,6 +29,10 @@ export class ZoneComponent implements OnInit, OnDestroy {
     this.subscribeRouterEvent();
   }
 
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
+  }
+
   subscribeRouterEvent() {
     this.routerSubscription = this.router.events.subscribe(this.handleRouteParam.bind(this));
   }
@@ -55,10 +59,6 @@ export class ZoneComponent implements OnInit, OnDestroy {
       this.store.dispatch(new LoadedAction(data));
       this.store.dispatch(new ProjectLoadedAction(data.project));
     });
-  }
-
-  ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
   }
 
 }

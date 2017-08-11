@@ -29,6 +29,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.subscribeRouterEvent();
   }
 
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
+  }
+
   subscribeRouterEvent() {
     this.routerSubscription = this.router.events.subscribe(this.handleRouteParam.bind(this));
   }
@@ -55,9 +59,4 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.store.dispatch(new LoadedAction(data));
     });
   }
-
-  ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
-  }
-
 }
