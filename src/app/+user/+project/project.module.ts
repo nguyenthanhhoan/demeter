@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BsDropdownModule } from 'ng2-bootstrap';
 import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 
-import { HeaderModule } from '../shared/layout/header/header.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
 
 import { routing } from './project.routing';
@@ -19,7 +18,6 @@ import { ProjectSummaryComponent } from './summary/project-summary.component';
   imports: [
     BsDropdownModule,
     ChartistModule,
-    HeaderModule,
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
     SharedModule,
