@@ -111,6 +111,7 @@ export class MemberComponent implements OnInit {
       if (res && res.message) {
         this.notification.showMessage(res.message);
         this.loadMember();
+        member.email = '';
       }
     });
   }
