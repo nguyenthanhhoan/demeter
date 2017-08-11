@@ -3,6 +3,7 @@ import { ProfileService } from '../../core/services/profile.service';
 import { NotificationService } from '../../shared/utils/notification.service';
 import { ApiService } from '../../core/api/api.service';
 
+declare var $: any;
 @Component({
   selector: 'dmt-user-profile',
   templateUrl: './profile.component.html',
