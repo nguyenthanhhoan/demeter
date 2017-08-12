@@ -1,7 +1,8 @@
-import { Component, OnInit, DoCheck, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ModalDirective } from 'ng2-bootstrap';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { NotificationService } from '../../../../shared/utils/notification.service';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
@@ -10,41 +11,48 @@ import { DeviceFieldService } from '../../../../core/services/device-field-servi
   selector: 'device-field-select-modal',
   templateUrl: './device-field-select-modal.component.html'
 })
-export class DeviceFieldSelectModalComponent implements OnInit {
+export class DeviceFieldSelectModalComponent implements OnInit, OnDestroy {
 
   @Input() mode: string;
 
   @Output() onResolve = new EventEmitter();
 
-  zoneId: number;
   isRequesting = false;
-
   deviceFields = [];
   selectedDeviceField: any;
+  @ViewChild('modal') modal: ModalDirective;
 
-  @ViewChild('modal') public modal: ModalDirective;
+  private zoneId: number;
+  private deviceGateway: string;
+  private storeSubscription: ISubscription;
 
   constructor(private store: Store<any>,
-              private router: Router,
-              private route: ActivatedRoute,
               private notificationService: NotificationService,
               private deviceFieldService: DeviceFieldService) {
 
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zoneId);
-    })
+    this.storeSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      this.zoneId = zoneModel.zoneId;
-      this.load();
+      if (zoneModel.loaded) {
+        this.deviceGateway = zoneModel.zone.device_gateway;
+        this.zoneId = zoneModel.zoneId;
+        this.load();
+      }
     });
   }
 
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
+  }
+
   load() {
-    this.deviceFieldService.getList().subscribe((deviceFields) => {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('device_gateway', this.deviceGateway);
+    this.deviceFieldService.getList({
+      search: params
+    }).subscribe((deviceFields) => {
       this.deviceFields = deviceFields;
     });
   }

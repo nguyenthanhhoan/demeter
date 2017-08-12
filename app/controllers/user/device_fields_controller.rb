@@ -3,11 +3,20 @@ class User::DeviceFieldsController < AuthorizedController
     :assign_device_to_zone, :unassign_device_to_zone]
 
   def index
-    render json: DeviceField.all.order(id: :desc)
+    device_gateway = params[:device_gateway]
+    render json: DeviceField.joins(:device)
+    .where('devices.name' => device_gateway)
+    .order(id: :desc)
   end
 
   def list_device_updatable
-    render json: DeviceField.where(field_attribute: :read_write).order(id: :desc)
+    device_gateway = params[:device_gateway]
+    render json: DeviceField.joins(:device)
+    .where({
+      field_attribute: :read_write, 
+      'devices.name' => device_gateway
+    })
+    .order(id: :desc)
   end
 
   def list_device_assigned

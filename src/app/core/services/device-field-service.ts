@@ -10,12 +10,12 @@ export class DeviceFieldService {
 
   constructor (private apiService: ApiService) {}
 
-  getList(): Observable<any[]> {
-    return this.apiService.fetch(`user/device_fields`);
+  getList(options?): Observable<any[]> {
+    return this.apiService.fetch(`user/device_fields`, options);
   }
 
-  getListUpdatable(): Observable<any[]> {
-    return this.apiService.fetch(`user/device_fields/list_device_updatable`);
+  getListUpdatable(options?): Observable<any[]> {
+    return this.apiService.fetch(`user/device_fields/list_device_updatable`, options);
   }
 
   getListAssigned(options?): Observable<any[]> {

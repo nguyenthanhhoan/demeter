@@ -1,7 +1,9 @@
-import { Component, OnInit, DoCheck, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
+import { URLSearchParams } from '@angular/http';
 
 import { AppSettings } from '../../../../../app.settings';
 import { NotificationService } from '../../../../shared/utils/notification.service';
@@ -11,32 +13,47 @@ import { DeviceFieldService } from '../../../../../core/services/device-field-se
   selector: 'device-add-modal',
   templateUrl: './device-add-modal.component.html'
 })
-export class DeviceAddModalComponent implements OnInit {
+export class DeviceAddModalComponent implements OnInit, OnDestroy {
 
   @Output() onResolve = new EventEmitter();
 
-  zone_id: number;
   isRequesting = false;
 
   devices = [];
   selectedDevice: any;
 
   @ViewChild('modal') public modal: ModalDirective;
+  private storeSubscription: ISubscription;
+  private deviceGateway: string;
+  private zoneId: number;
 
   constructor(private store: Store<any>,
               private deviceFieldService: DeviceFieldService) {
 
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zone_id);
-    })
-    .subscribe((zoneModel: any) => {
-      this.zone_id = zoneModel.zoneId;
-    });
   }
 
   ngOnInit() {
-    this.deviceFieldService.getListUpdatable().subscribe((devices) => {
+    this.storeSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        this.deviceGateway = zoneModel.zone.device_gateway;
+        this.zoneId = zoneModel.zoneId;
+        this.loadListUpdatable();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
+  }
+
+  loadListUpdatable() {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('device_gateway', this.deviceGateway);
+    this.deviceFieldService.getListUpdatable({
+      search: params
+    })
+    .subscribe((devices) => {
       this.devices = devices;
     });
   }
@@ -45,7 +62,7 @@ export class DeviceAddModalComponent implements OnInit {
     this.isRequesting = true;
     this.deviceFieldService.assignDeviceToZone({
       device_field_id: selectedDevice.id,
-      zone_id: this.zone_id,
+      zone_id: this.zoneId,
       link_type: 'control'
     }).subscribe(() => {
       this.modal.hide();
