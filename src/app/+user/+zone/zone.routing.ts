@@ -6,8 +6,6 @@ import { ZoneNewComponent } from './zone-new/zone-new.component';
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
 import { ZoneHistoryComponent } from './history/zone-history.component';
 import { ZoneSettingComponent } from './setting/zone-setting.component';
-import { ZoneCameraDetailComponent } from './camera/camera-detail/zone-camera-detail.component';
-import { ZoneCameraComponent } from './camera/zone-camera.component';
 
 export const routes: Routes = [{
   path: '',
@@ -24,13 +22,6 @@ export const routes: Routes = [{
         path: 'summary', component: ZoneSummaryComponent
       }, {
         path: 'history', component: ZoneHistoryComponent
-      }, {
-        path: 'camera',
-        children: [{
-          path: '', component: ZoneCameraComponent
-        }, {
-          path: ':camera_id', component: ZoneCameraDetailComponent
-        }]
       }, {
         path: 'monitoring-control',
         loadChildren: 'app/+user/+zone/monitoring-control/monitoring-control.module#MonitoringControlModule'

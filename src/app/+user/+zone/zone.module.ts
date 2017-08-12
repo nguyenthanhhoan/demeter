@@ -6,8 +6,6 @@ import { ChartistModule } from '../../shared/graphs/chartist/chartist.module';
 
 import { routing } from './zone.routing';
 
-import { CameraModule } from '../../shared/camera/camera.module';
-
 import { ZoneComponent } from './zone.component';
 import { ProjectSummaryModule } from '../shared/project-summary/project-summary.module';
 import { ZoneSummaryPaneModule } from '../shared/zone-summary-pane/zone-summary-pane.module';
@@ -19,15 +17,12 @@ import { SensorDataChartComponent } from '../shared/sensor-data-chart/sensor-dat
 
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
 import { ZoneHistoryComponent } from './history/zone-history.component';
-import { ZoneCameraComponent } from './camera/zone-camera.component';
-import { ZoneCameraDetailComponent } from './camera/camera-detail/zone-camera-detail.component';
 
 @NgModule({
   imports: [
     SharedModule,
     BsDropdownModule,
     ChartistModule,
-    CameraModule,
     ProjectSummaryModule,
     ZoneSummaryPaneModule,
     WeatherForecastModule,
@@ -39,9 +34,7 @@ import { ZoneCameraDetailComponent } from './camera/camera-detail/zone-camera-de
     SensorDataChartComponent,
     ZoneNewComponent,
     ZoneSummaryComponent,
-    ZoneHistoryComponent,
-    ZoneCameraComponent,
-    ZoneCameraDetailComponent,
+    ZoneHistoryComponent
   ]
 })
 export class ZoneModule { }

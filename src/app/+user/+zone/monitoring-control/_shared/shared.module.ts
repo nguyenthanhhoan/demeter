@@ -1,17 +1,11 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SmartadminModule } from '../../../../shared/smartadmin.module';
-import { SmartadminInputModule } from '../../../../shared/forms/input/smartadmin-input.module';
+import { NgModule } from '@angular/core';
 import { PaginationModule } from 'ngx-bootstrap/ng2-bootstrap';
+import { SharedModule as AppSharedModule } from '../../_shared/shared.module';
 
-import { SharedModule as AppSharedModule } from '../../../../shared/shared.module';
 import { EffectivePeriodComponent } from './effective-period/effective-period.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    SmartadminModule,
-    SmartadminInputModule,
     PaginationModule.forRoot(),
     AppSharedModule
   ],
@@ -19,9 +13,6 @@ import { EffectivePeriodComponent } from './effective-period/effective-period.co
     EffectivePeriodComponent
   ],
   exports: [
-    CommonModule,
-    SmartadminModule,
-    SmartadminInputModule,
     PaginationModule,
     AppSharedModule,
     EffectivePeriodComponent
