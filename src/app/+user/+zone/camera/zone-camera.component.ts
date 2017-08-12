@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ISubscription } from 'rxjs/Subscription';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { CameraService } from '../../../core/services/camera.service';
@@ -7,9 +8,12 @@ import { CameraService } from '../../../core/services/camera.service';
   templateUrl: './zone-camera.component.html',
   styleUrls: ['./zone-camera.component.css']
 })
-export class ZoneCameraComponent implements OnInit {
+export class ZoneCameraComponent implements OnInit, OnDestroy {
 
   cameras: any[] = [];
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
 
   constructor(private store: Store<any>,
               private cameraService: CameraService) {
@@ -17,17 +21,26 @@ export class ZoneCameraComponent implements OnInit {
   }
 
   ngOnInit() {
-    let needToLoad = true;
-    this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
-      return (needToLoad);
-    })
-    .subscribe((zoneModel) => {
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
       if (zoneModel.loaded) {
         let { zone } = zoneModel;
         this.cameras = zone.cameras;
-        needToLoad = false;
+        this.userRole = zoneModel.zone.current_user_role;
+        this.checkPermission();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
+    }
   }
 }
