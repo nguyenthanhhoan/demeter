@@ -20,16 +20,17 @@ class User::ZonesController < AuthorizedController
   end
 
   def show
+    authorize @zone
     render json: @zone
   end
 
   def edit
+    authorize @zone
     render json: @zone
   end
 
   def create
     @zone = Zone.new(zone_params)
-
     if @zone.save
       hash_id = HashIdService.new.encode(@zone.id)
       @zone.update_attribute(:hash_id, hash_id)
@@ -40,6 +41,7 @@ class User::ZonesController < AuthorizedController
   end
 
   def update
+    authorize @zone
     if @zone.update(zone_params)
       render json: @zone
     else
@@ -48,6 +50,7 @@ class User::ZonesController < AuthorizedController
   end
 
   def update_setting
+    authorize @zone
     if @zone.update(zone_setting_params)
       render json: @zone
     else
@@ -56,18 +59,21 @@ class User::ZonesController < AuthorizedController
   end
 
   def assign_camera
+    authorize @zone
     camera = Camera.find params[:camera_id]
     @zone.cameras << camera
     render json: @zone
   end
 
   def unassign_camera
+    authorize @zone
     camera = Camera.find params[:camera_id]
     @zone.cameras.delete camera
     render json: @zone
   end
 
   def assign_quick_view_camera
+    authorize @zone
     camera_id = params[:camera_id]
     if @zone.camera_ids.include? camera_id
       camera_zone = @zone.cameras_zones.find_by_camera_id camera_id
@@ -83,6 +89,7 @@ class User::ZonesController < AuthorizedController
   end
 
    def unassign_quick_view_camera
+    authorize @zone
     camera_id = params[:camera_id]
     camera_zone = @zone.cameras_zones.find_by_camera_id camera_id
     camera_zone.is_primary = false
@@ -91,6 +98,7 @@ class User::ZonesController < AuthorizedController
   end
 
   def update_image
+    authorize @zone
     if @zone.update(zone_update_image_params)
       render json: @zone.image
     else
@@ -99,11 +107,13 @@ class User::ZonesController < AuthorizedController
   end
 
   def destroy
+    authorize @zone
     @zone.destroy
     render json: @zone
   end
 
   def add_member
+    authorize @zone
     email = params[:email]
     role = params[:role]
     add_member_result = AddMemberService.new.add_member_to_zone(@zone, email, role)
@@ -121,7 +131,8 @@ class User::ZonesController < AuthorizedController
     end
   end
 
-  def remove_member 
+  def remove_member
+    authorize @zone
     email = params[:email]
     user = User.find_by_email email
     if user.has_role? :zone_admin, @zone
@@ -134,6 +145,7 @@ class User::ZonesController < AuthorizedController
   end
 
   def list_member
+    authorize @zone
     render json: {
       members: {
         admins: User.with_role(:zone_admin, @zone),

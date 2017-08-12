@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include Pundit
+  protect_from_forgery
   rescue_from Exception, with: :server_error
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def render_message(msg)
     render json: {
