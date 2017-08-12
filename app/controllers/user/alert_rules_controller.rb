@@ -7,12 +7,13 @@ class User::AlertRulesController < AuthorizedController
   end
 
   def show
+    authorize @alert_rule
     render json: @alert_rule
   end
 
   def create
     @alert_rule = AlertRule.new(alert_rule_params)
-
+    authorize @alert_rule
     if @alert_rule.save
       job = AlertService.new.update_job(@alert_rule)
       render json: {
@@ -25,6 +26,7 @@ class User::AlertRulesController < AuthorizedController
   end
 
   def update
+    authorize @alert_rule
     if @alert_rule.update(alert_rule_params)
       job = AlertService.new.update_job(@alert_rule)
       render json: {
@@ -37,6 +39,7 @@ class User::AlertRulesController < AuthorizedController
   end
 
   def destroy
+    authorize @alert_rule
     AlertService.new.remove_job(@alert_rule)
     @alert_rule.destroy
     render json: @alert_rule

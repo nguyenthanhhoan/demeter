@@ -1,5 +1,13 @@
 import {
-  AfterViewInit, Component, Input, NgZone, OnInit, QueryList, ViewChild, ViewChildren
+  AfterViewInit,
+  Component,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -21,7 +29,7 @@ declare var moment: any;
   templateUrl: './zone-control-device.component.html',
   styleUrls: ['./zone-control-device.component.scss']
 })
-export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
+export class ZoneControlDeviceComponent implements OnInit, AfterViewInit, OnDestroy {
   fields: any[];
 
   fieldCharts: any[] = [];
@@ -50,6 +58,10 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
     }
   };
 
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
+
   constructor(private store: Store<any>,
               private deviceFieldService: DeviceFieldService,
               private deviceValueHistoryService: DeviceValueHistoryService,
@@ -59,14 +71,19 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zone_id);
-    })
+    this.zoneSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      this.zone_id = zoneModel.zoneId;
-      this.fetchListDevice();
+      if (zoneModel.loaded) {
+        this.zone_id = zoneModel.zoneId;
+        this.userRole = zoneModel.zone.current_user_role;
+        this.fetchListDevice();
+        this.checkPermission();
+      }
     });
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -75,6 +92,14 @@ export class ZoneControlDeviceComponent implements OnInit, AfterViewInit {
         this.fieldChartComponents = this.fieldChartEles.toArray();
       }
     });
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
+    }
   }
 
   fetchListDevice() {

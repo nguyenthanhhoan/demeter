@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { AppSettings } from '../../../../../app.settings';
 import { AppUtils } from '../../../../../app.utils';
@@ -15,7 +16,7 @@ declare var $: any;
   templateUrl: './zone-control-execution-form.component.html',
   styleUrls: ['./zone-control-execution-form.component.scss']
 })
-export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
+export class ZoneControlExecutionFormComponent implements OnInit, OnChanges, OnDestroy {
   projectId: number;
   zoneId: number;
   zone: any;
@@ -77,6 +78,9 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
 
   @ViewChild('inputQueryBuilder') inputQueryBuilder: any;
   @ViewChild('outputQueryBuilder') outputQueryBuilder: any;
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
 
   constructor(private store: Store<any>,
               private route: ActivatedRoute,
@@ -87,18 +91,15 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zoneId);
-    })
+    this.zoneSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      if (zoneModel.zone && zoneModel.zone.id) {
-        this.zoneId = zoneModel.zone.id;
+      if (zoneModel.loaded) {
+        this.zoneId = zoneModel.zoneId;
         this.projectId = zoneModel.zone.project.id;
-        this.zone = zoneModel.zone;
-
+        this.userRole = zoneModel.zone.current_user_role;
         // TODO: Should check if stored input/output match with list device or not
         this.fetchListDevice();
+        this.checkPermission();
       }
     });
     this.initCron();
@@ -110,6 +111,18 @@ export class ZoneControlExecutionFormComponent implements OnInit, OnChanges {
 
       Object.assign(this.oldProgram, this.program);
       this.updateCronValue();
+    }
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
     }
   }
 

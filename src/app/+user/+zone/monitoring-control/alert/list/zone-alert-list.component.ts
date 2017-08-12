@@ -1,42 +1,41 @@
 import { URLSearchParams } from '@angular/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
 import { AlertService } from '../../../../../core/services/alert.service';
-
-declare var moment;
 
 @Component({
   selector: 'zone-alert-list',
   templateUrl: './zone-alert-list.component.html',
   styleUrls: ['./zone-alert-list.component.scss']
 })
-export class ZoneAlertListComponent implements OnInit {
+export class ZoneAlertListComponent implements OnInit, OnDestroy {
 
   alerts: any[];
 
   zoneId: number;
-  collection: string[] = ['a', 'b', '34'];
-
   totalItems: number;
   currentPage: number = 1;
   itemsPerPage: number = 5;
   loading: boolean = false;
+  private zoneSubscription: ISubscription;
 
   constructor(private store: Store<any>,
               private alertService: AlertService) {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
-      return (!this.zoneId);
-    })
-    .subscribe((zoneModel) => {
-      if (zoneModel.zoneId) {
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
         this.zoneId = zoneModel.zoneId;
         this.loadAlerts();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
   }
 
   loadAlerts() {

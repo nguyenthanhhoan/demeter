@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { DeviceFieldService } from '../../../../../core/services/device-field-service';
 import { AlertRuleService } from '../../../../../core/services/alert-rule.service';
@@ -35,6 +36,9 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
   type: string;
 
   devices: any[];
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
 
   constructor(private store: Store<any>,
               private router: Router,
@@ -44,15 +48,14 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zoneId);
-    })
+    this.zoneSubscription = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      if (zoneModel.zone && zoneModel.zone.id) {
-        this.zoneId = zoneModel.zone.id;
+      if (zoneModel.loaded) {
+        this.zoneId = zoneModel.zoneId;
         this.projectId = zoneModel.zone.project.id;
+        this.userRole = zoneModel.zone.current_user_role;
         this.fetchListDevice();
+        this.checkPermission();
       }
     });
     this.initCron();
@@ -63,6 +66,14 @@ export class AlertRuleFormComponent implements OnInit, OnChanges {
       Object.assign(this.oldAlertRule, this.alertRule);
       this.mapDevice();
       this.updateCronValue();
+    }
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
     }
   }
 

@@ -6,6 +6,7 @@
       <i class="fa fa-file-text-o" aria-hidden="true"></i>
       <input placeholder="Rule Name..." 
         #name="ngModel"
+        [disabled]="!canEdit"
         [(ngModel)]="alertRule.name" name="name" required />
     </div>
     <div class="note note-error rule-name-error" 
@@ -119,7 +120,7 @@
   <div class="button-group">
     <div class="button-group-right">
       <button 
-        *ngIf="type != 'edit'"
+        *ngIf="type != 'edit' && canEdit"
         [disabled]="!form.valid"
         (click)="create()"
         [ngClass]="form.valid ? '' : 'disabled'"
@@ -128,7 +129,7 @@
       </button>
 
       <button 
-        *ngIf="type == 'edit'"
+        *ngIf="type == 'edit' && canEdit"
         [disabled]="!form.valid"
         (click)="update()"
         [ngClass]="form.valid ? '' : 'disabled'"

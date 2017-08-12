@@ -7,12 +7,13 @@ class User::ProgramExecutionsController < AuthorizedController
   end
 
   def show
+    authorize @program_execution
     render json: @program_execution
   end
 
   def create
     @program_execution = ProgramExecution.new(program_execution_params)
-
+    authorize @program_execution
     if @program_execution.save
       ProgramExecutionService.new.update_job(@program_execution)
       render json: @program_execution
@@ -22,6 +23,7 @@ class User::ProgramExecutionsController < AuthorizedController
   end
 
   def update
+    authorize @program_execution
     if @program_execution.update(program_execution_params)
       job = ProgramExecutionService.new.update_job(@program_execution)
       render json: {
@@ -34,6 +36,7 @@ class User::ProgramExecutionsController < AuthorizedController
   end
 
   def destroy
+    authorize @program_execution
     ProgramExecutionService.new.remove_job(@program_execution)
     @program_execution.destroy
     render json: @program_execution
@@ -47,6 +50,8 @@ class User::ProgramExecutionsController < AuthorizedController
     end
 
     def program_execution_params
+      zone_id = params["program_execution"]["zone_id"]
+      params["program_execution"]["zone_id"] = HashIdService.new.decode(zone_id)
       params.require(:program_execution).permit(:name, :zone_id, :is_active, 
         :from_time, :to_time, :schedule, :input, :output)
     end

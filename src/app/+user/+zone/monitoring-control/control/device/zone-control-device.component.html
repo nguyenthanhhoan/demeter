@@ -1,7 +1,9 @@
 <div class="smart-form">
   <header>
     List of Devices
-    <div class="btn-group pull-right">
+    <div
+      *ngIf="canEdit"
+      class="btn-group pull-right">
       <button 
         class="demeter-btn create-btn primary"
         (click)="deviceAddModal.show()"
@@ -25,7 +27,9 @@
           {{field.name_display}}
         </span>
 
-        <a (click)="remove(field)" class="delete-action">
+        <a (click)="remove(field)"
+          *ngIf="canEdit"
+          class="delete-action">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </a>
       </section>
@@ -48,9 +52,9 @@
         <div>
           <label class="label">Control</label>
           <div class="dmt-control-toggle">
-            <label class="toggle" [class.state-disabled]="field.isRunning">
+            <label class="toggle" [class.state-disabled]="field.isRunning || !canEdit">
               <input type="checkbox" [ngModel]="field.value"
-                [disabled]="field.isRunning"
+                [disabled]="field.isRunning || !canEdit"
                 (click)="changeValue($event, field)">
               <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
             </label>

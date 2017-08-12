@@ -1,7 +1,6 @@
-import {
-  Component, OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { AlertRuleService } from '../../../../../core/services/alert-rule.service';
 import { NotificationService } from '../../../../../shared/utils/notification.service';
@@ -14,6 +13,9 @@ import { NotificationService } from '../../../../../shared/utils/notification.se
 export class ZoneAlertSettingComponent implements OnInit {
   zoneId: number;
   alert_rules: any[];
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
 
   constructor(private store: Store<any>,
               private alertRuleService: AlertRuleService,
@@ -21,16 +23,27 @@ export class ZoneAlertSettingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
-      return (!this.zoneId);
-    })
-    .subscribe((zoneModel) => {
-      if (zoneModel.zoneId) {
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
         this.zoneId = zoneModel.zoneId;
+        this.userRole = zoneModel.zone.current_user_role;
         this.loadAlertRule();
+        this.checkPermission();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.zoneSubscription.unsubscribe();
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
+    }
   }
 
   loadAlertRule() {

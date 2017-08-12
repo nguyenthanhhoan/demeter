@@ -1,3 +1,4 @@
+import { ISubscription } from 'rxjs/Subscription';
 import {
   Component, OnInit
 } from '@angular/core';
@@ -15,6 +16,9 @@ export class ZoneControlExecutionComponent {
 
   zoneId: number;
   programs: any[];
+  canEdit: boolean = false;
+  private zoneSubscription: ISubscription;
+  private userRole: string;
 
   constructor(private store: Store<any>,
               private programExecutionService: ProgramExecutionService,
@@ -22,16 +26,23 @@ export class ZoneControlExecutionComponent {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile((zoneModel: any) => {
-      return (!this.zoneId);
-    })
-    .subscribe((zoneModel) => {
-      if (zoneModel.zoneId) {
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
         this.zoneId = zoneModel.zoneId;
+        this.userRole = zoneModel.zone.current_user_role;
+        this.checkPermission();
         this.loadPrograms();
       }
     });
+  }
+
+  checkPermission() {
+    if (this.userRole === 'user' || this.userRole === 'guest') {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
+    }
   }
 
   loadPrograms() {

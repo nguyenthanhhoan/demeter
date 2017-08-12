@@ -1,7 +1,9 @@
 <div class="smart-form">
   <header>
     List of Executions
-    <div class="btn-group pull-right">
+    <div
+      *ngIf="canEdit"
+      class="btn-group pull-right">
       <button 
         class="demeter-btn create-btn primary"
         routerLink="new"
@@ -25,16 +27,16 @@
         </a>
       </span>
 
-      <a (click)="remove(program)" class="delete-action">
+      <a (click)="remove(program)" class="delete-action" *ngIf="canEdit">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
       </a>
     </section>
 
     <section>
       <div class="dmt-control-toggle">
-        <label class="toggle" [class.state-disabled]="program.isRunning">
+        <label class="toggle" [class.state-disabled]="program.isRunning || !canEdit">
           <input type="checkbox" [ngModel]="program.is_active"
-            [disabled]="program.isRunning"
+            [disabled]="program.isRunning || !canEdit"
             (click)="changeValue($event, program)">
           <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
         </label>

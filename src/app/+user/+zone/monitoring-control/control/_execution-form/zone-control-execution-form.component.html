@@ -6,6 +6,7 @@
       <i class="fa fa-file-text-o" aria-hidden="true"></i>
       <input placeholder="Execution Name..." 
         #name="ngModel"
+        [disabled]="!canEdit"
         [(ngModel)]="program.name" name="name" required />
     </div>
 
@@ -76,7 +77,7 @@
   <div class="button-group">
     <div class="button-group-right">
       <button 
-        *ngIf="type != 'edit'"
+        *ngIf="type != 'edit' && canEdit"
         [disabled]="!programForm.valid"
         (click)="create()"
         class="demeter-btn create-btn" type="submit">
@@ -84,7 +85,7 @@
       </button>
 
       <button 
-        *ngIf="type == 'edit'"
+        *ngIf="type == 'edit' && canEdit"
         [disabled]="!programForm.valid"
         (click)="update()"
         class="demeter-btn primary" type="submit">

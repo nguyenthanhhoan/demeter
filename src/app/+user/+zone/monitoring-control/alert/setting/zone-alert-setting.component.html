@@ -1,8 +1,10 @@
 <header class="demeter-header header-with-btn">
   Alert Settings
 
-  <div class="btn-group pull-right">
-    <button 
+  <div
+    *ngIf="canEdit"
+    class="btn-group pull-right">
+    <button
       class="demeter-btn create-btn primary"
       routerLink="new"
       >Add</button>
@@ -25,7 +27,7 @@
           {{alert_rule.name}}
         </a>
       </span>
-      <a (click)="remove(alert_rule)" class="delete-action">
+      <a (click)="remove(alert_rule)" class="delete-action" *ngIf="canEdit">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
       </a>
     </section>
@@ -33,9 +35,9 @@
     <section>
       <div>
         <div class="dmt-control-toggle">
-          <label class="toggle" [class.state-disabled]="alert_rule.isRunning">
+          <label class="toggle" [class.state-disabled]="alert_rule.isRunning || !canEdit">
             <input type="checkbox" [ngModel]="alert_rule.is_active"
-              [disabled]="alert_rule.isRunning"
+              [disabled]="alert_rule.isRunning || !canEdit"
               (click)="changeValue(alert_rule)">
             <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
           </label>
