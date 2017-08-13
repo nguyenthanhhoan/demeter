@@ -23,8 +23,8 @@ class ProgramExecutionPolicy < ApplicationPolicy
       is_owner = user.id == project.user_id
       has_project_admin_role = user.has_role? :project_admin, project
       has_project_user_role = user.has_role? :project_user, project
-      has_admin_role = user.has_role? :zone_admin, record
-      has_user_role = user.has_role? :zone_user, record
+      has_admin_role = user.has_role? :zone_admin, zone
+      has_user_role = user.has_role? :zone_user, zone
       is_owner || has_project_admin_role || has_project_user_role || has_admin_role || has_user_role
     end
 
@@ -34,7 +34,7 @@ class ProgramExecutionPolicy < ApplicationPolicy
       project = zone.project
       is_owner = user.id == project.user_id
       has_project_admin_role = user.has_role? :project_admin, project
-      has_admin_role = user.has_role? :zone_admin, record
+      has_admin_role = user.has_role? :zone_admin, zone
       is_owner || has_project_admin_role || has_admin_role
     end
   end
