@@ -11,11 +11,12 @@ import {
   ChartEvent
 } from '../../../shared/graphs/chartist/chartist.component';
 
-import { AppSettings } from '../../../app.settings';
-import { ZoneService } from '../../../core/services/zone.service';
-import { SensorDataService } from '../../../core/services/sensor-data.service';
-import { NotificationService } from '../../../shared/utils/notification.service';
-import { DeviceFieldService } from '../../../core/services/device-field-service';
+import { AppSettings } from '../../../../app.settings';
+
+import { ZoneService } from '../../../../core/services/zone.service';
+import { SensorDataService } from '../../../../core/services/sensor-data.service';
+import { NotificationService } from '../../../../shared/utils/notification.service';
+import { DeviceFieldService } from '../../../../core/services/device-field-service';
 
 declare var Highcharts: any;
 declare var moment: any;
