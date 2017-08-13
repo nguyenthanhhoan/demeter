@@ -16,7 +16,6 @@ import { ZoneNewComponent } from './zone-new/zone-new.component';
 import { SensorDataChartComponent } from '../shared/sensor-data-chart/sensor-data-chart.component';
 
 import { ZoneSummaryComponent } from './summary/zone-summary.component';
-import { ZoneHistoryComponent } from './history/zone-history.component';
 
 @NgModule({
   imports: [
@@ -33,8 +32,7 @@ import { ZoneHistoryComponent } from './history/zone-history.component';
     ZoneComponent,
     SensorDataChartComponent,
     ZoneNewComponent,
-    ZoneSummaryComponent,
-    ZoneHistoryComponent
+    ZoneSummaryComponent
   ]
 })
 export class ZoneModule { }

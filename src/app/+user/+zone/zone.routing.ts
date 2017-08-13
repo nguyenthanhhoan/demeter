@@ -21,8 +21,6 @@ export const routes: Routes = [{
       }, {
         path: 'summary', component: ZoneSummaryComponent
       }, {
-        path: 'history', component: ZoneHistoryComponent
-      }, {
         path: 'monitoring-control',
         loadChildren: 'app/+user/+zone/monitoring-control/monitoring-control.module#MonitoringControlModule'
       }, {
