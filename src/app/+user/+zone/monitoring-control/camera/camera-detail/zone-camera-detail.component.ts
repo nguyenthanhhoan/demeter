@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { CameraService } from '../../../../core/services/camera.service';
-
-declare var flowplayer: any;
+import { CameraService } from '../../../../../core/services/camera.service';
 
 @Component({
   templateUrl: './zone-camera-detail.component.html',

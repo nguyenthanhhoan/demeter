@@ -2,7 +2,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { CameraService } from '../../../core/services/camera.service';
+import { CameraService } from '../../../../core/services/camera.service';
 
 @Component({
   templateUrl: './zone-camera.component.html',
