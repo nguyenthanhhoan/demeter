@@ -28,12 +28,8 @@ declare var moment: any;
 export class ZoneHistoryComponent implements OnInit {
 
   zone_id: number;
-  chartData: any = {
-    xAxis: {
-      categories: []
-    },
-    series: []
-  };
+  chartData;
+  singleChartDatas: any = [];
   isRequesting = false;
   filter: any = {};
   charts: any[] = [];
@@ -52,20 +48,45 @@ export class ZoneHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.zoneObservable = this.store.select('zone');
-
-    this.zoneSubscription = this.zoneObservable.subscribe(this.init.bind(this));
+    this.zoneSubscription = this.store.select('zone')
+    .subscribe((zoneModel: any) => {
+      if (zoneModel.loaded) {
+        let { zone } = zoneModel;
+        this.zone_id = zone.id;
+        this.load24hData();
+      }
+    });
   }
 
   ngOnDestroy() {
     this.zoneSubscription.unsubscribe();
   }
 
-  init(zoneModel) {
-    if (zoneModel.loaded) {
-      let { zone } = zoneModel;
-      this.zone_id = zone.id;
-    }
+  load24hData() {
+    this.requestFieldAssignedToZone()
+    .flatMap(() => {
+      if (this.fields && this.fields.length > 0) {
+        return this.sensorDataService.getLatestV2(this.fields, this.zone_id);
+      } else {
+        return Observable.empty();
+      }
+    })
+    .subscribe((chartData) => {
+      this.chartData = chartData;
+      this.buildSingleChartData(this.chartData);
+      this.isRequesting = false;
+    });
+  }
+
+  buildSingleChartData(fullChartData) {
+    this.singleChartDatas = fullChartData.data.map((singleChartData) => {
+      return {
+        x: singleChartData.x,
+        y: singleChartData.y,
+        type: 'scatter',
+        name: singleChartData.name
+      };
+    });
   }
 
   queryHistoryData() {
@@ -93,24 +114,20 @@ export class ZoneHistoryComponent implements OnInit {
 
     if (this.fields && this.fields.length > 0) {
       this.requestDailyChartData(start_timestamp, end_timestamp);
-    } else {
-      this.requestFieldAssignedToZone(start_timestamp, end_timestamp);
     }
   }
 
-  requestFieldAssignedToZone(start_timestamp, end_timestamp) {
+  requestFieldAssignedToZone() {
     // Firstly, request list of device assigned to zone
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
     params.set('zone_id', this.zone_id.toString());
     params.set('link_type', 'data');
-    this.deviceFieldService.getListAssigned({
+    return this.deviceFieldService.getListAssigned({
       search: params
-    }).subscribe((fields) => {
+    }).map((fields) => {
       this.fields = fields;
-      if (fields.length > 0) {
-        this.requestDailyChartData(start_timestamp, end_timestamp);
-      } else {
+      if (fields.length === 0) {
         this.isRequesting = false;
         this.notificationService.showErrorMessage({
           title: 'error',
@@ -121,87 +138,13 @@ export class ZoneHistoryComponent implements OnInit {
   }
 
   requestDailyChartData(start_timestamp, end_timestamp) {
-    this.sensorDataService.getByTimestamp(start_timestamp, end_timestamp, this.fields, this.zone_id)
+    this.sensorDataService.getByTimestampV2(start_timestamp, end_timestamp, this.fields, this.zone_id)
       .subscribe((data) => {
-        if (data) {
-          this.chartData = data;
-          console.log('Number of points returned ', this.chartData.xAxis.categories.length);
-          if (this.chartData.xAxis.categories.length === 0) {
-            this.notificationService.showErrorMessage({
-              title: 'error',
-              content: 'No data match your filter.'
-            });
-          } else {
-            this.loadHighChart();
-          }
-        }
+        this.chartData = data;
+        this.buildSingleChartData(this.chartData);
         this.isRequesting = false;
       }, () => {
         this.isRequesting = false;
       });
   }
-
-  loadHighChart() {
-    System.import('script-loader!highcharts').then(() => {
-      return System.import('script-loader!highcharts/highcharts.js');
-    }).then(() => {
-      this.initChart();
-    });
-  }
-
-  initChart() {
-    Highcharts.setOptions({
-      global : {
-        useUTC : false
-      }
-    });
-    let timestamps = this.chartData.timestamps;
-    let start_timestamp = timestamps[0];
-    let end_timestamp = timestamps[timestamps.length - 1];
-    this.chartData.series.forEach((series, index) => {
-      let pointInterval = Math.round((end_timestamp - start_timestamp) / series.data.length);
-      let chartOpts = {
-        chart: {
-          backgroundColor: '#F5F3EB',
-          type: 'spline'
-        },
-        title: {
-          text: series.name
-        },
-        yAxis: {
-          title: {
-            text: ''
-          },
-          min: Math.round(Math.min(...series.data)) - series.diff,
-          max: Math.round(Math.max(...series.data)) + series.diff
-        },
-        tooltip: {
-          valueSuffix: series.valueSuffix
-        },
-        plotOptions: {
-          spline: {
-            pointInterval: pointInterval,
-            pointStart: start_timestamp
-          }
-        },
-        xAxis: {
-          type: 'datetime',
-          labels: {
-            overflow: 'justify'
-          }
-        },
-        series: [
-          series
-        ]
-      };
-      if (this.charts[index]) {
-        this.charts[index].destroy();
-        this.charts[index] = Highcharts.chart('chart-container-' + index, chartOpts);
-      } else {
-        let chart = Highcharts.chart('chart-container-' + index, chartOpts);
-        this.charts.push(chart);
-      }
-    });
-  }
-
 }

@@ -41,6 +41,10 @@
       <div class="spinner-wrapper">
         <app-spinner [isRunning]="isRequesting"></app-spinner>
       </div>
-      <div *ngFor="let field of fields; let i = index;" id="chart-container-{{i}}" class="chart-container">
+
+      <multiple-chart [chartData]="chartData"></multiple-chart>
+      <div class="single-chart-data"
+        *ngFor="let singleChartData of singleChartDatas">
+        <single-chart [data]="singleChartData"></single-chart>
       </div>
     </div>

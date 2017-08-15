@@ -31,3 +31,7 @@
 .chart-container {
   height: 400px;
 }
+
+.single-chart-data {
+  margin-top: 20px;
+}
