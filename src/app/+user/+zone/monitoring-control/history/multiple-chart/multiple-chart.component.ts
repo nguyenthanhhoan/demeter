@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { SensorDataService } from '../../../../../core/services/sensor-data.service';
+import { Component, Input, OnChanges, OnInit, ElementRef } from '@angular/core';
 let Plotly = require('plotly.js/lib/core');
+declare var $: any;
 
 @Component({
   selector: 'multiple-chart',
@@ -11,7 +11,7 @@ export class MultipleChartComponent implements OnInit, OnChanges {
 
   @Input()
   chartData: any;
-  constructor(private sensorDataService: SensorDataService) {
+  constructor(private el: ElementRef) {
 
   }
 
@@ -20,14 +20,16 @@ export class MultipleChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('ngOnChanges', this.chartData);
     if (this.chartData && this.chartData.data && this.chartData.data.length > 0) {
       this.initChart();
+    } else {
+      $(this.el.nativeElement).find('.chart-holder').html('');
     }
   }
 
   initChart() {
-    Plotly.newPlot('myDiv', this.chartData.data, this.chartData.layout);
+    let chartEle = $(this.el.nativeElement).find('.chart-holder')[0];
+    Plotly.newPlot(chartEle, this.chartData.data, this.chartData.layout);
   }
 
   drawDemoChart() {

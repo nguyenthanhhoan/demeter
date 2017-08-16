@@ -1,46 +1,43 @@
 import { URLSearchParams } from '@angular/http';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { ISubscription } from 'rxjs/Subscription';
-import * as Chartist from 'chartist';
-
-import {
-  ChartType,
-  ChartEvent
-} from '../../../shared/graphs/chartist/chartist.component';
 
 import { AppSettings } from '../../../../app.settings';
 
-import { ZoneService } from '../../../../core/services/zone.service';
 import { SensorDataService } from '../../../../core/services/sensor-data.service';
 import { NotificationService } from '../../../../shared/utils/notification.service';
 import { DeviceFieldService } from '../../../../core/services/device-field-service';
 
-declare var Highcharts: any;
 declare var moment: any;
 
 @Component({
   templateUrl: './zone-history.component.html',
-  styleUrls: ['./zone-history.component.css']
+  styleUrls: ['./zone-history.component.scss']
 })
 export class ZoneHistoryComponent implements OnInit {
 
   zone_id: number;
-  chartData;
+
+  multipleChartData;
   singleChartDatas: any = [];
   isRequesting = false;
+
+  // date/time filter
   filter: any = {};
-  charts: any[] = [];
-  fields: any[];
+
+  // list of fields filtered from UI
+  fieldFilters: any[];
+
+  // hold list of fields
+  private fields: any[];
+  // Chart response hold the data return from service
+  private dataResponse;
   private zoneObservable: Observable<any>;
   private zoneSubscription: ISubscription;
 
-  constructor(private router: Router,
-    private route: ActivatedRoute,
-    private store: Store<any>,
-    private zoneService: ZoneService,
+  constructor(private store: Store<any>,
     private sensorDataService: SensorDataService,
     private deviceFieldService: DeviceFieldService,
     private notificationService: NotificationService) {
@@ -62,23 +59,27 @@ export class ZoneHistoryComponent implements OnInit {
     this.zoneSubscription.unsubscribe();
   }
 
-  load24hData() {
+  filterChart() {
+    this.buildChartData();
+  }
+
+  private load24hData() {
     this.requestFieldAssignedToZone()
     .flatMap(() => {
       if (this.fields && this.fields.length > 0) {
-        return this.sensorDataService.getLatestV2(this.fields, this.zone_id);
+        return this.sensorDataService.getLatestV2(this.zone_id);
       } else {
         return Observable.empty();
       }
     })
-    .subscribe((chartData) => {
-      this.chartData = chartData;
-      this.buildSingleChartData(this.chartData);
+    .subscribe((dataResponse) => {
+      this.dataResponse = dataResponse;
+      this.buildChartData();
       this.isRequesting = false;
     });
   }
 
-  buildSingleChartData(fullChartData) {
+  private buildSingleChartData(fullChartData) {
     this.singleChartDatas = fullChartData.data.map((singleChartData) => {
       return {
         x: singleChartData.x,
@@ -89,7 +90,7 @@ export class ZoneHistoryComponent implements OnInit {
     });
   }
 
-  queryHistoryData() {
+  private queryHistoryData() {
     if (!this.filter.date || !this.filter.start_time || !this.filter.end_time) {
       this.notificationService.showErrorMessage({
         title: 'error',
@@ -97,12 +98,14 @@ export class ZoneHistoryComponent implements OnInit {
       });
       return;
     } else {
-      this.isRequesting = true;
       this.loadHistoryData();
     }
   }
 
-  loadHistoryData() {
+  private loadHistoryData() {
+    this.isRequesting = true;
+    this.multipleChartData = {};
+    this.singleChartDatas = [];
     let filter = this.filter;
     let start_timestamp =
       moment(`${filter.date} ${filter.start_time}`,
@@ -117,7 +120,7 @@ export class ZoneHistoryComponent implements OnInit {
     }
   }
 
-  requestFieldAssignedToZone() {
+  private requestFieldAssignedToZone() {
     // Firstly, request list of device assigned to zone
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
@@ -127,6 +130,7 @@ export class ZoneHistoryComponent implements OnInit {
       search: params
     }).map((fields) => {
       this.fields = fields;
+      this.buildFieldFilters();
       if (fields.length === 0) {
         this.isRequesting = false;
         this.notificationService.showErrorMessage({
@@ -137,14 +141,138 @@ export class ZoneHistoryComponent implements OnInit {
     });
   }
 
-  requestDailyChartData(start_timestamp, end_timestamp) {
-    this.sensorDataService.getByTimestampV2(start_timestamp, end_timestamp, this.fields, this.zone_id)
-      .subscribe((data) => {
-        this.chartData = data;
-        this.buildSingleChartData(this.chartData);
+  private buildChartData() {
+    let { dataResponse } = this;
+    let fields = [];
+    this.fieldFilters.forEach((field, index) => {
+      if (field.isShow) {
+        fields.push(this.fields[index]);
+      }
+    });
+    this.multipleChartData = {
+      data: this.buildTraces(dataResponse, fields),
+      layout: this.buildLayoutForMultipeYAxis(dataResponse, fields)
+    };
+
+    let fullChartData = {
+      data: this.buildTraces(dataResponse, this.fields),
+      layout: this.buildLayoutForMultipeYAxis(dataResponse, this.fields)
+    };
+    this.buildSingleChartData(fullChartData);
+  }
+
+  private buildFieldFilters() {
+    this.fieldFilters = this.fields.map((field) => {
+      return {
+        isShow: true,
+        name: field.name_display
+      };
+    });
+  }
+
+  private requestDailyChartData(start_timestamp, end_timestamp) {
+    this.sensorDataService.getByTimestampV2(start_timestamp, end_timestamp, this.zone_id)
+      .subscribe((dataResponse) => {
+        this.dataResponse = dataResponse;
+        this.buildChartData();
         this.isRequesting = false;
       }, () => {
         this.isRequesting = false;
       });
   }
+
+
+  private buildTraces(items: any, fields: any[]) {
+    // traces help to build legend toggle on the right
+    let xAxis_cates = [];
+    let traces = [];
+    let timestamps = [];
+    fields.forEach((field, index) => {
+      let trace = {
+        x: [],
+        y: [],
+        field_id: field.field_id,
+        name: field.name_display,
+        type: 'scatter'
+      };
+      if (index > 0) {
+
+        // Mapping with the correct yaxis
+        trace['yaxis'] = 'y' + (index + 1);
+      }
+      traces.push(trace);
+    });
+    items.forEach(item => {
+      let timestamp = parseInt(item.timestamp, 10);
+      let formated_time = moment(timestamp).format(AppSettings.date_time_format.date_time_iso);
+      xAxis_cates.push(formated_time);
+      traces.forEach((trace) => {
+        trace.y.push(parseFloat(item.payload.data[trace.field_id]));
+      });
+    });
+    traces.forEach((trace) => {
+      trace.x = xAxis_cates;
+    });
+    return traces;
+  }
+
+  private buildLayoutForMultipeYAxis(items: any, fields: any[]) {
+    let colors = [
+      'rgb(31, 119, 180)',
+      'rgb(255, 127, 14)',
+      'rgb(44, 160, 44)',
+      'rgb(214, 39, 40)',
+      'rgb(148, 103, 189)',
+      'rgb(140, 86, 75)'
+    ];
+    let chartLeftSides = Math.ceil(fields.length / 2);
+    let chartRightSides = Math.floor(fields.length / 2);
+
+    let layout = {
+      paper_bgcolor: '#fff',
+      plot_bgcolor: '#fff',
+      title: 'Summary',
+
+      // Sets the domain of this axis (in plot fraction).
+      // Each object has one or more of the keys listed below.
+      xaxis: {
+        domain: [chartLeftSides * 0.1, 1 - chartRightSides * 0.1],
+      }
+    };
+
+    fields.forEach((field, index) => {
+      let propName = 'yaxis';
+      if (index > 0) {
+        propName += (index + 1);
+      }
+      let propVal: any = {
+        title: field.name_display,
+        titlefont: {color: colors[index]},
+        tickfont: {color: colors[index]}
+      };
+      if (index > 0) {
+        let position = index % 2 === 0 ? 'left' : 'right';
+        propVal.anchor = 'free';
+        propVal.overlaying = 'y';
+        propVal.side = position;
+
+        // Cannot find docs for position attr, guess it help arrange
+        // y axis
+        // propVal.position = index % 2 === 0 ? 0.05 * index : 1 - 0.05 * index;
+        if (position === 'left') {
+          propVal.position = 0.1 * chartLeftSides;
+          chartLeftSides--;
+        } else {
+          propVal.position = 1 - 0.1 * chartRightSides;
+          chartRightSides--;
+        }
+        // console.log('index', index, propVal.position, field.name_display);
+      } else {
+        chartLeftSides--;
+      }
+      layout[propName] = propVal;
+    });
+    return layout;
+  }
+
 }
