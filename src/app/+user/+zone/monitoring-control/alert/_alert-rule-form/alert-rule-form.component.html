@@ -101,12 +101,24 @@
         </div>
       </div>
 
-      <label class="checkbox">
-        Message
-        <input type="checkbox" name="trigger_message"
-          [(ngModel)]="alertRule.trigger_message">
-        <i></i>&nbsp;
-      </label>
+      <div class="trigger-item"
+        [ngClass]="alertRule.trigger_message ? 'open' : ''">
+        <label class="checkbox">
+          Message
+          <input type="checkbox" name="trigger_message"
+            [(ngModel)]="alertRule.trigger_message">
+          <i></i>&nbsp;
+        </label>
+
+        <div *ngIf="alertRule.trigger_message"
+          class="email-form">
+          <label class="textarea">
+            <textarea [(ngModel)]="alertRule.trigger_messages" name="trigger_messages" rows="3"></textarea>
+          </label>
+          <div class="note">Phone should be seperated by <code>;</code>
+          </div>
+        </div>
+      </div>
 
       <label class="checkbox">
         Call

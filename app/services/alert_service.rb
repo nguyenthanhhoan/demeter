@@ -62,6 +62,7 @@ class AlertService
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule match. Prepare to create alert"
       create_alert(alert_rule, zone)
       email_alert(alert_rule)
+      message_alert(alert_rule)
     else 
       Rails.logger.info "[AlertRuleWorker] [alert_rule_id=#{alert_rule_id}] alert rule not match. Alert wont be created"
     end
@@ -123,6 +124,18 @@ class AlertService
       emails.each { |email| 
         AlertMailer.send_email(alert_rule, alert_content, email).deliver_later
       }
+    end
+    
+  end
+
+  def message_alert(alert_rule)
+    alert_content = build_alert_message(alert_rule)
+    if alert_rule.trigger_message?
+      phones = alert_rule.trigger_messages.split(';')
+      phones.map { |phone| 
+        phone.strip
+      }
+      SpeedSMSService.new.send_message(alert_content, phones)
     end
   end
 end
