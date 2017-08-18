@@ -27,9 +27,6 @@ export class ZoneHistoryComponent implements OnInit {
   // date/time filter
   filter: any = {};
 
-  // list of fields filtered from UI
-  fieldFilters: any[];
-
   // hold list of fields
   private fields: any[];
   // Chart response hold the data return from service
@@ -57,10 +54,6 @@ export class ZoneHistoryComponent implements OnInit {
 
   ngOnDestroy() {
     this.zoneSubscription.unsubscribe();
-  }
-
-  filterChart() {
-    this.buildChartData();
   }
 
   private load24hData() {
@@ -130,7 +123,6 @@ export class ZoneHistoryComponent implements OnInit {
       search: params
     }).map((fields) => {
       this.fields = fields;
-      this.buildFieldFilters();
       if (fields.length === 0) {
         this.isRequesting = false;
         this.notificationService.showErrorMessage({
@@ -143,31 +135,11 @@ export class ZoneHistoryComponent implements OnInit {
 
   private buildChartData() {
     let { dataResponse } = this;
-    let fields = [];
-    this.fieldFilters.forEach((field, index) => {
-      if (field.isShow) {
-        fields.push(this.fields[index]);
-      }
-    });
     this.multipleChartData = {
-      data: this.buildTraces(dataResponse, fields),
-      layout: this.buildLayoutForMultipeYAxis(dataResponse, fields)
-    };
-
-    let fullChartData = {
       data: this.buildTraces(dataResponse, this.fields),
       layout: this.buildLayoutForMultipeYAxis(dataResponse, this.fields)
     };
-    this.buildSingleChartData(fullChartData);
-  }
-
-  private buildFieldFilters() {
-    this.fieldFilters = this.fields.map((field) => {
-      return {
-        isShow: true,
-        name: field.name_display
-      };
-    });
+    this.buildSingleChartData(this.multipleChartData);
   }
 
   private requestDailyChartData(start_timestamp, end_timestamp) {
@@ -236,7 +208,22 @@ export class ZoneHistoryComponent implements OnInit {
       // Sets the domain of this axis (in plot fraction).
       // Each object has one or more of the keys listed below.
       xaxis: {
-        domain: [chartLeftSides * 0.1, 1 - chartRightSides * 0.1],
+        domain: [chartLeftSides * 0.05, 1 - chartRightSides * 0.05],
+      },
+      margin: {
+        l: 0,
+        r: 0
+      },
+      // TODO: Not understand those magic fields
+      legend: {
+        x: 0.5,
+        xanchor: 'center',
+
+        // number between or equal to -2 and 3
+        // default is 1
+        y: -0.2,
+        yanchor: 'bottom',
+        orientation: 'h'
       }
     };
 
@@ -246,7 +233,6 @@ export class ZoneHistoryComponent implements OnInit {
         propName += (index + 1);
       }
       let propVal: any = {
-        title: field.name_display,
         titlefont: {color: colors[index]},
         tickfont: {color: colors[index]}
       };
@@ -260,10 +246,10 @@ export class ZoneHistoryComponent implements OnInit {
         // y axis
         // propVal.position = index % 2 === 0 ? 0.05 * index : 1 - 0.05 * index;
         if (position === 'left') {
-          propVal.position = 0.1 * chartLeftSides;
+          propVal.position = 0.05 * chartLeftSides;
           chartLeftSides--;
         } else {
-          propVal.position = 1 - 0.1 * chartRightSides;
+          propVal.position = 1 - 0.05 * chartRightSides;
           chartRightSides--;
         }
         // console.log('index', index, propVal.position, field.name_display);

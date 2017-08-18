@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+import { Http, Response } from '@angular/http';
 
-import {config} from '../../shared/smartadmin.config';
-import {Observable} from "rxjs/Rx";
+import { config } from '../../shared/smartadmin.config';
+import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,7 +14,10 @@ export class JsonApiService {
 
   constructor(private http: Http) {}
 
-  public fetch(url): Observable<any>{
+  public fetch(url: String): Observable<any>{
+    if (url.startsWith('user/sensor_data/latest')) {
+      url = '/demeter/sensor_data_lastest.json';
+    }
     return this.http.get(this.getBaseUrl() + config.API_URL + url)
       .delay(100)
       .map(this.extractData)

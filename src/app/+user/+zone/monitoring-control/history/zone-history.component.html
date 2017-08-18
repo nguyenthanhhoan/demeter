@@ -43,22 +43,15 @@
   </div>
 
   <div *ngIf="!isRequesting">
-    <div 
-      class="smart-form">
-      <label class="checkbox field-checkbox" *ngFor="let field of fieldFilters">
-        <input type="checkbox"
-          [(ngModel)]="field.isShow"
-          (change)="filterChart()">
-        <i></i><span class="field-name">{{field.name}}</span>
-      </label>
-    </div>
 
     <multiple-chart 
       [chartData]="multipleChartData"></multiple-chart>
 
     <div class="single-chart-data"
       *ngFor="let singleChartData of singleChartDatas">
-      <single-chart [data]="singleChartData"></single-chart>
+      <single-chart 
+        *ngIf="singleChartData.x && singleChartData.x.length > 0"
+        [data]="singleChartData"></single-chart>
     </div>
   </div>
 </div>

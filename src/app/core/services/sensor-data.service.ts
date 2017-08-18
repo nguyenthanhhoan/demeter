@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { AppSettings } from '../../app.settings';
 import { ApiService } from '../api/api.service';
+import { JsonApiService } from '../api/json-api.service';
 
 declare var moment: any;
 
@@ -12,7 +13,8 @@ declare var moment: any;
 export class SensorDataService {
   private sensorDataUrl = 'user/sensor_data';
 
-  constructor (private apiService: ApiService) {}
+  constructor(private apiService: ApiService,
+              private jsonApiService: JsonApiService ) {}
 
   getByTimestamp(start_timestamp, end_timestamp, fields, zone_id): Observable<any> {
     return this.apiService
@@ -34,6 +36,7 @@ export class SensorDataService {
 
   getByDate(date, fields, zone_id): Observable<any> {
     return this.apiService
+    // return this.jsonApiService
       .fetch(
         `${this.sensorDataUrl}/date/${date}/zone/${zone_id}`)
       .map((items) => {
@@ -43,6 +46,7 @@ export class SensorDataService {
 
   getLatest(fields, zone_id): Observable<any> {
     return this.apiService
+    // return this.jsonApiService
       .fetch(
         `${this.sensorDataUrl}/latest?zone_id=${zone_id}`)
       .map((items) => {
@@ -55,6 +59,7 @@ export class SensorDataService {
    */
   getLatestV2(zone_id): Observable<any> {
     return this.apiService
+    // return this.jsonApiService
       .fetch(
         `${this.sensorDataUrl}/latest?zone_id=${zone_id}`)
       .map((items) => {
