@@ -1,6 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminLayoutComponent } from './shared/layout/admin-layout/admin-layout.component';
 import { DashboardComponent } from './+dashboard/dashboard.component';
 import { ProjectListComponent } from './+project/list/project-list.component';
 import { ProjectFormComponent } from './+project/form/project-form.component';
@@ -15,52 +16,56 @@ import { DeviceFieldListComponent } from './+device/device-field/list/device-fie
 import { DeviceFieldFormComponent } from './+device/device-field/form/device-field-form.component';
 
 export const routes: Routes = [{
-    path: '', redirectTo: 'dashboard', pathMatch: 'full'
-  }, {
-    path: 'dashboard',
-    component: DashboardComponent
-  }, {
-    path: 'project',
-    component: ProjectListComponent
-  }, {
-    path: 'project/new', component: ProjectFormComponent
-  }, {
-    path: 'zone',
-    component: ZoneListComponent
-  }, {
-    path: 'camera',
-    component: CameraListComponent
-  }, {
-    path: 'device',
-    component: DeviceListComponent
-  }, {
-    path: 'project/new', component: ProjectFormComponent
-  }, {
-    path: 'project/edit/:id', component: ProjectFormComponent
-  }, {
-    path: 'device/new', component: DeviceFormComponent
-  }, {
-    path: 'device/:device_id',
-    children: [{
-      path: '', redirectTo: 'edit', pathMatch: 'full'
-    }, {
-      path: 'edit', component: DeviceFormComponent
-    }, {
-      path: 'field', component: DeviceFieldListComponent,
-    }, {
-      path: 'field/new', component: DeviceFieldFormComponent
-    }, {
-      path: 'field/:field_id',
-      children: [{
-        path: '', redirectTo: 'edit', pathMatch: 'full'
+    path: '',
+    component: AdminLayoutComponent,
+    children:
+      [{
+        path: 'dashboard',
+        component: DashboardComponent,
       }, {
-        path: 'edit', component: DeviceFieldFormComponent
+        path: 'project',
+        component: ProjectListComponent
+      }, {
+        path: 'project/new', component: ProjectFormComponent
+      }, {
+        path: 'zone',
+        component: ZoneListComponent
+      }, {
+        path: 'camera',
+        loadChildren:
+          'app/+admin/+camera/camera.module#CameraModule'
+      }, {
+        path: 'device',
+        component: DeviceListComponent
+      }, {
+        path: 'project/new', component: ProjectFormComponent
+      }, {
+        path: 'project/edit/:id', component: ProjectFormComponent
+      }, {
+        path: 'device/new', component: DeviceFormComponent
+      }, {
+        path: 'device/:device_id',
+        children: [{
+          path: '', redirectTo: 'edit', pathMatch: 'full'
+        }, {
+          path: 'edit', component: DeviceFormComponent
+        }, {
+          path: 'field', component: DeviceFieldListComponent,
+        }, {
+          path: 'field/new', component: DeviceFieldFormComponent
+        }, {
+          path: 'field/:field_id',
+          children: [{
+            path: '', redirectTo: 'edit', pathMatch: 'full'
+          }, {
+            path: 'edit', component: DeviceFieldFormComponent
+          }]
+        }]
+      }, {
+        path: 'user',
+        loadChildren:
+          'app/+admin/+user/user.module#UserModule',
       }]
-    }]
-  }, {
-    path: 'user',
-    loadChildren:
-      'app/+admin/+user/user.module#UserModule',
   }
 ];
 
