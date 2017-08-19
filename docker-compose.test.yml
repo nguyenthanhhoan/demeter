@@ -1,9 +1,20 @@
-proxy:
-  image: jwilder/nginx-proxy:latest
+nginx-proxy:
+  image: jwilder/nginx-proxy
   ports:
     - "80:80"
+    - "443:443"
   volumes:
-    - "/var/run/docker.sock:/tmp/docker.sock"
+    - "/etc/nginx/vhost.d"
+    - "/usr/share/nginx/html"
+    - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    - "/etc/nginx/certs"
+
+letsencrypt-nginx-proxy-companion:
+  image: jrcs/letsencrypt-nginx-proxy-companion
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  volumes_from:
+    - "nginx-proxy"
 
 db:
   image: postgres:9.5.4 # Heroku PostgreSQL Version
@@ -36,13 +47,15 @@ web:
   environment:
     - VIRTUAL_HOST=console.demeter.vn
     - VIRTUAL_PORT=8080
+    - LETSENCRYPT_HOST=console.demeter.vn
+    - LETSENCRYPT_EMAIL=trannguyentiensu@gmail.com
   links:
     - db
     - redis
     - cache
 
 homepage_web:
-  build: .
+  image: sutran/static-server
   entrypoint: /rails/dmt-homepage/entry.sh
   volumes:
     - .:/rails
