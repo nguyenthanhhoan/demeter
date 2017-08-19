@@ -19,17 +19,12 @@ export class CameraService {
     return this.apiService.fetch(`${this.camerasUrl}/${id}`);
   }
 
+  put(camera): Observable<any[]> {
+    return this.apiService.put(`${this.camerasUrl}/${camera.id}`, camera);
+  }
+
   post (camera): Observable<any[]> {
-    let formData:FormData = new FormData();
-    formData.append('camera[camera_no]', camera.camera_no);
-    formData.append('camera[camera_name]', camera.camera_name);
-    formData.append('camera[api]', camera.api);
-    formData.append('camera[live_hash]', camera.live_hash);
-    formData.append('camera[playback_hash]', camera.playback_hash);
-    formData.append('camera[secret_id]', camera.secret_id);
-    formData.append('camera[channel]', camera.channel);
-    formData.append('camera[server]', camera.server);
-    return this.apiService.postFormData(this.camerasUrl, formData);
+    return this.apiService.post(this.camerasUrl, camera);
   }
 
   public delete(id): Observable<any> {

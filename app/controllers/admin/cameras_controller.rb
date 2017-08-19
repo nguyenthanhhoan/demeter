@@ -1,15 +1,11 @@
 class Admin::CamerasController < Admin::AdminController
-  before_action :get_camera, only: [:show, :edit, :update, :destroy]
+  before_action :get_camera, only: [:show, :update, :destroy]
 
   def index
     render json: Camera.order(id: :desc)
   end
 
   def show
-    render json: @camera
-  end
-
-  def edit
     render json: @camera
   end
 
@@ -39,7 +35,10 @@ class Admin::CamerasController < Admin::AdminController
   private
 
     def camera_params
-      params.require(:camera).permit(:name)
+      params.require(:camera)
+      .permit(
+        :camera_no, :camera_name, :api, :server, :live_hash, 
+        :playback_hash, :secret_id, :channel)
     end
 
     def get_camera

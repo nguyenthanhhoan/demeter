@@ -5,13 +5,16 @@
   <div class="row">
         <div class="col-sm-12">
             <div class="well">
+                <button
+                    class="demeter-btn create-btn primary pull-right"
+                    routerLink="new">Create Camera</button>
                 <sa-datatable [options]="options" 
                   (setDatatableEle)="setDatatableEle($event)"
                   tableClass="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th [style.width]="'8%'" data-hide="mobile-p">Camera ID</th>
-                            <th [style.width]="'8%'" data-hide="mobile-p">Camera No</th>
+                            <th [style.width]="'12%'" data-hide="mobile-p">Camera ID</th>
+                            <th [style.width]="'12%'" data-hide="mobile-p">Camera No</th>
                             <th data-hide="mobile-p">Camera Name</th>
                             <th data-hide="mobile-p">API</th>
                             <th></th>

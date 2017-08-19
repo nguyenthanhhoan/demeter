@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router } from "@angular/router";
 
@@ -21,29 +21,20 @@ export class CameraListComponent implements OnInit {
 
   datatable: any;
 
-  constructor(private http: Http,
-              private router: Router,
-              private apiService: ApiService,
-              private notificationService: NotificationService,
-              private cameraService: CameraService
-              ) {
-
-  }
-
   options = this.apiService.fetchTableData({
-    url: 'admin/cameras', 
+    url: 'admin/cameras',
     columns: [
-      { data: "id" },
-      { data: "camera_no" },
-      { data: "camera_name" },
-      { data: "api" },
-      { data: "id" }
+      { data: 'id' },
+      { data: 'camera_no' },
+      { data: 'camera_name' },
+      { data: 'api' },
+      { data: 'id' }
     ],
     columnDefs: [{
       targets: -1,
       data: null,
       render: ( data, type, row, meta ) => {
-        var id = data;
+        let id = data;
         window.openConfirmModalFn = this.openDeleteConfirm.bind(this);
         window.goToEdit = this.goToEdit.bind(this);
         return '<button style="margin-right:12.5px;" type="button"' +
@@ -55,6 +46,16 @@ export class CameraListComponent implements OnInit {
       }
     }]
   })
+
+  constructor(private http: Http,
+              private router: Router,
+              private ngZone: NgZone,
+              private apiService: ApiService,
+              private notificationService: NotificationService,
+              private cameraService: CameraService
+              ) {
+
+  }
 
   openDeleteConfirm(id) {
     this.notificationService.confirmBox({
@@ -68,7 +69,9 @@ export class CameraListComponent implements OnInit {
   }
 
   goToEdit(id) {
-    this.router.navigate([`/admin/camera/${id}/edit`]);
+    this.ngZone.run(() => {
+      this.router.navigate([`/admin/camera/${id}`]);
+    });
   }
 
   setDatatableEle(datatable) {

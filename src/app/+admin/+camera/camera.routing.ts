@@ -7,11 +7,11 @@ export const routes: Routes = [{
   path: '',
   component: CameraListComponent
 }, {
-//   path: 'new',
-//   component: AlertRuleNewComponent
-// }, {
-//   path: ':camera_id',
-//   component: AlertRuleEditComponent
+  path: 'new',
+  component: CameraFormComponent
+}, {
+  path: ':camera_id',
+  component: CameraFormComponent
 }];
 
 export const routing = RouterModule.forChild(routes);

@@ -127,6 +127,19 @@ this.store.select('project')
 
 Use internal variable to check
 
+3. Style a form on admin side
+```
+    > .smart-form
+        > .well
+            > .row
+                > fieldset
+                    > .col.col-6
+```
+
+4. `Form submission canceled because the form is not connected`
+
+Add `type="button"`
+
 ## References
 
 1. Install Node
