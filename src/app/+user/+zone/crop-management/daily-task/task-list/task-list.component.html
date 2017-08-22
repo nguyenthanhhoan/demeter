@@ -1,3 +1,6 @@
+<div class="content-header">
+  <div class="demeter-title">Daily Task</div>
+</div>
 <dmt-date-filter></dmt-date-filter>
 <div class="demeter-pane">
   <div *ngFor="let staff of staffs" class="single-staff">
@@ -25,7 +28,7 @@
 
     <div class="staff-tasks">
       <div class="task-item" *ngFor="let task of staff.tasks; let i = index">
-        <span>{{i + 1}}. </span>
+        <span class="task-id">{{i + 1}}. </span>
         <span class="task-name">{{task.name}}</span>
         <span class="action-btn">
           <div class="smart-form">

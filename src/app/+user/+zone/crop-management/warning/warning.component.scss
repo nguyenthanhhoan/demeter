@@ -1,0 +1,13 @@
+.warning-item {
+  display: flex;
+
+  > span {
+    align-self: center;
+  }
+  .warning-icon {
+    font-size: 30px;
+  }
+  .warning-text {
+    margin-left: 15px;
+  }
+}

@@ -1,0 +1,13 @@
+<div class="content-header">
+  <div class="demeter-title">Warning</div>
+</div>
+<div class="demeter-pane">
+    <p *ngFor="let warning of warnings" class="warning-item">
+      <span class="warning-icon">
+        <i class="fa fa-bell-o"></i> 
+      </span>
+      <span class="warning-text">
+        {{warning}}
+      </span>
+    </p>
+</div>

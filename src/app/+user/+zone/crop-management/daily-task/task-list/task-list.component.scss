@@ -13,6 +13,7 @@
     width: 150px;
     border-radius: 50%;
     overflow: hidden;
+    align-self: center;
   }
   .staff-detail {
     display: flex;
@@ -38,6 +39,14 @@
       align-self: center;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    .staff-detail {
+      text-align: center;
+      margin-left: 0;
+    }
+  }
 }
 
 .staff-tasks {
@@ -51,6 +60,10 @@
 
     > span {
       align-self: center;
+    }
+
+    .task-id {
+      margin-right: 10px;
     }
 
     .task-name {
