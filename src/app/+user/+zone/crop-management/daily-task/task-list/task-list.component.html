@@ -1,0 +1,46 @@
+<dmt-date-filter></dmt-date-filter>
+<div class="demeter-pane">
+  <div *ngFor="let staff of staffs" class="single-staff">
+    <div class="staff-header">
+      <div class="staff-image">
+        <img class="img-responsive" [src]="staff.image" />
+      </div>
+      <div class="staff-detail">
+        <p class="full-name">
+          {{staff.full_name}}
+        </p>
+        <div class="role-name">
+          {{staff.role_name}}
+        </div>
+      </div>
+      <div class="status">
+        <div class="status-img">
+          <img class="img-responsive" src="assets/img/demo-dmt/checklist-finish.png" />
+        </div>
+        <div class="status-text">
+          Đã chấm công
+        </div>
+      </div>
+    </div>
+
+    <div class="staff-tasks">
+      <div class="task-item" *ngFor="let task of staff.tasks; let i = index">
+        <span>{{i + 1}}. </span>
+        <span class="task-name">{{task.name}}</span>
+        <span class="action-btn">
+          <div class="smart-form">
+            <label class="checkbox">
+              <input type="checkbox" [(ngModel)]="task.checked"/><i></i>
+            </label>
+          </div>
+          <a>
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+          <a class="delete-action">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

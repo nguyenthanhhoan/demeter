@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule as AppSharedModule } from '../../shared/shared.module';
 import { MemberComponent } from './dmt-member/dmt-member.component';
+import { DateFilterComponent } from './dmt-date-filter/dmt-date-filter.component';
 import { UserLayoutModule } from './layout/layout.module';
 
 @NgModule({
@@ -12,12 +13,14 @@ import { UserLayoutModule } from './layout/layout.module';
     UserLayoutModule
   ],
   declarations: [
-    MemberComponent
+    MemberComponent,
+    DateFilterComponent
   ],
   exports: [
     CommonModule,
     AppSharedModule,
-    MemberComponent
+    MemberComponent,
+    DateFilterComponent
   ]
 })
 export class SharedModule {

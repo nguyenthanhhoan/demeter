@@ -12,6 +12,10 @@ export const routes: Routes = [
     loadChildren:
       'app/+user/+zone/crop-management/daily-report/zone-daily-report.module#ZoneDailyReportModule'
   }, {
+    path: 'daily-task',
+    loadChildren:
+      'app/+user/+zone/crop-management/daily-task/daily-task.module#DailyTaskModule'
+  }, {
       path: 'okr',
       children:
         [

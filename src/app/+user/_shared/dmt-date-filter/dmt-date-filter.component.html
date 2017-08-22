@@ -1,0 +1,8 @@
+<ul class="date-nav-tabs">
+  <li class="date-nav-tab" 
+    [class.active]="activeDate == date"
+    (click)="setDate(date)"
+    *ngFor="let date of dates">
+    {{ date.date_display }}
+  </li>
+</ul>

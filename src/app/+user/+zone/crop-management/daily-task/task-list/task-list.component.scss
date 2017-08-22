@@ -1,0 +1,86 @@
+.single-staff {
+  margin-top: 15px;
+  padding-left: 15px;
+  border-left: 2px solid transparent;
+  &:hover {
+    border-left: 2px solid #108843;
+  }
+}
+
+.staff-header {
+  display: flex;
+  .staff-image {
+    width: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .staff-detail {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-self: center;
+    margin-left: 20px;
+  }
+  .full-name {
+    font-size: 22px;
+  }
+
+  .status {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    .status-img {
+      width: 50px;
+    }
+    .status-img,
+    .status-text {
+      align-self: center;
+    }
+  }
+}
+
+.staff-tasks {
+  margin-top: 15px;
+
+  .task-item {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    height: 40px;
+    padding: 0 10px;
+
+    > span {
+      align-self: center;
+    }
+
+    .task-name {
+      flex: 1;
+    }
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
+
+.action-btn {
+  height: 25px;
+  width: 75px;
+  display: flex;
+
+  a {
+    width: 25px;
+    font-size: 15px;
+    align-self: center;
+    text-align: center;
+  }
+
+  .delete-action {
+    font-size: 15px;
+    color: #a90329;
+  }
+
+  &:hover .delete-action {
+    color: #900323;
+  }
+}
