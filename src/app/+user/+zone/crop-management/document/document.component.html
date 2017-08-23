@@ -1,0 +1,20 @@
+<div class="content-header">
+  <div class="demeter-title">Document</div>
+</div>
+<div class="demeter-pane">
+  <div class="document-container">
+    <div *ngFor="let document of documents" class="document-item">
+      <div class="document-icon">
+        <img class="img-responsive" src="assets/img/flat-icon/pdf.svg" />
+      </div>
+      <div class="document-name">
+        {{document}}
+      </div>
+    </div>
+    <div class="document-item dmt-add-item">
+      <div class="add-button">
+        <i class="fa fa-plus add-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+</div>

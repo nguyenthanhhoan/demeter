@@ -296,3 +296,38 @@
     }
   }
 }
+
+/**
+ * Demeter add item button
+ * (currently used in crop-management/daily-task crop-management/document)
+ */
+.dmt-add-item {
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  min-height: 100px;
+  margin: 15px;
+  .add-button {
+    justify-content: center;
+    display: flex;
+    border: 2px solid #ccc;
+    flex: 1;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+
+      .add-icon {
+        color: $main-color;
+      }
+    }
+  }
+
+  .add-icon {
+    font-size: 60px;
+    height: 54px;
+    color: #bbb;
+    align-self: center;
+  }
+}

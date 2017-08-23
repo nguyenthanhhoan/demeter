@@ -1,0 +1,47 @@
+.document-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .document-item {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    margin: 15px;
+
+    .document-icon {
+      align-self: center;
+      width: 100px;
+    }
+  
+    .document-name {
+      align-self: center;
+      margin-top: 8px;
+    }
+  }
+
+  .document-add {
+    padding: 5px 20px;
+    .add-button {
+      justify-content: center;
+      display: flex;
+      border: 2px solid #ccc;
+      flex: 1;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ccc;
+
+        .add-icon {
+          color: #006837;
+        }
+      }
+    }
+
+    .add-icon {
+      font-size: 60px;
+      height: 54px;
+      color: #bbb;
+      align-self: center;
+    }
+  }
+}

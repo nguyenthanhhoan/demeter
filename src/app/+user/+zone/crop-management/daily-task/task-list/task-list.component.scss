@@ -1,12 +1,3 @@
-.single-staff {
-  margin-top: 15px;
-  padding-left: 15px;
-  border-left: 2px solid transparent;
-  &:hover {
-    border-left: 2px solid #108843;
-  }
-}
-
 .staff-header {
   display: flex;
   .staff-image {
@@ -74,6 +65,13 @@
       background-color: #eee;
     }
   }
+
+  .new-task {
+    cursor: pointer;
+    &:hover {
+      color: #006837;
+    }
+  }
 }
 
 .action-btn {
@@ -95,5 +93,23 @@
 
   &:hover .delete-action {
     color: #900323;
+  }
+}
+
+.image-holder {
+  display: flex;
+  flex-wrap: wrap;
+
+  .single-image {
+    width: 200px;
+    margin: 15px;
+    align-self: center;
+    cursor: pointer;
+  }
+}
+
+.staff-note {
+  .note-title {
+    font-size: 15px;
   }
 }

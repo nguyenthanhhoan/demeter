@@ -29,7 +29,11 @@ export const routes: Routes = [
             path: ':objective_id', component: OKRFormComponent
           }
         ]
-    }
-  ];
+  }, {
+    path: 'document',
+    loadChildren:
+      'app/+user/+zone/crop-management/document/document.module#DocumentModule'
+  }
+];
 
 export const routing = RouterModule.forChild(routes);

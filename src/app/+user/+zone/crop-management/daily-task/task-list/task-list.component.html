@@ -2,8 +2,8 @@
   <div class="demeter-title">Daily Task</div>
 </div>
 <dmt-date-filter></dmt-date-filter>
-<div class="demeter-pane">
-  <div *ngFor="let staff of staffs" class="single-staff">
+<div class="demeter-pane" *ngFor="let staff of staffs">
+  <div >
     <div class="staff-header">
       <div class="staff-image">
         <img class="img-responsive" [src]="staff.image" />
@@ -44,6 +44,25 @@
           </a>
         </span>
       </div>
+      <div class="task-item new-task">
+          <span class="task-name"><i class="fa fa-plus add-icon" aria-hidden="true"></i> Add New Task</span>
+      </div>
+    </div>
+
+    <div class="image-holder" image-gallery [images]="staff.images">
+      <div class="single-image" *ngFor="let image of staff.images; let i = index">
+        <img [src]="image.src" class="img-responsive" [attr.data-id]="i"/>
+      </div>
+      <div class="dmt-add-item">
+        <div class="add-button">
+          <i class="fa fa-plus add-icon" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="staff-note" *ngIf="staff.note && staff.note.length > 0">
+      <p class="note-title">Note</p>
+      {{staff.note}}
     </div>
   </div>
 </div>
