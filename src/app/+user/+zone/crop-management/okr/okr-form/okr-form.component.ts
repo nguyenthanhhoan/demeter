@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ISubscription } from 'ng2-nvd3/node_modules/rxjs/Subscription';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -13,7 +14,7 @@ declare var moment: any;
   templateUrl: './okr-form.component.html',
   styleUrls: ['./okr-form.component.css']
 })
-export class OKRFormComponent implements OnInit {
+export class OKRFormComponent implements OnInit, OnDestroy {
 
   objective: any = {
     key_results: []
@@ -23,6 +24,7 @@ export class OKRFormComponent implements OnInit {
   project_id: number;
   zone_id: number;
   objective_id: number;
+  storeObservable: ISubscription;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,15 +36,18 @@ export class OKRFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('zone')
-    .takeWhile(() => {
-      return (!this.zone_id);
-    })
+    this.storeObservable = this.store.select('zone')
     .subscribe((zoneModel: any) => {
-      this.zone_id = zoneModel.zoneId;
-      this.project_id = zoneModel.project_id;
-      this.loadOkrObjective();
+      if (zoneModel.loaded) {
+        this.zone_id = zoneModel.zoneId;
+        this.project_id = zoneModel.projectId;
+        this.loadOkrObjective();
+      }
     });
+  }
+
+  ngOnDestroy() {
+    this.storeObservable.unsubscribe();
   }
 
   loadOkrObjective() {
@@ -64,7 +69,11 @@ export class OKRFormComponent implements OnInit {
     this.notificationService.confirmBox({
       content: 'Do you want to delete this Objective?'
     }, () => {
-      
+      this.okrObjectiveService.delete(this.objective.id)
+      .subscribe((() => {
+        this.notificationService.showMessage('Delete Objective successfully!');
+        this.router.navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/crop-management/okr`]);
+      }));
     });
   }
 
@@ -72,7 +81,10 @@ export class OKRFormComponent implements OnInit {
     this.notificationService.confirmBox({
       content: 'Do you want to archive this Objective?'
     }, () => {
-      
+      this.okrObjectiveService.delete(this.objective.id)
+      .subscribe((() => {
+        this.router.navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/crop-management/okr`]);
+      }));
     });
   }
 
@@ -80,11 +92,12 @@ export class OKRFormComponent implements OnInit {
     this.okrObjectiveService.put(this.objective)
     .subscribe(() => {
       this.notificationService.showMessage('Updated Objective successfully!');
+      this.router.navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/crop-management/okr`]);
     });
   }
 
   cancelObjective() {
-    this.router.navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/okr`]);
+    this.router.navigate([`/user/project/${this.project_id}/zone/${this.zone_id}/crop-management/okr`]);
   }
 
   addKeyResult() {

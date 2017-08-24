@@ -121,3 +121,10 @@
 .smart-form .col.col-100 {
   width: 100%;
 }
+
+.ui-datepicker {
+  /*
+   * To override the inline `z-index: 2;` that make datepicker behind modal `z-index: 1050`
+   */
+  z-index: 1051 !important;
+}

@@ -2,7 +2,9 @@ class User::OkrsController < AuthorizedController
   before_action :get_okr, only: [:show, :edit, :update, :destroy]
 
   def index
-    render json: Okr.where({ zone_id: params[:zone_id] }).order(order: :desc)
+    zone_id_encoded = params[:zone_id]
+    zone_id = HashIdService.new.decode(zone_id_encoded)
+    render json: Okr.where({ zone_id: zone_id }).order(order: :desc)
   end
 
   def show
@@ -54,6 +56,14 @@ class User::OkrsController < AuthorizedController
     end
 
     def okr_batch_params
+      # Decode zone_id
+      zone_id_encoded = params["okrs"][0]["zone_id"]
+      if zone_id_encoded.present?
+        zone_id = HashIdService.new.decode(zone_id_encoded)
+        params["okrs"].each { |okr| 
+          okr["zone_id"] = zone_id
+        }
+      end
       params.permit(:okrs => [:name, :order, :id, :zone_id])
     end
 

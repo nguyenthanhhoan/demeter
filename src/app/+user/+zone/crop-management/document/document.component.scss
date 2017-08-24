@@ -18,30 +18,4 @@
       margin-top: 8px;
     }
   }
-
-  .document-add {
-    padding: 5px 20px;
-    .add-button {
-      justify-content: center;
-      display: flex;
-      border: 2px solid #ccc;
-      flex: 1;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #ccc;
-
-        .add-icon {
-          color: #006837;
-        }
-      }
-    }
-
-    .add-icon {
-      font-size: 60px;
-      height: 54px;
-      color: #bbb;
-      align-self: center;
-    }
-  }
 }

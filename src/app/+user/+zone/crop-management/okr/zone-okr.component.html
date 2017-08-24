@@ -32,6 +32,7 @@
         <button 
           class="demeter-btn create-btn pull-right"
           (click)="openAddObjective()"
+          *ngIf="okr_tabs && okr_tabs.length > 0"
           >Add Objective</button>
       </div>
       <okr-table 
