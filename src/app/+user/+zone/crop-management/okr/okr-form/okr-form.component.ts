@@ -1,5 +1,5 @@
-import { ISubscription } from 'ng2-nvd3/node_modules/rxjs/Subscription';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ISubscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
