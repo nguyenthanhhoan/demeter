@@ -1,0 +1,91 @@
+<div class="content-header">
+  <div class="demeter-title">Human</div>
+</div>
+
+<div class="demeter-pane demeter-tabbed-pane">
+  <ul class="nav nav-tabs bordered">
+    <li [class.active]="activeTab == 0">
+      <a (click)="activeTab = 0">
+        Org chart
+      </a>
+    </li>
+    <li [class.active]="activeTab == 1">
+      <a (click)="activeTab = 1">
+        Information
+      </a>
+    </li>
+  </ul>
+
+  <div class="demeter-pane-content">
+    <tabset class="padding-10">
+      <div *ngIf="activeTab == 0" class="org-chart">
+        <div *ngFor="let orgChart of orgCharts">
+          <title class="demeter-header">{{orgChart.role}}</title>
+          <div class="line-item-container">
+            <span class="line-item" *ngFor="let member of orgChart.members">
+              <div class="avatar">
+                <img [src]="member.avatar" />
+              </div>
+              <div class="user-info">
+                <p class="full-name" title="{{member.full_name}}">{{member.full_name}}</p> 
+              </div>
+              <button
+                class="demeter-btn danger remove-btn">Remove</button>
+            </span>
+          </div>
+        </div>
+        <button
+          class="demeter-btn primary add-btn">Add</button>
+      </div>
+      <div *ngIf="activeTab == 1">
+        <div *ngFor="let human of humans" class="single-human">
+          <div class="user-detail">
+            <div class="avatar">
+              <img [src]="human.image" class="img-responsive"/>
+            </div>
+            <div class="detail-info">
+              <p class="user-detail-line">
+                <span class="info-label">Họ Tên</span>
+                <span>{{human.full_name}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Chức vụ</span>
+                <span>{{human.role_name}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Trình độ</span>
+                <span>{{human.degree_of}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">CMND</span>
+                <span>{{human.cmnd}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Ngày sinh</span>
+                <span>{{human.dob}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Điện thoại</span>
+                <span>{{human.phone}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Email</span>
+                <span>{{human.email}}</span>
+              </p>
+              <p class="user-detail-line">
+                <span class="info-label">Quê quán</span>
+                <span>{{human.place_of_origin}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="job-description">
+            <div class="title">Mô tả công việc</div>
+            <div class="text" [innerHTML]="human.description"></div>
+          </div>
+        </div>
+        <button
+          class="demeter-btn primary add-human-btn">Add</button>
+      </div>
+    </tabset>
+  </div>
+</div>

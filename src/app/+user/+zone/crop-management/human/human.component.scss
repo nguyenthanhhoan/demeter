@@ -1,0 +1,105 @@
+.org-chart {
+  .add-btn {
+    margin-left: 30px;
+  }
+}
+
+.line-item-container {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding-left: 30px;
+}
+.line-item {
+  display: flex;
+  display: -webkit-flex;
+  width: 300px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  padding: 5px;
+  position: relative;
+
+  .remove-btn {
+    display: none;
+    position: absolute;
+    padding: 3px;
+    width: 20px;
+    left: 50%;
+    bottom: 2px;
+    margin-left: -26px;
+    font-size: 12px;
+    text-transform: none;
+    width: 52px;
+  }
+
+  &:hover {
+    border: 2px solid #bbb;
+
+    .remove-btn {
+      display: block;
+    }
+  }
+
+  .avatar img {
+    width: 60px;
+  }
+
+  .user-info {
+    width: calc(100% - 15px);
+    margin-left: 8px;
+    align-self: center;
+
+    .email, .full-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.single-human {
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+
+  .user-detail {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #ccc;
+
+    .avatar {
+      width: 150px;
+      align-self: center;
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
+  }
+  .job-description {
+    flex: 1;
+    margin-left: 15px;
+    margin-top: 15px;
+    .title {
+      font-size: 15px;
+    }
+  }
+
+  .user-detail-line {
+    margin: 0 0 5px;
+    span {
+      display: inline-block;
+    }
+    .info-label {
+      width: 75px;
+      color: #777;
+    }
+  }
+}
+
+.add-human-btn {
+  margin-top: 15px;
+}

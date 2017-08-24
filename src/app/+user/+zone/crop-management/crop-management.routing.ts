@@ -6,6 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'human',
+    loadChildren:
+      'app/+user/+zone/crop-management/human/human.module#HumanModule'
+  }, {
     path: 'weather', component: ZoneWeatherComponent
   }, {
     path: 'daily-report',
