@@ -2,22 +2,22 @@ class Admin::ProjectsController < Admin::AdminController
   before_action :get_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    render json: Project.order(id: :desc)
+    render json: Project.order(id: :desc), each_serializer: AdminProjectSerializer
   end
 
   def show
-    render json: @project
+    render json: @project, serializer: AdminProjectSerializer
   end
 
   def edit
-    render json: @project
+    render json: @project, serializer: AdminProjectSerializer
   end
 
   def create
     @project = Project.new(project_params)
 
     if @project.save
-      render json: @project
+      render json: @project, serializer: AdminProjectSerializer
     else
       render :json => { errors: @project.errors }, :status => :bad_request
     end
@@ -25,7 +25,7 @@ class Admin::ProjectsController < Admin::AdminController
 
   def update
     if @project.update(project_params)
-      render json: @project
+      render json: @project, serializer: AdminProjectSerializer
     else
       render :json => { errors: @project.errors }, :status => :bad_request
     end
@@ -33,7 +33,7 @@ class Admin::ProjectsController < Admin::AdminController
 
   def destroy
     @project.destroy
-    render json: @project
+    render json: @project, serializer: AdminProjectSerializer
   end
 
   private

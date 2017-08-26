@@ -20,6 +20,28 @@ declare var window: any;
 export class ZoneListComponent implements OnInit {
 
   datatable: any;
+  options = this.apiService.fetchTableData({
+    url: 'admin/zones', 
+    columns: [
+      { data: 'id' },
+      { data: 'name' },
+      { data: 'location' },
+      { data: 'project.name' },
+      { data: 'id' }
+    ],
+    columnDefs: [{
+      targets: -1,
+      data: null,
+      render: ( data, type, row, meta ) => {
+        let id = data;
+        window.openConfirmModalFn = this.openDeleteConfirm.bind(this);
+        return '<button style="margin-right:12.5px;" type="button"' +
+          'class="remove-sm btn-red btn btn-default" ' +
+          'onclick="openConfirmModalFn(\'' + id + '\')">Remove</button>';
+      }
+    }]
+  });
+
 
   constructor(private http: Http,
               private router: Router,
@@ -29,28 +51,6 @@ export class ZoneListComponent implements OnInit {
               ) {
 
   }
-
-  options = this.apiService.fetchTableData({
-    url: 'admin/zones', 
-    columns: [
-      { data: "id" },
-      { data: "name" },
-      { data: "location" },
-      { data: "project.name" },
-      { data: "id" }
-    ],
-    columnDefs: [{
-      targets: -1,
-      data: null,
-      render: ( data, type, row, meta ) => {
-        var id = data;
-        window.openConfirmModalFn = this.openDeleteConfirm.bind(this);
-        return '<button style="margin-right:12.5px;" type="button"' +
-          'class="remove-sm btn-red btn btn-default" ' +
-          'onclick="openConfirmModalFn(' + id + ')">Remove</button>';
-      }
-    }]
-  })
 
   openDeleteConfirm(id) {
     this.notificationService.confirmBox({
