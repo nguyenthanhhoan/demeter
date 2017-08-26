@@ -41,6 +41,10 @@ export class SensorDataChartComponent implements OnDestroy {
   // Timer to simulate real-time
   subscription: ISubscription;
 
+  // Used as fallback method, if cannot update via websocket,
+  // we need to user pulling
+  canUpdateViaWebSocket: boolean = false;
+
   constructor(private store: Store<any>,
               private ngZone: NgZone,
               private notificationService: NotificationService,
@@ -258,7 +262,7 @@ export class SensorDataChartComponent implements OnDestroy {
                 chartTab.chart_series.data.splice(0, 1);
 
                 let length = data.series[index].data.length;
-                if (typeof chartTab.lastest_data === 'undefined') {
+                if (typeof chartTab.lastest_data === 'undefined' || !this.canUpdateViaWebSocket) {
                   chartTab.lastest_data = data.series[index].data[length - 1];
                 }
               });
@@ -306,6 +310,7 @@ export class SensorDataChartComponent implements OnDestroy {
         console.log(`Received updated value field=${field.field_id}, value=${newValue}`);
         field.value = newValue;
         this.chartTabs[index].lastest_data = newValue;
+        this.canUpdateViaWebSocket = true;
       }
     });
   }
