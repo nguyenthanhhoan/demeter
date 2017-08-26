@@ -1,7 +1,14 @@
 var awsIot = require('aws-iot-device-sdk');
-var websocket = require('./websocket');
-var winston = require('./winston');
-var isUndefined = require('./util').isUndefined;
+let websocket, restService;
+let winston = require('./winston');
+let isUndefined = require('./util').isUndefined;
+
+// List fields need to debug
+// let debugFields = ['field11', 'field12'];
+let debugFields = [];
+
+//TODO: Need to persist this cache data
+let cachedReport = {};
 
 function registerThing(thingName, thingShadows) {
 
@@ -21,28 +28,115 @@ function registerThings(thingNames, thingShadows) {
 }
 
 /**
- * Delta state is a virtual type of state that contains the difference between the desired and reported states. 
- * Fields in the desired section that are not in the reported section are included in the delta. 
- * Fields that are in the reported section and not in the desired section are not included in the delta. 
+ * Call webservice to update field value to backend's db
+ * Notify subcriber to update to Web UI
  */
-function processDelta(thingName, stateObject, websocket, restService) {
-
-    let {state} = stateObject;
-    let {timestamp} = stateObject;
-    let fields = Object.keys(state);
-
+function syncFieldValue(fields, thingName, reported, timestamp) {
     fields.forEach((field) => {
         // Notify web api via websocket
-        websocket.notifySubcriber(thingName, field, state[field].value, timestamp);
+        websocket.notifySubcriber(thingName, field, reported[field].value, timestamp);
 
         // Update to db via webhook
-        restService.update_device_value(thingName, field, state[field].value, timestamp);
+        // TODO: Need to improve here, cached the previous state
+        restService.update_device_value(thingName, field, reported[field].value, timestamp);
     });
 }
 
-function init(thingShadowOpts, thingNames, websocket, restService) {
+/**
+ * Received state changed event. Normally, this function get executed in the interval basic (5 secs)
+ * To get lastest data for field (temp, humid, buld, ...)
+ * @param {*} thingName 
+ * @param {*} stateObject 
+ */
+function processForeignStateChange(thingName, stateObject) {
+/*
+{
+  "state": {
+    "reported": {
+      "field1": {
+        "value": 31.4
+      },
+      "field17": {
+        "value": 0
+      }
+    }
+  },
+  "metadata": {
+    "reported": {
+      "field1": {
+        "value": {
+          "timestamp": 1503720372
+        }
+      },
+      "field18": {
+        "value": {
+          "timestamp": 1503720372
+        }
+      }
+    }
+  },
+  "timestamp": 1503720372
+}
+ */
+    let {state} = stateObject;
+    let {reported} = state;
+    let {timestamp} = stateObject;
+    debugFieldsFn(thingName, reported);
+    let fields = Object.keys(reported);
+    if (typeof cachedReport[thingName] === 'undefined') {
+        winston.log('debug', '[AWS_ThingShadow] cachedReport is empty, need sync all fieldse');
+        syncFieldValue(fields, thingName, reported, timestamp);
+        cachedReport[thingName] = {
+            reported: reported
+        };
+    } else {
+        let filteredFields = optimizeUpdateFields(fields, thingName, reported);
+        if (filteredFields && filteredFields.length > 0) {
+            winston.log('debug', `[AWS_ThingShadow] filteredFields = ${JSON.stringify(filteredFields)}`);
+            syncFieldValue(filteredFields, thingName, reported, timestamp);
+        }
+    }
+}
 
-    var thingShadows = awsIot.thingShadow(thingShadowOpts);
+/**
+ * Filter out not updated field
+ * @param {*} fields 
+ */
+function optimizeUpdateFields(fields, thingName, reported) {
+    let cachedThingReport = cachedReport[thingName].reported;
+    let shouldUpdateFields = fields.filter((field) => {
+        if (typeof cachedThingReport[field] === 'undefined') {
+            cachedThingReport[field] = reported[field];
+            return field;
+        } else if (cachedThingReport[field].value != reported[field].value) {
+            cachedThingReport[field].value = reported[field].value;
+            return field;
+        }
+    });
+    return shouldUpdateFields;
+}
+
+/**
+ * Log debug fields to log file
+ * @param {*} thingName 
+ * @param {*} reported 
+ */
+function debugFieldsFn(thingName, reported) {
+    if (cachedReport[thingName]) {
+        let cachedThingReport = cachedReport[thingName].reported;
+        debugFields.forEach(debugField => {
+            winston.log('debug', 
+                `[AWS_ThingShadow] debugFields ${debugField}: ` +
+                `Cached value: ${cachedThingReport[debugField].value}. ` +
+                `Received value: ${reported[debugField].value}`);
+        });
+    }
+}
+
+function init(thingShadowOpts, thingNames, websocketObj, restServiceObj) {
+    websocket = websocketObj;
+    restService = restServiceObj;
+    let thingShadows = awsIot.thingShadow(thingShadowOpts);
 
     thingShadows.on('connect', function() {
         winston.log('debug', '[AWS_ThingShadow] connected');
@@ -53,11 +147,13 @@ function init(thingShadowOpts, thingNames, websocket, restService) {
                         JSON.stringify(stateObject));
         });
 
-        thingShadows.on('delta', function(thingName, stateObject) {
-            winston.log('debug', '[AWS_ThingShadow] received delta on ' + thingName + ': ' +
-                        JSON.stringify(stateObject));
-
-            processDelta(thingName, stateObject, websocket, restService);
+        // Emitted when a different client's update or delete operation is accepted on the shadow.
+        thingShadows.on('foreignStateChange',  function(thingName, operation, stateObject) {
+            if (stateObject.state.reported) {
+                processForeignStateChange(thingName, stateObject);
+            } else {
+                winston.log('debug', '[AWS_ThingShadow] foreignStateChange received invalid stateObject' + JSON.stringify(stateObject));
+            }
         });
 
         thingShadows.on('timeout', function(thingName, clientToken) {
