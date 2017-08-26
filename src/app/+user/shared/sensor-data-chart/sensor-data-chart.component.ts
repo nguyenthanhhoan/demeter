@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { AppSettings } from '../../../app.settings';
 import { NotificationService } from '../../../shared/utils/notification.service';
 import { SensorDataService } from '../../../core/services/sensor-data.service';
 import { DeviceFieldService } from '../../../core/services/device-field-service';
@@ -41,6 +42,7 @@ export class SensorDataChartComponent implements OnDestroy {
   subscription: ISubscription;
 
   constructor(private store: Store<any>,
+              private ngZone: NgZone,
               private notificationService: NotificationService,
               private deviceFieldService: DeviceFieldService,
               private sensorDataService: SensorDataService) {
@@ -125,6 +127,9 @@ export class SensorDataChartComponent implements OnDestroy {
             this.activeChartTab = this.chartTabs[0];
             this.loadHighChart();
             this.handleDataRealTime();
+
+            // Subcribe websocket to update real-time data
+            this.subscribeWebSocket();
           }
         }
         this.isRequesting = false;
@@ -253,11 +258,55 @@ export class SensorDataChartComponent implements OnDestroy {
                 chartTab.chart_series.data.splice(0, 1);
 
                 let length = data.series[index].data.length;
-                chartTab.lastest_data = data.series[index].data[length - 1];
+                if (typeof chartTab.lastest_data === 'undefined') {
+                  chartTab.lastest_data = data.series[index].data[length - 1];
+                }
               });
             });
           }
         });
+    });
+  }
+
+  subscribeWebSocket() {
+    let ws = new WebSocket(AppSettings.websocketPath);
+
+    // Client Id for debugging purpose
+    let clientId = (new Date()).getTime();
+    window['socketClientId'] = clientId;
+
+    let subscribeDevices = this.fields.map((field) => {
+      return {
+        gateway: field.device.name,
+        fieldId: field.field_id
+      };
+    });
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        topic: 'REGISTER', clientId: clientId,
+        devices: subscribeDevices
+      }));
+    };
+
+    ws.onmessage = (event) => {
+      let receivedData = JSON.parse(event.data);
+      this.ngZone.run(() => {
+        this.updateDeviceValue(receivedData);
+      });
+    };
+  }
+
+  updateDeviceValue(receivedData) {
+    let newValue = receivedData.value;
+    this.fields.forEach((field, index) => {
+      if (field.device.name === receivedData.gateway && field.field_id === receivedData.field
+        && field.value !== newValue) {
+
+        console.log(`Received updated value field=${field.field_id}, value=${newValue}`);
+        field.value = newValue;
+        this.chartTabs[index].lastest_data = newValue;
+      }
     });
   }
 }
