@@ -24,6 +24,7 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 /**
  * Webpack Constants
@@ -313,6 +314,13 @@ module.exports = function (env) {
         }
       }),
 
+      new CompressionPlugin({
+        asset: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.(js|html)$/,
+        threshold: 10240,
+        minRatio: 0.8
+      }),
       /**
        * Plugin: BundleAnalyzerPlugin
        * Description: Webpack plugin and CLI utility that represents
