@@ -31,6 +31,7 @@ class User::ZonesController < AuthorizedController
 
   def create
     @zone = Zone.new(zone_params)
+    @zone.user = current_user
     if @zone.save
       hash_id = HashIdService.new.encode(@zone.id)
       @zone.update_attribute(:hash_id, hash_id)

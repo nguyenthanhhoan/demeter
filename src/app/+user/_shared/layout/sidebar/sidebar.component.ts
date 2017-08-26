@@ -13,8 +13,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userRole: string;
   showSetting: boolean = true;
   mode: string;
-  private projectId: number;
-  private zoneId: number;
+  private projectId: string;
+  private zoneId: string;
   private projectSubscription: ISubscription;
   private zoneSubscription: ISubscription;
 
@@ -46,10 +46,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     for (let index = 0; index < segments.length; index++) {
       let element = segments[index];
       if (element.path === 'project') {
-        this.projectId = segments[index + 1].path;
+        if (segments[index + 1].path !== 'new') {
+          this.projectId = segments[index + 1].path;
+        }
       }
       if (element.path === 'zone') {
-        this.zoneId = segments[index + 1].path;
+        if (segments[index + 1].path !== 'new') {
+          this.zoneId = segments[index + 1].path;
+        }
       }
     }
 
