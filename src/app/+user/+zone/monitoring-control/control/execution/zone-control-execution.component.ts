@@ -75,7 +75,8 @@ export class ZoneControlExecutionComponent {
     program.isRunning = true;
     this.programExecutionService.put(this.zoneId, {
       id: program.id,
-      is_active: newValue
+      is_active: newValue,
+      zone_id: this.zoneId
     })
     .subscribe(() => {
       this.notificationService.showMessage('Execution active successfully!');
