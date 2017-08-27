@@ -24,7 +24,15 @@
 
 @media only screen and (max-width: 768px) {
   .demeter-list-container {
-    padding: 15px;
+    padding: 0px;
+  }
+  .demeter-container-title {
+    padding-left: 15px;
+  }
+
+  .button-group {
+    margin-top: 15px;
+    margin-right: 15px;
   }
 
   .project-summary {

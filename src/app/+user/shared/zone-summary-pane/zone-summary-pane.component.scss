@@ -13,7 +13,18 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .zone-info {
-    margin-left: 15px;
+  .demeter-pane {
+    flex-direction: row-reverse;
+    .detail-btn {
+      display: none;
+    }
+    .zone-image {
+      width: 110px;
+      align-self: flex-end;
+    }
+    .zone-info {
+      margin-left: 0;
+      margin-right: 15px;
+    }
   }
 }

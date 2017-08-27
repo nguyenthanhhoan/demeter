@@ -55,3 +55,12 @@
 .weather-forecast-wrap {
   overflow: hidden;
 }
+
+@media only screen and (max-width: 768px) {
+  .demeter-title {
+    margin-left: 15px;
+  }
+  .create-btn {
+    margin-right: 15px;
+  }
+}

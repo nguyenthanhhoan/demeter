@@ -3,14 +3,15 @@
 }
 
 .chart-tabs {
-  width: 720px;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .chart-tab {
   flex-grow: 1;
   flex-basis: 0;
+  min-width: 150px;
   cursor: pointer;
 }
 
