@@ -17,8 +17,8 @@ class User::SensorDataController < AuthorizedController
     date = params[:date]
     gateway_name = @zone.device_gateway
 
-    redis = CacheService.get_redis
-    cached_key = CacheService.build_key(gateway_name, date)
+    redis = CacheService.new.get_redis
+    cached_key = CacheService.new.build_key(gateway_name, date)
 
     # Get data from cache
     sensor_data = redis.get(cached_key)
@@ -28,7 +28,7 @@ class User::SensorDataController < AuthorizedController
     else
 
       # Cached data not present. Should create cache data first
-      sensor_data_parsed = CacheService.build_cache_data_by_date(gateway_name, date)
+      sensor_data_parsed = CacheService.new.build_cache_data_by_date(gateway_name, date)
       render json: sensor_data_parsed
     end
   end
@@ -37,8 +37,8 @@ class User::SensorDataController < AuthorizedController
   def query_lastest
     gateway_name = @zone.device_gateway
 
-    redis = CacheService.get_redis
-    cached_key = CacheService.build_key_lastest(gateway_name)
+    redis = CacheService.new.get_redis
+    cached_key = CacheService.new.build_key_lastest(gateway_name)
 
     # Get data from cache
     sensor_data = redis.get(cached_key)
@@ -48,7 +48,7 @@ class User::SensorDataController < AuthorizedController
       sensor_data_parsed = JSON.parse(sensor_data)
     else
       logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
-      sensor_data_parsed = CacheService.build_cache_data_lastest(gateway_name)
+      sensor_data_parsed = CacheService.new.build_cache_data_lastest(gateway_name)
     end
 
     sensor_data_parsed = DynamodbService.new.normalize_data(sensor_data_parsed, 300)

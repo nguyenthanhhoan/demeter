@@ -156,3 +156,18 @@ Add `type="button"`
     c stop web
     c run --service-ports web
     ```
+4. How to backup db
+    ```
+    docker exec -u <your_postgres_user> <postgres_container_name> pg_dump <database_name_here> > db.dump
+    ```
+5. Memory leaking troubleshooting
+
+    Write dump file
+    ```
+    rbtrace -p 20 -e 'Thread.new{GC.start;require "objspace";io=File.open("/tmp/ruby-heap.dump", "w"); ObjectSpace.dump_all(output:io); io.close}'
+    ```
+
+    Garbage Collector's current state
+    ```
+    rbtrace -p 6744 -e 'GC.stat'
+    ```

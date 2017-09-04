@@ -1,20 +1,20 @@
 class CacheService
 
-  def self.get_redis
+  def get_redis
     Redis.new(:host => "redis", :port => 6379)
   end
 
-  def self.build_key(gateway_name, date)
+  def build_key(gateway_name, date)
     "gateway:#{gateway_name}:#{date}"
   end
 
-  def self.build_key_lastest(gateway_name)
+  def build_key_lastest(gateway_name)
     "gateway:#{gateway_name}:latest"
   end
 
-  def self.build_cache_data_by_date(gateway_name, date_s)
-    cached_key = CacheService.build_key(gateway_name, date_s)
-    redis = CacheService.get_redis
+  def build_cache_data_by_date(gateway_name, date_s)
+    cached_key = build_key(gateway_name, date_s)
+    redis = get_redis
 
     date = Date.parse(date_s).in_time_zone('Asia/Ho_Chi_Minh')
 
@@ -27,9 +27,9 @@ class CacheService
     sensor_data_normalized
   end
 
-  def self.build_cache_data_lastest(gateway_name)
-    cached_key = CacheService.build_key_lastest(gateway_name)
-    redis = CacheService.get_redis
+  def build_cache_data_lastest(gateway_name)
+    cached_key = build_key_lastest(gateway_name)
+    redis = get_redis
 
     cached_data_str = redis.get(cached_key)
     cached_data = []

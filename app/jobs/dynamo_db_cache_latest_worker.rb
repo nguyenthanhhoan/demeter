@@ -5,9 +5,9 @@ class DynamoDbCacheLatestWorker
     Rails.logger.info 'Execute DynamoDbCacheLatestWorker'
 
     gateway_name = 'cdf-gateway'
-    CacheService.build_cache_data_lastest(gateway_name)
+    CacheService.new.build_cache_data_lastest(gateway_name)
 
     gateway_name = 'dmt-client'
-    CacheService.build_cache_data_lastest(gateway_name)
+    CacheService.new.build_cache_data_lastest(gateway_name)
   end
 end
