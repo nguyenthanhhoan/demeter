@@ -33,6 +33,8 @@ class User < ApplicationRecord
   def role
     if self.is_admin?
       :admin
+    elsif self.is_family_user?
+      :family_user
     else
       :user
     end

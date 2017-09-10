@@ -1,0 +1,15 @@
+{
+  "list_of_project": "List of Projects:",
+  "no_project_msg": "There is no project available! Click <strong>Create Project</strong> to create new one.",
+  "create_project": "Create Project",
+
+  "no_admin_in_project": "There is no admin in this project!",
+  "no_user_in_project": "There is no user in this project!",
+  "no_admin_in_zone": "There is no admin in this zone!",
+  "no_user_in_zone": "There is no user in this zone!",
+  "member_project_admin": "Project Admin",
+  "member_zone_admin": "Zone Admin",
+  "member_project_user": "Project User",
+  "member_zone_user": "Zone User",
+  "pending_invitation": "Pending Invitation(s)"
+}

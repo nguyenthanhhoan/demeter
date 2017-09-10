@@ -1,0 +1,30 @@
+.icon-dmt {
+  height: 40px;
+  width: 40px;
+  display: block;
+  background-size: cover;
+}
+
+.icon-dmt.dmt-thermometer {
+  background-image: url(../assets/img/flat-icon/thermometer.svg);
+}
+
+.icon-dmt.dmt-humidity {
+  background-image: url(../assets/img/flat-icon/humidity.svg);
+}
+
+.icon-dmt.dmt-pump {
+  background-image: url(../assets/img/flat-icon/vintage-water-pump.svg);
+}
+
+.icon-dmt.dmt-fan {
+  background-image: url(../assets/img/flat-icon/fan.svg);
+}
+
+.icon-dmt.dmt-light-bulb {
+  background-image: url(../assets/img/flat-icon/light-bulb.svg);
+}
+
+.icon-dmt.dmt-no-icon {
+  background-image: url(../assets/img/flat-icon/picture.svg);
+}

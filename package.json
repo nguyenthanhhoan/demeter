@@ -126,6 +126,7 @@
     "ng2-popover": "0.0.13",
     "ng2-redux": "4.2.1",
     "ngx-bootstrap": "^1.7.1",
+    "noty": "^3.1.2",
     "nouislider": "^8.5.1",
     "plotly.js": "^1.29.3",
     "raphael": "^2.2.1",

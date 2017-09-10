@@ -1,0 +1,85 @@
+$brand-color: rgb(5, 91, 78);
+.dmt-header {
+  height: 45px;
+  background-color: $brand-color;
+  display: flex;
+  padding: 0 15px;
+  font-size: 16px;
+
+  .brand {
+    align-self: center;
+    .dmt-logo {
+      border-radius: 50%;
+      border: 1px solid #fff;
+      overflow: hidden;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .home-link {
+    padding-right: 10px;
+    border-right: 2px solid #fff;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    &:hover {
+      color: #ccc;
+    }
+  }
+}
+
+.dmt-link {
+  display: flex;
+  color: #fff;
+  align-self: center;
+  cursor: pointer;
+  .dmt-link-text {
+    margin-left: 5px;
+  }
+  &:hover {
+    color: #ccc;
+  }
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.dmt-link-text {
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.right-header {
+  align-self: center;
+  margin-left: auto;
+  display: flex;
+
+  .avatar {
+    align-self: center;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    overflow: hidden;
+    background-color: #fff;
+  
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .no-image {
+      padding: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dmt-link {
+    .dmt-link-text {
+      display: none;
+    }
+  }
+}

@@ -1,5 +1,8 @@
 class RegistrationsController < ApplicationController
 
+  #
+  # Create Registration record
+  #
   def create
     registration = Registration.new(registration_params)
 
@@ -8,6 +11,21 @@ class RegistrationsController < ApplicationController
       render json: { message: t(:registration_successfully) }
     else
       render :json => { errors: registration.errors }, :status => :bad_request
+    end
+  end
+
+  #
+  # Create user in Sign Up form
+  #
+  def sign_up
+    user = User.new(user_params)
+    user.add_role :family_user
+    if user.save
+      username = "#{user.first_name.downcase}-#{user.last_name.downcase}-#{user.id}"
+      user.update_attribute(:username, URI.escape(username))
+      render json: user
+    else
+      render :json => { errors: user.errors }, :status => :bad_request
     end
   end
 
@@ -41,6 +59,6 @@ class RegistrationsController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end

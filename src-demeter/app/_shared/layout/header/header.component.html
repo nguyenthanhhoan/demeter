@@ -1,0 +1,34 @@
+<header class="dmt-header">
+  <div class="brand">
+    <a routerLink="/" class="dmt-link">
+      <span class="dmt-logo">
+        <img src="assets/img/cau-dat/logo.svg" alt="demeter" class="img-responsive">
+      </span>
+      <span class="dmt-link-text">Demeter</span>
+    </a>
+  </div>
+  <div class="right-header">
+    <a routerLink="/{{user.username}}"
+      class="dmt-link dmt-link-text home-link">
+      Home
+    </a>
+    <a routerLink="/{{user.username}}"
+      class="dmt-link">
+      <span class="avatar">
+        <img
+          [ngClass]="user.image?.thumb?.url ? '' : 'no-image'"
+          [src]="user.image?.thumb?.url ? user.image.thumb.url : 'assets/img/flat-icon/avatar.svg'" />
+      </span>
+      <span class="dmt-link-text">{{user.first_name}}</span>
+    </a>
+    <span class="dmt-link">
+      <i class="fa fa-bell" aria-hidden="true"></i>
+    </span>
+    <span class="dmt-link">
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+    </span>
+    <span class="dmt-link">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </span>
+  </div>
+</header>
