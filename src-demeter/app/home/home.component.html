@@ -13,16 +13,19 @@
             Solution
           </button>
           <button class="dmt-btn-single">
-              Partner
-          </button>
-          <button class="dmt-btn-single">
               Project
           </button>
           <button class="dmt-btn-single">
-              About
+              Partner
           </button>
           <button class="dmt-btn-single">
               Application
+          </button>
+          <button class="dmt-btn-single">
+              Blog
+          </button>
+          <button class="dmt-btn-single">
+              About
           </button>
         </div>
       </div>
@@ -31,11 +34,13 @@
       <div class="info-item">
           <i class="fa fa-envelope" aria-hidden="true"></i> info@demeter.vn
       </div>
-      <div class="info-item">
-          <i class="fa fa-mobile" aria-hidden="true"></i> +84 1643 956 769
+      <div class="info-item middle-item">
+          <i class="fa fa-facebook-official" aria-hidden="true"></i>
+          <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+          <i class="fa fa-youtube" aria-hidden="true"></i>
       </div>
       <div class="info-item">
-        <i class="fa fa-facebook-official" aria-hidden="true"></i> /demeter.vn
+        <span>&copy; 2017 UFO Corp All Rights reserved</span>
       </div>
     </div>
   </section>
@@ -43,54 +48,17 @@
     [ngClass]="fetching ? 'fetching': ''"
     class="form-section">
     <div class="form-centered">
-      <div class="sign-in-form">
+      <div class="register-form">
         <div class="row">
-          <div class="col-sm-4 form-title">
-            <h2>Sign In</h2>
+          <div class="form-title">
+            <h2 class="text-center">Create an Account</h2>
           </div>
         </div>
         <div class="form-horizontal">
           <fieldset [disabled]="fetching">
             <div class="form-group">
-              <span class="control-label col-sm-4">Email</span>
-              <div class="col-sm-6">
-                <input
-                  [(ngModel)]="loginAccount.email"
-                  type="text"
-                  class="form-control">
-              </div>
-            </div>
-            <div class="form-group">
-              <span class="control-label col-sm-4">Password</span>
-              <div class="col-sm-6">
-                <input
-                  [(ngModel)]="loginAccount.password"
-                  type="password"
-                  class="form-control">
-              </div>
-            </div>
-          </fieldset>
-        </div>
-        <div class="row">
-          <div class="col-sm-offset-4 col-sm-4">
-            <button class="dmt-button btn btn-primary" (click)="login()">
-              Sign In
-            </button>
-            <p><a routerLink="/auth/forgot-password">Forgot password?</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="sign-in-form">
-        <div class="row">
-          <div class="col-sm-4 form-title">
-            <h2>Sign Up</h2>
-          </div>
-        </div>
-        <div class="form-horizontal">
-          <fieldset [disabled]="fetching">
-            <div class="form-group">
-              <span class="control-label col-sm-4">First Name</span>
-              <div class="col-sm-6">
+              <span class="control-label col-sm-5">First Name</span>
+              <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.first_name"
                   type="text"
@@ -98,8 +66,8 @@
               </div>
             </div>
             <div class="form-group">
-              <span class="control-label col-sm-4">Last Name</span>
-              <div class="col-sm-6">
+              <span class="control-label col-sm-5">Last Name</span>
+              <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.last_name"
                   type="text"
@@ -107,8 +75,8 @@
               </div>
             </div>
             <div class="form-group">
-              <span class="control-label col-sm-4">Your Email</span>
-              <div class="col-sm-6">
+              <span class="control-label col-sm-5">Your Email</span>
+              <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.email"
                   type="text"
@@ -116,8 +84,8 @@
               </div>
             </div>
             <div class="form-group">
-              <span class="control-label col-sm-4">Password</span>
-              <div class="col-sm-6">
+              <span class="control-label col-sm-5">Password</span>
+              <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.password"
                   type="password"
@@ -125,8 +93,8 @@
               </div>
             </div>
             <div class="form-group">
-              <span class="control-label col-sm-4">Password Confirmation</span>
-              <div class="col-sm-6">
+              <span class="control-label col-sm-5">Password Confirmation</span>
+              <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.password_confirmation"
                   type="password"
@@ -136,10 +104,42 @@
           </fieldset>
         </div>
         <div class="row">
-          <div class="col-sm-offset-4 col-sm-4">
+          <div class="col-sm-offset-5 col-sm-5">
             <button class="dmt-button btn btn-primary" (click)="signUp()">
-              Sign Up
+              Register
             </button>
+          </div>
+        </div>
+      </div>
+      <div class="sign-in-form">
+        <div class="form-horizontal">
+          <fieldset [disabled]="fetching">
+            <div class="form-group">
+              <span class="control-label col-sm-5">Email</span>
+              <div class="col-sm-5">
+                <input
+                  [(ngModel)]="loginAccount.email"
+                  type="text"
+                  class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <span class="control-label col-sm-5">Password</span>
+              <div class="col-sm-5">
+                <input
+                  [(ngModel)]="loginAccount.password"
+                  type="password"
+                  class="form-control">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="row">
+          <div class="col-sm-offset-5 col-sm-5">
+            <button class="dmt-button btn btn-primary" (click)="login()">
+              Sign In
+            </button>
+            <p><a routerLink="/auth/forgot-password">Forgot password?</a></p>
           </div>
         </div>
       </div>
