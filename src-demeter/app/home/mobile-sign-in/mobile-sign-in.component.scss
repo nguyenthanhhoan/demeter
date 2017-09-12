@@ -1,0 +1,86 @@
+$brand-color: rgb(49, 139, 80);
+$button-color: rgb(113, 172, 131);
+.sign-in-container {
+  background-color: $brand-color;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+.centered-content-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  margin: 0 15px;
+  a {
+    color: #fff;
+  }
+  .centered-content {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .more {
+    text-align: right;
+    text-decoration: underline;
+    font-style: italic;
+  }
+  h3.title {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .logo {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    width: 150px;
+    align-self: center;
+  }
+  .sign-in-form {
+    margin-top: 20px;
+    .form-control {
+      width: 60%;
+      margin: 0 auto;
+    }
+  }
+  .forgot-pass {
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 0px;
+  }
+  .main-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .create-account {
+    margin-top: 20px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+.form-control {
+  border-radius: 20px;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #fff;
+}
+.dmt-button {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-size: 16px;
+  &.btn-primary {
+    background-color: $button-color;
+    &:hover {
+      background-color: darken($button-color, 5%);
+    }
+  }
+}

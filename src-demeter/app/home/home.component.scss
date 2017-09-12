@@ -147,3 +147,29 @@ $brand-color: rgb(49, 139, 80);
 .register-form {
   margin-bottom: 30px;
 }
+
+mobile-sign-in {
+  display: none;
+}
+
+mobile-sign-in {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+  mobile-sign-in {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .desktop-view {
+    display: flex;
+  }
+  mobile-sign-in {
+    display: none;
+  }
+}

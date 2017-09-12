@@ -49,8 +49,9 @@ export class AuthService {
       },
       error => {
         // TODO: Handle globally
+        const message = error.json().errors || 'Service is temporarily unavailable';
         new Noty({
-          text: error.json().errors,
+          text: message,
           type: 'error',
           timeout: 2000
         }).show();
