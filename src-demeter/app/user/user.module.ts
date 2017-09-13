@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../_shared/shared.module';
 import { UserComponent } from './user.component';
+import { HomeComponent } from './home/home.component';
 import { routing } from './user.routing';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { routing } from './user.routing';
     SharedModule
   ],
   declarations: [
-    UserComponent
+    UserComponent,
+    HomeComponent
   ],
   providers: [
   ],

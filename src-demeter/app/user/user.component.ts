@@ -1,3 +1,4 @@
+import { setTimeout } from 'timers';
 import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -6,7 +7,7 @@ import { ApiService } from '../core/api/api.service';
 import { LoadedAction } from '../core/actions/actions';
 
 @Component({
-  templateUrl: './user.component.html'
+  template: '<router-outlet></router-outlet>'
 })
 export class UserComponent implements OnInit, OnDestroy {
   user: any = {};
@@ -23,7 +24,12 @@ export class UserComponent implements OnInit, OnDestroy {
         this.user = user.user;
       }
     });
-    this.routerSubscription = this.router.events.subscribe(this.handleRouteParam.bind(this));
+    // this.routerSubscription = this.router.events.subscribe(this.handleRouteParam.bind(this));
+    // TODO: Remove timeout technique by subcribing event stream
+    // Donot know why subcribing event executed after routing
+    setTimeout(() => {
+      this.handleRouteParam(null);
+    }, 800);
   }
 
   ngOnDestroy() {
@@ -32,7 +38,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private handleRouteParam(event) {
-    if (event instanceof NavigationEnd) {
+    // if (event instanceof NavigationEnd) {
       if (typeof this.user.username === 'undefined') {
         // The current_user haven't been fetched yet, need to perform fetching data
         console.log('Fetching current_user');
@@ -41,6 +47,6 @@ export class UserComponent implements OnInit, OnDestroy {
           this.store.dispatch(new LoadedAction(user));
         });
       }
-    }
+    // }
   }
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908103552) do
+ActiveRecord::Schema.define(version: 20170912180358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,17 @@ ActiveRecord::Schema.define(version: 20170908103552) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
+  end
+
+  create_table "family_projects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "package_id"
+    t.string   "camera_id"
+    t.string   "image"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_family_projects_on_user_id", using: :btree
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -296,6 +307,7 @@ ActiveRecord::Schema.define(version: 20170908103552) do
   add_foreign_key "alerts", "zones"
   add_foreign_key "device_fields", "devices"
   add_foreign_key "device_value_histories", "device_fields"
+  add_foreign_key "family_projects", "users"
   add_foreign_key "okr_objective_keys", "okr_objectives"
   add_foreign_key "okr_objectives", "okrs"
   add_foreign_key "okrs", "zones"

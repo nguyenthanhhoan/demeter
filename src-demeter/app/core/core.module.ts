@@ -5,6 +5,7 @@ import { CoreService } from './api/services/core.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
+import { ProjectService } from './api/services/project.service';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { NotificationService } from './services/notification.service';
     CoreService,
     AuthGuard,
     AuthService,
-    NotificationService
+    NotificationService,
+    ProjectService
   ]
 })
 export class CoreModule {

@@ -7,3 +7,4 @@ window['moment'] = require('moment');
 window['Noty'] = require('noty/lib/noty.min.js');
 require('mediaelement/build/mediaelement-and-player.js');
 require('moment-timezone');
+require('jquery-confirm');

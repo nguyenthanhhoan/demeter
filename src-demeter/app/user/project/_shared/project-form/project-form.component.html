@@ -1,0 +1,64 @@
+<div class="project-form">
+  <div class="form-horizontal dmt-form">
+    <fieldset [disabled]="fetching">
+      <div class="form-group">
+        <span class="col-sm-5 add-picture-col">
+          <div class="add-picture upload-preview"
+            (click)="openSelectFile()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </div>
+          <input
+            type="file"
+            class="file-input hiddenfile"
+            (change)="fileChange($event)" accept="image/*" />
+        </span>
+      </div>
+      <div class="form-group">
+        <span class="control-label col-sm-5">Name</span>
+        <div class="col-sm-5">
+          <input
+            [(ngModel)]="project.name"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="control-label col-sm-5">PACKAGE ID</span>
+        <div class="col-sm-5">
+          <input
+            [(ngModel)]="project.package_id"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="control-label col-sm-5">CAMERA ID</span>
+        <div class="col-sm-5">
+          <input
+            [(ngModel)]="project.camera_id"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="dmt-button-group">
+        <span class="col-sm-5"></span>
+        <div class="col-sm-5">
+          <button 
+            *ngIf="mode != 'edit'"
+            (click)="create()"
+            class="dmt-btn btn btn-primary">
+            Create
+          </button>
+  
+          <button 
+            *ngIf="mode == 'edit'"
+            class="dmt-btn btn btn-primary">
+            Update
+          </button>
+          <a class="dmt-btn btn btn-cancel"
+            routerLink="/{{user.username}}">Cancel</a>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

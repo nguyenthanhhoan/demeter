@@ -1,0 +1,18 @@
+<div class="list-item">
+  <div *ngFor="let project of projects" class="item">
+    <div class="project-img">
+      <img class="img-responsive" src="{{project.image?.url}}" />
+    </div>
+    <div class="project-name">
+      <span>{{project.name}}</span>
+      <span class="remove-btn"
+        (click)="confirmRemove(project)">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+  <a routerLink="project/new" class="item add-item">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </a>
+</div>
+

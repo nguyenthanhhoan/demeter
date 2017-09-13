@@ -8,6 +8,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_many :projects
+  has_many :family_projects, class_name: 'Family::Project'
 
   after_create :assign_default_role
   mount_uploader :image, ImageUploader

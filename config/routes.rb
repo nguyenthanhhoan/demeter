@@ -70,6 +70,10 @@ Rails.application.routes.draw do
     put '/profile' => 'profile#update'
   end
 
+  namespace :family do
+    resources :projects
+  end
+
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
 

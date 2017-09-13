@@ -1,3 +1,11 @@
+@import './_variables';
 @import './vendor';
 @import './dmt-icon';
 @import './dmt-responsive';
+@import './dmt-component';
+
+.hiddenfile {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}

@@ -1,0 +1,33 @@
+.add-picture-col {
+  display: flex;
+  .add-picture {
+    margin-left: auto;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    display: flex;
+    cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
+    .fa-plus {
+      flex: 1;
+      align-self: center;
+      text-align: center;
+      color: #555;
+      font-size: 30px;
+    }
+  }
+}
+
+.upload-preview {
+  background-size: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .add-picture-col {
+    .add-picture {
+      margin: auto;
+    }
+  }
+}
