@@ -138,7 +138,7 @@ export class ApiService {
         this.showErrorBox(error.statusText, body.error);
       } else {
         console.log('User is unauthorized. Need redirect to login page!');
-        this.router.navigate(['auth/login']);
+        this.router.navigate(['/']);
       }
       return true;
     }

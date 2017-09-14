@@ -1,18 +1,20 @@
 <div class="list-item">
+  <a routerLink="project/new" class="item add-item">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </a>
   <div *ngFor="let project of projects" class="item">
-    <div class="project-img">
-      <img class="img-responsive" src="{{project.image?.url}}" />
+    <div class="project-img"
+      [ngStyle]="{'background-image': 'url(' + project.image?.url + ')'}">
     </div>
-    <div class="project-name">
-      <span>{{project.name}}</span>
+    <div class="project-detail">
+      <span class="project-name">{{project.name}}</span>
+      <span class="date">Start date: 01/08/2017</span>
+      <span class="date">End date: 31/10/2017</span>
       <span class="remove-btn"
         (click)="confirmRemove(project)">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
       </span>
     </div>
   </div>
-  <a routerLink="project/new" class="item add-item">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-  </a>
 </div>
 

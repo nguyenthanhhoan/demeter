@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     // If user is not logged in we'll send them to the login page
     if (!this.auth.loggedIn()) {
       console.log('User havenot logged in yet! Go to login page!');
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/']);
       return false;
     }
     return true;

@@ -34,7 +34,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
-    this.routerSubscription.unsubscribe();
+    // this.routerSubscription.unsubscribe();
   }
 
   private handleRouteParam(event) {
