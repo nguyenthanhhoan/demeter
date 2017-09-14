@@ -2,7 +2,9 @@
   <a routerLink="project/new" class="item add-item">
     <i class="fa fa-plus" aria-hidden="true"></i>
   </a>
-  <div *ngFor="let project of projects" class="item">
+  <div *ngFor="let project of projects"
+    routerLink="project/{{project.id}}"
+    class="item">
     <div class="project-img"
       [ngStyle]="{'background-image': 'url(' + project.image?.url + ')'}">
     </div>

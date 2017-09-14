@@ -1,0 +1,14 @@
+<router-outlet></router-outlet>
+<div class="footer-navigation">
+  <div class="item"
+    (mouseenter)="mouseenter(navigation)"
+    (mouseleave)="mouseleave(navigation)"
+    [ngClass]="navigation.id == activeNavigation.id ? 'active' : ''"
+    *ngFor="let navigation of navigations">
+
+    <div class="icon">
+      <img [src]="navigation.id == activeNavigation.id ? navigation.iconActive : navigation.icon" alt="{{navigation.title}}" class="img-responsive">
+    </div>
+    <div class="title">{{navigation.title}}</div>
+  </div>
+</div>

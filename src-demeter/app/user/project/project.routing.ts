@@ -7,7 +7,7 @@ export const routes: Routes = [{
   component: ProjectNewComponent
 }, {
   path: ':id',
-  component: ProjectNewComponent
+  loadChildren: 'app/user/project/detail/project-detail.module#ProjectDetailModule'
 }];
 
 export const routing = RouterModule.forChild(routes);

@@ -1,20 +1,22 @@
-import * as user from '../actions/actions';
+import * as actions from '../actions/actions';
 
 export interface State {
   loaded: boolean;
   loading: boolean;
   user: {};
+  project: {};
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
-  user: {}
+  user: {},
+  project: {}
 };
 
-export function userReducer(state = initialState, action: user.Actions): State {
+export function appReducer(state = initialState, action: actions.Actions): State {
   switch (action.type) {
-    case user.RESET: {
+    case actions.RESET: {
       return Object.assign({}, state, {
         loaded: false,
         loading: false,
@@ -22,13 +24,29 @@ export function userReducer(state = initialState, action: user.Actions): State {
       });
     }
 
-    case user.LOADED: {
+    case actions.LOADED: {
       const user = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        user: user,
-        userId: user.id
+        user: user
+      });
+    }
+
+    case actions.RESET_PROJECT: {
+      return Object.assign({}, state, {
+        loaded: false,
+        loading: false,
+        project: {}
+      });
+    }
+
+    case actions.LOADED_PROJECT: {
+      const project = action.payload;
+      return Object.assign({}, state, {
+        loaded: true,
+        loading: false,
+        project: project,
       });
     }
 

@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +7,7 @@ import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   imports: [
+    RouterModule,
     CommonModule,
     FormsModule,
     TranslateModule,
@@ -14,6 +16,7 @@ import { LayoutModule } from './layout/layout.module';
   declarations: [
   ],
   exports: [
+    RouterModule,
     LayoutModule,
     CommonModule,
     FormsModule

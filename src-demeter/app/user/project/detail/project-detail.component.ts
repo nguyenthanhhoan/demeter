@@ -3,14 +3,15 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApiService } from '../core/api/api.service';
-import { LoadedAction } from '../core/actions/actions';
+import { ApiService } from '../../../core/api/api.service';
+import { LoadedAction } from '../../../core/actions/actions';
 
 @Component({
   template: '<router-outlet></router-outlet>'
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class ProjectDetailComponent implements OnInit, OnDestroy {
   user: any = {};
+  project: any = {};
   private storeSubscription: ISubscription;
   private routerSubscription: ISubscription;
   constructor(private store: Store<any>,

@@ -13,10 +13,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.storeSubscription = this.store.select('user')
-    .subscribe((userModel: any) => {
-      if (userModel.loaded) {
-        this.user = userModel.user;
+    this.storeSubscription = this.store.select('app')
+    .subscribe((app: any) => {
+      if (app.loaded) {
+        this.user = app.user;
       }
     });
   }

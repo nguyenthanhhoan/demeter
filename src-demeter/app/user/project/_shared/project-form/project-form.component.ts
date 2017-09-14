@@ -22,10 +22,10 @@ export class ProjectFormComponent implements OnInit {
               private projectService: ProjectService,
               private notificationService: NotificationService) {}
   ngOnInit() {
-    this.storeSubscription = this.store.select('user')
-    .subscribe((user: any) => {
-      if (user.loaded) {
-        this.user = user.user;
+    this.storeSubscription = this.store.select('app')
+    .subscribe((app: any) => {
+      if (app.loaded) {
+        this.user = app.user;
       }
     });
   }
