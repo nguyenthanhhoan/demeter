@@ -1,5 +1,17 @@
 <app-camera [camera]="camera"></app-camera>
 
+<div class="spinner-wrapper control-pane">
+  <app-spinner [isRunning]="isRequesting"></app-spinner>
+  <div *ngFor="let device of devices" class="control-device">
+    <div class="device-name">
+      {{ device.name }}
+    </div>
+    <div class="toggle">
+      <input type="checkbox" dmtToggle size="mini" [checked]="device.value == '1'" />
+    </div>
+  </div>
+</div>
+
 <div class="dmt-pane environment-pane">
   <div class="dmt-pane-title">
     Environment Information

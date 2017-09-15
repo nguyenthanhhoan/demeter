@@ -23,7 +23,6 @@ export class SensorDataChartComponent implements OnDestroy {
   project: any = {};
   package_id: any;
 
-  isRequesting = false;
   first_loaded = false;
   last_timestamp: any;
 
@@ -81,13 +80,11 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   initData() {
-    this.isRequesting = true;
     this.requestFieldAssignedToZone();
   }
 
   requestFieldAssignedToZone() {
     // Firstly, request list of device assigned to zone
-    this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
     params.set('package_id', this.package_id);
     params.set('field_attribute', 'read_only');
@@ -95,14 +92,10 @@ export class SensorDataChartComponent implements OnDestroy {
       search: params
     }).subscribe((fields) => {
       this.fields = fields;
-      if (fields.length > 0) {
+      if (this.fields.length > 0) {
         this.requestChartData();
       } else {
-        this.isRequesting = false;
-        this.notificationService.showErrorMessage({
-          title: 'error',
-          content: 'No field was assigned to this zone. Cannot load environment chart!'
-        });
+        this.first_loaded = true;
       }
     });
   }

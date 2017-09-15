@@ -6,7 +6,7 @@ class Family::DevicesController < AuthorizedController
       family_package_id: @package_id
     }
     if params[:field_attribute].present?
-      where_query[:field_attribute] = :read_only
+      where_query[:field_attribute] = params[:field_attribute]
     end
     devices = Family::Device.where(where_query)
     render json: devices, each_serializer: FamilyDeviceSerializer

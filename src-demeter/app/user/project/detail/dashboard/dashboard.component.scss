@@ -1,3 +1,25 @@
+$brand-color: rgb(49, 139, 80);
 .environment-pane {
   margin-top: 15px;
+}
+
+.control-pane {
+  margin-top: 15px;
+  min-height: 30px;
+}
+
+.spinner-wrapper {
+  position: relative;
+}
+
+.control-device {
+  display: flex;
+  .device-name {
+    font-size: 16px;
+    color: $brand-color;
+    flex: 0.5;
+  }
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }

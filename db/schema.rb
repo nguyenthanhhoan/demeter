@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20170915102132) do
     t.integer  "field_attribute"
     t.integer  "value_data_type"
     t.string   "chart_value_suffix"
+    t.integer  "mode"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["family_package_id"], name: "index_family_devices_on_family_package_id", using: :btree

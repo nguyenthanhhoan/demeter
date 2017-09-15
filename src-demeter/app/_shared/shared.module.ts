@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from './layout/layout.module';
 import { SpinnerModule } from './spinner/spinner.module';
+import { ToggleDirective } from './directives/toggle.directive';
 
 @NgModule({
   imports: [
@@ -16,13 +17,15 @@ import { SpinnerModule } from './spinner/spinner.module';
     SpinnerModule
   ],
   declarations: [
+    ToggleDirective
   ],
   exports: [
     RouterModule,
     LayoutModule,
     CommonModule,
     FormsModule,
-    SpinnerModule
+    SpinnerModule,
+    ToggleDirective
   ]
 })
 export class SharedModule {

@@ -243,3 +243,43 @@ Family::Device.create!({
   field_attribute: :read_only,
   chart_value_suffix: 'pH'
 })
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field11',
+  name: 'BULB 1',
+  value: '0',
+  value_data_type: :integer,
+  field_attribute: :read_write,
+  mode: :manual
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field12',
+  name: 'BULB 2',
+  value: '0',
+  value_data_type: :integer,
+  field_attribute: :read_write,
+  mode: :manual
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field13',
+  name: 'FAN 1',
+  value: '0',
+  value_data_type: :integer,
+  field_attribute: :read_write,
+  mode: :manual
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field14',
+  name: 'FAN 2',
+  value: '0',
+  value_data_type: :integer,
+  field_attribute: :read_write,
+  mode: :manual
+})

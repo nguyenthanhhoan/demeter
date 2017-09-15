@@ -11,6 +11,7 @@ class CreateFamilyDevices < ActiveRecord::Migration[5.0]
       t.integer :field_attribute
       t.integer :value_data_type
       t.string :chart_value_suffix
+      t.integer :mode
 
       t.timestamps
     end

@@ -15,6 +15,7 @@ import { SensorDataChartComponent } from './sensor-data-chart/sensor-data-chart.
     SensorDataChartComponent
   ],
   exports: [
+    AppSharedModule,
     LayoutComponent,
     SensorDataChartComponent,
     CameraModule
