@@ -6,7 +6,7 @@ class Family::ProjectsController < AuthorizedController
   end
 
   def show
-    render json: @project, serializer: FamilyProjectSerializer
+    render json: @project, serializer: FamilyProjectDetailSerializer
   end
 
   def create

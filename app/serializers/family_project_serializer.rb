@@ -1,3 +1,5 @@
 class FamilyProjectSerializer < ActiveModel::Serializer
-  attributes :id, :name, :package_id, :camera_id, :image
+  attributes :id, :name, :camera_id, :image
+  has_one :package_camera
+  has_one :package
 end

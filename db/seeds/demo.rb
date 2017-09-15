@@ -169,3 +169,77 @@ DeviceValueHistory.create({
   value: 0,
   created_at: Time.current.in_time_zone('Asia/Ho_Chi_Minh').beginning_of_day + 18 * 60 * 60
 })
+
+10.times { |index| 
+  package = Family::Package.create!({
+    salt: 'dmt camera salt',
+    length: 10
+  })
+  package.update_attribute(:hash_id, HashIdService.new.encode_package(package.id))
+}
+
+# Query to get demo data
+# Family::Package.all.map {|e| {id:e.id, hash:e.hash_id}}
+
+10.times { |index| 
+package = Family::PackageCamera.create!({
+  salt: 'dmt camera salt',
+  length: 10
+})
+package.update_attribute(:hash_id, HashIdService.new.encode_camera(package.id))
+}
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field1',
+  name: 'Temperature',
+  value: 33.5,
+  value_in_float: 33.5,
+  value_data_type: :float,
+  field_attribute: :read_only,
+  chart_value_suffix: '*C'
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field2',
+  name: 'Humidity',
+  value: 66.3,
+  value_in_float: 66.3,
+  value_data_type: :float,
+  field_attribute: :read_only,
+  chart_value_suffix: '%'
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field3',
+  name: 'Illuminances',
+  value: 66.3,
+  value_in_float: 66.3,
+  value_data_type: :integer,
+  field_attribute: :read_only,
+  chart_value_suffix: 'lx'
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field5',
+  name: 'EC',
+  value: 66.3,
+  value_in_float: 66.3,
+  value_data_type: :float,
+  field_attribute: :read_only,
+  chart_value_suffix: 'mS'
+})
+
+Family::Device.create!({
+  package: Family::Package.first,
+  field_id: 'field4',
+  name: 'EC',
+  value: 6.96,
+  value_in_float: 6.96,
+  value_data_type: :float,
+  field_attribute: :read_only,
+  chart_value_suffix: 'pH'
+})

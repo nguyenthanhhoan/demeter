@@ -1,0 +1,50 @@
+.chart-container {
+  height: 400px;
+}
+
+.chart-tabs {
+  margin: 0 auto;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.chart-tab {
+  flex-grow: 1;
+  flex-basis: 0;
+  cursor: pointer;
+}
+
+.chart-tab p {
+  margin-bottom: 0;
+}
+
+.chart-tab:hover {
+  background: rgba(228, 228, 225, 0.98);
+}
+
+.chart-tab.active {
+  background-color: rgba(228, 228, 225, 0.98);
+}
+
+.chart-tab .num {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.chart-tab.active .num,
+.chart-tab.active .chart-name  {
+  color: #00a885;
+}
+
+.chart-tab .chart-name {
+  font-size: 1em;
+  font-weight: 300;
+  color: rgba(0,0,0,.87);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.spinner-wrapper {
+  height: 100px;
+  position: relative;
+}

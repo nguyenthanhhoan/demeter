@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912180358) do
+ActiveRecord::Schema.define(version: 20170915102132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,55 @@ ActiveRecord::Schema.define(version: 20170912180358) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["created_by_id"], name: "index_devices_on_created_by_id", using: :btree
+  end
+
+  create_table "family_cameras", force: :cascade do |t|
+    t.integer  "family_package_camera_id"
+    t.string   "live_hash"
+    t.string   "playback_hash"
+    t.string   "secret_id"
+    t.string   "channel"
+    t.string   "server"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["family_package_camera_id"], name: "index_family_cameras_on_family_package_camera_id", using: :btree
+  end
+
+  create_table "family_devices", force: :cascade do |t|
+    t.integer  "family_package_id"
+    t.string   "name"
+    t.string   "value"
+    t.integer  "value_in_int"
+    t.float    "value_in_float"
+    t.string   "field_id"
+    t.datetime "value_updated_at"
+    t.integer  "field_attribute"
+    t.integer  "value_data_type"
+    t.string   "chart_value_suffix"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["family_package_id"], name: "index_family_devices_on_family_package_id", using: :btree
+  end
+
+  create_table "family_package_cameras", force: :cascade do |t|
+    t.string   "salt"
+    t.integer  "length"
+    t.string   "hash_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "family_project_id"
+    t.index ["family_project_id"], name: "index_family_package_cameras_on_family_project_id", using: :btree
+  end
+
+  create_table "family_packages", force: :cascade do |t|
+    t.string   "salt"
+    t.integer  "length"
+    t.string   "setting"
+    t.string   "hash_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "family_project_id"
+    t.index ["family_project_id"], name: "index_family_packages_on_family_project_id", using: :btree
   end
 
   create_table "family_projects", force: :cascade do |t|
@@ -307,6 +356,10 @@ ActiveRecord::Schema.define(version: 20170912180358) do
   add_foreign_key "alerts", "zones"
   add_foreign_key "device_fields", "devices"
   add_foreign_key "device_value_histories", "device_fields"
+  add_foreign_key "family_cameras", "family_package_cameras"
+  add_foreign_key "family_devices", "family_packages"
+  add_foreign_key "family_package_cameras", "family_projects"
+  add_foreign_key "family_packages", "family_projects"
   add_foreign_key "family_projects", "users"
   add_foreign_key "okr_objective_keys", "okr_objectives"
   add_foreign_key "okr_objectives", "okrs"

@@ -72,6 +72,15 @@ Rails.application.routes.draw do
 
   namespace :family do
     resources :projects
+    resources :devices do
+      collection do
+        get 'list_device_assigned' => 'devices#list_device_assigned'
+        post 'update_device_value' => 'devices#update_device_value'
+      end
+    end
+    get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
+    get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
+    get '/sensor_data/latest' => 'sensor_data#query_lastest'
   end
 
   require 'sidekiq/web'

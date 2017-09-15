@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from './layout/layout.module';
+import { SpinnerModule } from './spinner/spinner.module';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { LayoutModule } from './layout/layout.module';
     CommonModule,
     FormsModule,
     TranslateModule,
-    LayoutModule
+    LayoutModule,
+    SpinnerModule
   ],
   declarations: [
   ],
@@ -19,7 +21,8 @@ import { LayoutModule } from './layout/layout.module';
     RouterModule,
     LayoutModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    SpinnerModule
   ]
 })
 export class SharedModule {
