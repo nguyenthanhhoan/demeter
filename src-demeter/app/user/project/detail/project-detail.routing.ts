@@ -12,6 +12,9 @@ export const routes: Routes = [{
     children: [{
       path: '',
       loadChildren: 'app/user/project/detail/dashboard/dashboard.module#DashboardModule'
+    }, {
+      path: 'history',
+      loadChildren: 'app/user/project/detail/history/history.module#HistoryModule'
     }]
   }]
 }];

@@ -5,6 +5,11 @@ $brand-color: rgb(49, 139, 80);
   display: flex;
   padding: 0 15px;
   font-size: 16px;
+  position: fixed;
+  width: 100%;
+
+  // To override play button of video
+  z-index: 10;
 
   .brand {
     align-self: center;

@@ -6,9 +6,11 @@ import { NgModule } from '@angular/core';
 import { LayoutModule } from './layout/layout.module';
 import { SpinnerModule } from './spinner/spinner.module';
 import { ToggleDirective } from './directives/toggle.directive';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
+    BsDatepickerModule.forRoot(),
     RouterModule,
     CommonModule,
     FormsModule,
@@ -20,6 +22,7 @@ import { ToggleDirective } from './directives/toggle.directive';
     ToggleDirective
   ],
   exports: [
+    BsDatepickerModule,
     RouterModule,
     LayoutModule,
     CommonModule,

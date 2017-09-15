@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ISubscription } from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit, OnDestroy {
   navigations = [{
     id: 'Dashboard',
     icon: 'assets/img/demeter/icon/DASHBOARD_GREY.png',
@@ -18,7 +21,7 @@ export class LayoutComponent {
     iconActive: 'assets/img/demeter/icon/HISTORY.png',
     iconGrey: 'assets/img/demeter/icon/HISTORY_GREY.png',
     title: 'History',
-    url: ''
+    url: 'history'
   }, {
     id: 'Camera',
     icon: 'assets/img/demeter/icon/CAMERA_GREY.png',
@@ -57,8 +60,28 @@ export class LayoutComponent {
   }];
   activeNavigation: any;
 
-  constructor() {
-    this.activeNavigation = this.navigations[0];
+  private storeSubscription: ISubscription;
+  private project: any = {};
+  private user: any = {};
+  constructor(private route: ActivatedRoute,
+              private store: Store<any>) {
+  }
+
+  ngOnInit() {
+    this.storeSubscription = this.store.select('app')
+    .subscribe((app: any) => {
+      if (app.project && app.project.id) {
+        this.project = app.project;
+      }
+      if (app.user && app.user.id) {
+        this.user = app.user;
+      }
+    });
+    this.findActiveNav();
+  }
+
+  ngOnDestroy() {
+    this.storeSubscription.unsubscribe();
   }
 
   mouseenter(navigation) {
@@ -66,5 +89,24 @@ export class LayoutComponent {
   }
   mouseleave(navigation) {
     navigation.icon = navigation.iconGrey;
+  }
+
+  private findActiveNav() {
+    this.activeNavigation = this.navigations[0];
+    let url;
+    let segments = this.route.snapshot['_urlSegment'].segments;
+    for (let index = 0; index < segments.length; index++) {
+      let element = segments[index];
+      if (element.path === 'project') {
+        url = segments[index + 2].path;
+      }
+    }
+    if (url) {
+      this.navigations.forEach((navigation) => {
+        if (navigation.url === url) {
+          this.activeNavigation = navigation;
+        }
+      });
+    }
   }
 }

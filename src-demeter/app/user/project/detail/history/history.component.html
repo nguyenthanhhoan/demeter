@@ -1,0 +1,16 @@
+<div class="spinner-wrapper">
+  <app-spinner [isRunning]="isRequesting"></app-spinner>
+</div>
+
+<div *ngIf="!isRequesting">
+
+  <multiple-chart 
+    [chartData]="multipleChartData"></multiple-chart>
+
+  <div class="single-chart-data"
+    *ngFor="let singleChartData of singleChartDatas">
+    <single-chart 
+      *ngIf="singleChartData.x && singleChartData.x.length > 0"
+      [data]="singleChartData"></single-chart>
+  </div>
+</div>
