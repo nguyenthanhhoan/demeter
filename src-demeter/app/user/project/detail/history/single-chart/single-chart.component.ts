@@ -28,7 +28,11 @@ export class SingleChartComponent implements OnInit, OnChanges {
   initChart() {
     let chartEle = $(this.el.nativeElement).find('.chart-holder')[0];
     let layout = {
-      title: this.data.name
+      title: this.data.name,
+      margin: {
+        l: 30,
+        r: 30
+      }
     };
     Plotly.newPlot(chartEle, [this.data], layout);
   }

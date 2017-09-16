@@ -7,7 +7,6 @@ $brand-color: rgb(49, 139, 80);
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
   // To prevent chart overlay
   z-index: 100;
@@ -17,6 +16,7 @@ $brand-color: rgb(49, 139, 80);
     align-items: center;
     color: #555;
     cursor: pointer;
+    flex: 1 0;
     .icon img {
       height: 20px;
     }

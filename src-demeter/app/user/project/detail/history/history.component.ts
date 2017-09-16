@@ -201,8 +201,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
         domain: [chartLeftSides * 0.05, 1 - chartRightSides * 0.05],
       },
       margin: {
-        l: 0,
-        r: 0
+        l: 15,
+        r: 15
       },
       // TODO: Not understand those magic devices
       legend: {
