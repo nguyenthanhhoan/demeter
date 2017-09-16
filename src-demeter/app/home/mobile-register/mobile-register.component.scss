@@ -32,13 +32,6 @@ $brand-color: rgb(49, 139, 80);
   }
 }
 
-.form-control {
-  border-radius: 20px;
-  border: none;
-  padding-left: 15px;
-  padding-right: 15px;
-  background-color: rgb(194, 208, 162);
-}
 .dmt-button {
   border: none;
   border-radius: 20px;
@@ -50,12 +43,4 @@ $brand-color: rgb(49, 139, 80);
       background-color: darken($brand-color, 5%);
     }
   }
-}
-
-// Override bootstrap form-horizontal
-// To make form aligned nicely on mobile
-.form-horizontal .control-label {
-  text-align: right;
-  margin-bottom: 0;
-  padding-top: 7px;
 }

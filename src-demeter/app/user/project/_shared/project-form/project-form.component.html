@@ -1,48 +1,52 @@
 <div class="project-form">
-  <div class="form-horizontal dmt-form">
+  <form class="form-horizontal dmt-form">
     <fieldset [disabled]="fetching">
       <div class="form-group">
-        <span class="col-sm-5 add-picture-col">
+        <span class="col-xs-5 add-picture-col">
           <div class="add-picture upload-preview"
             (click)="openSelectFile()">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </div>
           <input
             type="file"
+            name="file"
             class="file-input hiddenfile"
             (change)="fileChange($event)" accept="image/*" />
         </span>
       </div>
       <div class="form-group">
-        <span class="control-label col-sm-5">Name</span>
-        <div class="col-sm-5">
+        <span class="control-label col-xs-5">Name</span>
+        <div class="col-xs-5">
           <input
             [(ngModel)]="project.name"
+            name="name"
             type="text"
             class="form-control">
         </div>
       </div>
       <div class="form-group">
-        <span class="control-label col-sm-5">PACKAGE ID</span>
-        <div class="col-sm-5">
+        <span class="control-label col-xs-5">PACKAGE ID</span>
+        <div class="col-xs-5">
           <input
             [(ngModel)]="project.package_id"
+            name="package_id"
             type="text"
             class="form-control">
         </div>
       </div>
       <div class="form-group">
-        <span class="control-label col-sm-5">CAMERA ID</span>
-        <div class="col-sm-5">
+        <span class="control-label col-xs-5">CAMERA ID</span>
+        <div class="col-xs-5">
           <input
             [(ngModel)]="project.camera_id"
+            name="camera_id"
             type="text"
             class="form-control">
         </div>
       </div>
       <div class="dmt-button-group">
-        <span class="col-sm-5"></span>
-        <div class="col-sm-5">
+        <span class="col-xs-5"></span>
+        <div class="col-xs-5">
           <button 
             *ngIf="mode != 'edit'"
             (click)="create()"
@@ -60,5 +64,5 @@
         </div>
       </div>
     </fieldset>
-  </div>
+  </form>
 </div>

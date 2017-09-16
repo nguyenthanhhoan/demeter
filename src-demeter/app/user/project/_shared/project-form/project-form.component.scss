@@ -4,17 +4,17 @@
     margin-left: auto;
     width: 100px;
     height: 100px;
-    background-color: #fff;
+    background-color: rgb(223, 232, 205);
     display: flex;
     cursor: pointer;
     &:hover {
-      background-color: #eee;
+      background-color: darken(rgb(223, 232, 205), 5%);
     }
     .fa-plus {
       flex: 1;
       align-self: center;
       text-align: center;
-      color: #555;
+      color: #fff;
       font-size: 30px;
     }
   }
@@ -22,12 +22,4 @@
 
 .upload-preview {
   background-size: cover;
-}
-
-@media only screen and (max-width: 768px) {
-  .add-picture-col {
-    .add-picture {
-      margin: auto;
-    }
-  }
 }

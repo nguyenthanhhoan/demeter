@@ -9,3 +9,12 @@
   height: 0px;
   overflow: hidden;
 }
+
+// Override bootstrap form-horizontal
+// To make form not collapsed on mobile device
+.form-horizontal .control-label {
+  text-align: right;
+  margin-bottom: 0;
+  padding-top: 7px;
+  color: $brand-color;
+}
