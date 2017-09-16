@@ -130,7 +130,6 @@ export class SensorDataChartComponent implements OnDestroy {
             this.subscribeWebSocket();
           }
         }
-        this.isRequesting = false;
       });
   }
 

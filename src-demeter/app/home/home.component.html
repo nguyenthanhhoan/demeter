@@ -54,13 +54,14 @@
             <h2 class="text-center">Create an Account</h2>
           </div>
         </div>
-        <div class="form-horizontal">
+        <form class="form-horizontal">
           <fieldset [disabled]="fetching">
             <div class="form-group">
               <span class="control-label col-sm-5">First Name</span>
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.first_name"
+                  name="first_name"
                   type="text"
                   class="form-control">
               </div>
@@ -70,6 +71,7 @@
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.last_name"
+                  name="last_name"
                   type="text"
                   class="form-control">
               </div>
@@ -79,6 +81,7 @@
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.email"
+                  name="email"
                   type="text"
                   class="form-control">
               </div>
@@ -88,6 +91,7 @@
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.password"
+                  name="password"
                   type="password"
                   class="form-control">
               </div>
@@ -97,28 +101,30 @@
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="signUpAccount.password_confirmation"
+                  name="password_confirmation"
                   type="password"
                   class="form-control">
               </div>
             </div>
+            <div class="form-group">
+              <div class="col-sm-offset-5 col-sm-5">
+                <button class="dmt-button btn btn-primary" (click)="signUp()">
+                  Register
+                </button>
+              </div>
+            </div>
           </fieldset>
-        </div>
-        <div class="row">
-          <div class="col-sm-offset-5 col-sm-5">
-            <button class="dmt-button btn btn-primary" (click)="signUp()">
-              Register
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
       <div class="sign-in-form">
-        <div class="form-horizontal">
+        <form class="form-horizontal">
           <fieldset [disabled]="fetching">
             <div class="form-group">
               <span class="control-label col-sm-5">Email</span>
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="loginAccount.email"
+                  name="email"
                   type="text"
                   class="form-control">
               </div>
@@ -128,20 +134,21 @@
               <div class="col-sm-5">
                 <input
                   [(ngModel)]="loginAccount.password"
+                  name="password"
                   type="password"
                   class="form-control">
               </div>
             </div>
+            <div class="form-group">
+              <div class="col-sm-offset-5 col-sm-5">
+                <button class="dmt-button btn btn-primary" (click)="login()">
+                  Sign In
+                </button>
+                <p><a routerLink="/auth/forgot-password">Forgot password?</a></p>
+              </div>
+            </div>
           </fieldset>
-        </div>
-        <div class="row">
-          <div class="col-sm-offset-5 col-sm-5">
-            <button class="dmt-button btn btn-primary" (click)="login()">
-              Sign In
-            </button>
-            <p><a routerLink="/auth/forgot-password">Forgot password?</a></p>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

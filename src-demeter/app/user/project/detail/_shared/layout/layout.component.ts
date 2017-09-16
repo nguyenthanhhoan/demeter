@@ -28,7 +28,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     iconActive: 'assets/img/demeter/icon/CAMERA.png',
     iconGrey: 'assets/img/demeter/icon/CAMERA_GREY.png',
     title: 'Camera',
-    url: ''
+    url: 'camera'
   }, {
     id: 'Control',
     icon: 'assets/img/demeter/icon/CONTROL_GREY.png',
@@ -98,7 +98,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     for (let index = 0; index < segments.length; index++) {
       let element = segments[index];
       if (element.path === 'project') {
-        url = segments[index + 2].path;
+        if (segments[index + 2] && segments[index + 2].path) {
+          url = segments[index + 2].path;
+        }
       }
     }
     if (url) {

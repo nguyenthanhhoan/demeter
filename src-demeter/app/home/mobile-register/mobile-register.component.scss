@@ -24,6 +24,11 @@ $brand-color: rgb(49, 139, 80);
   }
   h2 {
     margin-top: 0;
+    margin-bottom: 30px;
+  }
+  
+  fieldset {
+    margin-bottom: 15px;
   }
 }
 
@@ -37,12 +42,20 @@ $brand-color: rgb(49, 139, 80);
 .dmt-button {
   border: none;
   border-radius: 20px;
-  padding: 10px 25px;
-  font-size: 16px;
+  padding: 5px 15px;
+  font-size: 14px;
   &.btn-primary {
     background-color: $brand-color;
     &:hover {
       background-color: darken($brand-color, 5%);
     }
   }
+}
+
+// Override bootstrap form-horizontal
+// To make form aligned nicely on mobile
+.form-horizontal .control-label {
+  text-align: right;
+  margin-bottom: 0;
+  padding-top: 7px;
 }

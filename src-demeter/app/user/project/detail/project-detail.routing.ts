@@ -15,6 +15,9 @@ export const routes: Routes = [{
     }, {
       path: 'history',
       loadChildren: 'app/user/project/detail/history/history.module#HistoryModule'
+    }, {
+      path: 'camera',
+      loadChildren: 'app/user/project/detail/camera/camera.module#CameraModule'
     }]
   }]
 }];

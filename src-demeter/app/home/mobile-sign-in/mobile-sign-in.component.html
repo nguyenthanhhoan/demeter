@@ -8,11 +8,12 @@
       </div>
       <h3 class="title">Technology Solutions In Agriculture</h3>
       <p class="more">Discover more</p>
-      <div class="sign-in-form">
+      <form class="sign-in-form">
         <fieldset [disabled]="fetching">
           <div class="form-group">
             <input
               [(ngModel)]="loginAccount.email"
+              name="email"
               type="text"
               placeholder="Email"
               class="form-control">
@@ -20,6 +21,7 @@
           <div class="form-group">
             <input
               [(ngModel)]="loginAccount.password"
+              name="password"
               type="password"
               placeholder="Password"
               class="form-control">
@@ -37,7 +39,7 @@
             <a routerLink="/sign-up">Create an account</a>
           </p>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

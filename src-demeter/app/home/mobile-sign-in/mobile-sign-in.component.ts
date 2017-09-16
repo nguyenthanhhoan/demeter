@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -23,7 +24,9 @@ export class MobileSignInComponent implements OnInit {
 
   login() {
     this.fetching = true;
-    this.authService.login(this.loginAccount)
+
+    Observable.timer(500)
+    .switchMapTo(this.authService.login(this.loginAccount))
     .subscribe(() => {
       this.fetching = false;
     }, () => {

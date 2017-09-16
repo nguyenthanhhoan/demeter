@@ -148,6 +148,14 @@ Edit `package.json`
 "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js --host 0.0.0.0 --public 192.168.1.113:3000",
 ```
 
+6. 
+
+TODO
+`mobile-register.component.ts`
+```
+ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'true'. Current value: 'false'.
+```
+
 ## References
 
 1. Install Node

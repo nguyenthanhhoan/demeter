@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -16,12 +17,17 @@ export class MobileRegisterComponent implements OnInit {
   constructor(private router: Router,
               private authService: AuthService,
               private coreService: CoreService,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService) {}
 
   ngOnInit() {
+    this.fetching = false;
   }
 
-  signUp() {
+  signUp($event) {
+    $event.preventDefault();
+    // TODO: Got. Need to investigate more
+    // `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed
+    // after it was checked. Previous value: 'true'. Current value: 'false'.`
     this.fetching = true;
     this.coreService.signUp(this.signUpAccount)
     .subscribe(res => {
