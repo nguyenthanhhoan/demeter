@@ -22,6 +22,8 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
+// const BASE_PATH = 'src';
+const BASE_PATH = 'src-demeter';
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
@@ -101,7 +103,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
-          include: [helpers.root('src', 'styles')]
+          include: [helpers.root(BASE_PATH, 'styles')]
         },
 
         /**
@@ -112,7 +114,7 @@ module.exports = function (options) {
         {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
-          include: [helpers.root('src', 'styles')]
+          include: [helpers.root(BASE_PATH, 'styles')]
         },
 
       ]

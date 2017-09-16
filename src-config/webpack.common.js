@@ -29,6 +29,8 @@ const ngcWebpack = require('ngc-webpack');
  */
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = process.env.BUILD_AOT || helpers.hasNpmFlag('aot');
+// const BASE_PATH = 'src';
+const BASE_PATH = 'src-demeter';
 const METADATA = {
   title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
   baseUrl: '/',
@@ -62,9 +64,9 @@ module.exports = function (options) {
      */
     entry: {
 
-      'polyfills': './src/polyfills.browser.ts',
-      'main':      AOT ? './src/main.browser.aot.ts' :
-                  './src/main.browser.ts'
+      'polyfills': `./${BASE_PATH}/polyfills.browser.ts`,
+      'main':      AOT ? `./${BASE_PATH}/main.browser.aot.ts` :
+                  `./${BASE_PATH}/main.browser.ts`
 
     },
 
@@ -85,7 +87,7 @@ module.exports = function (options) {
       /**
        * An array of directory names to be resolved to the current directory
        */
-      modules: [helpers.root('src'), helpers.root('node_modules')],
+      modules: [helpers.root(BASE_PATH), helpers.root('node_modules')],
 
     },
 
@@ -164,7 +166,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           use: ['to-string-loader', 'css-loader'],
-          exclude: [helpers.root('src', 'styles')]
+          exclude: [helpers.root(BASE_PATH, 'styles')]
         },
 
         /**
@@ -175,7 +177,7 @@ module.exports = function (options) {
         {
           test: /\.scss$/,
           use: ['to-string-loader', 'css-loader', 'sass-loader'],
-          exclude: [helpers.root('src', 'styles')]
+          exclude: [helpers.root(BASE_PATH, 'styles')]
         },
 
         /**
@@ -187,7 +189,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           use: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.root(`${BASE_PATH}/index.html`)]
         },
 
         /**
@@ -272,7 +274,7 @@ module.exports = function (options) {
          * The (\\|\/) piece accounts for path separators in *nix and Windows
          */
         /angular(\\|\/)core(\\|\/)@angular/,
-        helpers.root('src'), // location of your src
+        helpers.root(BASE_PATH), // location of your src
         {
           /**
            * Your Angular Async Route paths relative to this root directory
@@ -289,8 +291,8 @@ module.exports = function (options) {
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
       new CopyWebpackPlugin([
-        { from: 'src/assets', to: 'assets' },
-        { from: 'src/meta'}
+        { from: `${BASE_PATH}/assets`, to: 'assets' },
+        { from: `${BASE_PATH}/meta`}
       ],
         isProd ? { ignore: [ 'mock-data/**/*' ] } : undefined
       ),
@@ -337,7 +339,7 @@ module.exports = function (options) {
       * See: https://github.com/ampedandwired/html-webpack-plugin
       */
       new HtmlWebpackPlugin({
-        template: 'src/index.html',
+        template: `${BASE_PATH}/index.html`,
         title: METADATA.title,
         chunksSortMode: function (a, b) {
           var order = ['polyfills', 'main'];
