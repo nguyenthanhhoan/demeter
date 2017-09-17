@@ -1,4 +1,12 @@
 $brand-color: rgb(49, 139, 80);
+
+.project-content {
+  // 120 = 60 (header + padding header) + 50 (bottom navigation) + 10 (padding bottom content)
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
 .footer-navigation {
   position: fixed;
   bottom: 0;
@@ -8,6 +16,7 @@ $brand-color: rgb(49, 139, 80);
   width: 100%;
   display: flex;
   align-items: center;
+  background-color: #fff;
   // To prevent chart overlay
   z-index: 100;
   .item {

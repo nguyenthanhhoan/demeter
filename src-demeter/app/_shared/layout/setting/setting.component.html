@@ -1,17 +1,22 @@
 <div class="setting-menu" *ngIf="isShowSetting">
   <div class="item">
-    Shopping
+    <img src="assets/img/demeter/icon/SHOP.png" alt="shopping cart">
+    <span>Shopping</span>
   </div>
   <div class="item">
-    D-Pay
+    <img src="assets/img/demeter/icon/D-PAY.png" alt="demeter pay">
+    <span>D-Pay</span>
   </div>
   <div class="item">
-    Settings
+    <img src="assets/img/demeter/icon/ACC_SET.png" alt="account setting">
+    <span>Settings</span>
   </div>
   <a class="item" routerLink="/{{user.username}}/about">
-    About
+    <img src="assets/img/demeter/icon/ABOUT.png" alt="about">
+    <span>About</span>
   </a>
   <div class="item" (click)="signOut()">
-    Log out
+    <img src="assets/img/demeter/icon/LOGOUT.png" alt="log out">
+    <span>Log out</span>
   </div>
 </div>

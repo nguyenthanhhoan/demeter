@@ -1,9 +1,9 @@
 $brand-color: rgb(49, 139, 80);
+$secondary-color: rgb(80, 181, 88);
 .dmt-header {
   height: 45px;
   background-color: $brand-color;
   display: flex;
-  padding: 0 15px;
   font-size: 16px;
   position: fixed;
   width: 100%;
@@ -38,9 +38,12 @@ $brand-color: rgb(49, 139, 80);
 
 .dmt-link {
   display: flex;
+  align-items: center;
   color: #fff;
   align-self: center;
   cursor: pointer;
+  padding: 7px;
+  height: 45px;
   .dmt-link-text {
     margin-left: 5px;
   }
@@ -48,14 +51,26 @@ $brand-color: rgb(49, 139, 80);
     color: #ccc;
   }
   img {
-    height: 45px;
+    height: 22px;
+    align-self: center;
+  }
+
+  img.img-message,
+  img.img-setting {
+    height: 18px;
+  }
+
+  img.img-home {
+    height: 20px;
   }
 }
 
-.profile-link {
+.border-left {
   border-left: 2px solid #fff;
-  margin-left: 10px;
-  padding-left: 10px;
+  padding-left: 5px;
+  margin-left: 5px;
+  align-self: center;
+  height: 35px;
 }
 
 .dmt-link-text {
@@ -67,6 +82,11 @@ $brand-color: rgb(49, 139, 80);
   align-self: center;
   margin-left: auto;
   display: flex;
+
+  .dmt-link.active,
+  .dmt-link:hover {
+    background-color: $secondary-color;
+  }
 }
 
 @media only screen and (max-width: 768px) {

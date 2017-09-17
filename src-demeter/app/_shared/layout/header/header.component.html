@@ -13,26 +13,28 @@
   </a>
   <div class="right-header">
     <span class="dmt-link">
-      <img src="assets/img/demeter/icon/NOTI.png" alt="notification" class="img-responsive">
+      <img src="assets/img/demeter/icon/NOTI.png" alt="notification">
     </span>
     <span class="dmt-link">
-      <img src="assets/img/demeter/icon/MESS.png" alt="message" class="img-responsive">
+      <img src="assets/img/demeter/icon/MESS.png" alt="message" class="img-message">
     </span>
     <span class="dmt-link">
-      <img src="assets/img/demeter/icon/HOME.png" alt="home" class="img-responsive">
+      <img src="assets/img/demeter/icon/HOME.png" alt="home" class="img-home">
     </span>
+    <div class="border-left">
+    </div>
     <a routerLink="/{{user.username}}"
       class="dmt-link profile-link">
       <img
         [ngClass]="user.image?.thumb?.url ? '' : 'no-image'"
-        [src]="user.image?.thumb?.url ? user.image.thumb.url : 'assets/img/demeter/icon/ACC_IMAGE.png'" />
+        [src]="user.image?.thumb?.url ? user.image.thumb.url : 'assets/img/demeter/icon/USER_IMAGE.png'" />
       <span class="dmt-link-text">{{user.first_name}}</span>
     </a>
     <span 
       class="dmt-link"
       [ngClass]="isShowSetting ? 'active' : ''"
       (click)="toggleSetting()">
-      <img src="assets/img/demeter/icon/SET.png" alt="setting" class="img-responsive">
+      <img src="assets/img/demeter/icon/SET.png" alt="setting" class="img-setting">
     </span>
   </div>
 </header>
