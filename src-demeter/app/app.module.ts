@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 
 // Core providers
 import { CoreModule } from './core/core.module';
-import { appReducer } from './core/reducers/reducer';
+import { appReducer, appStateReducer } from './core/reducers/reducer';
 
 import '../styles/main.scss';
 
@@ -48,7 +48,7 @@ export function HttpLoaderFactory(http: Http) {
       }
     }),
     routing,
-    StoreModule.provideStore({ app: appReducer })
+    StoreModule.provideStore({ app: appReducer, appState: appStateReducer })
   ],
   exports: [
   ],

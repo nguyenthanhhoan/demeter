@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { EmptyLayoutComponent } from './layout/empty-layout.component';
 import { UserLayoutComponent } from './layout/user-layout.component';
 import { HeaderComponent } from './header/header.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     HeaderComponent,
     EmptyLayoutComponent,
-    UserLayoutComponent
+    UserLayoutComponent,
+    SettingComponent
   ],
   exports: [
   ]

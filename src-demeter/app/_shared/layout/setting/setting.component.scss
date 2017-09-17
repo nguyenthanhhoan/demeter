@@ -1,0 +1,20 @@
+$brand-color: rgb(49, 139, 80);
+$background-color: rgb(80, 182, 88);
+.setting-menu {
+  position: fixed;
+  right: 0;
+  top: 45px;
+  height: calc(100vh - 95px);
+  width: 200px;
+  background-color: $background-color;
+  z-index: 100;
+
+  .item {
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background-color: $brand-color;
+    }
+  }
+}

@@ -6,6 +6,8 @@ export const LOADED =  '[Profile] Loaded';
 export const RESET_PROJECT =  '[Project] Reset';
 export const LOADED_PROJECT =  '[Project] Loaded';
 
+export const TOGGLE_SETTING = '[App] Toogle Setting';
+
 export class ResetAction implements Action {
   readonly type = RESET;
 }
@@ -24,8 +26,14 @@ export class LoadedProjectAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class ToggleSettingAction implements Action {
+  readonly type = TOGGLE_SETTING;
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ResetAction
   | LoadedAction
   | ResetProjectAction
-  | LoadedProjectAction;
+  | LoadedProjectAction
+  | ToggleSettingAction;

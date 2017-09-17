@@ -14,6 +14,14 @@ const initialState: State = {
   project: {}
 };
 
+export interface AppState {
+  isShowSetting: boolean;
+};
+
+const initialAppState: AppState = {
+  isShowSetting: false
+};
+
 export function appReducer(state = initialState, action: actions.Actions): State {
   switch (action.type) {
     case actions.RESET: {
@@ -49,7 +57,21 @@ export function appReducer(state = initialState, action: actions.Actions): State
         project: project,
       });
     }
+    default: {
+      return state;
+    }
+  }
+}
 
+// TODO: Change this to appReducer
+export function appStateReducer(state = initialAppState, action: actions.Actions): AppState {
+  switch (action.type) {
+    case actions.TOGGLE_SETTING: {
+      const isShowSetting = action.payload;
+      return Object.assign({}, state, {
+        isShowSetting: isShowSetting
+      });
+    }
     default: {
       return state;
     }
