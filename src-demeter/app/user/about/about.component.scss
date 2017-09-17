@@ -1,0 +1,86 @@
+.about-container {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+.centered-content-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  .centered-content {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+.header {
+  display: flex;
+  .logo {
+    width: 80px;
+  }
+  margin-bottom: 15px;
+}
+.brand-wrap {
+  flex: 1;
+  align-self: center;
+  margin-left: 15px;
+  .brand-name {
+    font-size: 22px;
+    margin-bottom: 5px;
+  }
+  .brand-desc {
+    text-transform: uppercase;
+  }
+}
+
+.contact-info {
+  .contact-header {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .contact-label, .contact-value {
+    display: inline-block;
+  }
+
+  ul {
+    padding-left: 40px;
+    li {
+      list-style: none;
+    }
+  }
+
+  .contact-label {
+    width: 80px;
+    text-transform: uppercase;
+  }
+}
+
+.follow-us {
+  .follow-us-header {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  display: flex;
+  .follow-us-header {
+    min-width: 120px;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    &:not(:first-child) {
+      margin-left: 7px;
+    }
+  }
+}

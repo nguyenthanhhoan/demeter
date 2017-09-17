@@ -11,6 +11,7 @@ import { ToggleSettingAction } from '../../../core/actions/actions';
 export class HeaderComponent implements OnInit, OnDestroy{
   user = {};
   private storeSubscription: ISubscription;
+  private appStateSubscription: ISubscription;
   private isShowSetting: boolean = false;
   constructor(private store: Store<any>) { }
 
@@ -20,6 +21,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
       if (app.loaded) {
         this.user = app.user;
       }
+    });
+    this.appStateSubscription = this.store.select('appState')
+    .subscribe((app: any) => {
+      this.isShowSetting = app.isShowSetting;
     });
   }
 

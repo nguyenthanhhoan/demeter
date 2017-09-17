@@ -13,6 +13,7 @@ $background-color: rgb(80, 182, 88);
     padding: 10px;
     color: #fff;
     cursor: pointer;
+    display: flex;
     &:hover {
       background-color: $brand-color;
     }

@@ -10,23 +10,32 @@ import { ToggleSettingAction } from '../../../core/actions/actions';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss']
 })
-export class SettingComponent implements OnInit, OnDestroy{
+export class SettingComponent implements OnInit, OnDestroy {
+  user: any = {};
   isShowSetting: boolean = false;
   private storeSubscription: ISubscription;
+  private appStateSubscription: ISubscription;
 
   constructor(private router: Router,
               private store: Store<any>,
               private tokenService: Angular2TokenService) { }
 
   ngOnInit() {
-    this.storeSubscription = this.store.select('appState')
+    this.appStateSubscription = this.store.select('appState')
     .subscribe((app: any) => {
       this.isShowSetting = app.isShowSetting;
+    });
+    this.storeSubscription = this.store.select('app')
+    .subscribe((app: any) => {
+      if (app.user && app.user.id) {
+        this.user = app.user;
+      }
     });
   }
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
+    this.appStateSubscription.unsubscribe();
   }
 
   signOut() {

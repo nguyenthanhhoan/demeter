@@ -5,6 +5,7 @@ import { Angular2TokenService } from 'angular2-token';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { AppSettings } from './app.settings';
+import { ToggleSettingAction } from './core/actions/actions';
 
 @Component({
   selector: 'app-root',
@@ -74,6 +75,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   handleRouteParam(event) {
     if (event instanceof NavigationEnd) {
+      // Should hide the setting pane when navigation end
+      this.store.dispatch(new ToggleSettingAction(false));
       // TODO: Load user detail
     }
   }
