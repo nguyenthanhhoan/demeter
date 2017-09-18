@@ -18,6 +18,9 @@ export const routes: Routes = [{
     }, {
       path: 'camera',
       loadChildren: 'app/user/project/detail/camera/camera.module#CameraModule'
+    }, {
+      path: 'control',
+      loadChildren: 'app/user/project/detail/control/control.module#ControlModule'
     }]
   }]
 }];

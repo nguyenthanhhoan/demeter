@@ -18,3 +18,14 @@
   padding-top: 7px;
   color: $brand-color;
 }
+
+// Donot need margin-left: -13px
+.form-horizontal .form-group {
+  margin-left: initial;
+  margin-right: initial;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+  background: $brand-color;
+}

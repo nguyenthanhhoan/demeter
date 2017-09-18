@@ -1,0 +1,26 @@
+<div class="dmt-form">
+  <div
+    class="event"
+    *ngFor="let event of events">
+    <div class="condition first-line">
+      <input
+        class="form-control lower-form-control"
+        [(ngModel)]="event.timer_end_date" />
+      <input
+        class="form-control sensor-form-control"
+        [(ngModel)]="event.timer_end_date" />
+      <input
+        class="form-control upper-form-control"
+        [(ngModel)]="event.timer_end_date" />
+    </div>
+    <div class="condition second-line">
+      <div class="lower-form-control">
+        <button class="dmt-btn primary">OFF</button>
+      </div>
+      <div class="sensor-form-control"></div>
+      <div class="upper-form-control">
+        <button class="dmt-btn primary">ON</button>
+      </div>
+      </div>
+  </div>
+</div>

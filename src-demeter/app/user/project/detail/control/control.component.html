@@ -1,0 +1,71 @@
+<div class="tab-wrapper">
+  <div class="device-tab"
+    [ngClass]="selectedDevice.id == device.id ? 'active' : ''"
+    (click)="selectedDevice = device"
+    *ngFor="let device of devices">
+    {{ device.name }}
+  </div>
+</div>
+
+<div class="selected-device">
+  <div class="header">
+    <div class="form-horizontal dmt-form">
+      <div class="form-group">
+        <div class="control-label">
+            Name
+        </div>
+        <div class="name-form-group">
+          <input
+            class="form-control"
+            [(ngModel)]="selectedDevice.name" />
+        </div>
+      </div>
+    </div>
+  
+    <div class="mode-selection">
+      <label class="dmt-radio">
+        <input
+          [(ngModel)]="selectedDevice.mode"
+          type="radio"
+          value="manual"
+          name="mode" />
+        <i></i> Manual
+      </label>
+    
+      <label class="dmt-radio">
+        <input 
+        [(ngModel)]="selectedDevice.mode"
+        type="radio"
+        value="timer"
+        name="mode"/>
+        <i></i> Timer
+      </label>
+    
+      <label class="dmt-radio">
+        <input
+          [(ngModel)]="selectedDevice.mode"
+          type="radio"
+          value="event"
+          name="mode"/>
+        <i></i> Event
+      </label>
+    </div>
+  </div>
+
+  <div class="mode-detail manual-model" *ngIf="selectedDevice.mode == 'manual'">
+    <div class="toggle">
+      <input type="checkbox" dmtToggle [checked]="selectedDevice.value == '1'" />
+    </div>
+  </div>
+
+  <control-timer
+    [device]="selectedDevice"
+    *ngIf="selectedDevice.mode == 'timer'"></control-timer>
+  <control-event
+    [device]="selectedDevice"
+    *ngIf="selectedDevice.mode == 'event'"></control-event>
+
+  <button class="save-btn dmt-btn">
+    Save
+  </button>
+</div>

@@ -1,0 +1,48 @@
+<div class="timer-pane pedriod-pane">
+  <div class="title">Effective Period</div>
+  <div class="dmt-form">
+    <div class="form-group">
+      <div class="control-label">
+          From
+      </div>
+      <div class="form-control-wrap">
+        <input
+          class="form-control"
+          type="date"
+          [(ngModel)]="device.timer_start_date" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="control-label">
+          To
+      </div>
+      <div class="form-control-wrap">
+        <input
+          class="form-control"
+          type="date"
+          [(ngModel)]="device.timer_end_date" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timer-pane schedule-pane">
+  <div class="title">Schedule (everyday)</div>
+  <div class="dmt-form">
+    <div class="form-group" *ngFor="let schedule of schedules">
+      <div class="time-form-group">
+        <span>From</span>
+        <input
+          class="form-control time-control"
+          [(ngModel)]="device.timer_end_date" />
+        <span>To</span>
+        <input
+          class="form-control time-control"
+          [(ngModel)]="device.timer_end_date" />
+      </div>
+      <div class="toggle">
+        <input type="checkbox" dmtToggle size="mini" [checked]="true" />
+      </div>
+    </div>
+  </div>
+</div>
