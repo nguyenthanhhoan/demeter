@@ -21,6 +21,9 @@ export const routes: Routes = [{
     }, {
       path: 'control',
       loadChildren: 'app/user/project/detail/control/control.module#ControlModule'
+    }, {
+      path: 'setting',
+      loadChildren: 'app/user/project/detail/setting/setting.module#SettingModule'
     }]
   }]
 }];

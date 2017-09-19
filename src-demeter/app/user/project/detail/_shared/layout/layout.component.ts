@@ -56,7 +56,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     iconActive: 'assets/img/demeter/icon/SETTINGS.png',
     iconGrey: 'assets/img/demeter/icon/SETTINGS_GREY.png',
     title: 'Setting',
-    url: ''
+    url: 'setting'
   }];
   activeNavigation: any;
 

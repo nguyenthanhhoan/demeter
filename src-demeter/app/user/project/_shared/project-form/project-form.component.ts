@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../core/api/services/project.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 
@@ -12,7 +12,9 @@ declare var $: any;
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
+  @Input()
   project: any = {};
+  @Input()
   mode: String = 'new';
   user: any = {};
   private storeSubscription: ISubscription;
@@ -38,14 +40,10 @@ export class ProjectFormComponent implements OnInit {
   }
   fileChange(event) {
     let fileList: FileList = event.target.files;
-    if (this.mode === 'edit') {
-      // TODO: Update image
-    } else {
-      if (fileList.length > 0) {
-        this.project.image = fileList[0];
-      }
-      this.readURL(event.target);
+    if (fileList.length > 0) {
+      this.project.image = fileList[0];
     }
+    this.readURL(event.target);
   }
   readURL(input) {
     if (input.files && input.files[0]) {
@@ -62,6 +60,12 @@ export class ProjectFormComponent implements OnInit {
     .subscribe(() => {
       this.notificationService.showMessage('Project created successfully!');
       this.router.navigate([`/${this.user.username}`]);
+    });
+  }
+  update() {
+    this.projectService.put(this.project)
+    .subscribe(() => {
+      this.notificationService.showMessage('Project updated successfully!');
     });
   }
 }

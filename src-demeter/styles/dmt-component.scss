@@ -22,6 +22,9 @@
     padding-right: 15px;
     background-color: rgb(223, 232, 205);
   }
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #eee;
+  }
   .dmt-button {
     border: none;
     border-radius: 20px;
