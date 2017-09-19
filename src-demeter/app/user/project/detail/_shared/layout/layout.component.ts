@@ -42,14 +42,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
     iconActive: 'assets/img/demeter/icon/FINANCE.png',
     iconGrey: 'assets/img/demeter/icon/FINANCE_GREY.png',
     title: 'Finance',
-    url: ''
+    url: 'finance'
   }, {
     id: 'Report',
     icon: 'assets/img/demeter/icon/REPORT_GREY.png',
     iconActive: 'assets/img/demeter/icon/REPORT.png',
     iconGrey: 'assets/img/demeter/icon/REPORT_GREY.png',
     title: 'Report',
-    url: ''
+    url: 'report'
   }, {
     id: 'Setting',
     icon: 'assets/img/demeter/icon/SETTINGS_GREY.png',

@@ -22,6 +22,12 @@ export const routes: Routes = [{
       path: 'control',
       loadChildren: 'app/user/project/detail/control/control.module#ControlModule'
     }, {
+      path: 'finance',
+      loadChildren: 'app/user/project/detail/finance/finance.module#FinanceModule'
+    }, {
+      path: 'report',
+      loadChildren: 'app/user/project/detail/report/report.module#ReportModule'
+    }, {
       path: 'setting',
       loadChildren: 'app/user/project/detail/setting/setting.module#SettingModule'
     }]
