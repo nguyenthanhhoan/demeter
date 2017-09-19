@@ -12,6 +12,13 @@ $brand-color: rgb(49, 139, 80);
     margin: 30px 30px 0 30px;
   }
 
+  .add-btn-wrap {
+    text-align: right;
+    .add-btn {
+      text-transform: uppercase;
+    }
+  }
+
   .form-group {
     display: flex;
     align-items: center;
@@ -35,7 +42,7 @@ $brand-color: rgb(49, 139, 80);
 
 .schedule-pane {
   .time-control {
-    width: 70px;
+    max-width: 150px;
     text-align: right;
   }
 

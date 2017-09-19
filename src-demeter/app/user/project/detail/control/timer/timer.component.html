@@ -29,20 +29,30 @@
 <div class="timer-pane schedule-pane">
   <div class="title">Schedule (everyday)</div>
   <div class="dmt-form">
-    <div class="form-group" *ngFor="let schedule of schedules">
+    <div class="form-group" *ngFor="let schedule of device.timer_daily_schedule">
       <div class="time-form-group">
         <span>From</span>
         <input
           class="form-control time-control"
-          [(ngModel)]="device.timer_end_date" />
+          type="time"
+          [(ngModel)]="schedule.from_time" />
         <span>To</span>
         <input
           class="form-control time-control"
-          [(ngModel)]="device.timer_end_date" />
+          type="time"
+          [(ngModel)]="schedule.to_time" />
       </div>
       <div class="toggle">
-        <input type="checkbox" dmtToggle size="mini" [checked]="true" />
+        <input type="checkbox" dmtToggle size="mini"
+          [(ngModel)]="schedule.value" />
       </div>
+    </div>
+    <div
+      class="div add-btn-wrap"
+      *ngIf="device.timer_daily_schedule.length < 5">
+      <button
+        (click)="addSchedule()"
+        class="add-btn dmt-btn btn-primary">Add</button>
     </div>
   </div>
 </div>

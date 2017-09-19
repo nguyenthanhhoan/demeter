@@ -5,22 +5,45 @@
     <div class="condition first-line">
       <input
         class="form-control lower-form-control"
-        [(ngModel)]="event.timer_end_date" />
+        [(ngModel)]="event.lower_limit" />
+      <img
+        class="greater-icon"
+        src="assets/img/demeter/icon/greater.png" alt="greater_icon">
       <input
         class="form-control sensor-form-control"
-        [(ngModel)]="event.timer_end_date" />
+        [(ngModel)]="event.value" />
+      <img
+        class="greater-icon"
+        src="assets/img/demeter/icon/greater.png" alt="greater_icon">
       <input
         class="form-control upper-form-control"
-        [(ngModel)]="event.timer_end_date" />
+        [(ngModel)]="event.upper_limit" />
     </div>
     <div class="condition second-line">
       <div class="lower-form-control">
-        <button class="dmt-btn primary">OFF</button>
+        <button class="dmt-btn btn-primary"
+          (click)="toggleValue(event, 'lower_limit_value')">
+          {{ event.lower_limit_value === 1 ? 'OFF': 'ON' }}
+        </button>
       </div>
-      <div class="sensor-form-control"></div>
+      <div class="sensor-form-control">
+        <span class="remove-btn"
+          (click)="confirmRemove(event)">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
+      </div>
       <div class="upper-form-control">
-        <button class="dmt-btn primary">ON</button>
+        <button class="dmt-btn btn-primary"
+          (click)="toggleValue(event, 'upper_limit_value')">
+          {{ event.upper_limit_value === 1 ? 'OFF': 'ON' }}
+        </button>
       </div>
-      </div>
+    </div>
+  </div>
+  <div class="div add-btn-wrap"
+    *ngIf="events.length < 5">
+    <button
+      (click)="addEvent()"
+      class="add-btn dmt-btn btn-primary">Add</button>
   </div>
 </div>

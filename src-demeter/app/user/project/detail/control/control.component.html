@@ -1,6 +1,6 @@
 <div class="tab-wrapper">
   <div class="device-tab"
-    [ngClass]="selectedDevice.id == device.id ? 'active' : ''"
+    [ngClass]="selectedDevice.uuid == device.uuid ? 'active' : ''"
     (click)="selectedDevice = device"
     *ngFor="let device of devices">
     {{ device.name }}
@@ -59,13 +59,16 @@
   </div>
 
   <control-timer
+    class="control-container"
     [device]="selectedDevice"
     *ngIf="selectedDevice.mode == 'timer'"></control-timer>
   <control-event
+    class="control-container"
     [device]="selectedDevice"
     *ngIf="selectedDevice.mode == 'event'"></control-event>
 
-  <button class="save-btn dmt-btn">
-    Save
+  <button class="save-btn dmt-btn"
+    (click)="updateDevice()">
+    Update Device
   </button>
 </div>

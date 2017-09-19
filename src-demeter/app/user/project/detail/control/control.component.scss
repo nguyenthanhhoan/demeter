@@ -49,13 +49,17 @@ $brand-color: rgb(49, 139, 80);
 
   .save-btn {
     margin-top: auto;
-    width: 50%;
+    width: 150px;
+    text-transform: uppercase;
     align-self: center;
     color: #fff;
     background-color: $brand-color;
     &:hover {
       background-color: darken($brand-color, 5%);
     }
+  }
+  .control-container {
+    margin-bottom: 15px;
   }
 }
 

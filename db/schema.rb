@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915102132) do
+ActiveRecord::Schema.define(version: 20170919130538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "alert_rules", force: :cascade do |t|
     t.string   "name"
@@ -145,8 +146,13 @@ ActiveRecord::Schema.define(version: 20170915102132) do
     t.integer  "value_data_type"
     t.string   "chart_value_suffix"
     t.integer  "mode"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.uuid     "uuid",                 default: -> { "gen_random_uuid()" }, null: false
+    t.datetime "timer_start_date"
+    t.datetime "timer_end_date"
+    t.json     "timer_daily_schedule"
+    t.json     "events"
     t.index ["family_package_id"], name: "index_family_devices_on_family_package_id", using: :btree
   end
 

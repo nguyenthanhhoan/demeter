@@ -72,7 +72,7 @@ Rails.application.routes.draw do
 
   namespace :family do
     resources :projects
-    resources :devices do
+    resources :devices, only: [:update] do
       collection do
         get 'list_device_assigned' => 'devices#list_device_assigned'
         post 'update_device_value' => 'devices#update_device_value'

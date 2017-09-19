@@ -1,11 +1,14 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 declare var $: any;
 @Directive({
   selector: '[dmtToggle]'
 })
 export class ToggleDirective implements OnInit {
-
+  @Input()
+  private ngModel;
+  @Output()
+  private ngModelChange = new EventEmitter();
   @Input()
   private size: string;
   private checkboxEle;
@@ -15,7 +18,11 @@ export class ToggleDirective implements OnInit {
 
   ngOnInit() {
     this.checkboxEle.bootstrapSwitch({
-      size: this.size
+      state: this.ngModel,
+      size: this.size,
+      onSwitchChange: (event, state) => {
+        this.ngModelChange.emit(state);
+      }
     });
   }
 }
