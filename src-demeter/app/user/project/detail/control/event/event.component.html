@@ -1,7 +1,7 @@
 <div class="dmt-form">
   <div
     class="event"
-    *ngFor="let event of events">
+    *ngFor="let event of device.events">
     <div class="condition first-line">
       <input
         class="form-control lower-form-control"
@@ -9,9 +9,13 @@
       <img
         class="greater-icon"
         src="assets/img/demeter/icon/greater.png" alt="greater_icon">
-      <input
+      <select
         class="form-control sensor-form-control"
-        [(ngModel)]="event.value" />
+        [(ngModel)]="event.sensor_id">
+        <option
+          *ngFor="let sensor of sensors"
+         [value]="sensor.uuid">{{sensor.name}}</option>
+      </select>
       <img
         class="greater-icon"
         src="assets/img/demeter/icon/greater.png" alt="greater_icon">
@@ -27,10 +31,10 @@
         </button>
       </div>
       <div class="sensor-form-control">
-        <span class="remove-btn"
+        <!-- <span class="remove-btn"
           (click)="confirmRemove(event)">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
-        </span>
+        </span> -->
       </div>
       <div class="upper-form-control">
         <button class="dmt-btn btn-primary"
@@ -41,7 +45,7 @@
     </div>
   </div>
   <div class="div add-btn-wrap"
-    *ngIf="events.length < 5">
+    *ngIf="device.events.length < 5">
     <button
       (click)="addEvent()"
       class="add-btn dmt-btn btn-primary">Add</button>

@@ -10,42 +10,49 @@ declare var moment: any;
 export class EventComponent implements OnInit, OnChanges {
   @Input()
   device: any = {};
-  events: any[] = [{
-
-  }, {
-
-  }];
+  @Input()
+  sensors: any = [];
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    // this.checkAndInitData();
+    this.checkAndInitData();
   }
 
   ngOnChanges() {
-    // this.checkAndInitData();
+    this.checkAndInitData();
   }
 
-  
+  checkAndInitData() {
+    // Check device have been loaded
+    let { device } = this;
+    if (this.device && this.device.uuid) {
+      if (!device.events) {
+        device.events = [];
+      }
+    }
+  }
 
   toggleValue(event, prop) {
-    if (event[prop] === 1) {
-      event[prop] = 0;
+    if (event[prop] === true) {
+      event[prop] = false;
     } else {
-      event[prop] = 1;
+      event[prop] = true;
     }
   }
 
   addEvent() {
-    this.events.push({
-
+    this.device.events.push({
+      lower_limit_value: true,
+      upper_limit_value: true
     });
   }
   confirmRemove(event) {
+    let { events } = this.device;
     this.notificationService.confirm('Do you want to remove this event?')
     .subscribe(() => {
-      const index = this.events.indexOf(event);
-      this.events.splice(index, 1);
+      const index = events.indexOf(event);
+      events.splice(index, 1);
     });
   }
 }

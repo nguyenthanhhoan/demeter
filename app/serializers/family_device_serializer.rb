@@ -16,4 +16,10 @@ class FamilyDeviceSerializer < ApplicationSerializer
       JSON.parse(object.timer_daily_schedule)
     end
   end
+
+  def events
+    if object.events.present?
+      JSON.parse(object.events)
+    end
+  end
 end

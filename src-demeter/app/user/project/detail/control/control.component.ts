@@ -13,7 +13,12 @@ export class ControlComponent implements OnInit, OnDestroy {
   project: any = {};
   isRequesting: boolean;
   package_id: string;
+
+  // devices that can control
   devices: any = [];
+
+  // devices that can read value only
+  sensors: any = [];
   selectedDevice: any = {};
   @ViewChild('controlTimer') controlTimer;
   private storeSubscription: ISubscription;
@@ -40,11 +45,15 @@ export class ControlComponent implements OnInit, OnDestroy {
     this.isRequesting = true;
     let params: URLSearchParams = new URLSearchParams();
     params.set('package_id', this.package_id);
-    params.set('field_attribute', 'read_write');
     this.deviceService.getListAssigned({
       search: params
     }).subscribe((devices) => {
-      this.devices = devices;
+      this.devices = devices.filter((device) => {
+        return device.field_attribute === 'read_write';
+      });
+      this.sensors = devices.filter((device) => {
+        return device.field_attribute !== 'read_write';
+      });
       this.selectedDevice = this.devices[0];
       this.isRequesting = false;
     });

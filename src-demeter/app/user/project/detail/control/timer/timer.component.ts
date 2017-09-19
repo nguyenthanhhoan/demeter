@@ -7,12 +7,18 @@ declare var moment: any;
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnInit {
+export class TimerComponent implements OnInit, OnChanges {
   @Input()
   device: any = {};
+
   ngOnInit() {
     this.checkAndInitData();
   }
+
+  ngOnChanges() {
+    this.checkAndInitData();
+  }
+
   checkAndInitData() {
     // Check device have been loaded
     let { device } = this;
