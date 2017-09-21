@@ -37,13 +37,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.projects = projects;
     });
   }
-  confirmRemove(project) {
+  confirmRemove($event, project) {
+    $event.stopPropagation();
     this.notificationService.confirm('Do you want to remove this project?')
     .subscribe(() => {
       this.projectService.delete(project.id)
       .subscribe(() => {
+        this.notificationService.showMessage('Project was removed successfull!');
         this.loadProjects();
       });
     });
+  }
+
+  navigateToProject(id) {
+    let { user } = this;
+    this.router.navigate([`/${user.username}/project/${id}`]);
   }
 }

@@ -15,10 +15,15 @@ export class ProjectService {
 
   buildFormData(project) {
     let formData: FormData = new FormData();
-    formData.append('project[name]', project.name);
-    formData.append('project[package_id]', project.package_id);
-    formData.append('project[camera_id]', project.camera_id);
-
+    if (project.name) {
+      formData.append('project[name]', project.name);
+    }
+    if (project.package_id) {
+      formData.append('project[package_id]', project.package_id);
+    }
+    if (project.camera_id) {
+      formData.append('project[camera_id]', project.camera_id);
+    }
     if (project.image && project.image.size > 0) {
       formData.append('project[image]', project.image);
     }
