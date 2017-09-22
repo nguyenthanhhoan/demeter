@@ -4,11 +4,10 @@
   </div>
   <div class="footer-navigation">
     <a class="item"
-      routerLink="/{{user.username}}/project/{{project.id}}/{{navigation.url}}"
       (mouseenter)="mouseenter(navigation)"
       (mouseleave)="mouseleave(navigation)"
       [ngClass]="navigation.id == activeNavigation.id ? 'active' : ''"
-      (click)="activeNavigation = navigation"
+      (click)="handleNavigationClick(navigation)"
       *ngFor="let navigation of navigations">
   
       <div class="icon">
@@ -16,5 +15,33 @@
       </div>
       <div class="title">{{navigation.title}}</div>
     </a>
+    <a class="item"
+      (mouseenter)="mouseenter(moreIcon)"
+      (mouseleave)="mouseleave(moreIcon)"
+      (click)="handleNavigationClick(moreIcon)">
+
+      <div class="icon">
+        <img [src]="moreIcon.icon" alt="{{moreIcon.title}}" class="img-responsive">
+      </div>
+      <div class="title">{{moreIcon.title}}</div>
+    </a>
   </div>
+  <div class="more-navigation"
+    *ngIf="isShowMoreBottomBar">
+    <a class="item"
+      (mouseenter)="mouseenter(navigation)"
+      (mouseleave)="mouseleave(navigation)"
+      [ngClass]="navigation.id == activeNavigation.id ? 'active' : ''"
+      (click)="handleNavigationClick(navigation)"
+      *ngFor="let navigation of moreNavigations">
+  
+      <div class="item-content">
+        <div class="icon">
+          <img [src]="navigation.id == activeNavigation.id ? navigation.iconActive : navigation.icon" alt="{{navigation.title}}" class="img-responsive">
+        </div>
+        <div class="title">{{navigation.title}}</div>
+      </div>
+    </a>
+  </div>
+
 </div>

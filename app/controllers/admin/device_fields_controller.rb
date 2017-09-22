@@ -15,9 +15,10 @@ class Admin::DeviceFieldsController < Admin::AdminController
 
   def create
     @device_field = DeviceField.new(device_field_params)
+    gateway = @device_field.device.name
 
     if @device_field.save
-      AwsIotService.update_thing_shadow(@device_field)
+      AwsIotService.update_thing_shadow(gateway, @device_field)
       render json: @device_field
     else
       render :json => { errors: @device_field.errors }, :status => :bad_request
@@ -26,7 +27,8 @@ class Admin::DeviceFieldsController < Admin::AdminController
 
   def update
     if @device_field.update(device_field_params)
-      AwsIotService.update_thing_shadow(@device_field)
+      gateway = @device_field.device.name
+      AwsIotService.update_thing_shadow(gateway, @device_field)
       render json: @device_field
     else
       render :json => { errors: @device_field.errors }, :status => :bad_request

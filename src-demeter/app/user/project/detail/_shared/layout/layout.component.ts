@@ -1,7 +1,8 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToggleShowMoreBottomBarAction } from '../../../../../core/actions/actions';
 
 @Component({
   templateUrl: './layout.component.html',
@@ -36,7 +37,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
     iconGrey: 'assets/img/demeter/icon/CONTROL_GREY.png',
     title: 'Control',
     url: 'control'
-  }, {
+  }];
+  moreIcon = {
+    id: 'More',
+    icon: 'assets/img/demeter/icon/MORE_GREY.png',
+    iconActive: 'assets/img/demeter/icon/MORE.png',
+    iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
+    title: 'More',
+    url: 'more',
+  };
+  moreNavigations = [{
     id: 'Finance',
     icon: 'assets/img/demeter/icon/FINANCE_GREY.png',
     iconActive: 'assets/img/demeter/icon/FINANCE.png',
@@ -51,6 +61,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
     title: 'Report',
     url: 'report'
   }, {
+    id: 'Alert',
+    icon: 'assets/img/demeter/icon/ALERT_GREY.png',
+    iconActive: 'assets/img/demeter/icon/ALERT.png',
+    iconGrey: 'assets/img/demeter/icon/ALERT_GREY.png',
+    title: 'Alert',
+    url: 'alert'
+  }, {
     id: 'Setting',
     icon: 'assets/img/demeter/icon/SETTINGS_GREY.png',
     iconActive: 'assets/img/demeter/icon/SETTINGS.png',
@@ -59,11 +76,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
     url: 'setting'
   }];
   activeNavigation: any;
+  isShowMoreBottomBar: boolean = false;
 
   private storeSubscription: ISubscription;
+  private appStateSubscription: ISubscription;
   private project: any = {};
   private user: any = {};
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private store: Store<any>) {
   }
 
@@ -77,6 +97,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.user = app.user;
       }
     });
+    this.appStateSubscription = this.store.select('appState')
+    .subscribe((app: any) => {
+      this.isShowMoreBottomBar = app.isShowMoreBottomBar;
+    });
     this.findActiveNav();
   }
 
@@ -89,6 +113,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
   mouseleave(navigation) {
     navigation.icon = navigation.iconGrey;
+  }
+
+  handleNavigationClick(navigation) {
+    if (navigation.id !== 'More') {
+      this.activeNavigation = navigation;
+      this.router.navigate([`/${this.user.username}/project/${this.project.id}/${navigation.url}`]);
+    } else {
+      this.isShowMoreBottomBar = !this.isShowMoreBottomBar;
+      this.store.dispatch(new ToggleShowMoreBottomBarAction(this.isShowMoreBottomBar));
+    }
   }
 
   private findActiveNav() {

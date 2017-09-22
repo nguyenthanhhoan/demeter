@@ -16,10 +16,12 @@ const initialState: State = {
 
 export interface AppState {
   isShowSetting: boolean;
+  isShowMoreBottomBar: boolean;
 };
 
 const initialAppState: AppState = {
-  isShowSetting: false
+  isShowSetting: false,
+  isShowMoreBottomBar: false
 };
 
 export function appReducer(state = initialState, action: actions.Actions): State {
@@ -70,6 +72,12 @@ export function appStateReducer(state = initialAppState, action: actions.Actions
       const isShowSetting = action.payload;
       return Object.assign({}, state, {
         isShowSetting: isShowSetting
+      });
+    }
+    case actions.TOGGLE_SHOW_MORE_BOTTOM_BAR: {
+      const isShowMoreBottomBar = action.payload;
+      return Object.assign({}, state, {
+        isShowMoreBottomBar: isShowMoreBottomBar
       });
     }
     default: {

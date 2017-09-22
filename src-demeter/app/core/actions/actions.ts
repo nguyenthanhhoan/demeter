@@ -7,6 +7,7 @@ export const RESET_PROJECT =  '[Project] Reset';
 export const LOADED_PROJECT =  '[Project] Loaded';
 
 export const TOGGLE_SETTING = '[App] Toogle Setting';
+export const TOGGLE_SHOW_MORE_BOTTOM_BAR = '[App] Toogle Show More Bottom Bar';
 
 export class ResetAction implements Action {
   readonly type = RESET;
@@ -31,9 +32,15 @@ export class ToggleSettingAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class ToggleShowMoreBottomBarAction implements Action {
+  readonly type = TOGGLE_SHOW_MORE_BOTTOM_BAR;
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ResetAction
   | LoadedAction
   | ResetProjectAction
   | LoadedProjectAction
-  | ToggleSettingAction;
+  | ToggleSettingAction
+  | ToggleShowMoreBottomBarAction;
