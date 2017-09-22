@@ -22,9 +22,13 @@ let appOpts = {
 
 restService.init(appOpts);
 
-shadow.init(thingShadowOpts, ['cdf-gateway', 'dmt-client', 'RGBLedLamp'], websocket, restService);
+// TODO: Should auto get list of thing name from rails db
+shadow.init(thingShadowOpts, [
+  'cdf-gateway', 'dmt-client',
+  'wifami-001', 'wifami-002', 'wifami-003',
+  'gfami-001','gfami-002','gfami-003'], websocket, restService);
 
-/*
+  /*
  *
  * Client code to subcribe socket
 
