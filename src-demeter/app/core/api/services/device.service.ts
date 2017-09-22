@@ -18,4 +18,9 @@ export class DeviceService {
   put(device): Observable<any[]> {
     return this.apiService.put(`${this.resourceUrl}/${device.uuid}`, device);
   }
+
+  updateDeviceValue(data): Observable<any> {
+    return this.apiService.post(`${this.resourceUrl}/update_device_value`, data);
+  }
+
 }

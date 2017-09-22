@@ -1,9 +1,12 @@
 import { URLSearchParams } from '@angular/http';
 import { ISubscription } from 'rxjs/Subscription';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DeviceService } from '../../../../core/api/services/device.service';
+import { AppSettings } from '../../../../app.settings';
+import { NotificationService } from '../../../../core/services/notification.service';
 
+declare var moment: any;
 @Component({
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -19,15 +22,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private storeSubscription: ISubscription;
 
   constructor(private store: Store<any>,
-              private deviceService: DeviceService) {}
+              private ngZone: NgZone,
+              private deviceService: DeviceService,
+              private notificationService: NotificationService) {}
 
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
-        // TODO:
-        this.package_id = 'B5NQNMEx8q';
+        this.package_id = app.project.package.hash_id;
         this.loadDevice();
       }
     });
@@ -47,6 +51,79 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }).subscribe((devices) => {
       this.devices = devices;
       this.isRequesting = false;
+      this.transformDeviceValue(this.devices);
     });
   }
+
+  transformDeviceValue(devices) {
+    devices.forEach((device, index) => {
+      device.value = parseInt(device.value, 10) === 1;
+      device.isRunning = false;
+    });
+  }
+
+  subscribeWebSocket() {
+    let ws = new WebSocket(AppSettings.websocketPath);
+
+    // Client Id for debugging purpose
+    let clientId = (new Date()).getTime();
+    window['socketClientId'] = clientId;
+
+    let subscribeDevices = this.devices.map((device) => {
+      return {
+        gateway: this.package_id,
+        fieldId: device.field_id
+      };
+    });
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        topic: 'REGISTER', clientId: clientId,
+        devices: subscribeDevices
+      }));
+    };
+
+    ws.onmessage = (event) => {
+      let receivedData = JSON.parse(event.data);
+      this.ngZone.run(() => {
+        this.updateDeviceValue(receivedData);
+      });
+    };
+  }
+
+  updateDeviceValue(receivedData) {
+    let newValue = parseInt(receivedData.value, 10) === 1;
+    let timeFormatted = moment(receivedData.timestamp * 1000)
+      .format(AppSettings.date_time_format.date_time);
+
+    this.devices.forEach((device, index) => {
+      if (this.package_id === receivedData.gateway && device.field_id === receivedData.field
+        && device.value !== newValue) {
+
+        console.log(`Received updated value device=${device.field_id}, value=${newValue}`);
+        device.value = newValue;
+      }
+    });
+  }
+
+  changeValue($event, device) {
+    $event.preventDefault();
+    let newValue = !device.value;
+    let intValue = newValue ? 1 : 0;
+    device.isRunning = true;
+    // this.deviceService.updateDeviceValue({
+    //   id: device.uuid,
+    //   value: intValue
+    // })
+    // .subscribe(() => {
+    //   this.notificationService.showMessage('Command sent successfully!');
+    //   device.isRunning = false;
+    // }, () => {
+    //   this.notificationService.showErrorMessage({
+    //     content: 'Cannot send command!'
+    //   });
+    //   device.isRunning = false;
+    // });
+  }
+
 }

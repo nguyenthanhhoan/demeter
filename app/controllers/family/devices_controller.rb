@@ -1,6 +1,6 @@
 class Family::DevicesController < AuthorizedController
-  before_action :get_package_id, only: [:list_device_assigned, :update_device_value]
-  before_action :get_device, only: [:update]
+  before_action :get_package_id, only: [:list_device_assigned]
+  before_action :get_device, only: [:update, :update_device_value]
 
   def list_device_assigned
     where_query = {
@@ -22,17 +22,17 @@ class Family::DevicesController < AuthorizedController
   end
 
   def update_device_value
-    device_field = DeviceField.find params[:device_field_id]
-    device_field.value = params[:value]
-    AwsIotService.update_thing_shadow(device_field)
-    render json: device_field
+    @device.value = params[:value]
+    gateway = @device.package.hash_id
+    AwsIotService.update_thing_shadow(gateway, @device)
+    render json: @device
   end
 
   private
 
     def get_package_id
-      hash_id = params[:package_id]
-      @package_id = HashIdService.new.decode_package(hash_id)
+      package = Family::Package.find_by_hash_id params[:package_id]
+      @package_id = package.id
     end
 
     def device_params

@@ -38,14 +38,14 @@ class AwsIotService
     thing_state = JSON.parse(JSON.parse(payload)[0])
   end
 
-  def self.update_thing_shadow(device_field)
+  def self.update_thing_shadow(thing_name, device_field)
     client = Aws::IoTDataPlane::Client.new({
       region: ENV.fetch('AWS_DYNAMODB_REGION'),
       endpoint: ENV.fetch('AWS_THING_SHADOW_REST_API')
     })
 
     # update_rate is 0 means this field can update value
-    if device_field.update_rate == 0
+    # if device_field.update_rate == 0
 
       value = device_field.value
       if device_field.integer?
@@ -64,12 +64,12 @@ class AwsIotService
       }
 
       Rails.logger.info 'Aws::IoTDataPlane'
-      Rails.logger.info "Prepare to submit thing_name: #{device_field.device.name} with new state: #{submit_state.to_json.to_s}"
+      Rails.logger.info "Prepare to submit thing_name: #{thing_name} with new state: #{submit_state.to_json.to_s}"
       thing = client.update_thing_shadow({
-        thing_name: device_field.device.name,
+        thing_name: thing_name,
         payload: submit_state.to_json.to_s
       })
-    end
+    # end
   end
 end
 

@@ -93,7 +93,13 @@ $brand-color: rgb(49, 139, 80);
 
 .mode-detail.manual-model {
   margin-top: 45px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .device-spinner {
+    margin-top: 20px;
+    position: relative;
+  }
 }
 
 /*

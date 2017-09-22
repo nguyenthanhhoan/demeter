@@ -112,7 +112,9 @@ class ProgramExecutionService
 
       if device_field.value != value
         device_field.value = value
-        AwsIotService.update_thing_shadow(device_field)
+
+        gateway = device_field.device.name
+        AwsIotService.update_thing_shadow(gateway, device_field)
       else
         Rails.logger.info "[ProgramExecutionWorker] [device_field=#{field_id}, zone_id=#{zone.id}]. No need to update"
       end

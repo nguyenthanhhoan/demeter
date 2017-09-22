@@ -57,8 +57,6 @@ export class SensorDataChartComponent implements OnDestroy {
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
-        // TODO:
-        this.package_id = 'B5NQNMEx8q';
         this.initData();
       }
     });
@@ -80,6 +78,7 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   initData() {
+    this.package_id = this.project.package.hash_id;
     this.requestFieldAssignedToZone();
   }
 
@@ -274,7 +273,7 @@ export class SensorDataChartComponent implements OnDestroy {
 
     let subscribeDevices = this.fields.map((field) => {
       return {
-        gateway: 'dmt-client',
+        gateway: this.package_id,
         fieldId: field.field_id
       };
     });
@@ -297,7 +296,7 @@ export class SensorDataChartComponent implements OnDestroy {
   updateDeviceValue(receivedData) {
     let newValue = receivedData.value;
     this.fields.forEach((field, index) => {
-      if (field.device.name === receivedData.gateway && field.field_id === receivedData.field
+      if (this.package_id === receivedData.gateway && field.field_id === receivedData.field
         && field.value !== newValue) {
 
         console.log(`Received updated value field=${field.field_id}, value=${newValue}`);

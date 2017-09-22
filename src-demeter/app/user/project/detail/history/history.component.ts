@@ -36,8 +36,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
-        // TODO:
-        this.package_id = 'B5NQNMEx8q';
+        this.package_id = app.project.package.hash_id;
         this.load24hData();
       }
     });

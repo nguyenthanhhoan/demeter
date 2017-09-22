@@ -12,6 +12,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 export class ControlComponent implements OnInit, OnDestroy {
   project: any = {};
   isRequesting: boolean;
+  isDeviceUpdating: boolean = false;
   package_id: string;
 
   // devices that can control
@@ -31,8 +32,7 @@ export class ControlComponent implements OnInit, OnDestroy {
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
-        // TODO:
-        this.package_id = 'B5NQNMEx8q';
+        this.package_id = app.project.package.hash_id;
         this.loadDevice();
       }
     });
@@ -82,5 +82,25 @@ export class ControlComponent implements OnInit, OnDestroy {
     }, () => {
       this.isRequesting = false;
     });
+  }
+
+  changeValue($event, device) {
+    $event.preventDefault();
+    let newValue = !device.value;
+    let intValue = newValue ? 1 : 0;
+    this.isDeviceUpdating = true;
+    // this.deviceService.updateDeviceValue({
+    //   id: device.uuid,
+    //   value: intValue
+    // })
+    // .subscribe(() => {
+    //   this.notificationService.showMessage('Command sent successfully!');
+    //   this.isDeviceUpdating = false;
+    // }, () => {
+    //   this.notificationService.showErrorMessage({
+    //     content: 'Cannot send command!'
+    //   });
+    //   this.isDeviceUpdating = false;
+    // });
   }
 }

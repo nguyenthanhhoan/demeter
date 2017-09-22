@@ -22,4 +22,11 @@ $brand-color: rgb(49, 139, 80);
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+  .device-spinner {
+    width: 50px;
+    position: relative;
+  }
+  .toggle {
+    min-width: 70px;
+  }
 }

@@ -54,7 +54,17 @@
 
   <div class="mode-detail manual-model" *ngIf="selectedDevice.mode == 'manual'">
     <div class="toggle">
-      <input type="checkbox" dmtToggle [checked]="selectedDevice.value == '1'" />
+      <label class="dmt-toggle"
+        (click)="changeValue($event, selectedDevice)"
+        [class.state-disabled]="isDeviceUpdating">
+        <input type="checkbox"
+          [ngModel]="selectedDevice.value"
+          [disabled]="isDeviceUpdating">
+        <i data-swchoff-text="OFF" data-swchon-text="ON"></i>
+      </label>
+    </div>
+    <div class="device-spinner">
+      <app-spinner [isRunning]="isDeviceUpdating"></app-spinner>
     </div>
   </div>
 

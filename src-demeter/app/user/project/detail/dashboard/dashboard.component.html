@@ -6,8 +6,18 @@
     <div class="device-name">
       {{ device.name }}
     </div>
+    <div class="device-spinner">
+      <app-spinner [isRunning]="device.isRunning"></app-spinner>
+    </div>
     <div class="toggle">
-      <input type="checkbox" dmtToggle size="mini" [checked]="device.value == '1'" />
+      <label class="dmt-toggle"
+        (click)="changeValue($event, device)"
+        [class.state-disabled]="device.isRunning">
+        <input type="checkbox"
+          [ngModel]="device.value"
+          [disabled]="device.isRunning">
+        <i data-swchoff-text="OFF" data-swchon-text="ON"></i>
+      </label>
     </div>
   </div>
 </div>
