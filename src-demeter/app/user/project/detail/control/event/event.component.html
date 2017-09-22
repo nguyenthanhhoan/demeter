@@ -5,6 +5,7 @@
     <div class="condition first-line">
       <input
         class="form-control lower-form-control"
+        placeholder="Lower"
         [(ngModel)]="event.lower_limit" />
       <img
         class="greater-icon"
@@ -12,6 +13,7 @@
       <select
         class="form-control sensor-form-control"
         [(ngModel)]="event.sensor_id">
+        <option disabled value="">Sensor</option>
         <option
           *ngFor="let sensor of sensors"
          [value]="sensor.uuid">{{sensor.name}}</option>
@@ -21,33 +23,41 @@
         src="assets/img/demeter/icon/greater.png" alt="greater_icon">
       <input
         class="form-control upper-form-control"
+        placeholder="Higher"
         [(ngModel)]="event.upper_limit" />
     </div>
     <div class="condition second-line">
       <div class="lower-form-control">
         <button class="dmt-btn btn-primary"
           (click)="toggleValue(event, 'lower_limit_value')">
-          {{ event.lower_limit_value === 1 ? 'OFF': 'ON' }}
+          {{ event.lower_limit_value === 1 ? 'Off': 'On' }}
         </button>
       </div>
       <div class="sensor-form-control">
-        <!-- <span class="remove-btn"
-          (click)="confirmRemove(event)">
-          <i class="fa fa-trash-o" aria-hidden="true"></i>
-        </span> -->
+        <div class="delete-action-wrap">
+          <div 
+            class="delete-btn"
+            (click)="remove(event)"
+            >x</div>
+        </div>
       </div>
       <div class="upper-form-control">
         <button class="dmt-btn btn-primary"
           (click)="toggleValue(event, 'upper_limit_value')">
-          {{ event.upper_limit_value === 1 ? 'OFF': 'ON' }}
+          {{ event.upper_limit_value === 1 ? 'Off': 'On' }}
         </button>
       </div>
     </div>
   </div>
-  <div class="div add-btn-wrap"
-    *ngIf="device.events.length < 5">
+  <div
+    class="div btn-wrap">
+    <button
+      (click)="updateDevice()"
+      *ngIf="device.events.length > 0"
+      class="dmt-btn btn-primary">Save</button>
     <button
       (click)="addEvent()"
-      class="add-btn dmt-btn btn-primary">Add</button>
+      *ngIf="device.events.length < 5"
+      class="dmt-btn btn-primary">Add</button>
   </div>
 </div>

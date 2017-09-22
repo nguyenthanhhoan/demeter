@@ -23,7 +23,8 @@
     </div>
   
     <div class="mode-selection">
-      <label class="dmt-radio">
+      <label class="dmt-radio"
+        [ngClass]="selectedDevice.mode == 'manual' ? 'active': ''">
         <input
           [(ngModel)]="selectedDevice.mode"
           type="radio"
@@ -32,7 +33,8 @@
         <i></i> Manual
       </label>
     
-      <label class="dmt-radio">
+      <label class="dmt-radio"
+        [ngClass]="selectedDevice.mode == 'timer' ? 'active': ''">
         <input 
         [(ngModel)]="selectedDevice.mode"
         type="radio"
@@ -41,7 +43,8 @@
         <i></i> Timer
       </label>
     
-      <label class="dmt-radio">
+      <label class="dmt-radio"
+      [ngClass]="selectedDevice.mode == 'event' ? 'active': ''">
         <input
           [(ngModel)]="selectedDevice.mode"
           type="radio"
@@ -77,9 +80,4 @@
     [device]="selectedDevice"
     [sensors]="sensors"
     *ngIf="selectedDevice.mode == 'event'"></control-event>
-
-  <button class="save-btn dmt-btn"
-    (click)="updateDevice()">
-    Update Device
-  </button>
 </div>

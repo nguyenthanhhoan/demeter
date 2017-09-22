@@ -1,5 +1,5 @@
 <div class="timer-pane pedriod-pane">
-  <div class="title">Effective Period</div>
+  <div class="title">Period</div>
   <div class="dmt-form">
     <div class="form-group">
       <div class="control-label">
@@ -27,7 +27,7 @@
 </div>
 
 <div class="timer-pane schedule-pane">
-  <div class="title">Schedule (everyday)</div>
+  <div class="title">Schedule</div>
   <div class="dmt-form">
     <div class="form-group" *ngFor="let schedule of device.timer_daily_schedule">
       <div class="time-form-group">
@@ -42,17 +42,31 @@
           type="time"
           [(ngModel)]="schedule.to_time" />
       </div>
-      <div class="toggle">
-        <input type="checkbox" dmtToggle size="mini"
-          [(ngModel)]="schedule.value" />
+      <div class="actions">
+        <div class="toggle">
+          <label class="dmt-toggle">
+            <input type="checkbox"
+              [(ngModel)]="schedule.value">
+            <i data-swchoff-text="OFF" data-swchon-text="ON"></i>
+          </label>
+        </div>
+        <div class="delete-action-wrap">
+          <div 
+            class="delete-btn"
+            (click)="remove(schedule)"
+            >x</div>
+        </div>
       </div>
     </div>
     <div
-      class="div add-btn-wrap"
-      *ngIf="device.timer_daily_schedule.length < 5">
+      class="div btn-wrap">
+      <button
+        (click)="updateDevice()"
+        class="dmt-btn btn-primary">Save</button>
       <button
         (click)="addSchedule()"
-        class="add-btn dmt-btn btn-primary">Add</button>
+        *ngIf="device.timer_daily_schedule.length < 5"
+        class="dmt-btn btn-primary">Add</button>
     </div>
   </div>
 </div>

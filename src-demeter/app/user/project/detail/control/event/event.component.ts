@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { DeviceService } from '../../../../../core/api/services/device.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 declare var moment: any;
 @Component({
@@ -13,7 +14,8 @@ export class EventComponent implements OnInit, OnChanges {
   @Input()
   sensors: any = [];
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService,
+              private deviceService: DeviceService) {}
 
   ngOnInit() {
     this.checkAndInitData();
@@ -34,25 +36,42 @@ export class EventComponent implements OnInit, OnChanges {
   }
 
   toggleValue(event, prop) {
-    if (event[prop] === true) {
-      event[prop] = false;
+    if (event[prop] === 1) {
+      event[prop] = 0;
     } else {
-      event[prop] = true;
+      event[prop] = 1;
     }
   }
 
   addEvent() {
     this.device.events.push({
-      lower_limit_value: true,
-      upper_limit_value: true
+      lower_limit_value: 1,
+      upper_limit_value: 1,
+      sensor_id: ''
     });
   }
-  confirmRemove(event) {
+
+  remove(event) {
     let { events } = this.device;
-    this.notificationService.confirm('Do you want to remove this event?')
+    const index = events.indexOf(event);
+    events.splice(index, 1);
+  }
+
+  updateDevice() {
+    // TODO: Handle loading
+    // this.isRequesting = true;
+    let { device } = this;
+    let submitDevice: any = {
+      uuid: device.uuid,
+      name: device.name,
+      mode: 'event'
+    };
+    submitDevice.events = JSON.stringify(device.events);
+    this.deviceService.put(submitDevice)
     .subscribe(() => {
-      const index = events.indexOf(event);
-      events.splice(index, 1);
+      this.notificationService.showMessage('Update to device successfully!');
+    }, () => {
+      // this.isRequesting = false;
     });
   }
 }

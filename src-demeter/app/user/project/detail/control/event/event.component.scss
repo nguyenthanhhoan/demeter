@@ -15,6 +15,7 @@ $danger-color: #e51400;
   flex-direction: column;
   .condition {
     display: flex;
+    align-items: center;
 
     > *:not(:first-child) {
       margin-left: 15px;
@@ -22,8 +23,8 @@ $danger-color: #e51400;
   }
   .lower-form-control,
   .upper-form-control {
-    width: 50px;
-    text-align: right;
+    width: 55px;
+    text-align: center;
     &.form-control {
       padding: 6px 8px;
     }
@@ -61,13 +62,32 @@ $danger-color: #e51400;
   .remove-btn {
     display: none;
   }
+  .greater-icon {
+    width: 11px;
+    height: 22px; 
+  }
 }
 
-.add-btn-wrap {
-  text-align: center;
+.btn-wrap {
+  text-align: right;
   margin-top: 15px;
-  .add-btn {
-    text-transform: uppercase;
-    width: 65px;
+  button {
+    padding: 5px 12px;
+  }
+}
+
+.delete-action-wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .delete-btn {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background-color: #df333a;
+    color: #fff;
+    padding-left: 7px;
+    font-size: 14px;
+    cursor: pointer;
   }
 }

@@ -16,11 +16,12 @@
 
 .dmt-form {
   .form-control {
-    border-radius: 20px;
+    background-color: none;
     border: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color: rgb(223, 232, 205);
+    box-shadow: none;
+    padding: 0;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    border-radius: 0;
   }
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #eee;
@@ -36,10 +37,6 @@
         background-color: darken($brand-color, 5%);
       }
     }
-  }
-  .greater-icon {
-    width: 16px;
-    height: 32px; 
   }
 }
 
