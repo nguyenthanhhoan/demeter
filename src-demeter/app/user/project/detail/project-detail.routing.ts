@@ -28,6 +28,9 @@ export const routes: Routes = [{
       path: 'report',
       loadChildren: 'app/user/project/detail/report/report.module#ReportModule'
     }, {
+      path: 'alert',
+      loadChildren: 'app/user/project/detail/alert/alert.module#AlertModule'
+    }, {
       path: 'setting',
       loadChildren: 'app/user/project/detail/setting/setting.module#SettingModule'
     }]

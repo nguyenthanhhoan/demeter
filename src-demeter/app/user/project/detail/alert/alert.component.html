@@ -1,0 +1,102 @@
+<div class="alert-pane">
+  <div class="title">Deliver as</div>
+
+  <div class="pane-content trigger-list">
+    <div class="trigger-item">
+      <label class="dmt-checkbox">
+        <input type="checkbox" [(ngModel)]="alert.trigger_notification"/>
+        <i></i> Push Notification
+      </label>
+    </div>
+    <div class="trigger-item"
+      [ngClass]="alert.trigger_email ? 'open' : ''">
+      <label class="dmt-checkbox">
+        <input type="checkbox" [(ngModel)]="alert.trigger_email"/>
+        <i></i> Email
+      </label>
+
+      <div *ngIf="alert.trigger_email"
+        class="trigger-form">
+        <textarea [(ngModel)]="alert.trigger_emails" rows="3"></textarea>
+        <div class="note">Emails should be seperated by <code>;</code></div>
+      </div>
+    </div>
+    <div class="trigger-item"
+      [ngClass]="alert.trigger_message ? 'open' : ''">
+      <label class="dmt-checkbox">
+        <input type="checkbox" [(ngModel)]="alert.trigger_message"/>
+        <i></i> SMS
+      </label>
+      <div *ngIf="alert.trigger_message"
+        class="trigger-form">
+        <textarea [(ngModel)]="alert.trigger_messages" rows="3"></textarea>
+        <div class="note">Phones should be seperated by <code>;</code></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert-pane">
+  <div class="title">Notify me every</div>
+
+  <div class="pane-content interval-pane">
+    <div class="field-group">
+      <div class="select-hour">
+        <div class="dmt-select">
+          <select [(ngModel)]="interval.hour">
+            <option *ngFor="let hour of hours" 
+              [value]="hour">{{hour}}</option>
+          </select>
+        </div> hour
+      </div>
+      <div class="dmt-select">
+        <select [(ngModel)]="interval.minute">
+          <option *ngFor="let minute of minutes" 
+            [value]="minute">{{minute}}</option>
+        </select>
+      </div> minute
+    </div>
+  </div>
+</div>
+
+<div class="alert-pane">
+  <div class="title">When</div>
+  <div class="pane-content">
+    <div class="rule"
+      *ngFor="let rule of alert.rules">
+      
+      <span class="rule-name">{{rule.device.name}}</span>
+      <span class="rule-condition"
+        *ngIf="rule.device.field_attribute === 'read_write'">
+        {{ rule.value == 1 ? 'ON' : 'OFF '}}
+      </span>
+      <span class="rule-condition"
+        *ngIf="rule.device.field_attribute === 'read_only'">
+        {{ rule.condition == 'gt' ? '>': ''}}
+        {{ rule.condition == 'lt' ? '<': ''}}
+        {{ rule.value }}
+      </span>
+      <span class="action">
+        <div 
+          class="dmt-remove-btn"
+          (click)="remove(rule)"
+          >x</div>
+      </span>
+    </div>
+  </div>
+
+  <div
+    class="div btn-wrap">
+    <button
+      *ngIf="alert.rules.length > 0"
+      (click)="saveAlert()"
+      class="dmt-btn btn-primary btn-sm">Save</button>
+    <button
+      (click)="addRule()"
+      *ngIf="alert.rules.length < 5"
+      class="dmt-btn btn-primary btn-sm">Add</button>
+  </div>
+</div>
+
+<alert-rule #alertRuleModal
+  [devices]="devices"></alert-rule>

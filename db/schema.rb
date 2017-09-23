@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921164903) do
+ActiveRecord::Schema.define(version: 20170923063318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,15 @@ ActiveRecord::Schema.define(version: 20170921164903) do
     t.index ["family_package_id"], name: "index_family_devices_on_family_package_id", using: :btree
   end
 
+  create_table "family_notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "alert_type"
+    t.string   "alert_content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["user_id"], name: "index_family_notifications_on_user_id", using: :btree
+  end
+
   create_table "family_package_cameras", force: :cascade do |t|
     t.string   "salt"
     t.integer  "length"
@@ -175,6 +184,21 @@ ActiveRecord::Schema.define(version: 20170921164903) do
     t.datetime "updated_at",        null: false
     t.integer  "family_project_id"
     t.index ["family_project_id"], name: "index_family_packages_on_family_project_id", using: :btree
+  end
+
+  create_table "family_project_alerts", force: :cascade do |t|
+    t.integer  "family_project_id"
+    t.json     "rules"
+    t.integer  "interval"
+    t.boolean  "trigger_notification"
+    t.string   "trigger_notifications"
+    t.boolean  "trigger_email"
+    t.string   "trigger_emails"
+    t.boolean  "trigger_message"
+    t.string   "trigger_messages"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["family_project_id"], name: "index_family_project_alerts_on_family_project_id", using: :btree
   end
 
   create_table "family_projects", force: :cascade do |t|
@@ -363,8 +387,10 @@ ActiveRecord::Schema.define(version: 20170921164903) do
   add_foreign_key "device_value_histories", "device_fields"
   add_foreign_key "family_cameras", "family_package_cameras"
   add_foreign_key "family_devices", "family_packages"
+  add_foreign_key "family_notifications", "users"
   add_foreign_key "family_package_cameras", "family_projects"
   add_foreign_key "family_packages", "family_projects"
+  add_foreign_key "family_project_alerts", "family_projects"
   add_foreign_key "family_projects", "users"
   add_foreign_key "okr_objective_keys", "okr_objectives"
   add_foreign_key "okr_objectives", "okrs"

@@ -72,6 +72,7 @@ Rails.application.routes.draw do
 
   namespace :family do
     resources :projects
+    resources :project_alerts, only: [:show, :update]
     resources :devices, only: [:update] do
       collection do
         get 'list_device_assigned' => 'devices#list_device_assigned'

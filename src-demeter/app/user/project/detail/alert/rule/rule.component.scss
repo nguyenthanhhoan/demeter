@@ -1,0 +1,28 @@
+// TODO: Removed soon
+.rule-popup {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+
+  height: 500px;
+  width: 90%;
+  background-color: #fff;
+}
+
+.dmt-select {
+  select {
+    width: 100%;
+  }
+}
+
+.rule-form-control {
+  margin-bottom: 15px;
+}
+
+.value-form-control {
+  padding-left: 9px;
+}
+
+.actions {
+ text-align: right;
+}

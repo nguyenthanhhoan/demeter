@@ -40,7 +40,7 @@ export class ProjectService {
     return this.apiService.postFormData(this.resourceUrl, formData);
   }
 
-  updateImage (project_id, image): Observable<any> {
+  updateImage(project_id, image): Observable<any> {
     let formData: FormData = new FormData();
     formData.append('project[image]', image);
     return this.apiService

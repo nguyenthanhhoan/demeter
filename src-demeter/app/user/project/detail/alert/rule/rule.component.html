@@ -1,0 +1,46 @@
+<div class="dmt-form rule-popup" *ngIf="show">
+  <div class="dmt-select rule-form-control">
+    <select
+      [(ngModel)]="rule.device"
+      class="device-select">
+      <option disabled value="">Select Sensor/Device</option>
+      <option *ngFor="let device of devices" [ngValue]="device">{{device.name}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="rule.device.field_attribute === 'read_write'">
+    <div class="dmt-select rule-form-control">
+      <select
+        [(ngModel)]="rule.value"
+        class="device-select">
+        <option value="1">ON</option>
+        <option value="0">OFF</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="rule.device.field_attribute === 'read_only'">
+    <div class="dmt-select rule-form-control">
+      <select
+        [(ngModel)]="rule.condition"
+        class="device-select">
+        <option value="gt">Greater than</option>
+        <option value="lt">Smaller than</option>
+      </select>
+    </div>
+
+    <div class="rule-form-control value-form-control">
+      <input 
+        [(ngModel)]="rule.value"
+        type="number"
+        class="form-control" />
+    </div>
+  </div>
+  <div class="actions">
+    <button
+      (click)="add()"
+      class="dmt-btn btn-primary">Add</button>
+    <button
+      (click)="cancel()"
+      class="dmt-btn btn-cancel">Cancel</button>
+  </div>
+</div>

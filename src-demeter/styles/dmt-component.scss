@@ -57,6 +57,9 @@
       background-color: darken(#999, 5%);
     }
   }
+  &.btn-sm {
+    padding: 5px 12px;
+  }
 }
 
 .dmt-toggle {
@@ -67,8 +70,11 @@
   position: relative;
   display: block;
   font-weight: 400;
-  height: 30px;
+  height: 25px;
   width: 66px;
+
+  // Reset bootstrap label
+  margin-bottom: initial;
 
   input {
     position: absolute;
@@ -104,7 +110,7 @@
     -webkit-transition: border-color .3s;
     content: '';
     position: absolute;
-    top: 4px;
+    top: 0;
     right: 0;
     display: block;
     border-width: 1px;
@@ -144,5 +150,80 @@
       text-align: left;
       color: #5f5f5f;
     }
+  }
+}
+
+.dmt-checkbox {
+  position: relative;
+  font-weight: 500;
+  padding-top: 4px;
+  padding-left: 29px;
+
+  input {
+    position: absolute;
+    left: -9999px;
+  }
+
+  i {
+    cursor: pointer;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 0;
+    left: 0;
+    background: #fff;
+    border:1px solid #ddd;
+
+    &:after {
+      opacity: 0.2;
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 7px;
+      background: transparent;
+      top: 7px;
+      left: 6px;
+      border: 3px solid #333;
+      border-top: none;
+      border-right: none;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+  }
+
+  &:hover {
+    i:after {
+      opacity: 0.5;
+    }
+  }
+
+  input[type=checkbox]:checked + i:after {
+    opacity: 1;
+  }
+}
+
+.dmt-select {
+  select {
+    border: none;
+    background-color: transparent;
+    height: 32px;
+  }
+  border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.dmt-remove-btn {
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background-color: #df333a;
+  color: #fff;
+  padding-left: 7px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background-color: darken(#df333a, 5%);
   }
 }

@@ -14,6 +14,7 @@ $brand-color: rgb(49, 139, 80);
 
 .control-device {
   display: flex;
+  align-items: center;
   .device-name {
     font-size: 16px;
     color: $brand-color;

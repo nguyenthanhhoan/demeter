@@ -1,0 +1,81 @@
+.alert-pane {
+  margin-top: 15px;
+  .title {
+    font-weight: 700;
+    padding: 5px 0;
+    padding-left: 10px;
+    border-bottom: 1px solid rgb(190, 190, 190);
+  }
+
+  .pane-content {
+    padding: 15px 15px 0;
+  }
+
+}
+.trigger-list {
+  display: flex;
+  flex-direction: column;
+
+  .trigger-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .trigger-item.open {
+    margin-bottom: 15px;
+  }
+  .trigger-form {
+    padding-left: 27px;
+  }
+  textarea {
+    resize: none;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  .note {
+    color: #aaa;
+    font-size: 12px;
+  }
+}
+
+.interval-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field-group {
+  display: flex;
+  align-items: center;
+
+  .dmt-select {
+    min-width: 70px;
+    margin-right: 5px;
+    select {
+      width: 100%;
+    }
+  }
+  .select-hour {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+}
+
+.btn-wrap {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(210, 210, 210);
+  padding: 0 10px;
+  height: 40px;
+
+  .rule-name {
+    flex: 1;
+  }
+  .action, .rule-activation {
+    margin-left: 7px;
+  }
+}
