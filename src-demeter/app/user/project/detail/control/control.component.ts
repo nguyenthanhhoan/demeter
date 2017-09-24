@@ -1,9 +1,10 @@
 import { URLSearchParams } from '@angular/http';
 import { ISubscription } from 'rxjs/Subscription';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DeviceService } from '../../../../core/api/services/device.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { AppSettings } from '../../../../app.settings';
 
 @Component({
   templateUrl: './control.component.html',
@@ -24,6 +25,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   @ViewChild('controlTimer') controlTimer;
   private storeSubscription: ISubscription;
   constructor(private store: Store<any>,
+              private ngZone: NgZone,
               private deviceService: DeviceService,
               private notificationService: NotificationService) {}
 
@@ -56,6 +58,56 @@ export class ControlComponent implements OnInit, OnDestroy {
       });
       this.selectedDevice = this.devices[0];
       this.isRequesting = false;
+      this.transformDeviceValue(this.devices);
+      this.subscribeWebSocket();
+    });
+  }
+
+  transformDeviceValue(devices) {
+    devices.forEach((device, index) => {
+      device.value = parseInt(device.value, 10) === 1;
+    });
+  }
+
+  subscribeWebSocket() {
+    let ws = new WebSocket(AppSettings.websocketPath);
+
+    // Client Id for debugging purpose
+    let clientId = (new Date()).getTime();
+    window['socketClientId'] = clientId;
+
+    let subscribeDevices = this.devices.map((device) => {
+      return {
+        gateway: this.package_id,
+        fieldId: device.field_id
+      };
+    });
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        topic: 'REGISTER', clientId: clientId,
+        devices: subscribeDevices
+      }));
+    };
+
+    ws.onmessage = (event) => {
+      let receivedData = JSON.parse(event.data);
+      this.ngZone.run(() => {
+        this.updateDeviceValue(receivedData);
+      });
+    };
+  }
+
+  updateDeviceValue(receivedData) {
+    let newValue = parseInt(receivedData.value, 10) === 1;
+    this.devices.forEach((device, index) => {
+      if (this.package_id === receivedData.gateway && device.field_id === receivedData.field
+        && device.value !== newValue) {
+
+        console.log(`Received updated value device=${device.field_id}, value=${newValue}`);
+        device.value = newValue;
+        this.isDeviceUpdating = false;
+      }
     });
   }
 
@@ -89,18 +141,19 @@ export class ControlComponent implements OnInit, OnDestroy {
     let newValue = !device.value;
     let intValue = newValue ? 1 : 0;
     this.isDeviceUpdating = true;
-    // this.deviceService.updateDeviceValue({
-    //   id: device.uuid,
-    //   value: intValue
-    // })
-    // .subscribe(() => {
-    //   this.notificationService.showMessage('Command sent successfully!');
-    //   this.isDeviceUpdating = false;
-    // }, () => {
-    //   this.notificationService.showErrorMessage({
-    //     content: 'Cannot send command!'
-    //   });
-    //   this.isDeviceUpdating = false;
-    // });
+    this.deviceService.updateDeviceValue({
+      id: device.uuid,
+      value: intValue
+    })
+    .subscribe(() => {
+      this.notificationService.showMessage('Command sent successfully!');
+      // TODO: Handle timeout
+      // device.isDeviceUpdating = false;
+    }, () => {
+      this.notificationService.showErrorMessage({
+        content: 'Cannot send command!'
+      });
+      device.isDeviceUpdating = false;
+    });
   }
 }
