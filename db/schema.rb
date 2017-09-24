@@ -158,10 +158,10 @@ ActiveRecord::Schema.define(version: 20170923063318) do
 
   create_table "family_notifications", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "alert_type"
-    t.string   "alert_content"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "noti_type"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_family_notifications_on_user_id", using: :btree
   end
 
