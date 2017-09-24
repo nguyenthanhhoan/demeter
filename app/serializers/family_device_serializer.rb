@@ -22,4 +22,14 @@ class FamilyDeviceSerializer < ApplicationSerializer
       JSON.parse(object.events)
     end
   end
+
+  def mode
+    if object.read_write?
+      if object.mode.nil?
+        :manual
+      else 
+        object.mode
+      end
+    end
+  end
 end

@@ -51,7 +51,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     if (!projectId) {
       console.error('Cannot found projectId in url!');
     } else {
-      if (!this.project.id) {
+      // Neet to get the project based on the router segment
+      if (!this.project.id || (this.project.id !== projectId)) {
         console.log('Project haven\'n fetch. Need fetching');
         this.projectService.getOne(projectId)
         .subscribe((project) => {

@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.devices = devices;
       this.isRequesting = false;
       this.transformDeviceValue(this.devices);
+      this.subscribeWebSocket();
     });
   }
 
@@ -102,28 +103,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         console.log(`Received updated value device=${device.field_id}, value=${newValue}`);
         device.value = newValue;
+        device.isRunning = false;
       }
     });
   }
 
   changeValue($event, device) {
+    if (device.mode !== 'manual' || device.isRunning) {
+      return;
+    }
     $event.preventDefault();
     let newValue = !device.value;
     let intValue = newValue ? 1 : 0;
     device.isRunning = true;
-    // this.deviceService.updateDeviceValue({
-    //   id: device.uuid,
-    //   value: intValue
-    // })
-    // .subscribe(() => {
-    //   this.notificationService.showMessage('Command sent successfully!');
-    //   device.isRunning = false;
-    // }, () => {
-    //   this.notificationService.showErrorMessage({
-    //     content: 'Cannot send command!'
-    //   });
-    //   device.isRunning = false;
-    // });
+    this.deviceService.updateDeviceValue({
+      id: device.uuid,
+      value: intValue
+    })
+    .subscribe(() => {
+      this.notificationService.showMessage('Command sent successfully!');
+      // TODO: Handle timeout
+      // device.isRunning = false;
+    }, () => {
+      this.notificationService.showErrorMessage({
+        content: 'Cannot send command!'
+      });
+      device.isRunning = false;
+    });
   }
 
 }

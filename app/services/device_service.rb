@@ -41,7 +41,8 @@ class DeviceService
         field_value =  reported_field
       end
       field = devices.select { |device|
-        device.field_id == field_id && device.device.name == device_gateway
+        # TODO: In demeter corp, do we need to check device.device.name == device_gateway?
+        device.field_id == field_id # && device.device.name == device_gateway
       }[0]
       
       if field.present?
