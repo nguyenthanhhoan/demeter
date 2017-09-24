@@ -1,22 +1,22 @@
+import { Component, Input, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
-import { ISubscription } from 'rxjs/Subscription';
-import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'alert-rule',
-  templateUrl: './rule.component.html',
-  styleUrls: ['./rule.component.scss']
+  templateUrl: './rule.component.html'
 })
 export class RuleComponent {
   @Input()
   devices: any = [];
-  show: boolean = false;
-  rule: any = {};
+  @ViewChild('lgModal')
+  lgModal: any;
+  rule: any = {
+    device: {}
+  };
   private broadcast: Subject<any>;
   constructor() {}
 
   open(rule) {
-    this.show = true;
     if (typeof rule === 'undefined') {
       this.rule = {
         device: '',
@@ -25,15 +25,16 @@ export class RuleComponent {
       };
     }
     this.broadcast = new Subject();
+    this.lgModal.show();
     return this.broadcast;
   }
 
   add() {
     this.broadcast.next(this.rule);
-    this.show = false;
+    this.lgModal.hide();
   }
 
   cancel() {
-    this.show = false;
+    this.lgModal.hide();
   }
 }

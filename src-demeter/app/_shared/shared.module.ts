@@ -1,3 +1,4 @@
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,6 +12,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   imports: [
     BsDatepickerModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule,
     CommonModule,
     FormsModule,
@@ -23,6 +25,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   ],
   exports: [
     BsDatepickerModule,
+    ModalModule,
     RouterModule,
     LayoutModule,
     CommonModule,

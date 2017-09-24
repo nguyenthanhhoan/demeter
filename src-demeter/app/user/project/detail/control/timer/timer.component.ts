@@ -4,6 +4,7 @@ import { NotificationService } from '../../../../../core/services/notification.s
 import { DeviceService } from '../../../../../core/api/services/device.service';
 
 declare var moment: any;
+declare var uuid: any;
 @Component({
   selector: 'control-timer',
   templateUrl: './timer.component.html',
@@ -41,7 +42,9 @@ export class TimerComponent implements OnInit, OnChanges {
   }
 
   addSchedule() {
-    this.device.timer_daily_schedule.push({});
+    this.device.timer_daily_schedule.push({
+      id: uuid()
+    });
   }
 
   remove(schedule) {

@@ -143,6 +143,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
           this.activeNavigation = navigation;
         }
       });
+      this.moreNavigations.forEach((navigation) => {
+        if (navigation.url === url) {
+          this.activeNavigation = navigation;
+        }
+      });
     }
   }
 }
