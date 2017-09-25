@@ -24,7 +24,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>,
               private ngZone: NgZone,
               private deviceService: DeviceService,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService) {
+  }
 
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.isRequesting = false;
       this.transformDeviceValue(this.devices);
       this.subscribeWebSocket();
-    });
+    }, () => this.isRequesting = false );
   }
 
   transformDeviceValue(devices) {

@@ -15,6 +15,6 @@
 </div>
 <div *ngIf="!first_loaded">
   <div class="spinner-wrapper">
-    <app-spinner [isRunning]="!first_loaded"></app-spinner>
+    <app-spinner [isRunning]="this.isLoading"></app-spinner>
   </div>
 </div>

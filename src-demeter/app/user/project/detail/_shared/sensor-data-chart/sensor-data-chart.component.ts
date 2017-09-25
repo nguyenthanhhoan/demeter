@@ -24,6 +24,7 @@ export class SensorDataChartComponent implements OnDestroy {
   package_id: any;
 
   first_loaded = false;
+  isLoading = false;
   last_timestamp: any;
 
   chartTabs: any[] = [];
@@ -87,6 +88,7 @@ export class SensorDataChartComponent implements OnDestroy {
     let params: URLSearchParams = new URLSearchParams();
     params.set('package_id', this.package_id);
     params.set('field_attribute', 'read_only');
+    this.isLoading = true;
     this.deviceService.getListAssigned({
       search: params
     }).subscribe((fields) => {
@@ -96,7 +98,7 @@ export class SensorDataChartComponent implements OnDestroy {
       } else {
         this.first_loaded = true;
       }
-    });
+    }, () => { this.isLoading = false; });
   }
 
   requestChartData() {
@@ -104,6 +106,7 @@ export class SensorDataChartComponent implements OnDestroy {
       .subscribe((data) => {
         if (data) {
           this.first_loaded = true;
+          this.isLoading = false;
           console.log('Number of points returned ', data.xAxis.categories.length);
 
           if (data.xAxis.categories.length === 0) {
@@ -129,7 +132,7 @@ export class SensorDataChartComponent implements OnDestroy {
             this.subscribeWebSocket();
           }
         }
-      });
+      }, () => { this.isLoading = false; } );
   }
 
   loadHighChart() {

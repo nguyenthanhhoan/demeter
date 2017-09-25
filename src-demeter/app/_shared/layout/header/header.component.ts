@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
-      if (app.loaded) {
+      if (app.user && app.user.id) {
         this.user = app.user;
       }
     });

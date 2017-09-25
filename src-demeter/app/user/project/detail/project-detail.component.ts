@@ -4,7 +4,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ApiService } from '../../../core/api/api.service';
-import { LoadedProjectAction } from '../../../core/actions/actions';
+import { LoadedProjectAction, ResetProjectAction } from '../../../core/actions/actions';
 import { ProjectService } from '../../../core/api/services/project.service';
 
 @Component({
@@ -36,7 +36,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
-    // this.routerSubscription.unsubscribe();
+    this.resetProject();
+  }
+
+  private resetProject() {
+    this.store.dispatch(new ResetProjectAction());
   }
 
   private handleRouteParam() {

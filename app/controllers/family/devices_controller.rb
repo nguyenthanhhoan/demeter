@@ -21,7 +21,7 @@ class Family::DevicesController < AuthorizedController
 
   def update
     if @device.update(device_params)
-      update_job()
+      # update_job()
       render json: @device, serializer: FamilyDeviceSerializer
     else
       render :json => { errors: @device.errors }, :status => :bad_request
@@ -38,14 +38,14 @@ class Family::DevicesController < AuthorizedController
   private
 
     def update_job
-      FamilyDeviceTimerService.new.remove_job(@device)
-      FamilyDeviceEventService.new.remove_job(@device)
-      if @device.timer?
-        FamilyDeviceTimerService.new.update_job(@device)
-      end
-      if @device.event?
-        FamilyDeviceEventService.new.update_job(@device)
-      end
+      # FamilyDeviceTimerService.new(@device).remove_jobs()
+      # FamilyDeviceEventService.new.remove_jobs(@device)
+      # if @device.timer?
+      #   FamilyDeviceTimerService.new(@device).update_job()
+      # end
+      # if @device.event?
+      #   FamilyDeviceEventService.new.update_job(@device)
+      # end
     end
 
     def get_package
