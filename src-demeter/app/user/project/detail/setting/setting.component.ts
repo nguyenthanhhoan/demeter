@@ -14,7 +14,7 @@ export class SettingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
-      if (app.loaded) {
+      if (app.project && app.project.id) {
         this.project = Object.assign({}, app.project);
       }
     });
