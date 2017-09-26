@@ -9,6 +9,7 @@ def create_wfami_package(id)
     name: 'Temperature',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '*C'
   })
   
   Family::Device.create!({
@@ -17,6 +18,7 @@ def create_wfami_package(id)
     name: 'Humidity',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '%'
   })
   
   Family::Device.create!({
@@ -25,6 +27,7 @@ def create_wfami_package(id)
     name: 'Illuminances',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'lx'
   })
   
   Family::Device.create!({
@@ -33,6 +36,7 @@ def create_wfami_package(id)
     name: 'Soil Moisture',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '%'
   })
   
   Family::Device.create!({
@@ -41,6 +45,7 @@ def create_wfami_package(id)
     name: 'pH',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'pH'
   })
   
   Family::Device.create!({
@@ -49,6 +54,7 @@ def create_wfami_package(id)
     name: 'EC',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'mS'
   })
   
   Family::Device.create!({
@@ -57,6 +63,7 @@ def create_wfami_package(id)
     name: 'CO2',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'ppm'
   })
   
   Family::Device.create!({
@@ -86,6 +93,7 @@ def create_gfami_package(id)
     name: 'Temperature',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '*C'
   })
   
   Family::Device.create!({
@@ -94,6 +102,7 @@ def create_gfami_package(id)
     name: 'Humidity',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '%'
   })
   
   Family::Device.create!({
@@ -102,6 +111,7 @@ def create_gfami_package(id)
     name: 'Illuminances',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'lx'
   })
   
   Family::Device.create!({
@@ -110,6 +120,7 @@ def create_gfami_package(id)
     name: 'Soil Moisture',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: '%'
   })
   
   Family::Device.create!({
@@ -118,6 +129,7 @@ def create_gfami_package(id)
     name: 'pH',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'pH'
   })
   
   Family::Device.create!({
@@ -126,6 +138,7 @@ def create_gfami_package(id)
     name: 'EC',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'mS'
   })
   
   Family::Device.create!({
@@ -134,6 +147,7 @@ def create_gfami_package(id)
     name: 'CO2',
     value_data_type: :float,
     field_attribute: :read_only,
+    chart_value_suffix: 'ppm'
   })
   
   Family::Device.create!({

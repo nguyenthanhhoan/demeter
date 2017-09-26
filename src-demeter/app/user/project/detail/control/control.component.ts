@@ -142,7 +142,7 @@ export class ControlComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.selectedDevice.mode = currentMode;
     });
-    this.notificationService.confirm('Do you want to switch to `mode` mode?', 'Confirmation')
+    this.notificationService.confirm(`Do you want to switch to ${mode} mode?`, 'Confirmation')
     .subscribe(() => {
       this.selectedDevice.mode = mode;
       let device = this.selectedDevice;
