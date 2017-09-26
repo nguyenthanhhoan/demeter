@@ -72,24 +72,18 @@ class AwsIotService
     # end
   end
 
-  def self.update_thing_shadow_v2(thing_name, device, desired_value)
-    client = Aws::IoTDataPlane::Client.new({
-      region: ENV.fetch('AWS_DYNAMODB_REGION'),
-      endpoint: ENV.fetch('AWS_THING_SHADOW_REST_API')
-    })
-
+  def update_thing_shadow_v2(thing_name, field_id, desired_value)
+    client = get_client
     device_state = {
       value: desired_value
     }
-
     submit_state = {
       state: {
         desired: {
-          "#{device.field_id}": device_state
+          "#{field_id}": device_state
         }
       }
     }
-
     Rails.logger.info 'Aws::IoTDataPlane'
     Rails.logger.info "Prepare to submit thing_name: #{thing_name} with new state: #{submit_state.to_json.to_s}"
     thing = client.update_thing_shadow({

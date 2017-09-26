@@ -22,6 +22,7 @@ class Family::DevicesController < AuthorizedController
   def update
 
     if @device.update(device_params)
+      # TODO: Separate into many service for manual/timer/event update
       update_job()
       render json: @device, serializer: FamilyDeviceSerializer
     else
@@ -32,7 +33,7 @@ class Family::DevicesController < AuthorizedController
   def update_device_value
     desired_value = params[:value]
     gateway = @device.package.hash_id
-    AwsIotService.update_thing_shadow_v2(gateway, @device, desired_value)
+    AwsIotService.new.update_thing_shadow_v2(gateway, @device.field_id, desired_value)
     render json: @device, serializer: FamilyDeviceSerializer
   end
 
@@ -40,13 +41,9 @@ class Family::DevicesController < AuthorizedController
 
     def update_job
       FamilyDeviceTimerService.new(@device).remove_jobs()
-      # FamilyDeviceEventService.new.remove_jobs(@device)
       if @device.timer?
         FamilyDeviceTimerService.new(@device).update_job()
       end
-      # if @device.event?
-      #   FamilyDeviceEventService.new.update_job(@device)
-      # end
     end
 
     def get_package

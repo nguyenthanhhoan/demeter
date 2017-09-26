@@ -34,10 +34,23 @@ class WebhookController < ApplicationController
         render :json => { message: 'Can only update for integer field!' }
       end
     else
-      self.status = :internal_server_error
-      render :json => {
-        message: 'Cannot find field_value!',
+
+      # Give another try for demeter family
+      # TODO: Should refactor this mess
+      package = Family::Package.find_by_hash_id gateway
+      device = package.devices.find { |device|
+        device.field_id === field_id
       }
+      if device.present?
+        device.update_attribute(:value, value)
+        FamilyDeviceEventService.new(device).trigger_event()
+        render :json => { message: 'Update successfully!' }
+      else
+        self.status = :internal_server_error
+        render :json => {
+          message: 'Cannot find field_value!',
+        }
+      end
     end
   end
 

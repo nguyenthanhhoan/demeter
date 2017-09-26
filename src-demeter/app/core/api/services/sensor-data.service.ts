@@ -16,29 +16,29 @@ export class SensorDataService {
   constructor(private apiService: ApiService,
               private jsonApiService: JsonApiService ) {}
 
-  getByTimestamp(start_timestamp, end_timestamp, fields, zone_id): Observable<any> {
+  getByTimestamp(start_timestamp, end_timestamp, fields, package_id): Observable<any> {
     return this.apiService
       .fetch(
-        `${this.sensorDataUrl}/timestamp/${start_timestamp}/${end_timestamp}?zone_id=${zone_id}`)
+        `${this.sensorDataUrl}/timestamp/${start_timestamp}/${end_timestamp}?package_id=${package_id}`)
       .map((items) => {
         return this.extractChartData(items, fields);
       });
   }
 
-  getByTimestampV2(start_timestamp, end_timestamp, zone_id): Observable<any> {
+  getByTimestampV2(start_timestamp, end_timestamp, package_id): Observable<any> {
     return this.apiService
       .fetch(
-        `${this.sensorDataUrl}/timestamp/${start_timestamp}/${end_timestamp}?zone_id=${zone_id}`)
+        `${this.sensorDataUrl}/timestamp/${start_timestamp}/${end_timestamp}?package_id=${package_id}`)
       .map((items) => {
         return items;
       });
   }
 
-  getByDate(date, fields, zone_id): Observable<any> {
+  getByDate(date, fields, package_id): Observable<any> {
     return this.apiService
     // return this.jsonApiService
       .fetch(
-        `${this.sensorDataUrl}/date/${date}/zone/${zone_id}`)
+        `${this.sensorDataUrl}/date/${date}/zone/${package_id}`)
       .map((items) => {
         return this.extractChartData(items, fields);
       });

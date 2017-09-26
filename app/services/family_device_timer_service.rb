@@ -62,7 +62,7 @@ class FamilyDeviceTimerService
       if type.to_sym === :from_time
         desired_value = true
       end
-      AwsIotService.update_thing_shadow_v2(gateway, @device, desired_value)
+      AwsIotService.new.update_thing_shadow_v2(gateway, @device.field_id, desired_value)
     else
       Rails.logger.info "[FamilyDeviceTimerService] No rule match for device: #{@device.id} #{schedule_id}"
       remove_job(@device, schedule_id, type.to_sym)

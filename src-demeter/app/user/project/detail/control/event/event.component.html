@@ -6,6 +6,7 @@
       <input
         class="form-control lower-form-control"
         placeholder="Lower"
+        type="number"
         [(ngModel)]="event.lower_limit" />
       <img
         class="greater-icon"
@@ -24,13 +25,14 @@
       <input
         class="form-control upper-form-control"
         placeholder="Higher"
+        type="number"
         [(ngModel)]="event.upper_limit" />
     </div>
     <div class="condition second-line">
       <div class="lower-form-control">
         <button class="dmt-btn btn-primary"
           (click)="toggleValue(event, 'lower_limit_value')">
-          {{ event.lower_limit_value === 1 ? 'Off': 'On' }}
+          {{ event.lower_limit_value === 1 ? 'On': 'Off' }}
         </button>
       </div>
       <div class="sensor-form-control">
@@ -44,7 +46,7 @@
       <div class="upper-form-control">
         <button class="dmt-btn btn-primary"
           (click)="toggleValue(event, 'upper_limit_value')">
-          {{ event.upper_limit_value === 1 ? 'Off': 'On' }}
+          {{ event.lower_limit_value === 1 ? 'On': 'Off' }}
         </button>
       </div>
     </div>
