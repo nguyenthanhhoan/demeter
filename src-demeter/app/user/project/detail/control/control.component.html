@@ -26,7 +26,8 @@
       <label class="dmt-radio"
         [ngClass]="selectedDevice.mode == 'manual' ? 'active': ''">
         <input
-          [(ngModel)]="selectedDevice.mode"
+          [ngModel]="selectedDevice.mode"
+          (ngModelChange)="updateMode('manual')"
           type="radio"
           value="manual"
           name="mode" />
@@ -36,7 +37,8 @@
       <label class="dmt-radio"
         [ngClass]="selectedDevice.mode == 'timer' ? 'active': ''">
         <input 
-        [(ngModel)]="selectedDevice.mode"
+        [ngModel]="selectedDevice.mode"
+        (ngModelChange)="updateMode('timer')"
         type="radio"
         value="timer"
         name="mode"/>
@@ -46,7 +48,8 @@
       <label class="dmt-radio"
       [ngClass]="selectedDevice.mode == 'event' ? 'active': ''">
         <input
-          [(ngModel)]="selectedDevice.mode"
+          [ngModel]="selectedDevice.mode"
+          (ngModelChange)="updateMode('event')"
           type="radio"
           value="event"
           name="mode"/>

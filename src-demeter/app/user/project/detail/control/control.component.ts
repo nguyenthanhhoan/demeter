@@ -136,6 +136,27 @@ export class ControlComponent implements OnInit, OnDestroy {
     });
   }
 
+  updateMode(mode) {
+    const currentMode = this.selectedDevice.mode;
+    this.selectedDevice.mode = '';
+    setTimeout(() => {
+      this.selectedDevice.mode = currentMode;
+    });
+    this.notificationService.confirm('Do you want to switch to `mode` mode?', 'Confirmation')
+    .subscribe(() => {
+      this.selectedDevice.mode = mode;
+      let device = this.selectedDevice;
+      let submitDevice: any = {
+        uuid: device.uuid,
+        mode: mode
+      };
+      this.deviceService.put(submitDevice)
+      .subscribe(() => {
+        this.notificationService.showMessage(`Mode updated to ${mode} successfully!`);
+      });
+    });
+  }
+
   changeValue($event, device) {
     $event.preventDefault();
     let newValue = !device.value;
