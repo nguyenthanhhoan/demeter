@@ -53,6 +53,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'habtm_generator'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'guard-rspec', require: false
+  gem 'factory_girl_rails'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
