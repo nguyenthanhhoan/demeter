@@ -9,6 +9,7 @@ class Family::ProjectAlertsController < AuthorizedController
   def update
     check_exist_and_create()
     if @alert.update(alert_params)
+      FamilyAlertService.new.update_job(@alert)
       render json: @alert, serializer: FamilyProjectAlertSerializer
     else
       render :json => { errors: @alert.errors }, :status => :bad_request
