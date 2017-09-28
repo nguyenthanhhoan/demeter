@@ -45,9 +45,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Make height equals to width
   caculateHeightProjectItem() {
-    const width = $(this.el.nativeElement).find('.project-item').width();
-    console.log('width', width);
-    $(this.el.nativeElement).find('.project-item').height(width);
+    const projectEl = $(this.el.nativeElement).find('.project-item');
+    const width = projectEl.width();
+    projectEl.height(width);
+    $(this.el.nativeElement).find('.add-item').height(width);
   }
   confirmRemove($event, project) {
     $event.stopPropagation();
