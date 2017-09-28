@@ -49,7 +49,7 @@ class Family::ProjectsController < AuthorizedController
   private
 
     def project_params
-      params.require(:project).permit(:name, :package_id, :camera_id, :image)
+      params.require(:project).permit(:name, :package_id, :image)
     end
 
     def get_project

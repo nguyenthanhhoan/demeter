@@ -1,0 +1,72 @@
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Camera</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="dmt-form form-horizontal" #cameraForm="ngForm">
+          <div class="form-group">
+            <span class="control-label col-xs-5">Name</span>
+            <div class="col-xs-5">
+              <input
+                [(ngModel)]="camera.name"
+                name="name"
+                required
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="control-label col-xs-5">Camera ID</span>
+            <div class="col-xs-5">
+              <input
+                [(ngModel)]="camera.hash_id"
+                name="hash_id"
+                required
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="control-label col-xs-5">RTSP URL</span>
+            <div class="col-xs-5">
+              <input
+                [(ngModel)]="camera.rtsp_url"
+                required
+                name="rtsp_url"
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="control-label col-xs-5">Main Camera</span>
+            <div class="col-xs-5">
+              <label class="dmt-checkbox">
+                <input type="checkbox" [(ngModel)]="camera.main" name="main"/>
+                <i></i>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          *ngIf="mode == 'add'"
+          (click)="addOrUpdate()"
+          [disabled]="!cameraForm.valid"
+          class="dmt-btn btn-primary"
+          [ngClass]="!cameraForm.valid ? 'disabled' : ''">Add</button>
+        <button
+          *ngIf="mode == 'edit'"
+          (click)="addOrUpdate()"
+          [disabled]="!cameraForm.valid"
+          class="dmt-btn btn-primary"
+          [ngClass]="!cameraForm.valid ? 'disabled' : ''">Update</button>
+        <button
+          (click)="cancel()"
+          class="dmt-btn btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

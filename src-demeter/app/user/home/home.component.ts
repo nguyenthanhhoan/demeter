@@ -2,7 +2,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoadedAction } from '../core/actions/actions';
 import { ProjectService } from '../../core/api/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
 

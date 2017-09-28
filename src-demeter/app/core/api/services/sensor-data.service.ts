@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { AppSettings } from '../../app.settings';
 import { ApiService } from '../api.service';
 import { JsonApiService } from '../json-api.service';
 

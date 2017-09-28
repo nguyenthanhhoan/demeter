@@ -31,3 +31,9 @@ $brand-color: rgb(49, 139, 80);
     min-width: 70px;
   }
 }
+
+.camera-single {
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

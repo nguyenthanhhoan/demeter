@@ -1,4 +1,40 @@
+$main-color: #318b50;
 .camera-item {
   margin-bottom: 15px;
-  display: block;
+
+  .camera-name {
+    background-color: $main-color;
+    padding: 5px 10px;
+    color: #fff;
+    display: flex;
+    height: 35px;
+    align-items: center;
+  }
+
+  .actions {
+    margin-left: auto;
+    display: flex;
+  }
+
+  .edit-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 15px;
+    }
+  }
+
+  .remove-btn {
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
+
+.add-camera {
+  display: flex;
+  .add-camera-btn {
+    margin-left: auto;
+  }
 }

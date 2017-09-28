@@ -1,4 +1,8 @@
-<app-camera [camera]="camera"></app-camera>
+<div *ngFor="let camera of cameras"
+  class="camera-single">
+  <app-camera
+    [camera]="camera"></app-camera>
+</div>
 
 <div class="spinner-wrapper control-pane">
   <app-spinner [isRunning]="isRequesting"></app-spinner>

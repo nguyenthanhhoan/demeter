@@ -115,7 +115,7 @@ export class AlertComponent implements OnInit, OnDestroy {
       ...this.alert,
       rules: this.alert.rules.map(rule => Object.assign({}, rule))
     });
-    submitAlert.interval = this.interval.hour * 60 + this.interval.minute;
+    submitAlert.interval = this.interval.minute;
     submitAlert.rules.forEach((rule) => {
       rule.device_uuid = rule.device.uuid;
       delete rule.device;

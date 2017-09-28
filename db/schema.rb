@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927162328) do
+ActiveRecord::Schema.define(version: 20170928110930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,14 +124,15 @@ ActiveRecord::Schema.define(version: 20170927162328) do
 
   create_table "family_cameras", force: :cascade do |t|
     t.integer  "family_package_camera_id"
-    t.string   "live_hash"
-    t.string   "playback_hash"
-    t.string   "secret_id"
-    t.string   "channel"
-    t.string   "server"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "name"
+    t.string   "rtsp_url"
+    t.string   "hash_id"
+    t.boolean  "main",                     default: false
+    t.integer  "family_project_id"
     t.index ["family_package_camera_id"], name: "index_family_cameras_on_family_package_camera_id", using: :btree
+    t.index ["family_project_id"], name: "index_family_cameras_on_family_project_id", using: :btree
   end
 
   create_table "family_devices", force: :cascade do |t|
@@ -387,6 +388,7 @@ ActiveRecord::Schema.define(version: 20170927162328) do
   add_foreign_key "device_fields", "devices"
   add_foreign_key "device_value_histories", "device_fields"
   add_foreign_key "family_cameras", "family_package_cameras"
+  add_foreign_key "family_cameras", "family_projects"
   add_foreign_key "family_devices", "family_packages"
   add_foreign_key "family_notifications", "users"
   add_foreign_key "family_package_cameras", "family_projects"

@@ -12,11 +12,9 @@ declare var moment: any;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  camera: any = {
-    src: 'https://www.w3schools.com/html/mov_bbb.mp4'
-  };
   isRequesting: boolean = false;
   devices = [];
+  cameras = [];
   private project: any = {};
   private package_id: string;
   private storeSubscription: ISubscription;
@@ -33,6 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (app.project && app.project.id) {
         this.project = app.project;
         this.package_id = app.project.package.hash_id;
+        this.filterMainCameras();
         this.loadDevice();
       }
     });
@@ -40,6 +39,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
+  }
+
+  filterMainCameras() {
+    const { cameras } = this.project;
+    this.cameras = cameras.filter((camera) => {
+      return camera.main;
+    });
   }
 
   loadDevice() {

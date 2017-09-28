@@ -19,6 +19,7 @@ import { CoreModule } from './core/core.module';
 import { appReducer, appStateReducer } from './core/reducers/reducer';
 
 import '../styles/main.scss';
+import '../../node_modules/mediaelement/build/mediaelement-flash-video.swf';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {

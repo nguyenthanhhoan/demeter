@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef } from '@angular/core';
 import { ApiService } from '../../../../../core/api/api.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var moment: any;
 declare var $: any;
@@ -19,7 +20,8 @@ export class CameraComponent {
   autoplay: boolean;
 
   constructor(private el: ElementRef,
-              private apiService: ApiService) {
+              private apiService: ApiService,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -44,45 +46,17 @@ export class CameraComponent {
   }
 
   playLive() {
-    // let url = 'http://demeter.cam9.tv/admin/api/playback/?action=hlsgettoken';
-    // let {server} = this.camera;
-    // // let {live_hash} = this.camera;
-    // let live_hash = 'b931dc96ff225818e9c83146ecdf273ac79c981117a56b8583c12a4b547e57b2';
-    // let {secret_id} = this.camera;
-    // let {channel} = this.camera;
-    // let live_url =
-    //   `${url}&channel=${channel}&server=${server}&secret_id=${secret_id}&hash=${live_hash}`;
+    const { hash_id, rtsp_url } = this.camera;
+    // const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
 
-    // this.apiService.fetchExternal(live_url)
-    //   .subscribe(data => {
-    //     this.initPlayer(data.src, true);
-    //   });
-    this.initPlayer(this.camera.src, true);
-  }
+    // TODO: Got 'Access-Control-Allow-Origin' header is present on the requested resource.
+    // this.apiService.fetchExternal(url)
+    // .subscribe((data) => {
+    //   console.log('data', data);
+      // this.initPlayer(this.data.src, true);
+    // });
 
-  playback(filter, camera) {
-    let start = moment(`${filter.date} ${filter.timeFrom}`, 'DD/MM/YYYY HH:mm');
-    let end = moment(`${filter.date} ${filter.timeTo}`, 'DD/MM/YYYY HH:mm');
-    let duration = end.diff(start, 'seconds');
-    let starttime = start.format('YYYY-MM-DD HH:mm:ss');
-
-    let {channel} = camera;
-    let hash = camera.playback_hash;
-
-    let url = 'http://demeter.cam9.tv/admin/api/playback/?action=playback';
-    let playbackUrl =
-      `${url}&channel=${channel}
-      &starttime=${starttime}&duration=${duration}&hash=${hash}&secret_id=1`;
-    this.apiService.fetchExternal(playbackUrl)
-      .subscribe(data => {
-
-        if (typeof this.player === 'undefined') {
-          this.initPlayer(data, true);
-        } else {
-          this.player.pause();
-          this.player.setSrc(data);
-          this.player.load();
-        }
-      });
+    const src = `rtmp://camera.demeter.vn/live/cameraID`;
+    this.initPlayer(src, true);
   }
 }

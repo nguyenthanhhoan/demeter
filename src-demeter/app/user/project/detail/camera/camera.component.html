@@ -1,4 +1,28 @@
-<app-camera
-  *ngFor="let camera of cameras"
-  class="camera-item"
-  [camera]="camera"></app-camera>
+<div class="camera-item"
+  *ngFor="let camera of cameras">
+
+  <app-camera
+    [camera]="camera"></app-camera>
+  <div class="camera-name">
+    <span>{{camera.name}}</span>
+    <span class="actions">
+      <span class="edit-btn"
+        (click)="editCamera(camera)">
+        <img src="assets/img/demeter/icon/EDIT.png" />
+      </span>
+      <span class="remove-btn"
+        (click)="remove(camera)">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </span>
+    </span>
+  </div>
+</div>
+
+<div class="add-camera">
+  <button
+    (click)="addCamera()"
+    *ngIf="cameras.length < 5"
+    class="add-camera-btn dmt-btn btn-primary">Add Camera</button>
+</div>
+
+<camera-modal #cameraModal></camera-modal>
