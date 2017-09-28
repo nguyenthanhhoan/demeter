@@ -1,6 +1,6 @@
 import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProjectService } from '../../core/api/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private storeSubscription: ISubscription;
   constructor(private store: Store<any>,
               private router: Router,
+              private el: ElementRef,
               private projectService: ProjectService,
               private notificationService: NotificationService) {}
 
@@ -34,7 +35,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.projectService.getProjects()
     .subscribe((projects) => {
       this.projects = projects;
+
+      // Waiting for projects rendered
+      setTimeout(() => {
+        this.caculateHeightProjectItem();
+      }, 100);
     });
+  }
+
+  // Make height equals to width
+  caculateHeightProjectItem() {
+    const width = $(this.el.nativeElement).find('.project-item').width();
+    console.log('width', width);
+    $(this.el.nativeElement).find('.project-item').height(width);
   }
   confirmRemove($event, project) {
     $event.stopPropagation();
