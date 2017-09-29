@@ -30,6 +30,8 @@ export class RuleComponent {
   }
 
   add() {
+    // For the case select ON/OFF. Need to parse the value
+    this.rule.value = parseInt(this.rule.value, 10);
     this.broadcast.next(this.rule);
     this.lgModal.hide();
   }
