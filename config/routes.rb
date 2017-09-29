@@ -80,6 +80,7 @@ Rails.application.routes.draw do
         post 'update_device_value' => 'devices#update_device_value'
       end
     end
+    resources :posts
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
     get '/sensor_data/latest' => 'sensor_data#query_lastest'

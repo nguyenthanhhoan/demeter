@@ -18,6 +18,12 @@ export const routes: Routes = [{
     }, {
       path: 'about',
       loadChildren: 'app/user/about/about.module#AboutModule'
+    }, {
+      path: 'agribook',
+      loadChildren: 'app/user/agribook/agribook.module#AgribookModule'
+    }, {
+      path: 'agribook-editor',
+      loadChildren: 'app/user/agribook-editor/agribook-editor.module#AgribookEditorModule'
     }]
   }]
 }];

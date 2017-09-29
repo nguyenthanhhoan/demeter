@@ -10,6 +10,7 @@ import { SensorDataService } from './api/services/sensor-data.service';
 import { DeviceService } from './api/services/device.service';
 import { ProjectAlertService } from './api/services/project-alert.service';
 import { CameraService } from './api/services/camera.service';
+import { PostService } from './api/services/post.service';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { CameraService } from './api/services/camera.service';
     SensorDataService,
     DeviceService,
     ProjectAlertService,
-    CameraService
+    CameraService,
+    PostService
   ]
 })
 export class CoreModule {

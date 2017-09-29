@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928110930) do
+ActiveRecord::Schema.define(version: 20170929132214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,16 @@ ActiveRecord::Schema.define(version: 20170928110930) do
     t.index ["family_project_id"], name: "index_family_packages_on_family_project_id", using: :btree
   end
 
+  create_table "family_posts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "picture"
+    t.integer  "family_topic_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["family_topic_id"], name: "index_family_posts_on_family_topic_id", using: :btree
+  end
+
   create_table "family_project_alerts", force: :cascade do |t|
     t.integer  "family_project_id"
     t.json     "rules"
@@ -210,6 +220,13 @@ ActiveRecord::Schema.define(version: 20170928110930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_family_projects_on_user_id", using: :btree
+  end
+
+  create_table "family_topics", force: :cascade do |t|
+    t.string   "title"
+    t.string   "picture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -393,6 +410,7 @@ ActiveRecord::Schema.define(version: 20170928110930) do
   add_foreign_key "family_notifications", "users"
   add_foreign_key "family_package_cameras", "family_projects"
   add_foreign_key "family_packages", "family_projects"
+  add_foreign_key "family_posts", "family_topics"
   add_foreign_key "family_project_alerts", "family_projects"
   add_foreign_key "family_projects", "users"
   add_foreign_key "okr_objective_keys", "okr_objectives"

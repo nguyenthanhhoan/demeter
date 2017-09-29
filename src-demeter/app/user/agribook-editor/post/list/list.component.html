@@ -1,0 +1,22 @@
+<div class="post-list">
+  <div class="single-post"
+    *ngFor="let post of posts">
+
+    <img [src]="post.picture?.thumb?.url"
+      class="post-picture"/>
+    <div class="content">
+      <a routerLink="{{post.id}}">
+      {{post.title}}
+      </a>
+    </div>
+    <span class="remove-btn"
+      (click)="remove(post)">
+      <img src="assets/img/demeter/icon/TRASH.png" />
+    </span>
+  </div>
+</div>
+
+<div class="actions">
+  <a class="dmt-btn btn-primary"
+    routerLink="new">Add Post</a>
+</div>
