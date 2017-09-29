@@ -1,0 +1,24 @@
+$primary-color: rgb(49, 139, 80);
+$secondary-color: rgb(80, 181, 88);
+.search-input {
+  border: none;
+  border-bottom: 1px solid green;
+  width: 100%;
+}
+
+.filter-btns {
+  display: flex;
+  margin-top: 10px;
+  background-color: $secondary-color;
+  text-align: center;
+  .filter-btn {
+    color: #fff;
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+
+    &.active {
+      background-color: $primary-color;
+    }
+  }
+}

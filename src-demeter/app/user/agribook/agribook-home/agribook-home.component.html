@@ -1,0 +1,10 @@
+<div class="search-bar">
+  <input type="text" [(ngModel)]="search" class="search-input" />
+</div>
+
+<div class="filter-btns">
+  <a class="filter-btn"
+    *ngFor="let menu of menus"
+    (click)="goTo(menu)"
+    [ngClass]="activeMenu == menu.id ? 'active' : ''">{{menu.text}}</a>
+</div>
