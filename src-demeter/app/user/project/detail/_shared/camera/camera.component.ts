@@ -47,16 +47,11 @@ export class CameraComponent {
 
   playLive() {
     const { hash_id, rtsp_url } = this.camera;
-    // const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
+    const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
 
-    // TODO: Got 'Access-Control-Allow-Origin' header is present on the requested resource.
-    // this.apiService.fetchExternal(url)
-    // .subscribe((data) => {
-    //   console.log('data', data);
-      // this.initPlayer(this.data.src, true);
-    // });
-
-    const src = `rtmp://camera.demeter.vn/live/cameraID`;
-    this.initPlayer(src, true);
+    this.apiService.fetchExternal(url)
+    .subscribe((data: any) => {
+      this.initPlayer(data.src, true);
+    });
   }
 }

@@ -2,11 +2,24 @@
   <app-spinner [isRunning]="isRequesting"></app-spinner>
 </div>
 
+<div class="dmt-form form-horizontal">
+  <div class="date-group">
+    <div class="control-label">Date</div>
+    <input class="form-control" type="date" [(ngModel)]="filter.date"/>
+  </div>
+  <div class="time-group">
+    <div class="control-label">From</div>
+    <input class="form-control" type="time" [(ngModel)]="filter.start_time"/>
+    <div class="control-label">To</div>
+    <input class="form-control" type="time" [(ngModel)]="filter.end_time"/>
+  </div>
+  <div class="buttons">
+    <button class="dmt-btn btn-primary"
+      (click)="report()">Report</button>
+  </div>
+</div>
+
 <div *ngIf="!isRequesting">
-
-  <multiple-chart 
-    [chartData]="multipleChartData"></multiple-chart>
-
   <div class="single-chart-data"
     *ngFor="let singleChartData of singleChartDatas">
     <single-chart 

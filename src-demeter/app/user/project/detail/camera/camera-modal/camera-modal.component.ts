@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 import { CameraService } from '../../../../../core/api/services/camera.service';
 
+declare var uuid: any;
 @Component({
   selector: 'camera-modal',
   templateUrl: './camera-modal.component.html',
@@ -12,6 +13,8 @@ import { CameraService } from '../../../../../core/api/services/camera.service';
 export class CameraModalComponent {
   @ViewChild('lgModal')
   lgModal: any;
+
+  // rtsp://user123:user123@jh6812.myfoscam.org:88/videoMain
   camera: any = { };
   mode: String;
   private broadcast: Subject<any>;
@@ -52,6 +55,7 @@ export class CameraModalComponent {
 
   addOrUpdate() {
     if (this.mode === 'add') {
+      this.camera.hash_id = uuid();
       this.cameraService.post(this.camera)
       .subscribe(() => {
         this.broadcast.next();
