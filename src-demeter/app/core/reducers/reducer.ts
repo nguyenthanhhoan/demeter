@@ -24,6 +24,12 @@ const initialAppState: AppState = {
   isShowMoreBottomBar: false
 };
 
+const initialAgriBookState: any = {
+  posts: [],
+  postsLoaded: false,
+  topics: []
+};
+
 export function appReducer(state = initialState, action: actions.Actions): State {
   switch (action.type) {
     case actions.RESET: {
@@ -78,6 +84,21 @@ export function appStateReducer(state = initialAppState, action: actions.Actions
       const isShowMoreBottomBar = action.payload;
       return Object.assign({}, state, {
         isShowMoreBottomBar: isShowMoreBottomBar
+      });
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export function agriBookStateReducer(state = initialAgriBookState, action: actions.Actions): AppState {
+  switch (action.type) {
+    case actions.LOADED_POSTS: {
+      const posts = action.payload;
+      return Object.assign({}, state, {
+        posts: posts,
+        postsLoaded: true
       });
     }
     default: {

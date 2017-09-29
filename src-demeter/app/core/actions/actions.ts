@@ -9,6 +9,8 @@ export const LOADED_PROJECT =  '[Project] Loaded';
 export const TOGGLE_SETTING = '[App] Toogle Setting';
 export const TOGGLE_SHOW_MORE_BOTTOM_BAR = '[App] Toogle Show More Bottom Bar';
 
+export const LOADED_POSTS = '[Agribook] Loaded Posts';
+
 export class ResetAction implements Action {
   readonly type = RESET;
 }
@@ -37,10 +39,16 @@ export class ToggleShowMoreBottomBarAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadedPostAction implements Action {
+  readonly type = LOADED_POSTS;
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ResetAction
   | LoadedAction
   | ResetProjectAction
   | LoadedProjectAction
   | ToggleSettingAction
-  | ToggleShowMoreBottomBarAction;
+  | ToggleShowMoreBottomBarAction
+  | LoadedPostAction;

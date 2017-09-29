@@ -24,21 +24,25 @@ export class AgribookHomeComponent implements OnInit {
     text: 'Favorite',
     link: ''
   }, {
-    id: 'trending',
-    text: 'Trending',
+    id: 'trend',
+    text: 'Trend',
     link: ''
   }];
   activeMenu: String = 'all';
+  isLoading: boolean = true;
+  posts: any[];
   private storeSubscription: ISubscription;
 
   constructor(private store: Store<any>,
               private router: Router){ }
 
   ngOnInit() {
-    this.storeSubscription = this.store.select('app')
-    .subscribe((app: any) => {
-      if (app.user && app.user.id) {
-        this.user = app.user;
+    this.storeSubscription = this.store.select('agriBookState')
+    .subscribe((state: any) => {
+      console.log('state', state);
+      if (state.posts && state.postsLoaded) {
+        this.isLoading = false;
+        this.posts = state.posts;
       }
     });
   }

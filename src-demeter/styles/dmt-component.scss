@@ -234,3 +234,10 @@
     background-color: darken(#df333a, 5%);
   }
 }
+
+.dmt-spinner-wrapper {
+  position: relative;
+  &.loading {
+    min-height: 100px;
+  }
+}
