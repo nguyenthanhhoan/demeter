@@ -35,7 +35,7 @@ class Family::SensorDataController < AuthorizedController
 
 
   def query_lastest
-    gateway_name = 'dmt-client'
+    gateway_name = params[:package_id]
 
     redis = CacheService.new.get_redis
     cached_key = CacheService.new.build_key_lastest(gateway_name)
