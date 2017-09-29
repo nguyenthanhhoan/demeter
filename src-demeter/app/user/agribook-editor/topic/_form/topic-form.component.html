@@ -1,12 +1,12 @@
 <div class="form-horizontal">
   <div class="form-group">
-    <div class="col-sm-3 control-label">Title</div>
-    <div class="col-md-7">
+    <span class="col-sm-3 control-label">Title</span>
+    <div class="col-sm-7">
       <input [(ngModel)]="topic.title" class="form-control"/>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-3 control-label">Image</div>
+    <span class="col-sm-3 control-label">Image</span>
     <div class="col-sm-7">
       <input 
         (change)="fileChange($event)" type="file" />
