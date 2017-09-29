@@ -13,6 +13,7 @@ import { SensorDataService } from '../../../../../core/api/services/sensor-data.
 declare var moment: any;
 declare var Highcharts: any;
 declare var $: any;
+declare var System: any;
 @Component({
   selector: 'sensor-data-chart',
   templateUrl: './sensor-data-chart.component.html',

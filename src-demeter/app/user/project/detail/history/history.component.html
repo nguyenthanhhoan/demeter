@@ -1,7 +1,3 @@
-<div class="spinner-wrapper">
-  <app-spinner [isRunning]="isRequesting"></app-spinner>
-</div>
-
 <div class="dmt-form form-horizontal">
   <div class="date-group">
     <div class="control-label">Date</div>
@@ -15,15 +11,28 @@
   </div>
   <div class="buttons">
     <button class="dmt-btn btn-primary"
+      [ngClass]="isRequesting ? 'disabled' : ''"
+      [disabled]="isRequesting"
       (click)="report()">Report</button>
   </div>
 </div>
 
 <div *ngIf="!isRequesting">
-  <div class="single-chart-data"
-    *ngFor="let singleChartData of singleChartDatas">
-    <single-chart 
-      *ngIf="singleChartData.x && singleChartData.x.length > 0"
-      [data]="singleChartData"></single-chart>
+  <div class="chart-tabs-wrap">
+    <div class="chart-tabs">
+      <div class="chart-tab" 
+        [ngClass]="chart === activeChartTab ? 'active' : ''"
+        *ngFor="let chart of chartTabs" (click)="setActiveChartTab(chart)">
+        <p class="chart-name">{{chart.name}}</p>
+      </div>
+    </div>
+    <div *ngFor="let chart of chartTabs; let i = index">
+      <div id="chart-container-{{i}}" class="chart-container" [hidden]="chart != activeChartTab"></div>
+    </div>
   </div>
+</div>
+
+<div class="spinner-wrapper"
+  [ngClass]="isRequesting ? 'requesting' : ''">
+  <app-spinner [isRunning]="isRequesting"></app-spinner>
 </div>

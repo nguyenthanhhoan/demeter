@@ -6,7 +6,7 @@ class Family::SensorDataController < AuthorizedController
     end_timestamp = params[:end_timestamp].to_i
     # sensor_data = CacheService.get_cached_data_in(start_timestamp, end_timestamp)
     # unless sensor_data.present?
-      sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, 'dmt-client')
+      sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, params[:package_id])
     # end
 
     sensor_data_normalized = DynamodbService.new.normalize_data(sensor_data, 300)
@@ -15,7 +15,7 @@ class Family::SensorDataController < AuthorizedController
 
   def query_in_date
     date = params[:date]
-    gateway_name = 'dmt-client'
+    gateway_name = params[:package_id]
 
     redis = CacheService.new.get_redis
     cached_key = CacheService.new.build_key(gateway_name, date)
