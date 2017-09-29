@@ -1,0 +1,23 @@
+<div class="form-horizontal">
+  <div class="form-group">
+    <div class="col-sm-3 control-label">Title</div>
+    <div class="col-md-7">
+      <input [(ngModel)]="topic.title" class="form-control"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-3 control-label">Image</div>
+    <div class="col-sm-7">
+      <input 
+        (change)="fileChange($event)" type="file" />
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button class="dmt-btn btn-primary"
+      (click)="saveOrUpdate()">Save</button>
+    <a 
+      routerLink="/{{user.username}}/agribook-editor/topic"
+      class="dmt-btn btn-cancel">Cancel</a>
+  </div>
+</div>

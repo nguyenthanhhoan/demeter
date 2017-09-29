@@ -1,0 +1,30 @@
+.single-post {
+  height: 70px;
+  padding: 5px 15px;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+
+  .remove-btn {
+    display: none;
+    margin-left: auto;
+    align-self: flex-end;
+    img {
+      height: 20px;
+    }
+  }
+  &:hover {
+    .remove-btn {
+      display: block;
+    }
+  }
+}
+
+.post-picture {
+  width: 60px;
+  margin-right: 10px;
+}
+
+.actions {
+  text-align: right;
+  margin-top: 15px;
+}
