@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ProjectService } from '../../core/api/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
 
+declare var $: any;
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

@@ -11,6 +11,7 @@ import { loadHighChart, buildHighChartModel } from '../../../../app.utils';
 
 declare var moment: any;
 declare var Highcharts: any;
+declare var $: any;
 @Component({
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
