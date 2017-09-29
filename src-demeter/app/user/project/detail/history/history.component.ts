@@ -89,12 +89,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.isRequesting = true;
     let filter = this.filter;
 
-    // To GMT
+    // TODO: Find a better way to dealing with timezone. To GMT
     let start_timestamp =
       moment(`${filter.date} ${filter.start_time}`,
               AppSettings.date_time_format.date_time_iso).valueOf() - 7 * 3600 * 1000;
 
-    // To GMT
+    // TODO: Find a better way to dealing with timezone. To GMT
     let end_timestamp =
       moment(`${filter.date} ${filter.end_time}`,
               AppSettings.date_time_format.date_time_iso).valueOf() - 7 * 3600 * 1000;
