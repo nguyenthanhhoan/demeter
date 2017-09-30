@@ -16,6 +16,7 @@ export class ListPostComponent implements OnInit, OnDestroy {
   private user: any = {};
 
   constructor(private store: Store<any>,
+              private el: ElementRef,
               private router: Router){ }
 
   ngOnInit() {
@@ -29,6 +30,10 @@ export class ListPostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.appStoreSubscription.unsubscribe();
+  }
+
+  ngAfterViewChecked() {
+    $(this.el.nativeElement).find('.title').truncate({lines: 2});
   }
 
   private goToPost(post) {

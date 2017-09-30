@@ -14,3 +14,4 @@ require('mediaelement/build/mediaelement-and-player.js');
 require('moment-timezone');
 require('jquery-confirm');
 require('bootstrap-switch');
+require('truncate.js');
