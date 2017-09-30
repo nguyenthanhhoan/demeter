@@ -1,0 +1,26 @@
+<div class="post-detail">
+  <div class="post-img">
+    <img class="img-responsive"
+      [src]="post.picture?.url ? post.picture.url : ''"
+      [ngClass]="post.picture?.url ? '' : 'no-image'" />
+  </div>
+  
+    <div class="content-wrap">
+    <div class="title">{{post.title}}</div>
+    <div class="content" [innerHTML]="post.content"></div>
+    <div class="bottom-line">
+      <span class="icon-btn back-btn"
+        (click)="back()">
+        <img src="assets/img/demeter/icon/BACK.png" alt="comment-btn">
+      </span>
+      <span class="right">
+        <span class="icon-btn share-btn">
+          <img src="assets/img/demeter/icon/SHARE.png" alt="share-btn">
+        </span>
+        <span class="icon-btn like-btn">
+          <img src="assets/img/demeter/icon/LIKE.png" alt="like-btn">
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

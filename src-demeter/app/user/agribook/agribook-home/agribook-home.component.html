@@ -11,32 +11,7 @@
 </div>
 
 <div *ngIf="activeMenu != 'topic'">
-  <div class="posts">
-    <div class="single-post"
-      *ngFor="let post of posts">
-
-      <img class="post-img"
-        [src]="post.picture?.thumb?.url ? post.picture.thumb.url : 'assets/img/flat-icon/pictures.png'" />
-      <div class="content-wrap">
-        <div class="title">{{post.title}}</div>
-        <div class="content" [innerHTML]="post.content"></div>
-        <div class="actions">
-          <span class="icon-btn">
-            <img src="assets/img/demeter/icon/LIKE.png" alt="like-btn">
-            <span class="num">69</span>
-          </span>
-          <span class="icon-btn comment-btn">
-            <img src="assets/img/demeter/icon/COMMENT.png" alt="comment-btn">
-            <span class="num">70</span>
-          </span>
-          <span class="icon-btn share-btn">
-            <img src="assets/img/demeter/icon/SHARE.png" alt="share-btn">
-            <span class="num">70</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <agribook-list-post [posts]="posts"></agribook-list-post>
 </div>
 
 <div class="dmt-spinner-wrapper"

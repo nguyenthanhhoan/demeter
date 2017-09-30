@@ -1,14 +1,19 @@
 .topics {
   display: flex;
+  margin-top: 5px;
 }
 
 .single-topic {
   padding: 10px;
   margin-bottom: 5px;
   width: 50%;
+  max-width: 200px;
   
   .content-wrap {
     position: relative;
+
+    // When images havenot loaded. min-height used to make title aligned nicely
+    min-height: 100px;
   }
 
   .topic-img {

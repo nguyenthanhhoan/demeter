@@ -39,7 +39,6 @@ export class AgribookHomeComponent implements OnInit {
   ngOnInit() {
     this.storeSubscription = this.store.select('agriBookState')
     .subscribe((state: any) => {
-      console.log('state', state);
       if (state.posts && state.postsLoaded) {
         this.isLoading = false;
         this.posts = state.posts;

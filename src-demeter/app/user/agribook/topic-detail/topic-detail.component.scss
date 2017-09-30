@@ -1,0 +1,17 @@
+.bottom-line {
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  width: 100%;
+  margin-left: -7px;
+  margin-right: -7px;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  img {
+    width: 20px;
+  }
+  .icon-btn {
+    cursor: pointer;
+  }
+}

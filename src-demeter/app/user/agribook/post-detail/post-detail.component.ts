@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { PostService } from '../../../core/api/services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,6 +15,7 @@ export class PostDetailComponent implements OnInit {
   constructor(private store: Store<any>,
               private router: Router,
               private route: ActivatedRoute,
+              private location: Location,
               private postService: PostService){ }
 
   ngOnInit() {
@@ -23,5 +25,9 @@ export class PostDetailComponent implements OnInit {
     .subscribe((post) => {
       this.post = post;
     });
+  }
+
+  back() {
+    this.location.back();
   }
 }

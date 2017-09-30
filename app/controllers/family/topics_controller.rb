@@ -6,7 +6,7 @@ class Family::TopicsController < AuthorizedController
   end
 
   def show
-    render json: @topic
+    render json: @topic, serializer: FamilyTopicSerializer
   end
 
   def create

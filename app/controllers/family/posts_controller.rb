@@ -2,7 +2,7 @@ class Family::PostsController < AuthorizedController
   before_action :get_post, only: [:show, :update, :destroy]
 
   def index
-    render json: Family::Post.order(id: :desc).to_json
+    render json: Family::Post.order(id: :desc), each_serializer: FamilyPostSerializer
   end
 
   def show
@@ -12,7 +12,7 @@ class Family::PostsController < AuthorizedController
   def create
     @post = Family::Post.new(post_params)
     if @post.save
-      render json: @post
+      render json: @post, serializer: FamilyPostSerializer
     else
       render :json => { errors: @post.errors }, :status => :bad_request
     end
@@ -20,7 +20,7 @@ class Family::PostsController < AuthorizedController
 
   def update
     if @post.update(post_params)
-      render json: @post
+      render json: @post, serializer: FamilyPostSerializer
     else
       render :json => { errors: @post.errors }, :status => :bad_request
     end
@@ -28,7 +28,7 @@ class Family::PostsController < AuthorizedController
 
   def destroy
     @post.destroy
-    render json: @post
+    render json: @post, serializer: FamilyPostSerializer
   end
 
   private

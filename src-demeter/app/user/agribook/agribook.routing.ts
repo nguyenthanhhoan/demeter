@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AgribookComponent } from './agribook.component';
 import { AgribookHomeComponent } from './agribook-home/agribook-home.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { TopicDetailComponent } from './topic-detail/topic-detail.component';
 
 export const routes: Routes = [{
   path: '',
@@ -8,16 +10,12 @@ export const routes: Routes = [{
   children: [{
     path: '',
     loadChildren: 'app/user/agribook/agribook-home/agribook-home.module#AgribookHomeModule'
-  //   children: [{
-  //     path: '',
-  //     component: HomeComponent,
-  //   }, {
-  //     path: 'project',
-  //     loadChildren: 'app/user/project/project.module#ProjectModule'
-  //   }, {
-  //     path: 'about',
-  //     loadChildren: 'app/user/about/about.module#AboutModule'
-  //   }]
+  }, {
+    path: ':id',
+    component: PostDetailComponent
+  }, {
+    path: 'topic/:id',
+    component: TopicDetailComponent
   }]
 }];
 

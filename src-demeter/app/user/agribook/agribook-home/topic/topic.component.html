@@ -1,8 +1,10 @@
 <div class="topics">
   <div class="single-topic"
-    *ngFor="let topic of topics">
+    *ngFor="let topic of topics"
+    (click)="goToTopic(topic)">
 
-    <div class="content-wrap">
+    <div class="content-wrap"
+      *ngIf="isContentShown">
       <img class="topic-img img-responsive"
         [src]="topic.picture?.thumb?.url ? topic.picture.thumb.url : 'assets/img/flat-icon/pictures.png'" />
       <div class="title-background"></div>
