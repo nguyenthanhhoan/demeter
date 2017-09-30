@@ -29,14 +29,16 @@ export class MobileRegisterComponent implements OnInit {
     // `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed
     // after it was checked. Previous value: 'true'. Current value: 'false'.`
     this.fetching = true;
-    this.coreService.signUp(this.signUpAccount)
-    .subscribe(res => {
-      this.fetching = false;
-      this.notificationService.showMessage('User sign up successfully!');
-      this.signUpAccount = {};
-      this.router.navigate(['/']);
-    }, error => {
-      this.fetching = false;
-    });
+
+    alert('Temporary disabled!');
+    // this.coreService.signUp(this.signUpAccount)
+    // .subscribe(res => {
+    //   this.fetching = false;
+    //   this.notificationService.showMessage('User sign up successfully!');
+    //   this.signUpAccount = {};
+    //   this.router.navigate(['/']);
+    // }, error => {
+    //   this.fetching = false;
+    // });
   }
 }

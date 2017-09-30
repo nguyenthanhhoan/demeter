@@ -33,13 +33,14 @@ export class HomeComponent implements OnInit {
 
   signUp() {
     this.fetching = true;
-    this.coreService.signUp(this.signUpAccount)
-    .subscribe(res => {
-      this.fetching = false;
-      this.notificationService.showMessage('User sign up successfully!');
-      this.signUpAccount = {};
-    }, error => {
-      this.fetching = false;
-    });
+    alert('Temporary disabled!');
+    // this.coreService.signUp(this.signUpAccount)
+    // .subscribe(res => {
+    //   this.fetching = false;
+    //   this.notificationService.showMessage('User sign up successfully!');
+    //   this.signUpAccount = {};
+    // }, error => {
+    //   this.fetching = false;
+    // });
   }
 }
