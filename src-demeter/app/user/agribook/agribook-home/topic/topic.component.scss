@@ -1,11 +1,11 @@
 .topics {
   display: flex;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .single-topic {
-  padding: 10px;
-  margin-bottom: 5px;
+  padding: 7px;
   width: 50%;
   max-width: 200px;
   
