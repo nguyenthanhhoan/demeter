@@ -11,6 +11,7 @@ export const TOGGLE_SHOW_MORE_BOTTOM_BAR = '[App] Toogle Show More Bottom Bar';
 
 export const LOADED_POSTS = '[Agribook] Loaded Posts';
 export const LOADED_TOPICS = '[Agribook] Loaded Topics';
+export const LOADED_FAVORITE_POSTS = '[Agribook] Loaded Favorite Posts';
 
 export class ResetAction implements Action {
   readonly type = RESET;
@@ -45,6 +46,11 @@ export class LoadedPostAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadedFavoritePostAction implements Action {
+  readonly type = LOADED_FAVORITE_POSTS;
+  constructor(public payload: any) { }
+}
+
 export class LoadedTopicAction implements Action {
   readonly type = LOADED_TOPICS;
   constructor(public payload: any) { }
@@ -58,4 +64,5 @@ export type Actions
   | ToggleSettingAction
   | ToggleShowMoreBottomBarAction
   | LoadedPostAction
-  | LoadedTopicAction;
+  | LoadedTopicAction
+  | LoadedFavoritePostAction;

@@ -10,9 +10,17 @@
     [ngClass]="activeMenu == menu.id ? 'active' : ''">{{menu.text}}</a>
 </div>
 
-<div *ngIf="activeMenu != 'topic'">
-  <agribook-list-post [posts]="posts"></agribook-list-post>
-</div>
+<agribook-list-post 
+  *ngIf="activeMenu == 'all'"
+  [posts]="posts"></agribook-list-post>
+
+<agribook-list-post 
+  *ngIf="activeMenu == 'favorite'"
+  [posts]="favoritePosts"></agribook-list-post>
+
+<agribook-list-post 
+  *ngIf="activeMenu == 'trend'"
+  [posts]="trendingPosts"></agribook-list-post>
 
 <div class="dmt-spinner-wrapper"
   [ngClass]="isLoading ? 'loading' : ''">

@@ -2,7 +2,7 @@ import { TopicService } from '../../core/api/services/topic.service';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../core/api/services/post.service';
-import { LoadedPostAction, LoadedTopicAction } from '../../core/actions/actions';
+import { LoadedPostAction, LoadedTopicAction, LoadedFavoritePostAction } from '../../core/actions/actions';
 
 @Component({
   template: '<router-outlet></router-outlet>'
@@ -21,6 +21,10 @@ export class AgribookComponent implements OnInit {
     this.topicService.getTopics()
     .subscribe((topics) => {
       this.store.dispatch(new LoadedTopicAction(topics));
+    });
+    this.postService.getFavoritePosts()
+    .subscribe((posts) => {
+      this.store.dispatch(new LoadedFavoritePostAction(posts));
     });
   }
 }

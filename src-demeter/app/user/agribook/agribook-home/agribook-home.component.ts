@@ -31,6 +31,8 @@ export class AgribookHomeComponent implements OnInit {
   activeMenu: String = 'all';
   isLoading: boolean = true;
   posts: any[];
+  favoritePosts: any[];
+  trendingPosts: any[];
   private storeSubscription: ISubscription;
 
   constructor(private store: Store<any>,
@@ -42,6 +44,14 @@ export class AgribookHomeComponent implements OnInit {
       if (state.posts && state.postsLoaded) {
         this.isLoading = false;
         this.posts = state.posts;
+      }
+      if (state.trendingPosts && state.postsLoaded) {
+        this.isLoading = false;
+        this.trendingPosts = state.trendingPosts;
+      }
+      if (state.favoritePosts && state.favoritePostsLoaded) {
+        this.isLoading = false;
+        this.favoritePosts = state.favoritePosts;
       }
     });
   }

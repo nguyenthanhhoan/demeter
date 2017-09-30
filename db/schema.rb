@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930073939) do
+ActiveRecord::Schema.define(version: 20170930152036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,8 +194,11 @@ ActiveRecord::Schema.define(version: 20170930073939) do
     t.text     "content"
     t.string   "picture"
     t.integer  "family_topic_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.json     "likes",           default: []
+    t.integer  "like_count",      default: 0
+    t.boolean  "trending",        default: false
     t.index ["family_topic_id"], name: "index_family_posts_on_family_topic_id", using: :btree
   end
 

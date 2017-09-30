@@ -17,8 +17,10 @@
         <span class="icon-btn share-btn">
           <img src="assets/img/demeter/icon/SHARE.png" alt="share-btn">
         </span>
-        <span class="icon-btn like-btn">
-          <img src="assets/img/demeter/icon/LIKE.png" alt="like-btn">
+        <span class="icon-btn like-btn"
+          (click)="like()">
+          <img
+            [src]="post.likes.indexOf(user.id) > -1 ? 'assets/img/demeter/icon/LIKE GREEN.png' : 'assets/img/demeter/icon/LIKE.png'" alt="like-btn">
         </span>
       </span>
     </div>

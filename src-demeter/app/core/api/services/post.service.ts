@@ -13,6 +13,10 @@ export class PostService {
     return this.apiService.fetch(`${this.resourceUrl}`);
   }
 
+  getFavoritePosts(): Observable<any[]> {
+    return this.apiService.fetch(`${this.resourceUrl}/favorite_list`);
+  }
+
   buildFormData(post) {
     let formData: FormData = new FormData();
     if (post.title) {
@@ -20,6 +24,9 @@ export class PostService {
     }
     if (post.content) {
       formData.append('post[content]', post.content);
+    }
+    if (post.trending) {
+      formData.append('post[trending]', post.trending);
     }
     if (post.family_topic_id) {
       formData.append('post[family_topic_id]', post.family_topic_id);
@@ -51,5 +58,8 @@ export class PostService {
   }
   delete(id): Observable<any> {
     return this.apiService.delete(`${this.resourceUrl}/${id}`);
+  }
+  like_action(id): Observable<any> {
+    return this.apiService.post(`${this.resourceUrl}/${id}/like_action`, {});
   }
 }

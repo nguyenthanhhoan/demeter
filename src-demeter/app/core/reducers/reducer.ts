@@ -29,6 +29,9 @@ const initialAgriBookState: any = {
   postsLoaded: false,
   topics: [],
   topicsLoaded: false,
+  favoritePosts: [],
+  favoritePostsLoaded: false,
+  trendingPosts: []
 };
 
 export function appReducer(state = initialState, action: actions.Actions): State {
@@ -99,7 +102,8 @@ export function agriBookStateReducer(state = initialAgriBookState, action: actio
       const posts = action.payload;
       return Object.assign({}, state, {
         posts: posts,
-        postsLoaded: true
+        postsLoaded: true,
+        trendingPosts: posts.filter((post) => post.trending)
       });
     }
     case actions.LOADED_TOPICS: {
@@ -107,6 +111,13 @@ export function agriBookStateReducer(state = initialAgriBookState, action: actio
       return Object.assign({}, state, {
         topics: topics,
         topicsLoaded: true
+      });
+    }
+    case actions.LOADED_FAVORITE_POSTS: {
+      const favoritePosts = action.payload;
+      return Object.assign({}, state, {
+        favoritePosts: favoritePosts,
+        favoritePostsLoaded: true
       });
     }
     default: {
