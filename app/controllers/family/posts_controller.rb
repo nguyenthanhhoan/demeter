@@ -2,7 +2,7 @@ class Family::PostsController < AuthorizedController
   before_action :get_post, only: [:show, :update, :destroy]
 
   def index
-    render json: Family::Post.order(id: :desc)
+    render json: Family::Post.order(id: :desc).to_json
   end
 
   def show
@@ -34,7 +34,7 @@ class Family::PostsController < AuthorizedController
   private
 
     def post_params
-      params.require(:post).permit(:title, :content, :picture)
+      params.require(:post).permit(:title, :content, :picture, :family_topic_id)
     end
 
     def get_post

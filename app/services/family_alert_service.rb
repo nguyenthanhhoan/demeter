@@ -1,53 +1,33 @@
 class FamilyAlertService
-  def get_job_name(alert_id)
-    "FamilyAlert_#{alert_id}"
-  end
 
-  def build_cron(interval, time_zone)
-    schedule = "*/#{interval} * * * *"
-     "#{schedule} #{time_zone}"
-  end
+  def trigger_alert(device)
+    package = device.package
 
-  def update_job(alert)
-    time_zone = 'Asia/Ho_Chi_Minh'
-    job_name = get_job_name(alert.id)
+    # This package hasnot used in any project
+    return if package.family_project_id.blank?
 
-    remove_job(alert)
-    job = Sidekiq::Cron::Job.new({
-      name: job_name,
-      cron: build_cron(alert.interval, time_zone),
-      class: 'FamilyAlertWorker',
-      args: [alert.id]
-    })
-
-    if job.valid?
-      job.save
-    else
-      job.errors
-    end
-  end
-
-  def remove_job(alert)
-    job_name = get_job_name(alert.id)
-    Sidekiq::Cron::Job.destroy job_name
-  end
-
-  def execute(alert_id)
-    alert = Family::ProjectAlert.find alert_id
-    rules_parsed = JSON.parse(alert.rules,:symbolize_names => true)
+    alert = Family::ProjectAlert.find_by_family_project_id package.family_project_id
+    rules_parsed = JSON.parse(alert.rules, :symbolize_names => true)
     rules_parsed.each { |rule|
-      if rule_match?(rule)
-        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert_id}] alert rule match. Prepare to create alert"
+      Rails.logger.info "Check equaty #{rule[:device_uuid]} #{device.uuid}"
+      if rule[:device_uuid] == device.uuid && rule_match?(rule, alert)
+        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}] alert rule match. Prepare to create alert"
         create_notification(alert, rule)
         email_alert(alert, rule)
         message_alert(alert, rule)
+        rule[:last_alert] = Time.new.to_i
       else 
-        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert_id}] alert rule not match. Alert wont be created"
+        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}] alert rule not match. Alert wont be created"
       end
     }
+    alert.update_attribute(:rules, rules_parsed.to_json)
   end
 
-  def rule_match?(rule)
+  def rule_match?(rule, alert)
+    first_time_or_timeout?(rule, alert.interval * 60, Time.new.to_i) && rule_match_content?(rule)
+  end
+
+  def rule_match_content?(rule)
     device = Family::Device.find_by_uuid rule[:device_uuid]
     if device.read_write?
       if device.value_parsed == rule[:value]
@@ -61,6 +41,14 @@ class FamilyAlertService
         return true
       end
     end
+    false
+  end
+
+  # Check if the rule run first time, or after a defined timeout
+  # If not, donot need to create alert
+  def first_time_or_timeout?(rule, timeout, current_time)
+    return true if rule[:last_alert].blank?
+    return true if current_time - rule[:last_alert] > timeout
     false
   end
 
@@ -103,6 +91,7 @@ class FamilyAlertService
 
   def message_alert(alert, rule)
     alert_content = build_alert_message(rule)
+    device = Family::Device.find_by_uuid rule[:device_uuid]
     if alert.trigger_message?
       phones = alert.trigger_messages.split(';')
       phones.map { |phone| 

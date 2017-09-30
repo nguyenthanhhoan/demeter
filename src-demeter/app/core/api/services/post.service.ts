@@ -21,6 +21,9 @@ export class PostService {
     if (post.content) {
       formData.append('post[content]', post.content);
     }
+    if (post.family_topic_id) {
+      formData.append('post[family_topic_id]', post.family_topic_id);
+    }
     if (post.picture && post.picture.size > 0) {
       formData.append('post[picture]', post.picture);
     }

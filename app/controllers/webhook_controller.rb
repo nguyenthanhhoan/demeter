@@ -44,6 +44,7 @@ class WebhookController < ApplicationController
       if device.present?
         device.update_attribute(:value, value)
         FamilyDeviceEventService.new(device).trigger_event()
+        FamilyAlertService.new.trigger_alert(device)
         render :json => { message: 'Update successfully!' }
       else
         self.status = :internal_server_error

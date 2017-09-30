@@ -8,6 +8,9 @@
       <a routerLink="{{post.id}}">
       {{post.title}}
       </a>
+      <div [ngClass]="post.topic?.title ? 'topic' : ''">
+        {{post.topic?.title}}
+      </div>
     </div>
     <span class="remove-btn"
       (click)="remove(post)">

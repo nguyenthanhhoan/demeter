@@ -1,3 +1,4 @@
+$brand-color: rgb(49, 139, 80);
 .single-post {
   height: 70px;
   padding: 5px 15px;
@@ -17,6 +18,11 @@
       display: block;
     }
   }
+
+  .content {
+    flex: 1;
+    flex-direction: column;
+  }
 }
 
 .post-picture {
@@ -27,4 +33,11 @@
 .actions {
   text-align: right;
   margin-top: 15px;
+}
+
+.topic {
+  padding: 3px;
+  display: inline-block;
+  background-color: #aaa;
+  color: $brand-color;
 }

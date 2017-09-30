@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { PostService } from '../../../../core/api/services/post.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { TopicService } from '../../../../core/api/services/topic.service';
 
 declare var $: any;
 @Component({
@@ -19,9 +20,11 @@ export class FormComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   post: any = {};
   user: any = {};
+  topics: any[] = [];
   private isInitNote: boolean = false;
   private storeSubscription: ISubscription;
   constructor(private postService: PostService,
+              private topicService: TopicService,
               private router: Router,
               private store: Store<any>,
               private notificationService: NotificationService){ }
@@ -33,6 +36,7 @@ export class FormComponent implements OnInit, OnDestroy, OnChanges {
         this.user = app.user;
       }
     });
+    this.fetchTopic();
   }
 
   ngOnDestroy() {
@@ -45,6 +49,13 @@ export class FormComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.initSummerNote();
     }
+  }
+
+  fetchTopic() {
+    this.topicService.getTopics()
+    .subscribe((topics) => {
+      this.topics = topics;
+    });
   }
 
   initSummerNote() {

@@ -1,3 +1,4 @@
+import { TopicService } from '../../../../core/api/services/topic.service';
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../../core/api/services/post.service';
 import { NotificationService } from '../../../../core/services/notification.service';
@@ -9,6 +10,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 export class ListComponent implements OnInit {
   posts: any[] = [];
   constructor(private postService: PostService,
+              private topicService: TopicService,
               private notificationService: NotificationService){ }
 
   ngOnInit() {
@@ -19,6 +21,20 @@ export class ListComponent implements OnInit {
     this.postService.getPosts()
     .subscribe((posts) => {
       this.posts = posts;
+      this.fetchTopic();
+    });
+  }
+
+  fetchTopic() {
+    this.topicService.getTopics()
+    .subscribe((topics) => {
+      this.posts.forEach((post) => {
+        if (post.family_topic_id) {
+          post.topic = topics.find((topic) => {
+            return topic.id === post.family_topic_id;
+          });
+        }
+      });
     });
   }
 
