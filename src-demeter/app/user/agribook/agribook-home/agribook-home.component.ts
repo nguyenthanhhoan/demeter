@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnInit } from '@angular/core';
@@ -34,8 +34,10 @@ export class AgribookHomeComponent implements OnInit {
   favoritePosts: any[];
   trendingPosts: any[];
   private storeSubscription: ISubscription;
+  private appStoreSubscription: ISubscription;
 
   constructor(private store: Store<any>,
+              private route: ActivatedRoute,
               private router: Router){ }
 
   ngOnInit() {
@@ -54,9 +56,23 @@ export class AgribookHomeComponent implements OnInit {
         this.favoritePosts = state.favoritePosts;
       }
     });
+    this.appStoreSubscription = this.store.select('app')
+    .subscribe((app: any) => {
+      if (app.user && app.user.id) {
+        this.user = app.user;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.appStoreSubscription.unsubscribe();
   }
 
   private goTo(menu) {
     this.activeMenu = menu.id;
+  }
+
+  private goToSearch() {
+    this.router.navigate([`${this.user.username}/agribook/search`]);
   }
 }

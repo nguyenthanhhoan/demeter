@@ -1,0 +1,15 @@
+<div class="search-bar">
+  <input type="text" [(ngModel)]="search" class="search-input" />
+  <img src="assets/img/demeter/icon/SEARCH.png" alt="search" class="search-icon">
+</div>
+
+<div class="wrapper">
+  <div class="recent-search">Recent searches</div>
+  <div class="search-term"
+    *ngFor="let recentSearch of recentSearchs">
+      <img src="assets/img/demeter/icon/RECENT_SEARCH.png" alt="search" class="search-icon">
+      <div>
+        {{recentSearch}}
+      </div>
+  </div>
+</div>

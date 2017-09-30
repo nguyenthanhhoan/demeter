@@ -4,6 +4,7 @@ import { SharedModule } from '../_shared/shared.module';
 
 import { AgribookHomeComponent } from './agribook-home.component';
 import { TopicComponent } from './topic/topic.component';
+import { SearchComponent } from './search/search.component';
 import { routing } from './agribook-home.routing';
 
 @NgModule({
@@ -13,7 +14,8 @@ import { routing } from './agribook-home.routing';
   ],
   declarations: [
     AgribookHomeComponent,
-    TopicComponent
+    TopicComponent,
+    SearchComponent
   ],
   providers: [
   ],
