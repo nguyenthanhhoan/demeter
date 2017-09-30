@@ -9,7 +9,6 @@ class FamilyAlertService
     alert = Family::ProjectAlert.find_by_family_project_id package.family_project_id
     rules_parsed = JSON.parse(alert.rules, :symbolize_names => true)
     rules_parsed.each { |rule|
-      Rails.logger.info "Check equaty #{rule[:device_uuid]} #{device.uuid}"
       if rule[:device_uuid] == device.uuid && rule_match?(rule, alert)
         Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}] alert rule match. Prepare to create alert"
         create_notification(alert, rule)
@@ -90,7 +89,12 @@ class FamilyAlertService
   end
 
   def message_alert(alert, rule)
-    alert_content = build_alert_message(rule)
+    alert_content = "D-Family Alert\n"
+    alert_content += build_alert_message(rule)
+    device = Family::Device.find_by_uuid rule[:device_uuid]
+    if device.read_only?
+      alert_content += "\nCurrent #{device.name} is #{device.value_parsed}"
+    end
     device = Family::Device.find_by_uuid rule[:device_uuid]
     if alert.trigger_message?
       phones = alert.trigger_messages.split(';')
