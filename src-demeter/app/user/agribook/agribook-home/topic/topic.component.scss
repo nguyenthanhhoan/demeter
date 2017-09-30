@@ -1,0 +1,38 @@
+.topics {
+  display: flex;
+}
+
+.single-topic {
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 50%;
+  
+  .content-wrap {
+    position: relative;
+  }
+
+  .topic-img {
+    border-radius: 10px;
+  }
+  .title {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .title-background {
+    bottom: 0;
+    position: absolute;
+    padding: 10px;
+    height: 40px;
+    background-color: #ddd;
+    opacity: 0.7;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+  }
+}

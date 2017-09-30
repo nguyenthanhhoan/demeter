@@ -24,8 +24,16 @@
             <div class="col-xs-5">
               <input
                 [(ngModel)]="camera.rtsp_url"
-                required
                 name="rtsp_url"
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <span class="control-label col-xs-5">RTMP URL</span>
+            <div class="col-xs-5">
+              <input
+                [(ngModel)]="camera.rtmp_url"
+                name="rtmp_url"
                 class="form-control">
             </div>
           </div>

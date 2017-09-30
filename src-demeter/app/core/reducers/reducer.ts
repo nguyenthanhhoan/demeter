@@ -27,7 +27,8 @@ const initialAppState: AppState = {
 const initialAgriBookState: any = {
   posts: [],
   postsLoaded: false,
-  topics: []
+  topics: [],
+  topicsLoaded: false,
 };
 
 export function appReducer(state = initialState, action: actions.Actions): State {
@@ -99,6 +100,13 @@ export function agriBookStateReducer(state = initialAgriBookState, action: actio
       return Object.assign({}, state, {
         posts: posts,
         postsLoaded: true
+      });
+    }
+    case actions.LOADED_TOPICS: {
+      const topics = action.payload;
+      return Object.assign({}, state, {
+        topics: topics,
+        topicsLoaded: true
       });
     }
     default: {

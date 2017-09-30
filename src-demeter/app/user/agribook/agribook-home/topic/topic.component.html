@@ -1,0 +1,17 @@
+<div class="topics">
+  <div class="single-topic"
+    *ngFor="let topic of topics">
+
+    <div class="content-wrap">
+      <img class="topic-img img-responsive"
+        [src]="topic.picture?.thumb?.url ? topic.picture.thumb.url : 'assets/img/flat-icon/pictures.png'" />
+      <div class="title-background"></div>
+      <div class="title">{{topic.title}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="dmt-spinner-wrapper"
+  [ngClass]="isLoading ? 'loading' : ''">
+  <app-spinner [isRunning]="isLoading"></app-spinner>
+</div>

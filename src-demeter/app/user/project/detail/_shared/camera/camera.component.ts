@@ -46,12 +46,15 @@ export class CameraComponent {
   }
 
   playLive() {
-    const { hash_id, rtsp_url } = this.camera;
-    const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
-
-    this.apiService.fetchExternal(url)
-    .subscribe((data: any) => {
-      this.initPlayer(data.src, true);
-    });
+    const { hash_id, rtsp_url, rtmp_url } = this.camera;
+    if (rtmp_url && rtmp_url.length > 0) {
+      this.initPlayer(rtmp_url, true);
+    } else {
+      const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
+      this.apiService.fetchExternal(url)
+      .subscribe((data: any) => {
+        this.initPlayer(data.src, true);
+      });
+    }
   }
 }

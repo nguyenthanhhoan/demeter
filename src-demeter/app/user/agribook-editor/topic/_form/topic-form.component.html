@@ -2,7 +2,9 @@
   <div class="form-group">
     <span class="col-sm-3 control-label">Title</span>
     <div class="col-sm-7">
-      <input [(ngModel)]="topic.title" class="form-control"/>
+      <input [(ngModel)]="topic.title"
+        maxlength="15"
+        class="form-control"/>
     </div>
   </div>
   <div class="form-group">

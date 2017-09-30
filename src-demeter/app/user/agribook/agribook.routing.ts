@@ -7,7 +7,7 @@ export const routes: Routes = [{
   component: AgribookComponent,
   children: [{
     path: '',
-    component: AgribookHomeComponent,
+    loadChildren: 'app/user/agribook/agribook-home/agribook-home.module#AgribookHomeModule'
   //   children: [{
   //     path: '',
   //     component: HomeComponent,
