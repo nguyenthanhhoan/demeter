@@ -93,12 +93,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
     // TODO: Find a better way to dealing with timezone. To GMT
     let start_timestamp =
       moment(`${filter.date} ${filter.start_time}`,
-              AppSettings.date_time_format.date_time_iso).valueOf() - 7 * 3600 * 1000;
+              AppSettings.date_time_format.date_time_iso).valueOf();
 
     // TODO: Find a better way to dealing with timezone. To GMT
     let end_timestamp =
       moment(`${filter.date} ${filter.end_time}`,
-              AppSettings.date_time_format.date_time_iso).valueOf() - 7 * 3600 * 1000;
+              AppSettings.date_time_format.date_time_iso).valueOf();
 
     if (this.devices && this.devices.length > 0) {
       this.requestDailyChartData(start_timestamp, end_timestamp);
