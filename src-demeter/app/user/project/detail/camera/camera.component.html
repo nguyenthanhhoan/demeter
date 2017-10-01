@@ -2,7 +2,7 @@
   *ngFor="let camera of cameras">
 
   <app-camera
-    [camera]="camera"></app-camera>
+    [camera]="camera" [live]="false"></app-camera>
   <div class="camera-name">
     <span>{{camera.name}}</span>
     <span class="actions">

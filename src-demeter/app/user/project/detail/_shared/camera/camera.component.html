@@ -1,3 +1,5 @@
 <div class="camera-pic-holder">
-   <video [src]="sanitizer.bypassSecurityTrustResourceUrl(src)" [autoplay]="autoplay" type="video/rtmp"></video> 
+  <video
+    [src]="sanitizer.bypassSecurityTrustResourceUrl(src)"
+    type="application/x-mpegURL"></video> 
 </div>

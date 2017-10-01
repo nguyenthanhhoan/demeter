@@ -31,7 +31,7 @@ class Family::CamerasController < AuthorizedController
   private
 
     def camera_params
-      params.require(:camera).permit(:name, :hash_id, :rtsp_url, :rtmp_url, :main, :family_project_id)
+      params.require(:camera).permit(:name, :hash_id, :rtsp_url, :rtmp_url, :m3u8_url, :main, :family_project_id)
     end
 
     def get_camera

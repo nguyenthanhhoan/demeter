@@ -25,14 +25,11 @@ export class CameraComponent {
   }
 
   ngOnInit() {
-
-    if (this.live) {
-      this.playLive();
-    }
+    const { m3u8_url } = this.camera;
+    this.initPlayer(m3u8_url, this.live);
   }
 
   initPlayer(src, autoplay) {
-    this.autoplay = autoplay;
     this.src = src;
     let videoEle = $(this.el.nativeElement).find('.camera-pic-holder').find('video');
     setTimeout(() => {
@@ -40,21 +37,11 @@ export class CameraComponent {
         stretching: 'responsive',
         success: (media) => {
           this.player = media;
+          if (autoplay) {
+            this.player.play();
+          }
         }
       })[0];
     }, 1000);
-  }
-
-  playLive() {
-    const { hash_id, rtsp_url, rtmp_url } = this.camera;
-    if (rtmp_url && rtmp_url.length > 0) {
-      this.initPlayer(rtmp_url, true);
-    } else {
-      const url = `http://camera.demeter.vn/api/playback?action=live&id=${hash_id}&url=${rtsp_url}`;
-      this.apiService.fetchExternal(url)
-      .subscribe((data: any) => {
-        this.initPlayer(data.src, true);
-      });
-    }
   }
 }

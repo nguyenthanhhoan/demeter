@@ -11,15 +11,7 @@ import { CameraService } from '../../../../core/api/services/camera.service';
   styleUrls: ['./camera.component.scss']
 })
 export class CameraComponent implements OnInit, OnDestroy {
-  cameras: any = [
-  //   {
-  //   name: 'Name 1',
-  //   src: 'rtmp://184.72.239.149/vod/BigBuckBunny_115k.mov'
-  // }, {
-  //   name: 'Name 2',
-  //   src: 'rtmp://camera.demeter.vn/live/cameraID'
-  // }
-  ];
+  cameras: any = [];
   @ViewChild('cameraModal') public cameraModal: any;
   private project_id;
   private storeSubscription: ISubscription;
