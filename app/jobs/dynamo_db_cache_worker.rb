@@ -8,5 +8,11 @@ class DynamoDbCacheWorker
 
     gateway_name = 'cdf-gateway'
     CacheService.new.build_cache_data_by_date(gateway_name, today)
+
+    gateway_name = 'wifami-001'
+    CacheService.new.build_cache_data_by_date(gateway_name, today)
+
+    gateway_name = 'wifami-002'
+    CacheService.new.build_cache_data_by_date(gateway_name, today)
   end
 end

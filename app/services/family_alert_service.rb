@@ -7,6 +7,9 @@ class FamilyAlertService
     return if package.family_project_id.blank?
 
     alert = Family::ProjectAlert.find_by_family_project_id package.family_project_id
+
+    # This project haven't create alert yet!
+    return if alert.blank?
     rules_parsed = JSON.parse(alert.rules, :symbolize_names => true)
     rules_parsed.each { |rule|
       if rule[:device_uuid] == device.uuid && rule_match?(rule, alert)
