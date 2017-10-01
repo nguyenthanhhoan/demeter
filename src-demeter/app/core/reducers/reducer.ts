@@ -31,7 +31,8 @@ const initialAgriBookState: any = {
   topicsLoaded: false,
   favoritePosts: [],
   favoritePostsLoaded: false,
-  trendingPosts: []
+  trendingPosts: [],
+  homeActiveMenu: 'all'
 };
 
 export function appReducer(state = initialState, action: actions.Actions): State {
@@ -118,6 +119,12 @@ export function agriBookStateReducer(state = initialAgriBookState, action: actio
       return Object.assign({}, state, {
         favoritePosts: favoritePosts,
         favoritePostsLoaded: true
+      });
+    }
+    case actions.SELECT_MENU: {
+      const homeActiveMenu = action.payload;
+      return Object.assign({}, state, {
+        homeActiveMenu: homeActiveMenu
       });
     }
     default: {

@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnInit } from '@angular/core';
+import { AgriBookSelectMenu } from '../../../core/actions/actions';
 
 @Component({
   templateUrl: './agribook-home.component.html',
@@ -55,6 +56,7 @@ export class AgribookHomeComponent implements OnInit {
         this.isLoading = false;
         this.favoritePosts = state.favoritePosts;
       }
+      this.activeMenu = state.homeActiveMenu;
     });
     this.appStoreSubscription = this.store.select('app')
     .subscribe((app: any) => {
@@ -69,6 +71,7 @@ export class AgribookHomeComponent implements OnInit {
   }
 
   private goTo(menu) {
+    this.store.dispatch(new AgriBookSelectMenu(menu.id));
     this.activeMenu = menu.id;
   }
 
