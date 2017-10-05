@@ -3,78 +3,16 @@ import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToggleShowMoreBottomBarAction } from '../../../../../core/actions/actions';
+import { NavigationButtonModel } from './model/navigation-button.model';
 
 @Component({
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit, OnDestroy {
-  navigations = [{
-    id: 'Dashboard',
-    icon: 'assets/img/demeter/icon/DASHBOARD_GREY.png',
-    iconActive: 'assets/img/demeter/icon/DASHBOARD.png',
-    iconGrey: 'assets/img/demeter/icon/DASHBOARD_GREY.png',
-    title: 'Dashboard',
-    url: ''
-  }, {
-    id: 'History',
-    icon: 'assets/img/demeter/icon/HISTORY_GREY.png',
-    iconActive: 'assets/img/demeter/icon/HISTORY.png',
-    iconGrey: 'assets/img/demeter/icon/HISTORY_GREY.png',
-    title: 'History',
-    url: 'history'
-  }, {
-    id: 'Camera',
-    icon: 'assets/img/demeter/icon/CAMERA_GREY.png',
-    iconActive: 'assets/img/demeter/icon/CAMERA.png',
-    iconGrey: 'assets/img/demeter/icon/CAMERA_GREY.png',
-    title: 'Camera',
-    url: 'camera'
-  }, {
-    id: 'Control',
-    icon: 'assets/img/demeter/icon/CONTROL_GREY.png',
-    iconActive: 'assets/img/demeter/icon/CONTROL.png',
-    iconGrey: 'assets/img/demeter/icon/CONTROL_GREY.png',
-    title: 'Control',
-    url: 'control'
-  }];
-  moreIcon = {
-    id: 'More',
-    icon: 'assets/img/demeter/icon/MORE_GREY.png',
-    iconActive: 'assets/img/demeter/icon/MORE.png',
-    iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
-    title: 'More',
-    url: 'more',
-  };
-  moreNavigations = [{
-    id: 'Finance',
-    icon: 'assets/img/demeter/icon/FINANCE_GREY.png',
-    iconActive: 'assets/img/demeter/icon/FINANCE.png',
-    iconGrey: 'assets/img/demeter/icon/FINANCE_GREY.png',
-    title: 'Finance',
-    url: 'finance'
-  }, {
-    id: 'Report',
-    icon: 'assets/img/demeter/icon/REPORT_GREY.png',
-    iconActive: 'assets/img/demeter/icon/REPORT.png',
-    iconGrey: 'assets/img/demeter/icon/REPORT_GREY.png',
-    title: 'Report',
-    url: 'report'
-  }, {
-    id: 'Alert',
-    icon: 'assets/img/demeter/icon/ALERT_GREY.png',
-    iconActive: 'assets/img/demeter/icon/ALERT.png',
-    iconGrey: 'assets/img/demeter/icon/ALERT_GREY.png',
-    title: 'Alert',
-    url: 'alert'
-  }, {
-    id: 'Setting',
-    icon: 'assets/img/demeter/icon/SETTINGS_GREY.png',
-    iconActive: 'assets/img/demeter/icon/SETTINGS.png',
-    iconGrey: 'assets/img/demeter/icon/SETTINGS_GREY.png',
-    title: 'Setting',
-    url: 'setting'
-  }];
+  navigations: NavigationButtonModel[] = [];
+  moreIcon: NavigationButtonModel;
+  moreNavigations: NavigationButtonModel[] = [];
   activeNavigation: any;
   isShowMoreBottomBar: boolean = false;
 
@@ -82,12 +20,24 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private appStateSubscription: ISubscription;
   private project: any = {};
   private user: any = {};
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private store: Store<any>) {
   }
 
   ngOnInit() {
+    this.initMainNavigationButtons();
+    this.moreIcon = new NavigationButtonModel({
+      id: 'More',
+      icon: 'assets/img/demeter/icon/MORE_GREY.png',
+      iconActive: 'assets/img/demeter/icon/MORE.png',
+      iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
+      title: 'More',
+      url: 'more',
+    });
+    this.initMoreNavigationButtons();
+
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
@@ -149,5 +99,83 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  private initMainNavigationButtons() {
+    let dashboard = new NavigationButtonModel({
+      id: 'Dashboard',
+      icon: 'assets/img/demeter/icon/DASHBOARD_GREY.png',
+      iconActive: 'assets/img/demeter/icon/DASHBOARD.png',
+      iconGrey: 'assets/img/demeter/icon/DASHBOARD_GREY.png',
+      title: 'Dashboard',
+      url: ''
+    });
+    let history = new NavigationButtonModel({
+      id: 'History',
+      icon: 'assets/img/demeter/icon/HISTORY_GREY.png',
+      iconActive: 'assets/img/demeter/icon/HISTORY.png',
+      iconGrey: 'assets/img/demeter/icon/HISTORY_GREY.png',
+      title: 'History',
+      url: 'history'
+    });
+    let camera = new NavigationButtonModel({
+      id: 'Camera',
+      icon: 'assets/img/demeter/icon/CAMERA_GREY.png',
+      iconActive: 'assets/img/demeter/icon/CAMERA.png',
+      iconGrey: 'assets/img/demeter/icon/CAMERA_GREY.png',
+      title: 'Camera',
+      url: 'camera'
+    });
+    let control = new NavigationButtonModel({
+      id: 'Control',
+      icon: 'assets/img/demeter/icon/CONTROL_GREY.png',
+      iconActive: 'assets/img/demeter/icon/CONTROL.png',
+      iconGrey: 'assets/img/demeter/icon/CONTROL_GREY.png',
+      title: 'Control',
+      url: 'control'
+    });
+    this.navigations.push(dashboard);
+    this.navigations.push(history);
+    this.navigations.push(camera);
+    this.navigations.push(control);
+  }
+
+  private initMoreNavigationButtons() {
+    let finance = new NavigationButtonModel({
+      id: 'Finance',
+      icon: 'assets/img/demeter/icon/FINANCE_GREY.png',
+      iconActive: 'assets/img/demeter/icon/FINANCE.png',
+      iconGrey: 'assets/img/demeter/icon/FINANCE_GREY.png',
+      title: 'Finance',
+      url: 'finance'
+    });
+    let report = new NavigationButtonModel({
+      id: 'Report',
+      icon: 'assets/img/demeter/icon/REPORT_GREY.png',
+      iconActive: 'assets/img/demeter/icon/REPORT.png',
+      iconGrey: 'assets/img/demeter/icon/REPORT_GREY.png',
+      title: 'Report',
+      url: 'report'
+    });
+    let alert = new NavigationButtonModel({
+      id: 'Alert',
+      icon: 'assets/img/demeter/icon/ALERT_GREY.png',
+      iconActive: 'assets/img/demeter/icon/ALERT.png',
+      iconGrey: 'assets/img/demeter/icon/ALERT_GREY.png',
+      title: 'Alert',
+      url: 'alert'
+    });
+    let setting = new NavigationButtonModel({
+      id: 'Setting',
+      icon: 'assets/img/demeter/icon/SETTINGS_GREY.png',
+      iconActive: 'assets/img/demeter/icon/SETTINGS.png',
+      iconGrey: 'assets/img/demeter/icon/SETTINGS_GREY.png',
+      title: 'Setting',
+      url: 'setting'
+    });
+    this.moreNavigations.push(finance);
+    this.moreNavigations.push(report);
+    this.moreNavigations.push(alert);
+    this.moreNavigations.push(setting);
   }
 }
