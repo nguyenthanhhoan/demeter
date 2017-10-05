@@ -27,17 +27,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initMainNavigationButtons();
-    this.moreIcon = new NavigationButtonModel({
-      id: 'More',
-      icon: 'assets/img/demeter/icon/MORE_GREY.png',
-      iconActive: 'assets/img/demeter/icon/MORE.png',
-      iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
-      title: 'More',
-      url: 'more',
-    });
-    this.initMoreNavigationButtons();
-
+    this.initNavigations();
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
@@ -99,6 +89,19 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  private initNavigations() {
+    this.initMainNavigationButtons();
+    this.moreIcon = new NavigationButtonModel({
+      id: 'More',
+      icon: 'assets/img/demeter/icon/MORE_GREY.png',
+      iconActive: 'assets/img/demeter/icon/MORE.png',
+      iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
+      title: 'More',
+      url: 'more',
+    });
+    this.initMoreNavigationButtons();
   }
 
   private initMainNavigationButtons() {
