@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Angular2TokenService, A2tUiModule } from 'angular2-token';
+import { CoreModule as AppCoreModule } from './_core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,9 +28,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+    AppCoreModule,
+    A2tUiModule,
   ],
   bootstrap: [AppComponent],
   providers: [
+    Angular2TokenService,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })

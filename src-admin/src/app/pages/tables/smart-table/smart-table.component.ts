@@ -29,16 +29,17 @@ export class SmartTableComponent {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
+    mode: 'external',
     columns: {
       id: {
         title: 'ID',
         type: 'number',
       },
-      firstName: {
+      first_name: {
         title: 'First Name',
         type: 'string',
       },
-      lastName: {
+      last_name: {
         title: 'Last Name',
         type: 'string',
       },
@@ -49,11 +50,7 @@ export class SmartTableComponent {
       email: {
         title: 'E-mail',
         type: 'string',
-      },
-      age: {
-        title: 'Age',
-        type: 'number',
-      },
+      }
     },
   };
 
