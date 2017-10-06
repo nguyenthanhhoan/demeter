@@ -16,9 +16,13 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2TokenService, A2tUiModule } from 'angular2-token';
 import { CoreModule as AppCoreModule } from './_core/core.module';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    AuthComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

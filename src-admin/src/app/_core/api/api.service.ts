@@ -138,6 +138,7 @@ export class ApiService {
       if (body.type === 'resource_protected') {
         this.showErrorBox(error.statusText, body.error);
       } else {
+        this.notificationService.showErrorMessage('Sorry, you are not allowed to access this page!');
         console.log('User is unauthorized. Need redirect to login page!');
         this.router.navigate(['/']);
       }
