@@ -1,4 +1,6 @@
 $brand-color: rgb(49, 139, 80);
+$left-nav-width: 150;
+$left-nav-background-color: #f3f6e6;
 
 .project-content {
   // 120 = 60 (header + padding header) + 50 (bottom navigation) + 10 (padding bottom content)
@@ -7,6 +9,15 @@ $brand-color: rgb(49, 139, 80);
   overflow-y: auto;
   margin-bottom: 10px;
 }
+
+.project-content-desktop {
+  // 120 = 60 (header + padding header) + 50 (bottom navigation) + 10 (padding bottom content)
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-y: auto;
+  margin-left: ($left-nav-width + 20) * 1px;
+}
+  
 .footer-navigation {
   position: fixed;
   bottom: 0;
@@ -86,3 +97,53 @@ $brand-color: rgb(49, 139, 80);
     }
   }
 }
+
+.left-navigation {
+    position: fixed;
+    left: 0;
+    top: 65px;
+    height: 50px;
+    // border-top: 1px solid rgb(138, 138, 141);
+    padding-top: 10px;
+    width: $left-nav-width * 1px;
+    height: 100%;
+    // display: flex;
+    display: inline-block;
+    align-items: left;
+    background-color: $left-nav-background-color;
+    // To prevent chart overlay
+    z-index: 100;
+    .item {
+      display: flex;
+      // display: block;
+      flex-direction: row;
+      height: 50px;
+      align-items: center;
+      color: #555;
+      cursor: pointer;
+      flex: 1 0;
+      background-color: $left-nav-background-color;
+      .icon {
+        height: 20px;
+        display: flex;
+        // display: block;
+        align-items: center;
+        padding: 10px;
+      }
+      .icon img {
+        max-height: 20px;
+        max-width: 30px;
+      }
+      .title {
+        font-size: 11px;
+        margin-left: 10px;
+      }
+      &.active,
+      &:hover {
+        background-color: white;
+        .title {
+          color: $brand-color;
+        }
+      }
+    }
+  }

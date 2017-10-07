@@ -3,11 +3,14 @@ import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToggleShowMoreBottomBarAction } from '../../../../../core/actions/actions';
-import { NavigationButtonModel } from './model/navigation-button.model';
+import { NavigationButtonModel } from './models/navigation-button.model';
+import { AppMode } from './const/const';
+import { AppModeService } from './services/app-mode.service';
 
 @Component({
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  providers: [AppModeService]
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   navigations: NavigationButtonModel[] = [];
@@ -15,6 +18,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   moreNavigations: NavigationButtonModel[] = [];
   activeNavigation: any;
   isShowMoreBottomBar: boolean = false;
+  appMode: AppMode = AppMode.MOBILE;
 
   private storeSubscription: ISubscription;
   private appStateSubscription: ISubscription;
@@ -23,11 +27,30 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private store: Store<any>) {
+              private store: Store<any>,
+              private appModeService: AppModeService) {
+  }
+
+  public isMobileMode(): boolean {
+    return this.appMode === AppMode.MOBILE;
+  }
+
+  public isDesktopMode(): boolean {
+    return this.appMode === AppMode.DESKTOP;
   }
 
   ngOnInit() {
-    this.initNavigations();
+    this.appMode = this.appModeService.getAppMode();
+    // initialize navigation buttons list
+    switch (this.appMode) {
+      case AppMode.DESKTOP:
+        this.initNavigations();
+        break;
+      case AppMode.MOBILE:
+      default:
+        this.initNavigations();
+    }
+
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
