@@ -112,6 +112,7 @@
     ],
     "component-selector": [
       true,
+      "dmt",
       "element",
       "ngx",
       "kebab-case"

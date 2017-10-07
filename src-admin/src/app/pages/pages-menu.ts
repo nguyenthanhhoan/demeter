@@ -22,6 +22,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Demeter Family',
+    icon: 'nb-person',
+    link: '/pages/family',
+    children: [
+      {
+        title: 'Package',
+        link: '/pages/family/package',
+      },
+    ],
+  },
   // {
   //   title: 'Forms',
   //   icon: 'nb-compose',

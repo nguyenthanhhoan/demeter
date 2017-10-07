@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171001031340) do
+ActiveRecord::Schema.define(version: 20171007055252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,13 +180,12 @@ ActiveRecord::Schema.define(version: 20171001031340) do
   end
 
   create_table "family_packages", force: :cascade do |t|
-    t.string   "salt"
-    t.integer  "length"
     t.string   "setting"
-    t.string   "hash_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "family_project_id"
+    t.string   "serial_name"
+    t.uuid     "uuid",              default: -> { "gen_random_uuid()" }, null: false
     t.index ["family_project_id"], name: "index_family_packages_on_family_project_id", using: :btree
   end
 

@@ -1,0 +1,19 @@
+<nb-card>
+  <nb-card-header>
+    Package List
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="top-button">
+      <button
+        type="submit"
+        class="btn btn-primary" routerLink="new">Create Package</button>
+    </div>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source"
+      (edit)="edit($event)"
+      (delete)="delete($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
