@@ -1,4 +1,6 @@
 $brand-color: rgb(49, 139, 80);
+$left-nav-width: 150;
+$left-nav-background-color: #f3f6e6;
 
 .project-content {
   // 120 = 60 (header + padding header) + 50 (bottom navigation) + 10 (padding bottom content)
@@ -7,21 +9,18 @@ $brand-color: rgb(49, 139, 80);
   overflow-y: auto;
   margin-bottom: 10px;
 }
-.footer-navigation {
+
+.project-content-desktop {
+  margin-left: ($left-nav-width + 20) * 1px;
+}
+
+.navigation-common {
   position: fixed;
-  bottom: 0;
-  height: 50px;
-  border-top: 1px solid rgb(138, 138, 141);
   left: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background-color: #fff;
   // To prevent chart overlay
   z-index: 100;
   .item {
     display: flex;
-    flex-direction: column;
     align-items: center;
     color: #555;
     cursor: pointer;
@@ -43,6 +42,44 @@ $brand-color: rgb(49, 139, 80);
       .title {
         color: $brand-color;
       }
+    }
+  }
+}
+
+.footer-navigation {
+  @extend .navigation-common;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid rgb(138, 138, 141);
+  background-color: #fff;
+  .item {
+    flex-direction: column;
+  }
+}
+
+.left-navigation {
+  @extend .navigation-common;
+  display: inline-block;
+  align-items: left;
+  top: 65px; // 15 + 40 (Header Heigh)
+  width: $left-nav-width * 1px;
+  height: 100%;
+  padding-top: 10px;
+  background-color: $left-nav-background-color;
+  .item {
+    flex-direction: row;
+    height: 50px;
+    background-color: $left-nav-background-color;
+    .icon {
+      width: 50px;
+      padding: 10px;
+    }
+    &.active,
+    &:hover {
+      background-color: white;
     }
   }
 }

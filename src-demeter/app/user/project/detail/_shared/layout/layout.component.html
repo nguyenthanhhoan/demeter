@@ -1,8 +1,8 @@
 <div class="project-layout">
-  <div class="project-content">
+  <div [ngClass]="{'project-content': isMobileMode(),'project-content-desktop': isDesktopMode()}">
     <router-outlet></router-outlet>
   </div>
-  <div class="footer-navigation">
+  <div [ngClass]="{'footer-navigation': isMobileMode(), 'left-navigation': isDesktopMode()}">
     <a class="item"
       (mouseenter)="mouseenter(navigation)"
       (mouseleave)="mouseleave(navigation)"
@@ -15,7 +15,8 @@
       </div>
       <div class="title">{{navigation.title}}</div>
     </a>
-    <a class="item"
+    <a *ngIf="isMobileMode()"
+      class="item"
       (mouseenter)="mouseenter(moreIcon)"
       (mouseleave)="mouseleave(moreIcon)"
       (click)="handleNavigationClick(moreIcon)">
