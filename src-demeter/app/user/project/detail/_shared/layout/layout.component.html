@@ -15,7 +15,8 @@
       </div>
       <div class="title">{{navigation.title}}</div>
     </a>
-    <a class="item"
+    <a *ngIf="isMobileMode()"
+      class="item"
       (mouseenter)="mouseenter(moreIcon)"
       (mouseleave)="mouseleave(moreIcon)"
       (click)="handleNavigationClick(moreIcon)">
