@@ -25,7 +25,10 @@
 npm-debug.log
 /node_modules
 /dmt-device/node_modules
+/src-corp/node_modules
+/src-corp/dist
 /src-admin/node_modules
+/src-admin/dist
 /dmt-device/certs
 /dmt-device/*.log
 /dist

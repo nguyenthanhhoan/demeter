@@ -1,4 +1,3 @@
-export {LayoutSwitcherComponent} from './layout-switcher.component';
 import {LayoutService} from "../../../shared/layout/layout.service";
 export {AdminLayoutModule} from './layout.module';
 

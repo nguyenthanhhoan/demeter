@@ -12,7 +12,7 @@ import { UserService } from '../shared/user.service';
 })
 export class UserFormComponent implements OnInit {
 
-  user = {};
+  user: any = {};
   mode: string;
   user_id: number;
 

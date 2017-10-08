@@ -4,11 +4,7 @@
   ],
   "rules": {
     "trailing-comma": [
-      true,
-      {
-        "multiline": "always",
-        "singleline": "never"
-      }
+      false
     ],
     "arrow-return-shorthand": true,
     "callable-types": true,

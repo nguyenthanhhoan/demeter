@@ -12,7 +12,7 @@ import { DeviceService } from '../../shared/services/device.service';
 })
 export class DeviceFormComponent implements OnInit {
 
-  device = {};
+  device: any = {};
   mode: string;
   device_id: number;
 

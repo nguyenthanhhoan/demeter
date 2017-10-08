@@ -17,8 +17,8 @@ import {
 export class ZoneSummaryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   zone: any = {};
-  project: {} = {};
-  setting: {} = {};
+  project: any = {};
+  setting: any = {};
   project_id: number;
   zone_id: number;
   cameraQuickViews = [];

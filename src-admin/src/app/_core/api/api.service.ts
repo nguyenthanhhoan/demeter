@@ -18,14 +18,14 @@ export class ApiService {
               private notificationService: NotificationService,
               private tokenService: Angular2TokenService) {}
 
-  public fetch(url, options?): Observable<any>{
+  public fetch(url, options?): Observable<any> {
     return this.tokenService.get(url, options).map(this.extractData)
       .catch(error => {
         return this.handleError(error);
       });
   }
 
-  public fetchExternal(url): Observable<any>{
+  public fetchExternal(url): Observable<any> {
     return this.http.get(url)
       .map(this.extractData)
       .catch(error => {
@@ -66,14 +66,14 @@ export class ApiService {
   }
 
   public postFormData(url, formData): Observable<any> {
-    let headers = new Headers({
+    const headers = new Headers({
       'access-token': localStorage.getItem('accessToken'),
       'client': localStorage.getItem('client'),
       'expiry': localStorage.getItem('expiry'),
       'tokeni-type': localStorage.getItem('tokenType'),
       'uid': localStorage.getItem('uid')
     });
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post(this.getBaseUrl() + url, formData, options)
       .map(this.extractData)
       .catch(error => {
@@ -82,14 +82,14 @@ export class ApiService {
   }
 
   public putFormData(url, formData): Observable<any> {
-    let headers = new Headers({
+    const headers = new Headers({
       'access-token': localStorage.getItem('accessToken'),
       'client': localStorage.getItem('client'),
       'expiry': localStorage.getItem('expiry'),
       'tokeni-type': localStorage.getItem('tokenType'),
       'uid': localStorage.getItem('uid')
     });
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
     return this.http.put(this.getBaseUrl() + url, formData, options)
       .map(this.extractData)
       .catch(error => {
@@ -104,12 +104,12 @@ export class ApiService {
       });
   }
 
-  private getBaseUrl(){
+  private getBaseUrl() {
     return AppSettings.api;
   }
 
   private wrapApi(api) {
-    let subscription = api.map(this.extractData)
+    const subscription = api.map(this.extractData)
     .subscribe((responseObj) => {
       if (responseObj && responseObj.message) {
         this.notificationService.showMessage(responseObj.message);
@@ -121,8 +121,8 @@ export class ApiService {
   }
 
   private extractData(res: Response) {
-    let body = res.json();
-    if (body){
+    const body = res.json();
+    if (body) {
       return body.data || body;
     } else {
       return {};
@@ -139,7 +139,6 @@ export class ApiService {
         this.showErrorBox(error.statusText, body.error);
       } else {
         this.notificationService.showErrorMessage('Sorry, you are not allowed to access this page!');
-        console.log('User is unauthorized. Need redirect to login page!');
         this.router.navigate(['/']);
       }
       return true;

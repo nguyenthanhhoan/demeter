@@ -14,12 +14,12 @@ declare var moment: any;
 })
 export class ZoneDailyReportComponent implements OnInit {
 
-  zone = {};
+  zone: any = {};
   project_id: number;
   zone_id: number;
 
   dates = [];
-  activeDate = {};
+  activeDate: any = {};
   state = {
     tabs: {
       activeTab: 0

@@ -8,7 +8,6 @@ import {MaskedInput} from './masked-input.directive';
 import {UiDatepickerDirective} from './ui-datepicker.directive';
 import {UiSpinner} from './ui-spinner.directive';
 import {XEditableComponent} from './x-editable.component';
-import {DuallistboxComponent} from './duallistbox.component';
 import {NouisliderDirective} from './nouislider.directive'
 import {IonSliderDirective} from './ionslider.directive'
 import {SmartSliderDirective} from './smart-slider.directive'
@@ -31,7 +30,6 @@ import {OnOffSwitchModule} from "./on-off-switch/on-off-switch.module";
     UiDatepickerDirective,
     UiSpinner,
     XEditableComponent,
-    DuallistboxComponent,
     NouisliderDirective,
     IonSliderDirective,
     SmartSliderDirective,
@@ -49,7 +47,6 @@ import {OnOffSwitchModule} from "./on-off-switch/on-off-switch.module";
     UiDatepickerDirective,
     UiSpinner,
     XEditableComponent,
-    DuallistboxComponent,
     NouisliderDirective,
     IonSliderDirective,
     SmartSliderDirective,

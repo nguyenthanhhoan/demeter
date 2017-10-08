@@ -1,4 +1,5 @@
 import './vendor';
+import 'style-loader!./styles/main.scss';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';

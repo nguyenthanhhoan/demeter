@@ -1,5 +1,10 @@
 # DEMETER
 
+This project consist of: 
+
+* Front-end Angular 4: Demeter Family, Demeter Corp, Demeter Admin
+* Rails Restful API: Demeter API
+
 1. QUICK START:
 
 * Install https://docs.docker.com/docker-for-mac/

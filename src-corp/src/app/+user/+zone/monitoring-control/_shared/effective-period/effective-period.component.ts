@@ -1,7 +1,7 @@
 import { TIMEPICKER_CONTROL_VALUE_ACCESSOR } from 'ng2-bootstrap/timepicker/timepicker.component';
 import { AppUtils } from '../../../../../app.utils';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-
+import { AppSettings } from '../../../../../app.settings';
 
 @Component({
   selector: 'effective-period',
@@ -13,6 +13,9 @@ export class EffectivePeriodComponent implements OnInit, OnChanges {
   effectiveFrom: any = {};
   effectiveTo: any = {};
   valid: boolean = true;
+  datepickerOpts = {
+    dateFormat: AppSettings.date_time_format.date_picker_date_format
+  };
 
   @Input()
   private fromTime: string;

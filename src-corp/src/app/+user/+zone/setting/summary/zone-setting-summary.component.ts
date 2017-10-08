@@ -23,7 +23,7 @@ export class ZoneSettingSummaryComponent implements DoCheck {
   project_id: number;
   zone_id: number;
 
-  setting: {} = {};
+  setting: any = {};
 
   cameras = [];
 

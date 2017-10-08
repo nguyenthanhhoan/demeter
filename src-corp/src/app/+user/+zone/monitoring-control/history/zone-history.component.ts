@@ -56,6 +56,18 @@ export class ZoneHistoryComponent implements OnInit {
     this.zoneSubscription.unsubscribe();
   }
 
+  queryHistoryData() {
+    if (!this.filter.date || !this.filter.start_time || !this.filter.end_time) {
+      this.notificationService.showErrorMessage({
+        title: 'error',
+        content: 'No data match your filter.'
+      });
+      return;
+    } else {
+      this.loadHistoryData();
+    }
+  }
+
   private load24hData() {
     this.requestFieldAssignedToZone()
     .flatMap(() => {
@@ -81,18 +93,6 @@ export class ZoneHistoryComponent implements OnInit {
         name: singleChartData.name
       };
     });
-  }
-
-  private queryHistoryData() {
-    if (!this.filter.date || !this.filter.start_time || !this.filter.end_time) {
-      this.notificationService.showErrorMessage({
-        title: 'error',
-        content: 'No data match your filter.'
-      });
-      return;
-    } else {
-      this.loadHistoryData();
-    }
   }
 
   private loadHistoryData() {

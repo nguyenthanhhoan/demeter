@@ -9,8 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class SpinnerComponent implements OnDestroy {
   @Input() public delay: number = 300;
 
-  private currentTimeout: number;
-  private isDelayedRunning: boolean = false;
+  currentTimeout: number;
+  isDelayedRunning: boolean = false;
 
   @Input()
   public set isRunning(value: boolean) {
