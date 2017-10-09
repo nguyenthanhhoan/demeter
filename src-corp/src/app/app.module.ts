@@ -8,8 +8,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /*
- * Platform and Environment providers/directives/pipes
- */
+* Platform and Environment providers/directives/pipes
+*/
 import { routing } from './app.routing';
 // App is our top level component
 import { AppComponent } from './app.component';

@@ -5,10 +5,16 @@ export class AppSettings {
   public static admin_url = location.hostname === 'localhost' ? 'http://localhost:4200/' :
     location.protocol + '//admin.demeter.vn/';
 
+  public static corp_url = location.hostname === 'localhost' ? 'http://localhost:4201/' :
+    location.protocol + '//corp.demeter.vn/';
+
   public static websocketPath = `ws://${location.hostname}:9090`;
   public static role = {
     admin: {
       name: 'admin'
+    },
+    corp_user: {
+      name: 'corp_user'
     },
     family_user: {
       name: 'family_user'

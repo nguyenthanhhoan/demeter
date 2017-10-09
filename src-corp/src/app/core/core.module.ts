@@ -33,6 +33,9 @@ import { AlertService } from './services/alert.service';
 import { InvitationService } from './services/invitation.service';
 import { ProfileService } from './services/profile.service';
 
+// TODO: It's better to have app services seperated with api services
+import { AuthService } from './services/auth.service';
+
 @NgModule({
   imports: [
     TooltipModule.forRoot(),
@@ -66,7 +69,8 @@ import { ProfileService } from './services/profile.service';
     AlertRuleService,
     AlertService,
     InvitationService,
-    ProfileService
+    ProfileService,
+    AuthService
   ]
 })
 export class CoreModule {

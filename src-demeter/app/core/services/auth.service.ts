@@ -10,7 +10,7 @@ import { AppSettings } from '../../app.settings';
 import { NotificationService } from '../../core/services/notification.service';
 import { ApiService } from '../api/api.service';
 declare var Noty: any;
-
+declare var window: any;
 @Injectable()
 export class AuthService {
   constructor(private apiService: ApiService,
@@ -27,8 +27,9 @@ export class AuthService {
         this.apiService.fetch('current_user')
           .subscribe(userRes => {
             if (userRes.role === AppSettings.role.admin.name) {
-              // this.router.navigate(['/admin']);
-              alert('Admin page is implementing!');
+              this.redirectTo(AppSettings.admin_url);
+            } else if (userRes.role === AppSettings.role.corp_user.name) {
+              this.redirectTo(AppSettings.corp_url);
             } else if (userRes.role === AppSettings.role.family_user.name) {
               // TODO
               this.router.navigate([`/${userRes.username}`]);
@@ -64,5 +65,11 @@ export class AuthService {
   loggedIn(): boolean {
     let isLoggedIn = this.tokenService.userSignedIn();
     return isLoggedIn;
+  }
+
+  redirectTo(serverUrl) {
+    const { currentAuthData } = this.tokenService;
+    const { accessToken, client, uid, expiry } = currentAuthData;
+    window.location = `${serverUrl}#/?uid=${uid}&client_id=${client}&token=${accessToken}&expiry=${expiry}`;
   }
 }

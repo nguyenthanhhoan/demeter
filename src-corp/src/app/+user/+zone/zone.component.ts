@@ -22,11 +22,13 @@ export class ZoneComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private zoneService: ZoneService,
-              private store: Store<any>) { }
+              private store: Store<any>) {
 
-  ngOnInit() {
     this.store.dispatch(new ResetAction());
     this.subscribeRouterEvent();
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {

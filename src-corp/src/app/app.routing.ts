@@ -14,9 +14,6 @@ export const routes: Routes = [{
   loadChildren: 'app/+user/user.module#UserModule',
   canActivate: [AuthGuard]
 }, {
-  path: 'auth', component: AuthLayoutComponent,
-  loadChildren: 'app/+auth/auth.module#AuthModule'
-}, {
   path: '**', redirectTo: 'miscellaneous/error404',
 }];
 

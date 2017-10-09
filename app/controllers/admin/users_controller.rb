@@ -30,8 +30,7 @@ class Admin::UsersController < Admin::AdminController
     if @user.update(user_params)
 
       # Update company_admin role
-      is_company_admin = params[:is_company_admin]
-      if is_company_admin
+      if @user.is_company_admin
         @user.add_role :company_admin
       else 
         @user.remove_role :company_admin
@@ -50,7 +49,7 @@ class Admin::UsersController < Admin::AdminController
   private
 
     def user_params
-      params.require(:user).permit(:id, :name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:id, :name, :email, :is_company_admin, :password, :password_confirmation)
     end
 
     def get_user

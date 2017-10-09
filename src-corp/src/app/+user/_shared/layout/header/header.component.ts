@@ -2,9 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
+import { AppSettings } from '../../../../app.settings';
 
 declare var $: any;
-
+declare var window: any;
 @Component({
   selector: 'demeter-user-header',
   templateUrl: './header.component.html',
@@ -37,10 +38,7 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.tokenService.signOut().subscribe(
       res => {
-        this.router.navigate(['/auth/login']);
-      },
-      error => {
-        this.router.navigate(['/auth/login']);
+        window.location = AppSettings.home_url;
       }
     );
   }

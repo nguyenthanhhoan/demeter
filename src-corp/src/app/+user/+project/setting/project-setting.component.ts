@@ -16,6 +16,7 @@ export class ProjectSettingComponent implements OnInit {
   constructor(private store: Store<any>,
               private router: Router,
               private route: ActivatedRoute) {
+    this.subscribeRouterEvent();
   }
 
   ngOnInit() {
@@ -28,7 +29,6 @@ export class ProjectSettingComponent implements OnInit {
         this.projectId = projectModel.project.id;
       }
     });
-    this.subscribeRouterEvent();
   }
 
   ngOnDestroy() {

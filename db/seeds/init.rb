@@ -1,4 +1,4 @@
-['admin', 'user'].each do |role_name|
+['admin', 'user', 'corp_user'].each do |role_name|
   Role.create! name: role_name
 end
 
@@ -12,11 +12,13 @@ user = User.create({
   email: 'user@example.com',
   password: '123456'
 })
+user.add_role :corp_user
 
 caudatfarm = User.create({
   email: 'caudatfarm@demeter.vn',
   password: '123456'
 })
+caudatfarm.add_role :corp_user
 
 # Loop all projects, zones, devices then create hashid
 Project.all.each { |project|
