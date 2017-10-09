@@ -4,6 +4,6 @@ class FamilyProjectDetailSerializer < ActiveModel::Serializer
   has_one :package
   has_many :cameras, serializer: FamilyCameraSerializer
   def package_id
-    object.package.hash_id
+    object.package.serial_name
   end
 end

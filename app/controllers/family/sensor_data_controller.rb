@@ -58,7 +58,7 @@ class Family::SensorDataController < AuthorizedController
   private
 
     def get_package_id
-      package = Family::Package.find_by_hash_id params[:package_id]
+      package = Family::Package.find_by_serial_name params[:package_id]
       @package_id = package.id
     end
 end

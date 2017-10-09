@@ -80,7 +80,7 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   initData() {
-    this.package_id = this.project.package.hash_id;
+    this.package_id = this.project.package.serial_name;
     this.requestFieldAssignedToZone();
   }
 

@@ -11,7 +11,7 @@ class Family::DevicesController < AuthorizedController
     end
     devices = Family::Device.where(where_query).order(id: :asc)
 
-    device_gateway = @package.hash_id
+    device_gateway = @package.serial_name
 
     # TODO: Optimize this function
     # By quering only outdate field value
@@ -32,7 +32,7 @@ class Family::DevicesController < AuthorizedController
 
   def update_device_value
     desired_value = params[:value]
-    gateway = @device.package.hash_id
+    gateway = @device.package.serial_name
     AwsIotService.new.update_thing_shadow_v2(gateway, @device.field_id, desired_value)
     render json: @device, serializer: FamilyDeviceSerializer
   end
@@ -47,7 +47,7 @@ class Family::DevicesController < AuthorizedController
     end
 
     def get_package
-      @package = Family::Package.find_by_hash_id params[:package_id]
+      @package = Family::Package.find_by_serial_name params[:package_id]
     end
 
     def device_params

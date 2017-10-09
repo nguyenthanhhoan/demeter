@@ -12,7 +12,7 @@ class Family::ProjectsController < AuthorizedController
   def create
     @project = Family::Project.new(project_params)
     
-    found_package = Family::Package.find_by_hash_id @project.package_id
+    found_package = Family::Package.find_by_serial_name @project.package_id
     if found_package.blank?
       render :json => { error: 'Package ID not available!' }, :status => :bad_request
       return

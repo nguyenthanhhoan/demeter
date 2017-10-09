@@ -34,7 +34,7 @@ export class ControlComponent implements OnInit, OnDestroy {
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
-        this.package_id = app.project.package.hash_id;
+        this.package_id = app.project.package.serial_name;
         this.loadDevice();
       }
     });

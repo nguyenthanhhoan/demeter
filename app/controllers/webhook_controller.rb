@@ -37,7 +37,7 @@ class WebhookController < ApplicationController
 
       # Give another try for demeter family
       # TODO: Should refactor this mess
-      package = Family::Package.find_by_hash_id gateway
+      package = Family::Package.find_by_serial_name gateway
       device = package.devices.find { |device|
         device.field_id === field_id
       }

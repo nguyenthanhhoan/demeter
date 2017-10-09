@@ -1,6 +1,6 @@
 def create_wfami_package(id) 
   package = Family::Package.create!({
-    hash_id: id
+    serial_name: id
   })
   
   Family::Device.create!({
@@ -85,7 +85,7 @@ end
 
 def create_gfami_package(id)
   package = Family::Package.create!({
-    hash_id: id
+    serial_name: id
   })
   Family::Device.create!({
     package: package,
@@ -192,7 +192,7 @@ create_gfami_package('gfami-003')
 
 
 package = Family::Package.create!({
-  hash_id: 'dmt-client'
+  serial_name: 'dmt-client'
 })
 
 Family::Device.create!({
