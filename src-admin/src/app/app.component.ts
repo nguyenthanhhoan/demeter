@@ -1,6 +1,4 @@
-import { ISubscription } from 'rxjs/Subscription';
-import { NavigationEnd, Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import { AuthService } from './_core/services/auth.service';
 
@@ -8,31 +6,14 @@ import { AuthService } from './_core/services/auth.service';
   selector: 'ngx-app',
   template: '<router-outlet></router-outlet>',
 })
-export class AppComponent implements OnInit, OnDestroy {
-  private routerSubscription: ISubscription;
+export class AppComponent implements OnInit {
 
-  constructor(private router: Router,
-              private analytics: AnalyticsService,
+  constructor(private analytics: AnalyticsService,
               private authService: AuthService) {
+    this.authService.init();
   }
 
   ngOnInit(): void {
     this.analytics.trackPageViews();
-    this.subscribeRouterEvent();
-  }
-
-  ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
-  }
-
-  private subscribeRouterEvent() {
-    // Subcribe router event to make sure this code run after AuthComponent.validateToken
-    this.routerSubscription = this.router.events.subscribe(this.handleRouteParam.bind(this));
-  }
-
-  private handleRouteParam(event) {
-    if (event instanceof NavigationEnd) {
-      this.authService.init();
-    }
   }
 }
