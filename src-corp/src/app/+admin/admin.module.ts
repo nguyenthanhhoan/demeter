@@ -5,11 +5,6 @@ import { routing } from './admin.routing';
 import { SharedModule } from './_shared/shared.module';
 import { DashboardModule } from './+dashboard/dashboard.module';
 
-import { ProjectListComponent } from './+project/list/project-list.component';
-import { ProjectFormComponent } from './+project/form/project-form.component';
-
-import { ZoneListComponent } from './+zone/list/zone-list.component';
-
 import { DeviceListComponent } from './+device/list/device-list.component';
 import { DeviceFormComponent } from './+device/form/device-form.component';
 
@@ -29,9 +24,6 @@ import { DeviceFieldService } from './shared/services/device-field.service';
     SharedModule
   ],
   declarations: [
-    ProjectFormComponent,
-    ProjectListComponent,
-    ZoneListComponent,
     DeviceListComponent,
     DeviceFormComponent,
     DeviceFieldListComponent,

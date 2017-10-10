@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>{{mode + ' Camera'}}</nb-card-header>
+      <nb-card-body>
+        <form class="form-horizontal" #form="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label for="input1" class="col-sm-3 form-control-label">Camera No <span class="req-field">*</span></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input1" placeholder="Camera No"
+                    #camera_no="ngModel"
+                    name="camera_no"
+                    required
+                    [(ngModel)]="camera.camera_no"
+                    [ngClass]="camera_no.valid || camera_no.pristine ? '' : 'form-control-danger'">
+                  <div class="note note-error"
+                    [hidden]="camera_no.pristine || !camera_no.errors?.required">This is a required field.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input2" class="col-sm-3 form-control-label">Camera Name <span class="req-field">*</span></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input2" placeholder="Camera Name"
+                    #camera_name="ngModel"
+                    name="camera_name"
+                    required
+                    [(ngModel)]="camera.camera_name"
+                    [ngClass]="camera_name.valid || camera_name.pristine ? '' : 'form-control-danger'">
+                  <div class="note note-error"
+                    [hidden]="camera_name.pristine || !camera_name.errors?.required">This is a required field.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input3" class="col-sm-3 form-control-label">Camera API</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input3" placeholder="Camera API"
+                    #api="ngModel"
+                    name="api"
+                    disabled
+                    [(ngModel)]="camera.api">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input4" class="col-sm-3 form-control-label">Server</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input4" placeholder="Server"
+                    #server="ngModel"
+                    name="server"
+                    [(ngModel)]="camera.server">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label for="input5" class="col-sm-3 form-control-label">Camera Live Hash</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input5" placeholder="Camera Live Hash"
+                    #live_hash="ngModel"
+                    name="live_hash"
+                    [(ngModel)]="camera.live_hash">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input6" class="col-sm-3 form-control-label">Camera Playback Hash</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input6" placeholder="Camera Playback Hash"
+                    #playback_hash="ngModel"
+                    name="playback_hash"
+                    [(ngModel)]="camera.playback_hash">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input6" class="col-sm-3 form-control-label">Secret ID</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input6" placeholder="Secret ID"
+                    #secret_id="ngModel"
+                    name="secret_id"
+                    [(ngModel)]="camera.secret_id">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input6" class="col-sm-3 form-control-label">Channel</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input6" placeholder="Channel"
+                    #channel="ngModel"
+                    name="channel"
+                    [(ngModel)]="camera.channel">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row action-row">
+            <div class="action-buttons">
+              <button
+                type="submit"
+                [disabled]="!form.valid"
+                [ngClass]="form.valid ? '' : 'disabled'"
+                (click)="saveOrUpdate()"
+                class="btn btn-primary">OK</button>
+              <button class="btn btn-default" routerLink="/pages/family/camera">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

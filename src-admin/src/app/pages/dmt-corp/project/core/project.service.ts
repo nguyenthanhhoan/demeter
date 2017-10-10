@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
-import { ApiService } from '../../../core/api/api.service';
+import { ApiService } from '../../../../_core/api/api.service';
 
 @Injectable()
 export class ProjectService {
@@ -11,12 +8,12 @@ export class ProjectService {
 
   constructor (private apiService: ApiService) {}
 
-  getProjects (): Observable<any[]> {
+  getAll (): Observable<any[]> {
     return this.apiService.fetch(`${this.projectsUrl}`);
   }
 
   post (project): Observable<any[]> {
-    let formData:FormData = new FormData();
+    const formData: FormData = new FormData();
     formData.append('project[name]', project.name);
     formData.append('project[surface]', project.surface);
     formData.append('project[labour]', project.labour);

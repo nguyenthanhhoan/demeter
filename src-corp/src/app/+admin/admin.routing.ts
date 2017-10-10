@@ -23,14 +23,6 @@ export const routes: Routes = [{
         path: 'dashboard',
         component: DashboardComponent,
       }, {
-        path: 'project',
-        component: ProjectListComponent
-      }, {
-        path: 'project/new', component: ProjectFormComponent
-      }, {
-        path: 'zone',
-        component: ZoneListComponent
-      }, {
         path: 'camera',
         loadChildren:
           'app/+admin/+camera/camera.module#CameraModule'

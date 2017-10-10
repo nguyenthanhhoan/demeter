@@ -33,6 +33,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Demeter Corporation',
+    icon: 'ion-briefcase',
+    link: '/pages/corporation',
+    children: [
+      {
+        title: 'Project',
+        link: '/pages/corporation/project',
+      },
+      {
+        title: 'Zone',
+        link: '/pages/corporation/zone',
+      },
+      {
+        title: 'Camera',
+        link: '/pages/corporation/camera',
+      },
+    ],
+  },
   // {
   //   title: 'Forms',
   //   icon: 'nb-compose',

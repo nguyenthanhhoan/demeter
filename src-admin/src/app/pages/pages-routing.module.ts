@@ -17,6 +17,9 @@ const routes: Routes = [{
     path: 'family',
     loadChildren: './dmt-family/dmt-family.module#FamilyModule',
   }, {
+    path: 'corporation',
+    loadChildren: './dmt-corp/dmt-corp.module#CorporationModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
