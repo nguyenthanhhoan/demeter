@@ -1,0 +1,33 @@
+.action-row {
+  display: flex;
+  .action-buttons {
+    margin-left: auto;
+  }
+}
+
+h4 {
+  margin-bottom: 10px;
+}
+
+.icon-section {
+  display: flex;
+
+  .icon-single {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid transparent;
+
+    span {
+      width: 30px;
+      height: 30px;
+    }
+
+    &:hover {
+      border: 2px solid #eee;
+    }
+
+    &.active {
+      border: 2px solid #bbb;
+    }
+  }
+}

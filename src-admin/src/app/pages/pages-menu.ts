@@ -50,6 +50,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Camera',
         link: '/pages/corporation/camera',
       },
+      {
+        title: 'Gateway',
+        link: '/pages/corporation/gateway',
+      },
     ],
   },
   // {

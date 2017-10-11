@@ -14,6 +14,9 @@ export const routes: Routes = [{
   }, {
     path: 'camera',
     loadChildren: './camera/camera.module#CameraModule',
+  }, {
+    path: 'gateway',
+    loadChildren: './gateway/gateway.module#GatewayModule',
   }],
 }];
 
