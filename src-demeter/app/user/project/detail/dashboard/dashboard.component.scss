@@ -12,13 +12,12 @@ $brand-color: rgb(49, 139, 80);
   position: relative;
 }
 
-.control-device {
+.control-device-common {
   display: flex;
   align-items: center;
   .device-name {
     font-size: 16px;
     color: $brand-color;
-    flex: 0.5;
   }
   &:not(:last-child) {
     margin-bottom: 10px;
@@ -30,6 +29,17 @@ $brand-color: rgb(49, 139, 80);
   .toggle {
     min-width: 70px;
   }
+}
+
+.control-device-mobile {
+  @extend .control-device-common;
+  .device-name {
+    flex: 0.5;
+  }
+}
+
+.control-device-desktop {
+  @extend .control-device-common;
 }
 
 .camera-single {

@@ -1,3 +1,5 @@
+import { AppMode } from '../_shared/layout/const/const';
+import { AppModeService } from '../_shared/layout/services/app-mode.service';
 import { URLSearchParams } from '@angular/http';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
@@ -9,12 +11,14 @@ import { NotificationService } from '../../../../core/services/notification.serv
 declare var moment: any;
 @Component({
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [AppModeService]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   isRequesting: boolean = false;
   devices = [];
   cameras = [];
+  appMode: AppMode = AppMode.MOBILE;
   private project: any = {};
   private package_id: string;
   private storeSubscription: ISubscription;
@@ -22,10 +26,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>,
               private ngZone: NgZone,
               private deviceService: DeviceService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private appModeService: AppModeService) {
+  }
+
+  isMobileMode(): boolean {
+    return this.appMode === AppMode.MOBILE;
+  }
+
+  isDesktopMode(): boolean {
+    return this.appMode === AppMode.DESKTOP;
   }
 
   ngOnInit() {
+    this.appMode = this.appModeService.getAppMode();
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {

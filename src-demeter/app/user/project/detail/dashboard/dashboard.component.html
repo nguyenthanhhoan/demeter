@@ -6,7 +6,7 @@
 
 <div class="spinner-wrapper control-pane">
   <app-spinner [isRunning]="isRequesting"></app-spinner>
-  <div *ngFor="let device of devices" class="control-device">
+  <div *ngFor="let device of devices" [ngClass]="{'control-device-mobile': isMobileMode(), 'control-device-desktop': isDesktopMode()}">
     <div class="device-name">
       {{ device.name }}
     </div>
