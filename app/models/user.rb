@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :is_company_admin
+  attr_accessor :is_company_admin, :is_family_user
   rolify
   # Include default devise modules.
   devise :database_authenticatable, :registerable,

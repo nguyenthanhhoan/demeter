@@ -17,9 +17,9 @@ class Admin::UsersController < Admin::AdminController
   def create
     @user = User.new(user_params)
     is_company_admin = params[:user][:is_company_admin]
-    logger.info "is_company_admin #{is_company_admin}"
 
     if @user.save
+      update_role()
       render json: @user
     else
       render :json => { errors: @user.errors }, :status => :bad_request
@@ -28,13 +28,7 @@ class Admin::UsersController < Admin::AdminController
 
   def update
     if @user.update(user_params)
-
-      # Update company_admin role
-      if @user.is_company_admin
-        @user.add_role :company_admin
-      else 
-        @user.remove_role :company_admin
-      end
+      update_role()
       render json: @user
     else
       render :json => { errors: @user.errors }, :status => :bad_request
@@ -49,10 +43,23 @@ class Admin::UsersController < Admin::AdminController
   private
 
     def user_params
-      params.require(:user).permit(:id, :name, :email, :is_company_admin, :password, :password_confirmation)
+      params.require(:user).permit(:id, :name, :email, :username, :is_company_admin, :is_family_user, :password, :password_confirmation)
     end
 
     def get_user
       @user = User.find(params[:id])
+    end
+
+    def update_role
+      if @user.is_company_admin
+        @user.add_role :company_admin
+      else 
+        @user.remove_role :company_admin
+      end
+      if @user.is_family_user
+        @user.add_role :family_user
+      else 
+        @user.remove_role :family_user
+      end
     end
 end
