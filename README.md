@@ -86,6 +86,12 @@ This project consist of:
 
         `sudo ufw allow 9090/tcp`
 
+    5. Cannot send email due to database connection
+
+        - Check if there is any busy job(s) with `http://demeter.vn/sidekiq/busy`
+        - Check worker service's logs by `docker logs 84cbe05344b0 -f`
+        - The cause might come from `ActiveRecord::ConnectionTimeoutError could not obtain a database connection within 5.000`. Try to increase the database connection's pool
+
 ## Development Notes
 
 1. Shouldnot override default Date/Time format.

@@ -13,13 +13,13 @@ class FamilyAlertService
     rules_parsed = JSON.parse(alert.rules, :symbolize_names => true)
     rules_parsed.each { |rule|
       if rule[:device_uuid] == device.uuid && rule_match?(rule, alert)
-        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}] alert rule match. Prepare to create alert"
+        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}][package=#{package.serial_name}] alert rule match. Prepare to create alert"
         create_notification(alert, rule)
         email_alert(alert, rule)
         message_alert(alert, rule)
         rule[:last_alert] = Time.new.to_i
       else 
-        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}] alert rule not match. Alert wont be created"
+        Rails.logger.info "[FamilyAlertService] [alert_id=#{alert.id}][package=#{package.serial_name}] alert rule not match. Alert wont be created"
       end
     }
     alert.update_attribute(:rules, rules_parsed.to_json)

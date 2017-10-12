@@ -2,7 +2,11 @@ class FamilyDeviceTimerService
   
   def initialize(device)
     @device = device
-    @timers = JSON.parse(device.timer_daily_schedule)
+    if device.timer_daily_schedule.present?
+      @timers = JSON.parse(device.timer_daily_schedule)
+    else
+      @timers = []
+    end
   end
   def get_job_name(device_id, schedule_id, type)
     "FamilyDeviceTimer_#{device_id}_#{schedule_id}_#{type.to_s}"
@@ -56,7 +60,7 @@ class FamilyDeviceTimerService
   def execute(schedule_id, type)
     if matched_rule?(schedule_id)
       Rails.logger.info "[FamilyDeviceTimerService] Rule matched for device: #{@device.id}: match_rule.to_s"
-      gateway = @device.package.hash_id
+      gateway = @device.package.serial_name
 
       desired_value = false
       if type.to_sym === :from_time
