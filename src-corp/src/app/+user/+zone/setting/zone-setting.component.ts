@@ -23,6 +23,7 @@ export class ZoneSettingComponent implements OnInit, OnDestroy {
               private zoneService: ZoneService,
               private router: Router,
               private route: ActivatedRoute) {
+    this.subscribeRouterEvent();
   }
 
   ngOnInit() {
@@ -34,7 +35,6 @@ export class ZoneSettingComponent implements OnInit, OnDestroy {
         this.projectId = zoneModel.projectId;
       }
     });
-    this.subscribeRouterEvent();
   }
 
   ngOnDestroy() {

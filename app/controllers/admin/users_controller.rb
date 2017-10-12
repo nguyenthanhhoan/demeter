@@ -53,6 +53,7 @@ class Admin::UsersController < Admin::AdminController
     def update_role
       if @user.is_company_admin
         @user.add_role :company_admin
+        @user.add_role :corp_user
       else 
         @user.remove_role :company_admin
       end

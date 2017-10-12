@@ -24,17 +24,13 @@ export class AuthService {
       res => {
         this.apiService.fetch('current_user')
           .subscribe(userRes => {
-            if (userRes.role === AppSettings.role.admin.name) {
-              this.router.navigate(['/admin']);
+            if (userRes.has_project) {
+              this.router.navigate(['/user/project']);
+            } else if (userRes.assigned_zone) {
+              let {assigned_zone} = userRes;
+              this.router.navigate([`/user/project/${assigned_zone.project_id}/zone/${assigned_zone.zone_id}`]);
             } else {
-              if (userRes.has_project) {
-                this.router.navigate(['/user/project']);
-              } else if (userRes.assigned_zone) {
-                let {assigned_zone} = userRes;
-                this.router.navigate([`/user/project/${assigned_zone.project_id}/zone/${assigned_zone.zone_id}`]);
-              } else {
-                this.router.navigate(['/user/project/new']);
-              }
+              this.router.navigate(['/user/project/new']);
             }
           }
         );

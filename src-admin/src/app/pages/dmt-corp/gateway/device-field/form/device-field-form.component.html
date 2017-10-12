@@ -19,6 +19,20 @@
             </div>
           </div>
           <div class="form-group row">
+            <label for="input7" class="col-sm-3 form-control-label">Name <span class="req-field">*</span></label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="input7" placeholder="Name"
+                #field_name="ngModel"
+                name="field_name"
+                required
+                [(ngModel)]="deviceField.name"
+                [ngClass]="field_name.valid || field_name.pristine ? '' : 'form-control-danger'">
+              <div class="note note-error"
+                [hidden]="field_name.pristine || !field_name.errors?.required">This is a required field.
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
             <label for="input2" class="col-sm-3 form-control-label">Display Name <span class="req-field">*</span></label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="input2" placeholder="Display Name"
@@ -53,7 +67,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="input5" class="col-sm-3 form-control-label">Attribute</label>
+            <label for="input5" class="col-sm-3 form-control-label">Data Type</label>
             <div class="col-sm-9">
               <select [(ngModel)]="deviceField.value_data_type"
                 class="form-control" id="input5"
