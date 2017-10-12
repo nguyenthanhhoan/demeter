@@ -6,10 +6,6 @@ import { AuthLayoutComponent } from './shared/layout/app-layouts/auth-layout.com
 export const routes: Routes = [{
   path: '', redirectTo: 'user', pathMatch: 'full'
 }, {
-  path: 'admin',
-  loadChildren: 'app/+admin/admin.module#AdminModule',
-  canActivate: [AuthGuard]
-}, {
   path: 'user',
   loadChildren: 'app/+user/user.module#UserModule',
   canActivate: [AuthGuard]
