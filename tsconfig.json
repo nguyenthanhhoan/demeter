@@ -29,7 +29,9 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src-admin",
+    "src-corp"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
