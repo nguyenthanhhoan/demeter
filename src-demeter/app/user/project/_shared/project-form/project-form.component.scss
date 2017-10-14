@@ -1,14 +1,16 @@
+$picture-bg-color: rgb(223, 232, 205);
+
 .add-picture-col {
   display: flex;
   .add-picture {
     margin-left: auto;
     width: 100px;
     height: 100px;
-    background-color: rgb(223, 232, 205);
+    background-color: $picture-bg-color;
     display: flex;
     cursor: pointer;
     &:hover {
-      background-color: darken(rgb(223, 232, 205), 5%);
+      background-color: darken($picture-bg-color, 5%);
     }
     .fa-plus {
       flex: 1;
@@ -22,4 +24,28 @@
 
 .upload-preview {
   background-size: cover;
+}
+
+/* -- Desktop View -- */
+@media only screen and (min-width: 768px) {
+  .project-form {
+    margin-top: 15px;
+  }
+  .dmt-button-group {
+    float: right !important;
+  }
+}
+
+/* -- Mobile View -- */
+@media only screen and (max-width: 768px) {
+  .center-container {
+    display: flex;
+    align-content: center;
+  }
+  .add-picture-col {
+    width: 100%;
+    .add-picture {
+      margin: auto;
+    }
+  }
 }

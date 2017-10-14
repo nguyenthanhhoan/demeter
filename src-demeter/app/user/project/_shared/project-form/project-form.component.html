@@ -1,8 +1,8 @@
 <div class="project-form">
   <form class="form-horizontal dmt-form">
     <fieldset [disabled]="fetching">
-      <div class="form-group">
-        <span class="col-xs-4 col-sm-5 add-picture-col">
+      <div class="form-group col-md-4 col-sm-4 col-xs-12">
+        <span class="col-xs-12 col-sm-12 col-md-12 add-picture-col">
           <div class="add-picture upload-preview"
             *ngIf="mode != 'edit'"
             (click)="openSelectFile()">
@@ -21,47 +21,49 @@
             (change)="fileChange($event)" accept="image/*" />
         </span>
       </div>
-      <div class="form-group">
-        <span class="control-label col-xs-4 col-sm-5">Name</span>
-        <div class="col-xs-7 col-sm-5">
-          <input
-            [(ngModel)]="project.name"
-            maxlength="20"
-            name="name"
-            type="text"
-            class="form-control">
+      <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="form-group">
+          <span class="control-label col-xs-4 col-sm-4 col-md-4">Name</span>
+          <div class="col-xs-7 col-sm-8 col-md-8">
+            <input
+              [(ngModel)]="project.name"
+              maxlength="20"
+              name="name"
+              type="text"
+              class="form-control">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <span class="control-label col-xs-4 col-sm-5">PACKAGE ID</span>
-        <div class="col-xs-7 col-sm-5">
-          <input
-            [(ngModel)]="project.package_id"
-            [disabled]="mode == 'edit'"
-            name="package_id"
-            maxlength="20"
-            type="text"
-            class="form-control">
+        <div class="form-group">
+          <span class="control-label col-xs-4 col-sm-4 col-md-4">PACKAGE ID</span>
+          <div class="col-xs-7 col-sm-8 col-md-8">
+            <input
+              [(ngModel)]="project.package_id"
+              [disabled]="mode == 'edit'"
+              name="package_id"
+              maxlength="20"
+              type="text"
+              class="form-control">
+          </div>
         </div>
-      </div>
-      <div class="dmt-button-group">
-        <span class="col-xs-4 col-sm-5"></span>
-        <div class="col-xs-7">
-          <button 
-            *ngIf="mode != 'edit'"
-            (click)="create()"
-            class="dmt-btn btn btn-primary">
-            Create
-          </button>
-  
-          <button 
-            *ngIf="mode == 'edit'"
-            (click)="update()"
-            class="dmt-btn btn btn-primary">
-            Update
-          </button>
-          <a class="dmt-btn btn btn-cancel"
-            routerLink="/{{user.username}}">Cancel</a>
+        <div>
+          <span class="col-xs-4 col-sm-6 col-md-7"></span>
+          <div class="col-xs-7 col-sm-6 col-md-5">
+            <div class="dmt-button-group">
+              <button 
+                *ngIf="mode != 'edit'"
+                (click)="create()"
+                class="dmt-btn btn btn-primary">
+                Create
+              </button>
+              <button 
+                *ngIf="mode == 'edit'"
+                (click)="update()"
+                class="dmt-btn btn btn-primary">
+                Update
+              </button>
+              <a class="dmt-btn btn btn-cancel" routerLink="/{{user.username}}">Cancel</a>
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>

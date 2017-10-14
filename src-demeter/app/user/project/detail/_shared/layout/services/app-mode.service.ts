@@ -5,7 +5,7 @@ import { AppMode } from '../const/const';
 export class AppModeService {
   public getAppMode(): AppMode {
     let screenWidth = window.screen.width;
-    if (screenWidth > 500) {
+    if (screenWidth > 768) {
       return AppMode.DESKTOP;
     }
     return AppMode.MOBILE;
