@@ -1,10 +1,14 @@
 export class AppSettings {
-  public static api = 'http://demeter.local/';
-  // public static api = 'http://demeter.vn/';
-
+  // Development
   // public static home_url = 'http://localhost:3000/';
-  public static home_url = 'http://demeter.local/';
-  // public static home_url = location.protocol + '//demeter.vn/';
+
+  // Testing
+  // public static api = 'http://family.demeter.local/';
+  // public static home_url = 'http://family.demeter.local/';
+
+  // Production
+  public static api = 'http://family.demeter.vn/';
+  public static home_url = location.protocol + '//family.demeter.vn/';
 
   public static websocketPath = `ws://${location.hostname}:9090`;
   public static role = {
