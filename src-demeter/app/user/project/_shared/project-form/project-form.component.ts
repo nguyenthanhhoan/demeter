@@ -4,6 +4,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../core/api/services/project.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { LoadedProjectAction } from '../../../../core/actions/actions';
 
 declare var $: any;
 @Component({
@@ -13,7 +14,9 @@ declare var $: any;
 })
 export class ProjectFormComponent implements OnInit {
   @Input()
-  project: any = {};
+  project: any = {
+    setting: {}
+  };
   @Input()
   mode: String = 'new';
   user: any = {};
@@ -64,8 +67,9 @@ export class ProjectFormComponent implements OnInit {
   }
   update() {
     this.projectService.put(this.project)
-    .subscribe(() => {
+    .subscribe((project) => {
       this.notificationService.showMessage('Project updated successfully!');
+      this.store.dispatch(new LoadedProjectAction(project));
     });
   }
 }

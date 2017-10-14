@@ -77,7 +77,7 @@ web_corp:
     - VIRTUAL_PORT=4201
 
 web_admin:
-  image: angular-cli
+  image: sutran/angular-cli
   entrypoint: /rails/src-admin/entry.sh
   volumes:
     - .:/rails

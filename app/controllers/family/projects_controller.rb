@@ -27,7 +27,7 @@ class Family::ProjectsController < AuthorizedController
 
     if @project.save
       found_package.update_attribute(:family_project_id, @project.id)
-      render json: @project, serializer: FamilyProjectSerializer
+      render json: @project, serializer: FamilyProjectDetailSerializer
     else
       render :json => { errors: @project.errors }, :status => :bad_request
     end
@@ -35,7 +35,7 @@ class Family::ProjectsController < AuthorizedController
 
   def update
     if @project.update(project_params)
-      render json: @project, serializer: FamilyProjectSerializer
+      render json: @project, serializer: FamilyProjectDetailSerializer
     else
       render :json => { errors: @project.errors }, :status => :bad_request
     end
@@ -43,13 +43,13 @@ class Family::ProjectsController < AuthorizedController
 
   def destroy
     @project.destroy
-    render json: @project, serializer: FamilyProjectSerializer
+    render json: @project, serializer: FamilyProjectDetailSerializer
   end
 
   private
 
     def project_params
-      params.require(:project).permit(:name, :package_id, :image)
+      params.require(:project).permit(:name, :package_id, :image, :setting)
     end
 
     def get_project
