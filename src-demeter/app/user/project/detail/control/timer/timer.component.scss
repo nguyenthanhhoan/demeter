@@ -2,10 +2,12 @@ $brand-color: rgb(49, 139, 80);
 .timer-pane {
   margin-top: 30px;
   .title {
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 0;
     padding-left: 10px;
     border-bottom: 1px solid rgb(190, 190, 190);
+    background-color: #318b50;
+    color: white;
   }
 
   .dmt-form {
@@ -26,6 +28,7 @@ $brand-color: rgb(49, 139, 80);
 
   .form-control-wrap {
     flex: 1;
+    max-width: 150px;
   }
 
   .control-label {
@@ -77,5 +80,28 @@ $brand-color: rgb(49, 139, 80);
       font-size: 14px;
       cursor: pointer;
     }
+  }
+}
+
+/* -- Mobile View -- */
+@media only screen and (max-width: 768px) {
+  .schedule-pane {
+    .time-form-group {
+      >:not(:first-child) {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+/* -- Mobile View -- */
+@media only screen and (max-width: 500px) {
+  .timer-pane {
+    .dmt-form {
+      margin: 10px 0px 10px 0px;
+    }
+  }
+  .col-xs-12 {
+    padding-left: 0;
   }
 }

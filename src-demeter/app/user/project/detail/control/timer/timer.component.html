@@ -29,8 +29,8 @@
 <div class="timer-pane schedule-pane">
   <div class="title">Schedule</div>
   <div class="dmt-form">
-    <div class="form-group" *ngFor="let schedule of device.timer_daily_schedule">
-      <div class="time-form-group">
+    <div class="col-xs-12 form-group" *ngFor="let schedule of device.timer_daily_schedule">
+      <div class="col-xs-8 col-sm-6 col-md-6 time-form-group">
         <span>From</span>
         <input
           class="form-control time-control"
@@ -42,7 +42,7 @@
           type="time"
           [(ngModel)]="schedule.to_time" />
       </div>
-      <div class="actions">
+      <div class="col-xs-4 col-sm-6 col-md-6 actions">
         <div class="toggle">
           <label class="dmt-toggle">
             <input type="checkbox"
