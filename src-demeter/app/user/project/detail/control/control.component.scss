@@ -161,3 +161,21 @@ $brand-color: rgb(49, 139, 80);
     }
   }
 }
+
+/* -- Desktop View -- */
+@media only screen and (min-width: 768px) {
+  .align-left {
+    .dmt-radio {
+      float: left;
+    }
+  }
+  .align-right {
+    .dmt-radio {
+      float: right;
+    }
+  }
+  .mode-detail.manual-model {
+    align-items: left;
+    margin-left: 30px;
+  }
+}

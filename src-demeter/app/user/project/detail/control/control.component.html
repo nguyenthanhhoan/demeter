@@ -23,38 +23,42 @@
     </div>
   
     <div class="mode-selection">
-      <label class="dmt-radio"
-        [ngClass]="selectedDevice.mode == 'manual' ? 'active': ''">
-        <input
+      <div class="col-xs-4 col-md-4 align-left">
+        <label class="dmt-radio"
+          [ngClass]="selectedDevice.mode == 'manual' ? 'active': ''">
+          <input
+            [ngModel]="selectedDevice.mode"
+            (ngModelChange)="updateMode('manual')"
+            type="radio"
+            value="manual"
+            name="mode" />
+          <i></i> Manual
+        </label>
+      </div>
+      <div class="col-xs-4 col-md-4">
+        <label class="dmt-radio"
+          [ngClass]="selectedDevice.mode == 'timer' ? 'active': ''">
+          <input 
           [ngModel]="selectedDevice.mode"
-          (ngModelChange)="updateMode('manual')"
+          (ngModelChange)="updateMode('timer')"
           type="radio"
-          value="manual"
-          name="mode" />
-        <i></i> Manual
-      </label>
-    
-      <label class="dmt-radio"
-        [ngClass]="selectedDevice.mode == 'timer' ? 'active': ''">
-        <input 
-        [ngModel]="selectedDevice.mode"
-        (ngModelChange)="updateMode('timer')"
-        type="radio"
-        value="timer"
-        name="mode"/>
-        <i></i> Timer
-      </label>
-    
-      <label class="dmt-radio"
-      [ngClass]="selectedDevice.mode == 'event' ? 'active': ''">
-        <input
-          [ngModel]="selectedDevice.mode"
-          (ngModelChange)="updateMode('event')"
-          type="radio"
-          value="event"
+          value="timer"
           name="mode"/>
-        <i></i> Event
-      </label>
+          <i></i> Timer
+        </label>
+      </div>
+      <div class="col-xs-4 col-md-4 align-right">
+        <label class="dmt-radio"
+          [ngClass]="selectedDevice.mode == 'event' ? 'active': ''">
+            <input
+              [ngModel]="selectedDevice.mode"
+              (ngModelChange)="updateMode('event')"
+              type="radio"
+              value="event"
+              name="mode"/>
+            <i></i> Event
+          </label>
+      </div>
     </div>
   </div>
   <div class="mode-detail manual-model" *ngIf="selectedDevice.mode == 'manual'">
