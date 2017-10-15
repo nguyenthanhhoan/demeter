@@ -1,0 +1,63 @@
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Event Rule</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body dmt-form form-horizontal">
+        <div class="col-md-12">
+          <div class="dmt-select sensor-select">
+            <select
+              [(ngModel)]="event.sensor_id">
+              <option disabled value="">Select Sensor</option>
+              <option *ngFor="let sensor of sensors" [value]="sensor.uuid">{{sensor.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-6 control-label">Lower Limit</label>
+          <div class="col-md-6">
+            <div class="limit-group">
+              <input
+                class="form-control"
+                placeholder="Lower Limit"
+                type="number"
+                [(ngModel)]="event.lower_limit" />
+              <button class="dmt-btn btn-primary"
+                (click)="toggleValue(event, 'lower_limit_value')">
+                {{ event.lower_limit_value === 1 ? 'On': 'Off' }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-6 control-label">Upper Limit</label>
+          <div class="col-md-6">
+            <div class="limit-group">
+              <input
+                class="form-control"
+                placeholder="Upper Limit"
+                type="number"
+                [(ngModel)]="event.upper_limit" />
+              <button class="dmt-btn btn-primary"
+                (click)="toggleValue(event, 'upper_limit_value')">
+                {{ event.upper_limit_value === 1 ? 'On': 'Off' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="add()"
+          class="dmt-btn btn-primary">Add</button>
+        <button
+          (click)="cancel()"
+          class="dmt-btn btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

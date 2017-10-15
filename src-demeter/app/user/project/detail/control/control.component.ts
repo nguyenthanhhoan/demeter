@@ -15,7 +15,17 @@ export class ControlComponent implements OnInit, OnDestroy {
   isRequesting: boolean;
   isDeviceUpdating: boolean = false;
   package_id: string;
-
+  modes = {
+    manual: {
+      display: 'Manual'
+    },
+    timer: {
+      display: 'Timer'
+    },
+    event: {
+      display: 'Auto'
+    }
+  };
   // devices that can control
   devices: any = [];
 
@@ -142,7 +152,7 @@ export class ControlComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.selectedDevice.mode = currentMode;
     });
-    this.notificationService.confirm(`Do you want to switch to ${mode} mode?`, 'Confirmation')
+    this.notificationService.confirm(`Do you want to switch to ${this.modes[mode].display} mode?`, 'Confirmation')
     .subscribe(() => {
       this.selectedDevice.mode = mode;
       let device = this.selectedDevice;

@@ -1,0 +1,15 @@
+.sensor-select {
+  margin-bottom: 15px;
+}
+
+.limit-group {
+  display: flex;
+  align-items: 'center';
+  .form-control {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .dmt-btn {
+    padding: 3px 15px;
+  }
+}
