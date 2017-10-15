@@ -53,6 +53,8 @@
       <div class="modal-footer">
         <button
           (click)="add()"
+          [ngClass]="isInValidState() ? 'disabled' : ''"
+          [disabled]="isInValidState()"
           class="dmt-btn btn-primary">Add</button>
         <button
           (click)="cancel()"

@@ -43,9 +43,12 @@ export class EventComponent implements OnInit, OnChanges {
   }
 
   remove(event) {
-    let { events } = this.device;
-    const index = events.indexOf(event);
-    events.splice(index, 1);
+    this.notificationService.confirm('Do you want to remove this event?')
+    .subscribe(() => {
+      let { events } = this.device;
+      const index = events.indexOf(event);
+      events.splice(index, 1);
+    });
   }
 
   updateDevice() {

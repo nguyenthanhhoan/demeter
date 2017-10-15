@@ -33,6 +33,18 @@ export class EventRuleComponent {
     this.lgModal.hide();
   }
 
+  isInValidState() {
+    const { event } = this;
+    if (event.sensor_id === undefined || event.sensor_id.length === 0) {
+      return true;
+    }
+    if ((event.upper_limit === undefined || event.upper_limit === null)
+      && (event.lower_limit === undefined || event.lower_limit === null)) {
+      return true;
+    }
+    return false;
+  }
+
   toggleValue(event, prop) {
     if (event[prop] === 1) {
       event[prop] = 0;
