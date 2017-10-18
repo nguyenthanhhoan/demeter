@@ -1,0 +1,58 @@
+.dmt-form {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 350px) {
+  .dmt-form {
+    max-width: 300px;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .dmt-form {
+    max-width: 400px;
+    margin: 0;
+  }
+}
+
+.time-group {
+  display: flex;
+  align-items: center;
+
+  .form-control {
+    width: calc(50% - 45px);
+  }
+}
+
+.date-group {
+  display: flex;
+  align-items: center;
+  .form-control {
+    flex: 1;
+  }
+}
+
+.control-label {
+  width: 45px;
+  margin-right: 10px;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  button {
+    margin-left: auto;
+  }
+}
+
+.fields-block {
+  clear: both;
+  margin-top: 15px;
+  padding: 10px;
+  border-top: 1px solid lightgray;
+  .checkbox {
+    margin-bottom: 20px;
+    clear: both;
+  }
+}

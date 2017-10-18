@@ -1,1 +1,95 @@
-<h1>Report to be continue...</h1>
+<div class="dmt-form form-horizontal">
+  <div class="date-group">
+    <div class="control-label">Date</div>
+    <input class="form-control" type="date" [(ngModel)]="reportFilter.date"/>
+  </div>
+  <div class="time-group">
+    <div class="control-label">From</div>
+    <input class="form-control" type="time" [(ngModel)]="reportFilter.start_time"/>
+    <div class="control-label">To</div>
+    <input class="form-control" type="time" [(ngModel)]="reportFilter.end_time"/>
+  </div>
+</div>
+<div class="col-md-12 fields-block">
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Temparature
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Humidity
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Illuminance
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Soil Moisture
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Co2
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> pH
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> EC
+      </label>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 fields-block">
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Device 1
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Device 2
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Device 3
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Device 4
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-md-4">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/> Finance
+      </label>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 fields-block"></div>
+<div class="buttons pull-right">
+  <button class="dmt-btn btn-primary"
+    [ngClass]="isRequesting ? 'disabled' : ''"
+    [disabled]="isRequesting"
+    (click)="report()">Report</button>
+</div>
