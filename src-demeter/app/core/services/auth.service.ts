@@ -27,22 +27,19 @@ export class AuthService {
         this.apiService.fetch('current_user')
           .subscribe(userRes => {
             if (userRes.role === AppSettings.role.admin.name) {
-              this.redirectTo(AppSettings.admin_url);
+              this.redirectTo(`${AppSettings.admin_url}#/`);
             } else if (userRes.role === AppSettings.role.corp_user.name) {
-              this.redirectTo(AppSettings.corp_url);
+              if (userRes.has_project) {
+                this.redirectTo(`${AppSettings.corp_url}#/user/project`);
+              } else if (userRes.assigned_zone) {
+                let {assigned_zone} = userRes;
+                this.redirectTo(
+                  `${AppSettings.corp_url}#/user/project/${assigned_zone.project_id}/zone/${assigned_zone.zone_id}`);
+              } else {
+                this.redirectTo(`${AppSettings.corp_url}#/user/project/new`);
+              }
             } else if (userRes.role === AppSettings.role.family_user.name) {
-              // TODO
               this.router.navigate([`/${userRes.username}`]);
-            } else {
-              alert('Corporate page is implementing!');
-              // if (userRes.has_project) {
-              //   this.router.navigate(['/user/project']);
-              // } else if (userRes.assigned_zone) {
-              //   let {assigned_zone} = userRes;
-              //   this.router.navigate([`/user/project/${assigned_zone.project_id}/zone/${assigned_zone.zone_id}`]);
-              // } else {
-              //   this.router.navigate(['/user/project/new']);
-              // }
             }
             this.store.dispatch(new LoadedAction(userRes));
           }
@@ -70,6 +67,6 @@ export class AuthService {
   redirectTo(serverUrl) {
     const { currentAuthData } = this.tokenService;
     const { accessToken, client, uid, expiry } = currentAuthData;
-    window.location = `${serverUrl}#/?uid=${uid}&client_id=${client}&token=${accessToken}&expiry=${expiry}`;
+    window.location = `${serverUrl}?uid=${uid}&client_id=${client}&token=${accessToken}&expiry=${expiry}`;
   }
 }

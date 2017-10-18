@@ -3,16 +3,13 @@
     class="event"
     *ngFor="let event of device.events">
     <div class="condition first-line">
-      <input
-        class="form-control lower-form-control"
-        placeholder="Lower"
-        type="number"
-        [(ngModel)]="event.lower_limit" />
+      <span class="lower-form-control">{{event.lower_limit}}</span>
       <img
         class="greater-icon"
         src="assets/img/demeter/icon/greater.png" alt="greater_icon">
       <select
         class="form-control sensor-form-control"
+        disabled
         [(ngModel)]="event.sensor_id">
         <option disabled value="">Sensor</option>
         <option
@@ -22,18 +19,11 @@
       <img
         class="greater-icon"
         src="assets/img/demeter/icon/greater.png" alt="greater_icon">
-      <input
-        class="form-control upper-form-control"
-        placeholder="Higher"
-        type="number"
-        [(ngModel)]="event.upper_limit" />
+        <span class="upper-form-control">{{event.upper_limit}}</span>
     </div>
     <div class="condition second-line">
       <div class="lower-form-control">
-        <button class="dmt-btn btn-primary"
-          (click)="toggleValue(event, 'lower_limit_value')">
-          {{ event.lower_limit_value === 1 ? 'On': 'Off' }}
-        </button>
+        <span class="limit-value">{{ event.lower_limit_value === 1 ? 'On': 'Off' }}</span>
       </div>
       <div class="sensor-form-control">
         <div class="delete-action-wrap">
@@ -44,10 +34,7 @@
         </div>
       </div>
       <div class="upper-form-control">
-        <button class="dmt-btn btn-primary"
-          (click)="toggleValue(event, 'upper_limit_value')">
-          {{ event.lower_limit_value === 1 ? 'On': 'Off' }}
-        </button>
+        <span class="limit-value">{{ event.upper_limit_value === 1 ? 'On': 'Off' }}</span>
       </div>
     </div>
   </div>
@@ -58,8 +45,10 @@
       *ngIf="device.events.length > 0"
       class="dmt-btn btn-primary">Save</button>
     <button
-      (click)="addEvent()"
+      (click)="addRule()"
       *ngIf="device.events.length < 5"
       class="dmt-btn btn-primary">Add</button>
   </div>
 </div>
+
+<event-rule #eventRuleModal [sensors]="sensors"></event-rule>

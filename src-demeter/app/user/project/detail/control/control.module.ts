@@ -4,6 +4,7 @@ import { SharedModule } from '../_shared/shared.module';
 import { ControlComponent } from './control.component';
 import { TimerComponent } from './timer/timer.component';
 import { EventComponent } from './event/event.component';
+import { EventRuleComponent } from './event/event-rule/event-rule.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { EventComponent } from './event/event.component';
   declarations: [
     ControlComponent,
     TimerComponent,
-    EventComponent
+    EventComponent,
+    EventRuleComponent
   ]
 })
 export class ControlModule { }

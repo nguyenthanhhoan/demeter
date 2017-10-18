@@ -5,7 +5,7 @@ class FamilyDeviceEventService
 
   def trigger_event
     package = @device.package
-    gateway = package.hash_id
+    gateway = package.serial_name
     package.devices.each { |device|
 
       # Only trigger event for control device (read_write device)

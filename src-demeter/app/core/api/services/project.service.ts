@@ -27,6 +27,9 @@ export class ProjectService {
     if (project.image && project.image.size > 0) {
       formData.append('project[image]', project.image);
     }
+    if (project.setting) {
+      formData.append('project[setting]', JSON.stringify(project.setting));
+    }
     return formData;
   }
 

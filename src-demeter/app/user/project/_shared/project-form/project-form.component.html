@@ -48,6 +48,44 @@
         <div>
           <span class="col-xs-4 col-sm-6 col-md-7"></span>
           <div class="col-xs-7 col-sm-6 col-md-5">
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+              name="showHistory"
+              [(ngModel)]="project.setting.showHistory"/>
+            <i></i> History
+          </label>
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+            name="showCamera"
+            [(ngModel)]="project.setting.showCamera"/>
+            <i></i> Camera
+          </label>
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+            name="showControl"
+            [(ngModel)]="project.setting.showControl"/>
+            <i></i> Control
+          </label>
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+            name="showFinance"
+            [(ngModel)]="project.setting.showFinance"/>
+            <i></i> Finance
+          </label>
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+            name="showReport"
+            [(ngModel)]="project.setting.showReport"/>
+            <i></i> Report
+          </label>
+          <label class="dmt-checkbox">
+            <input type="checkbox"
+            name="showAlert"
+            [(ngModel)]="project.setting.showAlert"/>
+            <i></i> Alert
+          </label>
+        </div>
+      </div>
             <div class="dmt-button-group">
               <button 
                 *ngIf="mode != 'edit'"

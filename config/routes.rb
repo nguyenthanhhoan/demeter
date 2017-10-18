@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :packages
+    resources :family_devices
     resources :projects
     resources :zones
     resources :cameras

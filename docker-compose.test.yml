@@ -36,25 +36,7 @@ redis:
 cache:
   image: memcached
 
-web:
-  build: .
-  command: bundle exec unicorn -E development -c config/unicorn.rb
-  volumes:
-    - .:/rails
-  env_file: .env.web
-  expose:
-    - 8080
-  environment:
-    - VIRTUAL_HOST=console.demeter.vn
-    - VIRTUAL_PORT=8080
-    # - LETSENCRYPT_HOST=console.demeter.vn
-    # - LETSENCRYPT_EMAIL=trannguyentiensu@gmail.com
-  links:
-    - db
-    - redis
-    - cache
-
-homepage_web:
+web_homepage:
   image: sutran/static-server
   entrypoint: /rails/dmt-homepage/entry.sh
   volumes:
@@ -64,6 +46,46 @@ homepage_web:
   environment:
     - VIRTUAL_HOST=demeter.vn
     - VIRTUAL_PORT=9080
+
+web:
+  build: .
+  command: bundle exec unicorn -E development -c config/unicorn.rb
+  volumes:
+    - .:/rails
+  env_file: .env.web
+  expose:
+    - 8080
+  environment:
+    - VIRTUAL_HOST=family.demeter.vn
+    - VIRTUAL_PORT=8080
+    # - LETSENCRYPT_HOST=family.demeter.vn
+    # - LETSENCRYPT_EMAIL=trannguyentiensu@gmail.com
+  links:
+    - db
+    - redis
+    - cache
+
+web_corp:
+  image: sutran/angular-cli
+  entrypoint: /rails/src-corp/entry.sh
+  volumes:
+    - .:/rails
+  expose:
+    - 4201
+  environment:
+    - VIRTUAL_HOST=corp.demeter.vn
+    - VIRTUAL_PORT=4201
+
+web_admin:
+  image: sutran/angular-cli
+  entrypoint: /rails/src-admin/entry.sh
+  volumes:
+    - .:/rails
+  expose:
+    - 4202
+  environment:
+    - VIRTUAL_HOST=admin.demeter.vn
+    - VIRTUAL_PORT=4202
 
 device_service:
   image: sutran/nodejs-forever

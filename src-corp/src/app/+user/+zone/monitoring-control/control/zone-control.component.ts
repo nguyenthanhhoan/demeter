@@ -19,10 +19,10 @@ export class ZoneControlComponent {
               private route: ActivatedRoute,
               private store: Store<any>) {
 
+    this.subscribeRouterEvent();
   }
 
   ngOnInit() {
-    this.subscribeRouterEvent();
     this.store.select('zone')
     .takeWhile(() => {
       return (!this.zoneId);

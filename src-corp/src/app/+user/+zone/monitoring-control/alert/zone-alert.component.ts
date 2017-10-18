@@ -18,10 +18,10 @@ export class ZoneAlertComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<any>) {
+    this.subscribeRouterEvent();
   }
 
   ngOnInit() {
-    this.subscribeRouterEvent();
     this.store.select('zone')
     .takeWhile(() => {
       return (!this.zoneId);

@@ -7,7 +7,7 @@ import { Angular2TokenService } from 'angular2-token';
 import { AppSettings } from '../../app.settings';
 import { NotificationService } from '../services/notification.service';
 
-
+declare var window: any;
 @Injectable()
 export class ApiService {
 
@@ -139,7 +139,7 @@ export class ApiService {
         this.showErrorBox(error.statusText, body.error);
       } else {
         this.notificationService.showErrorMessage('Sorry, you are not allowed to access this page!');
-        this.router.navigate(['/']);
+        window.location = AppSettings.home_url;
       }
       return true;
     }

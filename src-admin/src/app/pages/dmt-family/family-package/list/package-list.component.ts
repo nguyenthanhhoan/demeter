@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
+import { CustomRenderComponent } from './custom-render.component';
 import { PackageService } from '../shared/package.service';
 import { ApiService } from '../../../../_core/api/api.service';
 import { NotificationService } from '../../../../_core/services/notification.service';
@@ -29,7 +30,8 @@ export class PackageListComponent implements OnInit {
     columns: {
       id: {
         title: 'ID',
-        type: 'number',
+        type: 'custom',
+        renderComponent: CustomRenderComponent
       },
       uuid: {
         title: 'UUID',

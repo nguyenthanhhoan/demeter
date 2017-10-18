@@ -11,7 +11,7 @@ import { Angular2TokenService } from 'angular2-token';
 import { AppSettings } from '../../app.settings';
 import { config } from '../../shared/smartadmin.config';
 import { NotificationService } from '../../shared/utils/notification.service';
-
+declare var window: any;
 @Injectable()
 export class ApiService {
 
@@ -143,8 +143,8 @@ export class ApiService {
       if (body.type === 'resource_protected') {
         this.showErrorBox(error.statusText, body.error);
       } else {
-        console.log('User is unauthorized. Need redirect to login page!');
-        this.router.navigate(['auth/login']);
+        this.notificationService.showErrorMessage('Sorry, you are not allowed to access this page!');
+        window.location = AppSettings.home_url;
       }
       return true;
     }

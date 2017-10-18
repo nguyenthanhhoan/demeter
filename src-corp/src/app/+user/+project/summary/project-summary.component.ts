@@ -8,6 +8,7 @@ import { ZoneService } from '../../../core/services/zone.service';
 })
 export class ProjectSummaryComponent implements OnInit {
 
+  project: any = {};
   zones: any[];
 
   constructor(private router: Router,

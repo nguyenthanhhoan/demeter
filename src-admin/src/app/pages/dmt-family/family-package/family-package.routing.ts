@@ -6,17 +6,20 @@ import { PackageFormComponent } from './form/package-form.component';
 const routes: Routes = [{
     path: '',
     pathMatch: 'full',
-    component: PackageListComponent,
+    component: PackageListComponent
   }, {
-    path: 'new', component: PackageFormComponent,
+    path: 'new', component: PackageFormComponent
   }, {
     path: ':package_id',
     children: [{
-      path: '', redirectTo: 'edit', pathMatch: 'full',
+      path: '', redirectTo: 'edit', pathMatch: 'full'
     }, {
-      path: 'edit', component: PackageFormComponent,
-    }],
-  },
+      path: 'edit', component: PackageFormComponent
+    }, {
+      path: 'device',
+      loadChildren: './device/device.module#DeviceModule'
+    }]
+  }
 ];
 
 export const routing = RouterModule.forChild(routes);

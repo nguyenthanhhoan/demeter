@@ -12,10 +12,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     // If user is not logged in we'll send them to the login page
-    if (!this.auth.loggedIn()) {
-      window.location = AppSettings.home_url;
-      return false;
-    }
+    // TODO: Find better way
+    // if (!this.auth.loggedIn()) {
+    //   window.location = AppSettings.home_url;
+    //   return false;
+    // }
     return true;
   }
 }

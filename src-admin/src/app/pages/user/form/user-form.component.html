@@ -23,17 +23,25 @@
             </div>
           </div>
           <div class="form-group row" *ngIf="mode == 'Create'">
-            <label for="input2" class="col-sm-3 form-control-label">Password</label>
+            <label for="input2" class="col-sm-3 form-control-label">Username</label>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="input2" placeholder="Password"
+              <input class="form-control" id="input2" placeholder="Username"
+                name="username"
+                [(ngModel)]="user.username">
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="mode == 'Create'">
+            <label for="input3" class="col-sm-3 form-control-label">Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" id="input3" placeholder="Password"
                 name="password"
                 [(ngModel)]="user.password">
             </div>
           </div>
           <div class="form-group row" *ngIf="mode == 'Create'">
-            <label for="input3" class="col-sm-3 form-control-label">Confirm Password</label>
+            <label for="input4" class="col-sm-3 form-control-label">Confirm Password</label>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="input3" placeholder="Confirm Password"
+              <input type="password" class="form-control" id="input4" placeholder="Confirm Password"
                 name="password_confirmation"
                 [(ngModel)]="user.password_confirmation">
             </div>
@@ -45,6 +53,15 @@
                 <nb-checkbox
                   name="is_company_admin"
                   [(ngModel)]="user.is_company_admin">Is Company Admin</nb-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <div class="checkbox">
+                <nb-checkbox
+                  name="is_family_user"
+                  [(ngModel)]="user.is_family_user">Is Family User</nb-checkbox>
               </div>
             </div>
           </div>

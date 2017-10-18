@@ -18,18 +18,19 @@ $danger-color: #e51400;
     align-items: center;
 
     > *:not(:first-child) {
-      margin-left: 15px;
+      margin-left: 7px;
     }
   }
   .lower-form-control,
   .upper-form-control {
-    width: 55px;
+    width: 45px;
     text-align: center;
-    &.form-control {
-      padding: 6px 8px;
-    }
   }
 
+  // The sensor select is always disabled
+  .form-control[disabled] {
+    background-color: transparent;
+  }
   .sensor-form-control {
     flex: 1;
   }
@@ -38,29 +39,10 @@ $danger-color: #e51400;
     .lower-form-control,
     .upper-form-control {
       text-align: center;
-
-      button {
-        min-width: 48px;
-        padding: 5px;
-      }
     }
   }
   &:not(:first-child) {
     margin-top: 15px;
-  }
-  &:hover {
-    .remove-btn {
-      display: block;
-      font-size: 20px;
-      cursor: pointer;
-      text-align: center;
-      &:hover {
-        color: $danger-color;
-      }
-    }
-  }
-  .remove-btn {
-    display: none;
   }
   .greater-icon {
     width: 11px;

@@ -25,7 +25,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   private storeSubscription: ISubscription;
   private appStateSubscription: ISubscription;
-  private project: any = {};
+  private project: any = {
+    setting: {}
+  };
   private user: any = {};
 
   constructor(private route: ActivatedRoute,
@@ -45,19 +47,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.appMode = this.appModeService.getAppMode();
     // initialize navigation buttons list
-    switch (this.appMode) {
-      case AppMode.DESKTOP:
-        this.initNavigationsForDesktopMode();
-        break;
-      case AppMode.MOBILE:
-      default:
-        this.initNavigationsForMobileMode();
-    }
 
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
+        this.navigations = [];
+        this.moreNavigations = [];
+        this.moreIcon = null;
         this.project = app.project;
+        this.initMenu();
+        this.findActiveNav();
       }
       if (app.user && app.user.id) {
         this.user = app.user;
@@ -67,11 +66,43 @@ export class LayoutComponent implements OnInit, OnDestroy {
     .subscribe((app: any) => {
       this.isShowMoreBottomBar = app.isShowMoreBottomBar;
     });
-    this.findActiveNav();
   }
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
+  }
+
+  initMenu() {
+    const { setting } = this.project;
+    const navigations = NAVIGATION_BUTTONS.filter((navigation) => {
+      if (navigation.id === 'History' && setting.showHistory === false) {
+        return false;
+      }
+      if (navigation.id === 'Camera' && setting.showCamera === false) {
+        return false;
+      }
+      if (navigation.id === 'Control' && setting.showControl === false) {
+        return false;
+      }
+      if (navigation.id === 'Finance' && setting.showFinance === false) {
+        return false;
+      }
+      if (navigation.id === 'Report' && setting.showReport === false) {
+        return false;
+      }
+      if (navigation.id === 'Alert' && setting.showAlert === false) {
+        return false;
+      }
+      return true;
+    });
+    switch (this.appMode) {
+      case AppMode.DESKTOP:
+        this.initNavigationsForDesktopMode(navigations);
+        break;
+      case AppMode.MOBILE:
+      default:
+        this.initNavigationsForMobileMode(navigations);
+    }
   }
 
   mouseenter(navigation) {
@@ -117,25 +148,31 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initNavigationsForDesktopMode() {
-    this.navigations = NAVIGATION_BUTTONS;
+  private initNavigationsForDesktopMode(navigations) {
+    this.navigations = navigations;
   }
 
-  private initNavigationsForMobileMode() {
+  private initNavigationsForMobileMode(navigations) {
     let numOfButtonInMainNavigationBar = 4;
-    for (let i = 0; i < numOfButtonInMainNavigationBar; i++) {
-      this.navigations.push(NAVIGATION_BUTTONS[i]);
+
+    // Add navigation
+    for (let i = 0; i < Math.min(numOfButtonInMainNavigationBar, navigations.length); i++) {
+      this.navigations.push(navigations[i]);
     }
-    this.moreIcon = new NavigationButtonModel({
-      id: 'More',
-      icon: 'assets/img/demeter/icon/MORE_GREY.png',
-      iconActive: 'assets/img/demeter/icon/MORE.png',
-      iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
-      title: 'More',
-      url: 'more',
-    });
-    for (let i = numOfButtonInMainNavigationBar; i < NAVIGATION_BUTTONS.length; i++) {
-      this.moreNavigations.push(NAVIGATION_BUTTONS[i]);
+
+    // Add remain navigation in show more button
+    if (numOfButtonInMainNavigationBar < navigations.length) {
+      this.moreIcon = new NavigationButtonModel({
+        id: 'More',
+        icon: 'assets/img/demeter/icon/MORE_GREY.png',
+        iconActive: 'assets/img/demeter/icon/MORE.png',
+        iconGrey: 'assets/img/demeter/icon/MORE_GREY.png',
+        title: 'More',
+        url: 'more',
+      });
+      for (let i = numOfButtonInMainNavigationBar; i < navigations.length; i++) {
+        this.moreNavigations.push(navigations[i]);
+      }
     }
   }
 }

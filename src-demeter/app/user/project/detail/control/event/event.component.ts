@@ -1,6 +1,6 @@
 import { DeviceService } from '../../../../../core/api/services/device.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 declare var moment: any;
 @Component({
@@ -13,7 +13,7 @@ export class EventComponent implements OnInit, OnChanges {
   device: any = {};
   @Input()
   sensors: any = [];
-
+  @ViewChild('eventRuleModal') public eventRuleModal: any;
   constructor(private notificationService: NotificationService,
               private deviceService: DeviceService) {}
 
@@ -35,26 +35,20 @@ export class EventComponent implements OnInit, OnChanges {
     }
   }
 
-  toggleValue(event, prop) {
-    if (event[prop] === 1) {
-      event[prop] = 0;
-    } else {
-      event[prop] = 1;
-    }
-  }
-
-  addEvent() {
-    this.device.events.push({
-      lower_limit_value: 1,
-      upper_limit_value: 1,
-      sensor_id: ''
+  addRule() {
+    this.eventRuleModal.open()
+    .subscribe((rule) => {
+      this.device.events.push(rule);
     });
   }
 
   remove(event) {
-    let { events } = this.device;
-    const index = events.indexOf(event);
-    events.splice(index, 1);
+    this.notificationService.confirm('Do you want to remove this event?')
+    .subscribe(() => {
+      let { events } = this.device;
+      const index = events.indexOf(event);
+      events.splice(index, 1);
+    });
   }
 
   updateDevice() {

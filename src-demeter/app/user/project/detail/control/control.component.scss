@@ -4,20 +4,18 @@ $brand-color: rgb(49, 139, 80);
 
   .device-tab {
     flex: 1 0;
-    background-color: $brand-color;
     padding: 5px;
     text-align: center;
-    color: #fff;
     cursor: pointer;
     &:hover {
-      background-color: darken($brand-color, 5%);
+      color: $brand-color;
     }
     &:not(:first-child) {
       margin-left: 3px;
     }
     &.active {
+      border-bottom: 3px solid #318b50;
       color: $brand-color;
-      background-color: #fff;
       cursor: initial;
     }
   }
