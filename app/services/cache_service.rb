@@ -35,9 +35,9 @@ class CacheService
     cached_data = []
 
     # Timestamp to clear old data
-    old_timestamp = Time.new.ago(24 * 3600).to_f * 1000
+    timestamp_24h_ago = Time.new.ago(24 * 3600).to_f * 1000
 
-    start_timestamp = old_timestamp
+    start_timestamp = timestamp_24h_ago
     end_timestamp = Time.new.to_f * 1000
 
     if cached_data_str.present?
@@ -48,15 +48,51 @@ class CacheService
       end
     end
 
-    sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
-    cached_data += sensor_data
+    if start_timestamp < timestamp_24h_ago
+      # Cache in redis too old already, need fresh load
+      Rails.logger.info "Cache in redis too old already, need fresh load for #{gateway_name}"
+      start_timestamp = timestamp_24h_ago
 
-    # Clear old data
-    cached_data = cached_data.select { |item|
-      Integer(item['timestamp'].to_f) > old_timestamp
-    }
+      sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
+      sensor_data_normalized = DynamodbService.new.normalize_data(sensor_data, 300)
+      redis.set(cached_key, sensor_data_normalized)
+      sensor_data_normalized
+    else 
+      sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
+      cached_data += sensor_data
+  
+      # Clear old data
+      cached_data = cached_data.select { |item|
+        Integer(item['timestamp'].to_f) > timestamp_24h_ago
+      }
+  
+      redis.set(cached_key, cached_data.to_json)
+      cached_data
+    end
+  end
 
-    redis.set(cached_key, cached_data.to_json)
-    cached_data
+  def query_lastest(gateway_name)
+    redis = CacheService.new.get_redis
+    cached_key = CacheService.new.build_key_lastest(gateway_name)
+
+    # Get data from cache
+    sensor_data = redis.get(cached_key)
+    sensor_data_parsed = []
+
+    timestamp_24h_ago = Time.new.ago(24 * 3600).to_f * 1000
+
+    if sensor_data.present? && lastest_data_outdated?(sensor_data, timestamp_24h_ago)
+      sensor_data_parsed = JSON.parse(sensor_data)
+    else
+      logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
+      sensor_data_parsed = CacheService.new.build_cache_data_lastest(gateway_name)
+    end
+
+    sensor_data_parsed = DynamodbService.new.normalize_data(sensor_data_parsed, 300)
+  end
+
+  def lastest_data_outdated?(sensor_data, timestamp_24h_ago)
+    oldest_timestamp_in_data = sensor_data[0]['timestamp'].to_f
+    oldest_timestamp_in_data < timestamp_24h_ago
   end
 end

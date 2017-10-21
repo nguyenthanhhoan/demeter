@@ -36,23 +36,8 @@ class Family::SensorDataController < AuthorizedController
 
   def query_lastest
     gateway_name = params[:package_id]
-
-    redis = CacheService.new.get_redis
-    cached_key = CacheService.new.build_key_lastest(gateway_name)
-
-    # Get data from cache
-    sensor_data = redis.get(cached_key)
-    sensor_data_parsed = []
-
-    if sensor_data.present? 
-      sensor_data_parsed = JSON.parse(sensor_data)
-    else
-      logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
-      sensor_data_parsed = CacheService.new.build_cache_data_lastest(gateway_name)
-    end
-
-    sensor_data_parsed = DynamodbService.new.normalize_data(sensor_data_parsed, 300)
-    render json: sensor_data_parsed
+    lastest_data = CacheService.new.query_lastest(gateway_name)
+    render json: lastest_data
   end
 
   private
