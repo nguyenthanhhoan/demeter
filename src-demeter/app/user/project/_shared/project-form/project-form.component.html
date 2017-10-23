@@ -45,9 +45,8 @@
               class="form-control">
           </div>
         </div>
-        <div>
-          <span class="col-xs-4 col-sm-6 col-md-7"></span>
-          <div class="col-xs-7 col-sm-6 col-md-5">
+        <div *ngIf="mode == 'edit'" class="form-group feature-config">
+          <span class="control-label col-xs-4 col-sm-5">Features</span>
           <label class="dmt-checkbox">
             <input type="checkbox"
               name="showHistory"
@@ -86,22 +85,22 @@
           </label>
         </div>
       </div>
-            <div class="dmt-button-group">
-              <button 
-                *ngIf="mode != 'edit'"
-                (click)="create()"
-                class="dmt-btn btn btn-primary">
-                Create
-              </button>
-              <button 
-                *ngIf="mode == 'edit'"
-                (click)="update()"
-                class="dmt-btn btn btn-primary">
-                Update
-              </button>
-              <a class="dmt-btn btn btn-cancel" routerLink="/{{user.username}}">Cancel</a>
-            </div>
-          </div>
+      <div class="dmt-button-group">
+        <span class="col-xs-4 col-sm-5"></span>
+        <div class="col-xs-7">
+          <button 
+            *ngIf="mode != 'edit'"
+            (click)="create()"
+            class="dmt-btn btn btn-primary">
+            Create
+          </button>
+          <button 
+            *ngIf="mode == 'edit'"
+            (click)="update()"
+            class="dmt-btn btn btn-primary">
+            Update
+          </button>
+          <a class="dmt-btn btn btn-cancel" routerLink="/{{user.username}}">Cancel</a>
         </div>
       </div>
     </fieldset>
