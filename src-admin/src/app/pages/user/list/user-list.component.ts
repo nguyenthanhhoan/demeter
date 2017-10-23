@@ -48,6 +48,10 @@ export class UserListComponent implements OnInit {
         title: 'E-mail',
         type: 'string',
       },
+      is_confirm: {
+        title: 'Email Confirm',
+        type: 'boolean',
+      }
     },
   };
 

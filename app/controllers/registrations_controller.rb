@@ -18,15 +18,16 @@ class RegistrationsController < ApplicationController
   # Create user in Sign Up form
   #
   def sign_up
-    # user = User.new(user_params)
-    # user.add_role :family_user
-    # if user.save
-    #   username = "#{user.first_name.downcase}-#{user.last_name.downcase}-#{user.id}"
-    #   user.update_attribute(:username, URI.escape(username))
-    #   render json: user
-    # else
-    #   render :json => { errors: user.errors }, :status => :bad_request
-    # end
+    user = User.new(user_params)
+    user.add_role :family_user
+    if user.save
+      user.send_confirmation_instructions
+      username = "#{user.first_name.downcase}-#{user.last_name.downcase}-#{user.id}"
+      user.update_attribute(:username, URI.escape(username))
+      render json: user
+    else
+      render :json => { errors: user.errors }, :status => :bad_request
+    end
   end
 
   def create_user_from_invitation

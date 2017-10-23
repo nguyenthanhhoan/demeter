@@ -30,15 +30,14 @@ export class MobileRegisterComponent implements OnInit {
     // after it was checked. Previous value: 'true'. Current value: 'false'.`
     this.fetching = true;
 
-    alert('Temporary disabled!');
-    // this.coreService.signUp(this.signUpAccount)
-    // .subscribe(res => {
-    //   this.fetching = false;
-    //   this.notificationService.showMessage('User sign up successfully!');
-    //   this.signUpAccount = {};
-    //   this.router.navigate(['/']);
-    // }, error => {
-    //   this.fetching = false;
-    // });
+    this.coreService.signUp(this.signUpAccount)
+    .subscribe(res => {
+      this.fetching = false;
+      this.notificationService.showMessage('User sign up successfully!');
+      this.signUpAccount = {};
+      this.router.navigate(['/']);
+    }, error => {
+      this.fetching = false;
+    });
   }
 }

@@ -38,19 +38,26 @@ class WebhookController < ApplicationController
       # Give another try for demeter family
       # TODO: Should refactor this mess
       package = Family::Package.find_by_serial_name gateway
-      device = package.devices.find { |device|
-        device.field_id === field_id
-      }
-      if device.present?
-        device.update_attribute(:value, value)
-        FamilyDeviceEventService.new(device).trigger_event()
-        FamilyAlertService.new.trigger_alert(device)
-        render :json => { message: 'Update successfully!' }
-      else
-        self.status = :internal_server_error
-        render :json => {
-          message: 'Cannot find field_value!',
+      unless package.present?
+        device = package.devices.find { |device|
+          device.field_id === field_id
         }
+        if device.present?
+          device.update_attribute(:value, value)
+          FamilyDeviceEventService.new(device).trigger_event()
+          FamilyAlertService.new.trigger_alert(device)
+          render :json => { message: 'Update successfully!' }
+        else
+          self.status = :internal_server_error
+          render :json => {
+            message: 'Cannot find field_value!'
+          }
+        end
+      else
+        render :json => {
+          message: "Cannot find package for gateway: #{gateway}"
+        }
+        logger.info "Cannot find package for gateway: #{gateway}"
       end
     end
   end

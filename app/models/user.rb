@@ -3,7 +3,7 @@ class User < ApplicationRecord
   rolify
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable
 
   # note that this include statement comes AFTER the devise block above
   include DeviseTokenAuth::Concerns::User
