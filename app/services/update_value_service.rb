@@ -14,7 +14,6 @@ class UpdateValueService
         device.update_attribute(:value, value)
         FamilyDeviceEventService.new(device).trigger_event()
         FamilyAlertService.new.trigger_alert(device)
-        render :json => { message: 'Update successfully!' }
       else
         Rails.logger.info 'Cannot find field_value!'
         return_hash = {

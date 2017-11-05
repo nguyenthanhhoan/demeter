@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
 import { ApiService } from '../core/api/api.service';
 import { LoadedAction, LoadedNotificationAction } from '../core/actions/actions';
+import { AppSettings } from '../app.settings';
 
 @Component({
   template: '<router-outlet></router-outlet>'
@@ -39,14 +40,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private initFirebase(user) {
-    const config = {
-      apiKey: 'AIzaSyAeO54OkKwvIoeXba7D7CKsKsjLme7JJxM',
-      authDomain: 'demeter-dev.firebaseapp.com',
-      databaseURL: 'https://demeter-dev.firebaseio.com',
-      projectId: 'demeter-dev',
-      storageBucket: '',
-      messagingSenderId: '1028344942338'
-    };
+    const config = AppSettings.firebase_config;
     firebase.initializeApp(config);
 
     const database = firebase.database();

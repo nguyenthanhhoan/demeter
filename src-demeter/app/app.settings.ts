@@ -16,6 +16,15 @@ export class AppSettings {
   public static home_url = location.protocol + '//family.demeter.vn/';
   public static corp_url = location.protocol + '//corp.demeter.vn/';
 
+  public static firebase_config = {
+    apiKey: 'AIzaSyAeO54OkKwvIoeXba7D7CKsKsjLme7JJxM',
+    authDomain: 'demeter-dev.firebaseapp.com',
+    databaseURL: 'https://demeter-dev.firebaseio.com',
+    projectId: 'demeter-dev',
+    storageBucket: '',
+    messagingSenderId: '1028344942338'
+  };
+
   public static websocketPath = `ws://${location.hostname}:9090`;
   public static role = {
     admin: {
