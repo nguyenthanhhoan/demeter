@@ -65,6 +65,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Notification',
         link: '/pages/testing/notification',
       },
+      {
+        title: 'Alert',
+        link: '/pages/testing/alert',
+      },
     ],
   },
 ];

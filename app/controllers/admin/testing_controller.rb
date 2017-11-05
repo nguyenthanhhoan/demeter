@@ -11,6 +11,13 @@ class Admin::TestingController < Admin::AdminController
     end
   end
 
+  def trigger_alert
+    uuid = params[:uuid]
+    device = Family::Device.find_by_uuid uuid
+    FamilyAlertService.new.trigger_alert(device)
+    render_message 'Alert trigger successfully!'
+  end
+
   private
     def notification_params
       params.require(:notification).permit(:email, :content, :image_url)

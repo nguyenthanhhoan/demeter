@@ -4,6 +4,7 @@ import { SharedModule } from '../../_shared/shared.module';
 import { TestingComponent } from './testing.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TestingService } from './testing.service';
+import { AlertComponent } from './alert/alert.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -11,7 +12,8 @@ import { TestingService } from './testing.service';
   ],
   declarations: [
     TestingComponent,
-    NotificationComponent
+    NotificationComponent,
+    AlertComponent
   ],
   providers: [
     TestingService

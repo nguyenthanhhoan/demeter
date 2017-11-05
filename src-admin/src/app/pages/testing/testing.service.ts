@@ -11,4 +11,8 @@ export class TestingService {
   createNotification(notification): Observable<any[]> {
     return this.apiService.post(`${this.resourceUrl}/notification`, {notification: notification});
   }
+
+  triggerAlert(uuid): Observable<any[]> {
+    return this.apiService.post(`${this.resourceUrl}/trigger_alert`, {uuid: uuid});
+  }
 }

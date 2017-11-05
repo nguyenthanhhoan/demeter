@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end
     scope 'testing' do
       post '/notification' => 'testing#create_notification'
+      post '/trigger_alert' => 'testing#trigger_alert'
     end
   end
 
