@@ -5,6 +5,7 @@ import { EmptyLayoutComponent } from './layout/empty-layout.component';
 import { UserLayoutComponent } from './layout/user-layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SettingComponent } from './setting/setting.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SettingComponent } from './setting/setting.component';
     HeaderComponent,
     EmptyLayoutComponent,
     UserLayoutComponent,
-    SettingComponent
+    SettingComponent,
+    NotificationComponent
   ],
   exports: [
   ]

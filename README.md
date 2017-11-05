@@ -187,6 +187,9 @@ ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was
     ```
     docker exec -u <your_postgres_user> <postgres_container_name> pg_dump <database_name_here> > db.dump
     ```
+    ```
+    scp -r root@demeter_staging:/root/workspace/db.dump ~/Desktop/db.dump
+    ```
 5. Memory leaking troubleshooting
 
     Write dump file

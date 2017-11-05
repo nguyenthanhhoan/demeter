@@ -1,0 +1,27 @@
+<div class="notifications" *ngIf="isShowNotification"
+  [ngStyle]="{'top': position.top, 'left': position.left, 'width': position.width}">
+  <div class="header">
+    <span class="header-text">Notification</span>
+    <img
+      class="check-notification-icon"
+      (click)="markReadNotifications()"
+      src="assets/img/demeter/icon/CHECKNOTI.png" alt="notification">
+  </div>
+  <div class="content">
+    <div *ngFor="let notification of notifications"
+      [ngStyle]="{'background-color': notification.is_read ? '#fff' : '#eee'}"
+      class="single-notification">
+      <img
+        class="notification-img"
+        [src]="notification.image_url ? notification.image_url : 'assets/img/flat-icon/pictures.png'" />
+      <div class="notification-text">
+        <p class="message">
+          {{notification.content}}
+        </p>
+        <p class="time">
+          {{notification.created_at_to_now}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

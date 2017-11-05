@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   
   # TODO: Move to namespace /user
   resources :cameras
-
   get '/current_user' => 'profile#get_current_user'
+  post '/mark_notification' => 'profile#mark_notification'
   post '/register' => 'registrations#create'
   post '/sign_up' => 'registrations#sign_up'
   post '/create_user_from_invitation' => 'registrations#create_user_from_invitation'
@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     resources :cameras
     resources :devices do
       resources :device_fields
+    end
+    scope 'testing' do
+      post '/notification' => 'testing#create_notification'
     end
   end
 

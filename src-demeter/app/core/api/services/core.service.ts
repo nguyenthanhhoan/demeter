@@ -18,4 +18,8 @@ export class CoreService {
   signUp(user): Observable<any[]> {
     return this.apiService.post(`sign_up`, { user: user });
   }
+
+  markNotification(): Observable<any[]> {
+    return this.apiService.post(`mark_notification`, {});
+  }
 }

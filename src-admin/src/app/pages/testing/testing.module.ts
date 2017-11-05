@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { routing } from './testing.routing';
+import { SharedModule } from '../../_shared/shared.module';
+import { TestingComponent } from './testing.component';
+import { NotificationComponent } from './notification/notification.component';
+import { TestingService } from './testing.service';
+@NgModule({
+  imports: [
+    SharedModule,
+    routing,
+  ],
+  declarations: [
+    TestingComponent,
+    NotificationComponent
+  ],
+  providers: [
+    TestingService
+  ],
+})
+export class TestingModule {
+
+}

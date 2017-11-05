@@ -46,6 +46,8 @@ export class SensorDataChartComponent implements OnDestroy {
   // we need to user pulling
   canUpdateViaWebSocket: boolean = false;
 
+  dataInitialized: boolean = false;
+
   constructor(private store: Store<any>,
               private ngZone: NgZone,
               private notificationService: NotificationService,
@@ -80,6 +82,8 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   initData() {
+    if (this.dataInitialized) return;
+    this.dataInitialized = true;
     this.package_id = this.project.package.serial_name;
     this.requestFieldAssignedToZone();
   }

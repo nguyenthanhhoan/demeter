@@ -1,7 +1,7 @@
 import { ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ToggleSettingAction } from '../../../core/actions/actions';
+import { ToggleNotificationAction, ToggleSettingAction } from '../../../core/actions/actions';
 
 @Component({
   selector: 'dmt-header',
@@ -10,9 +10,12 @@ import { ToggleSettingAction } from '../../../core/actions/actions';
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   user = {};
+  notifications = [];
+  numOfUnreadNotis: number = 0;
   private storeSubscription: ISubscription;
   private appStateSubscription: ISubscription;
   private isShowSetting: boolean = false;
+  private isShowNotification: boolean = false;
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
@@ -21,10 +24,18 @@ export class HeaderComponent implements OnInit, OnDestroy{
       if (app.user && app.user.id) {
         this.user = app.user;
       }
+      if (app.notifications) {
+        this.notifications = app.notifications;
+        const unreadNotis = this.notifications.filter(notification => {
+          return !notification.is_read;
+        });
+        this.numOfUnreadNotis = unreadNotis.length;
+      }
     });
     this.appStateSubscription = this.store.select('appState')
     .subscribe((app: any) => {
       this.isShowSetting = app.isShowSetting;
+      this.isShowNotification = app.isShowNotification;
     });
   }
 
@@ -35,5 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
   toggleSetting() {
     this.isShowSetting = !this.isShowSetting;
     this.store.dispatch(new ToggleSettingAction(this.isShowSetting));
+  }
+
+  toggleNotification() {
+    this.isShowNotification = !this.isShowNotification;
+    this.store.dispatch(new ToggleNotificationAction(this.isShowNotification));
   }
 }

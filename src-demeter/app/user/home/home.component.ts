@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any = {};
   projects: any = [];
   private storeSubscription: ISubscription;
+  private projectsLoaded: boolean = false;
   constructor(private store: Store<any>,
               private router: Router,
               private el: ElementRef,
@@ -33,6 +34,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.storeSubscription.unsubscribe();
   }
   loadProjects() {
+    // Only getProjects once, since updating the store could lead to reload projects
+    if (this.projectsLoaded) return;
+    this.projectsLoaded = true;
     this.projectService.getProjects()
     .subscribe((projects) => {
       this.projects = projects;

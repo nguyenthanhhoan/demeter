@@ -3,8 +3,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as firebase from 'firebase/app';
 import { ApiService } from '../core/api/api.service';
-import { LoadedAction } from '../core/actions/actions';
+import { LoadedAction, LoadedNotificationAction } from '../core/actions/actions';
 
 @Component({
   template: '<router-outlet></router-outlet>'
@@ -37,6 +38,26 @@ export class UserComponent implements OnInit, OnDestroy {
     // this.routerSubscription.unsubscribe();
   }
 
+  private initFirebase(user) {
+    const config = {
+      apiKey: 'AIzaSyAeO54OkKwvIoeXba7D7CKsKsjLme7JJxM',
+      authDomain: 'demeter-dev.firebaseapp.com',
+      databaseURL: 'https://demeter-dev.firebaseio.com',
+      projectId: 'demeter-dev',
+      storageBucket: '',
+      messagingSenderId: '1028344942338'
+    };
+    firebase.initializeApp(config);
+
+    const database = firebase.database();
+
+    const starCountRef = database.ref(`notifications_${user.uuid}`);
+    starCountRef.on('value', (snapshot) => {
+      console.log('snapshot', snapshot.val());
+      this.store.dispatch(new LoadedNotificationAction(snapshot.val()));
+    });
+  }
+
   private handleRouteParam(event) {
     // if (event instanceof NavigationEnd) {
       if (typeof this.user.username === 'undefined') {
@@ -45,6 +66,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.apiService.fetch('current_user')
         .subscribe((user) => {
           this.store.dispatch(new LoadedAction(user));
+          this.initFirebase(user);
         });
       }
     // }

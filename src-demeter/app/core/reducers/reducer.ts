@@ -5,23 +5,27 @@ export interface State {
   loading: boolean;
   user: {};
   project: {};
+  notifications: any[];
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
   user: {},
-  project: {}
+  project: {},
+  notifications: []
 };
 
 export interface AppState {
   isShowSetting: boolean;
   isShowMoreBottomBar: boolean;
+  isShowNotification: boolean;
 };
 
 const initialAppState: AppState = {
   isShowSetting: false,
-  isShowMoreBottomBar: false
+  isShowMoreBottomBar: false,
+  isShowNotification: false
 };
 
 const initialAgriBookState: any = {
@@ -70,6 +74,14 @@ export function appReducer(state = initialState, action: actions.Actions): State
         project: project,
       });
     }
+
+    case actions.LOADED_NOTIFICATION: {
+      const notifications = action.payload;
+      return Object.assign({}, state, {
+        notifications: notifications
+      });
+    }
+
     default: {
       return state;
     }
@@ -89,6 +101,12 @@ export function appStateReducer(state = initialAppState, action: actions.Actions
       const isShowMoreBottomBar = action.payload;
       return Object.assign({}, state, {
         isShowMoreBottomBar: isShowMoreBottomBar
+      });
+    }
+    case actions.TOGGLE_NOTIFICATION: {
+      const isShowNotification = action.payload;
+      return Object.assign({}, state, {
+        isShowNotification: isShowNotification
       });
     }
     default: {

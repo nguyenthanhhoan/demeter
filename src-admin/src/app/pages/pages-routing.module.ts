@@ -20,6 +20,9 @@ const routes: Routes = [{
     path: 'corporation',
     loadChildren: './dmt-corp/dmt-corp.module#CorporationModule',
   }, {
+    path: 'testing',
+    loadChildren: './testing/testing.module#TestingModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

@@ -12,8 +12,15 @@
     My Farm
   </a>
   <div class="right-header">
-    <span class="dmt-link">
+    <span
+      class="dmt-link notification-btn"
+      [ngClass]="isShowNotification ? 'active' : ''"
+      (click)="toggleNotification()">
       <img src="assets/img/demeter/icon/NOTI.png" alt="notification">
+      <span class="badge-num"
+        *ngIf="numOfUnreadNotis > 0">
+        <span>{{numOfUnreadNotis}}</span>
+      </span>
     </span>
     <span class="dmt-link">
       <img src="assets/img/demeter/icon/MESS.png" alt="message" class="img-message">

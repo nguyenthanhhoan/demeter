@@ -57,11 +57,7 @@ class FamilyAlertService
   def create_notification(alert, rule)
     alert_content = build_alert_message(rule)
     project = Family::Project.find alert.family_project_id
-    Family::Notification.create({
-      user: project.user,
-      noti_type: :alert,
-      content: alert_content
-    })
+    NotificationService.new.create_notification_family_project(project.user, :alert, alert_content, project)
   end
 
   def build_alert_message(rule)

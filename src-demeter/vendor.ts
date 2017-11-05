@@ -6,6 +6,8 @@ window['$'] = window['jQuery'];
 window['moment'] = require('moment');
 window['Noty'] = require('noty/lib/noty.min.js');
 window['uuid'] = require('uuid/v4');
+window['firebase'] = require('firebase/app');
+require('firebase/database');
 require('bootstrap/js/tooltip.js'); // required for summernote
 require('bootstrap/js/modal.js'); // required for summernote
 require('codemirror');
