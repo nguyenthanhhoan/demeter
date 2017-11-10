@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Angular2TokenService } from 'angular2-token';
 import { AuthService } from '../core/services/auth.service';
 import { CoreService } from '../core/api/services/core.service';
 import { NotificationService } from '../core/services/notification.service';
@@ -16,9 +17,13 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,
               private authService: AuthService,
               private coreService: CoreService,
+              private tokenService: Angular2TokenService,
               private notificationService: NotificationService) { }
 
   ngOnInit() {
+    if (this.tokenService.userSignedIn()) {
+      this.authService.handleSignedIn();
+    }
   }
 
   login() {
