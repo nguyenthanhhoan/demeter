@@ -1,0 +1,25 @@
+$color: #318b50;
+
+.finance-table {
+  caption, label {
+    text-transform: uppercase;
+    color: $color;
+    font-weight: bold;
+  }
+  th {
+    background-color: $color;
+    color: white;
+    font-weight: normal;
+  }
+}
+
+.finance-table-control {
+  input {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 7px;
+    border-bottom: 1px solid lightgray;
+    border-radius: 0;
+  }
+}
