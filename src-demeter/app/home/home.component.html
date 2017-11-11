@@ -1,4 +1,5 @@
-<div class="home-container desktop-view">
+<div class="home-container desktop-view"
+  *ngIf="showPage">
   <section class="intro-section">
     <div class="centered-content-container">
       <div class="centered-content">
@@ -153,4 +154,30 @@
     </div>
   </div>
 </div>
-<mobile-sign-in></mobile-sign-in>
+<mobile-sign-in *ngIf="showPage"></mobile-sign-in>
+
+<div class="dmt-loading-app"
+  *ngIf="!showPage">
+  <div class="logo-wrap">
+    <img src="assets/img/demeter/logo.svg" alt="demeter" class="img-responsive">
+    <div class="loading-text">Loading</div>
+    <div class="lds-css">
+      <div style="width:100%;height:100%" class="lds-ellipsis">
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+</div>

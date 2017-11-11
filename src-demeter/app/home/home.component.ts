@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
   signUpAccount: any = {};
   fetching: boolean = false;
 
+  // Used to delay showing the page, ex. need to check user logged in or not
+  // then redirect to user's page
+  showPage: boolean = false;
+
   constructor(private router: Router,
               private authService: AuthService,
               private coreService: CoreService,
@@ -22,7 +26,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     if (this.tokenService.userSignedIn()) {
-      this.authService.handleSignedIn();
+      this.authService.handleSignedIn()
+      .subscribe(() => {
+      }, () => {
+        this.showPage = true;
+      });
+    } else {
+      this.showPage = true;
     }
   }
 

@@ -41,6 +41,7 @@ export class AuthService {
   }
 
   handleSignedIn() {
+    const broadcast = new Subject();
     this.apiService.fetch('current_user')
       .subscribe(userRes => {
         if (userRes.role === AppSettings.role.admin.name) {
@@ -59,8 +60,12 @@ export class AuthService {
           this.router.navigate([`/${userRes.username}`]);
         }
         this.store.dispatch(new LoadedAction(userRes));
+        broadcast.next();
       }
-    );
+    , (error) => {
+      broadcast.error(error);
+    });
+    return broadcast;
   }
 
   loggedIn(): boolean {
