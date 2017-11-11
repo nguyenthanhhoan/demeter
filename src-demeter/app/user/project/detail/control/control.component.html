@@ -81,9 +81,13 @@
     class="control-container"
     [device]="selectedDevice"
     *ngIf="selectedDevice.mode == 'timer'"></control-timer>
-  <control-event
-    class="control-container"
-    [device]="selectedDevice"
-    [sensors]="sensors"
-    *ngIf="selectedDevice.mode == 'event'"></control-event>
+  <div>
+      <span class="col-xs-1 col-sm-1 col-md-3"></span>
+      <control-event
+      class="control-container col-xs-10 col-sm-10 col-md-6"
+      [device]="selectedDevice"
+      [sensors]="sensors"
+      *ngIf="selectedDevice.mode == 'event'"></control-event>
+      <span class="col-xs-1 col-sm-1 col-md-3"></span>
+  </div>
 </div>
