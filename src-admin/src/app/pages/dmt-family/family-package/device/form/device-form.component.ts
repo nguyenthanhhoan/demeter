@@ -39,7 +39,7 @@ export class DeviceFormComponent implements OnInit {
 
   saveOrUpdate() {
     const submitDeviceField = Object.assign({}, this.deviceField);
-    submitDeviceField.package_id = this.package_id;
+    submitDeviceField.family_package_id = this.package_id;
     if (this.mode === 'Edit') {
       this.deviceService.put(submitDeviceField).subscribe(data => {
         this.notificationService.showMessage('Gateway Field updated successfully!');

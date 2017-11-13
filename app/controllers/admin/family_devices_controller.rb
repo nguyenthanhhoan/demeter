@@ -15,10 +15,8 @@ class Admin::FamilyDevicesController < Admin::AdminController
 
   def create
     @device = Family::Device.new(device_params)
-    gateway = @device.device.name
 
     if @device.save
-      AwsIotService.update_thing_shadow(gateway, @device)
       render json: @device, serializer: FamilyDeviceSerializer
     else
       render :json => { errors: @device.errors }, :status => :bad_request
@@ -41,7 +39,7 @@ class Admin::FamilyDevicesController < Admin::AdminController
   private
 
     def device_params
-      params.require(:device).permit(:field_id, :name, :name_display,
+      params.require(:device).permit(:field_id, :name, :name_display, :family_package_id,
         :value, :value_data_type, :field_attribute)
     end
 

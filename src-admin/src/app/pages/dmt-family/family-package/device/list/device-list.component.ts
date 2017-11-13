@@ -79,7 +79,7 @@ export class DeviceListComponent implements OnInit {
     const device = row.data;
     this.notificationService.confirm('Do you want to delete this device?')
     .subscribe(() => {
-      this.deviceService.delete(device.id)
+      this.deviceService.delete(device.uuid)
       .subscribe(data => {
         this.notificationService.showMessage('Delete device successfully!');
         this.loadDevices();
