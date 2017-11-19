@@ -17,6 +17,7 @@ class Admin::PackagesController < Admin::AdminController
   def create
     @package = Family::Package.new(package_params)
     if @package.save
+      GatewayService.new.add_gateway(@package.serial_name)
       render json: @package
     else
       render :json => { errors: @package.errors }, :status => :bad_request
@@ -24,7 +25,9 @@ class Admin::PackagesController < Admin::AdminController
   end
 
   def update
+    serial_name_changed = @package.serial_name != package_params[:serial_name]
     if @package.update(package_params)
+      GatewayService.new.init_gateway() if serial_name_changed
       render json: @package
     else
       render :json => { errors: @package.errors }, :status => :bad_request

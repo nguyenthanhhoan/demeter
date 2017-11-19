@@ -38,7 +38,7 @@ web_homepage:
 
 web:
   build: .
-  command: bundle exec unicorn -E development -c config/unicorn.rb
+  command: bundle exec unicorn -c config/unicorn.rb
   volumes:
     - .:/rails
   env_file: .env.web
@@ -85,6 +85,7 @@ device_service:
     - 9090
   links:
     - web
+    - redis
 
 worker:
   build: .

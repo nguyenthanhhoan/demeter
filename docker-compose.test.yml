@@ -98,6 +98,7 @@ device_service:
     - 9090
   links:
     - web
+    - redis
 
 worker:
   build: .

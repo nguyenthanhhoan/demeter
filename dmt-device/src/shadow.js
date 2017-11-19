@@ -1,11 +1,14 @@
-var awsIot = require('aws-iot-device-sdk');
-let websocket, restService;
-let winston = require('./winston');
-let isUndefined = require('./util').isUndefined;
+const awsIot = require('aws-iot-device-sdk');
+const winston = require('./winston');
+const isUndefined = require('./util').isUndefined;
+const Rx = require('rx');
 
 // List fields need to debug
 // let debugFields = ['field11', 'field12'];
-let debugFields = [];
+let debugFields = ['field1', 'field3'];
+let thingShadows;
+let websocket, restService;
+const shadowConnectedSubject = new Rx.Subject();
 
 //TODO: Need to persist this cache data
 let cachedReport = {};
@@ -133,14 +136,36 @@ function debugFieldsFn(thingName, reported) {
     }
 }
 
-function init(thingShadowOpts, thingNames, websocketObj, restServiceObj) {
+function onThingNamesUpdated(thingNames) {
+    winston.log('debug', '[AWS_ThingShadow] thingNames updated' + JSON.stringify(thingNames));
+    registerThings(thingNames, thingShadows);
+}
+
+function subcribeGatewaySubject(appOpts) {
+    shadowConnectedSubject.combineLatest(appOpts.gatewaySubject,
+        (connected, thingNames) => thingNames)
+    .subscribe(
+        (thingNames) => {
+            onThingNamesUpdated(thingNames);
+        },
+        (e) => {
+            winston.log('debug', '[AWS_ThingShadow] subcribeGatewaySubject onError' + e.message);
+        },
+        () => {
+            winston.log('debug', '[AWS_ThingShadow] subcribeGatewaySubject onCompleted' + e.message);
+        }
+    );
+}
+
+function init(thingShadowOpts, appOpts, websocketObj, restServiceObj) {
     websocket = websocketObj;
     restService = restServiceObj;
-    let thingShadows = awsIot.thingShadow(thingShadowOpts);
+    thingShadows = awsIot.thingShadow(thingShadowOpts);
+    subcribeGatewaySubject(appOpts);
 
     thingShadows.on('connect', function() {
         winston.log('debug', '[AWS_ThingShadow] connected');
-        registerThings(thingNames, thingShadows);
+        shadowConnectedSubject.onNext(true);
 
         thingShadows.on('status',  function(thingName, stat, clientToken, stateObject) {
             winston.log('debug', '[AWS_ThingShadow] received ' + stat + ' on ' + thingName + ': ' +

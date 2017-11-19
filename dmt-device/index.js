@@ -3,6 +3,11 @@ let websocket = require('./src/websocket');
 let shadow = require('./src/shadow');
 let restService = require('./src/rest-service');
 
+/**
+ * Communicate with redis, to fetch latest gateway to connect to
+ **/
+let gateway = require('./src/gateway');
+
 let thingShadowOpts = {
   keyPath: './certs/95a7afd98e-private.pem.key',
   certPath: './certs/95a7afd98e-certificate.pem.crt',
@@ -17,16 +22,13 @@ let appOpts = {
     web_hook_api: 'http://web:8080/',
     update_device_value_path: 'webhook/update_device_value'
   },
-  access_token: '07f0f540-0e56-4e2b-a4ef-b154ed7a53ff'
+  access_token: '07f0f540-0e56-4e2b-a4ef-b154ed7a53ff',
+  gatewaySubject: undefined
 }
 
 restService.init(appOpts);
-
-// TODO: Should auto get list of thing name from rails db
-shadow.init(thingShadowOpts, [
-  'cdf-gateway', 'dmt-client',
-  'wifami-001', 'wifami-002', 'wifami-003',
-  'gfami-001','gfami-002','gfami-003'], websocket, restService);
+gateway.init(appOpts);
+shadow.init(thingShadowOpts, appOpts, websocket, restService);
 
   /*
  *
