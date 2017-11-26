@@ -25,7 +25,7 @@ class GatewayService
 
     # Init gateways list with corporate project
     gateways = ['cdf-gateway', 'dmt-client']
-    gateways = Family::Package.all.map { |package|
+    Family::Package.all.each { |package|
       gateways << package.serial_name
     }
     redis.set(cached_key, gateways.to_json)

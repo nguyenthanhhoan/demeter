@@ -1,3 +1,8 @@
+/**
+ * Incharge of polling gateways latest update from redis database
+ * And notify shadow service to register new gateways to AWS IoT Service
+ */
+
 const winston = require('./winston');
 const redis = require('redis');
 const Rx = require('rx');
