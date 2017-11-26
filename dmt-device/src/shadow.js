@@ -144,7 +144,7 @@ function optimizeUpdateFields(fields, thingName, reported) {
  * @param {*} reported 
  */
 function debugFieldsFn(thingName, reported) {
-    if (cachedThingHash[thingName]) {
+    if (cachedThingHash[thingName] && cachedThingHash[thingName].reported) {
         let cachedThingReport = cachedThingHash[thingName].reported;
         debugFields.forEach(debugField => {
             if (cachedThingReport[debugField]) {
