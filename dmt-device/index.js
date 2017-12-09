@@ -26,11 +26,18 @@ let appOpts = {
   gatewaySubject: undefined
 }
 
+const serviceInjector = {
+  websocket: websocket,
+  shadow: shadow,
+  restService: restService
+}
+
+websocket.init(serviceInjector);
 restService.init(appOpts);
 gateway.init(appOpts);
 shadow.init(thingShadowOpts, appOpts, websocket, restService);
 
-  /*
+/*
  *
  * Client code to subcribe socket
 

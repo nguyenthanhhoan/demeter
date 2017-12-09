@@ -5,8 +5,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
 import { ApiService } from '../core/api/api.service';
+import { ProjectService } from '../core/api/services/project.service';
 import { LoadedAction, LoadedNotificationAction } from '../core/actions/actions';
 import { AppSettings } from '../app.settings';
+import { UpdatedAction } from '../core/actions/device-state-action';
 
 @Component({
   template: '<router-outlet></router-outlet>'
@@ -17,7 +19,8 @@ export class UserComponent implements OnInit, OnDestroy {
   private routerSubscription: ISubscription;
   constructor(private store: Store<any>,
               private router: Router,
-              private apiService: ApiService) {}
+              private apiService: ApiService,
+              private projectService: ProjectService) {}
 
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
@@ -52,6 +55,41 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
+  private initDeviceState() {
+    this.projectService.getProjects()
+    .subscribe((projects) => {
+      this.subscribeDeviceState(projects);
+    });
+  }
+
+  private subscribeDeviceState(projects) {
+    if (projects && projects.length > 0) {
+      // Client Id for debugging purpose
+      let clientId = (new Date()).getTime();
+      window['socketClientId'] = clientId;
+      let gateways = [];
+      projects.forEach(project => {
+        if (project && project.package && project.package.serial_name) {
+          const gateway = project.package.serial_name;
+          gateways.push(gateway);
+        }
+      });
+      if (gateways.length === 0) return;
+      let ws = new WebSocket(AppSettings.websocketPath);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({
+          topic: 'REGISTER_GATEWAYS',
+          clientId: clientId,
+          gateways: gateways
+        }));
+      };
+      ws.onmessage = (event) => {
+        let receivedData = JSON.parse(event.data);
+        this.store.dispatch(new UpdatedAction(receivedData));
+      };
+    }
+  }
+
   private handleRouteParam(event) {
     // if (event instanceof NavigationEnd) {
       if (typeof this.user.username === 'undefined') {
@@ -61,6 +99,7 @@ export class UserComponent implements OnInit, OnDestroy {
         .subscribe((user) => {
           this.store.dispatch(new LoadedAction(user));
           this.initFirebase(user);
+          this.initDeviceState();
         });
       }
     // }

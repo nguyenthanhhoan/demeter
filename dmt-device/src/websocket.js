@@ -2,6 +2,7 @@ var winston = require('./winston');
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 9090 });
 
+let serviceInjector;
 var cacheConnects = [];
 
 wss.on('connection', (ws) => {
@@ -23,6 +24,16 @@ wss.on('connection', (ws) => {
         devices: msgObj.devices
       });
       winston.log('debug', '[WebSocket] Receive new connection. Current connected clients: ' + cacheConnects.length);
+    } else if (msgObj.topic === 'REGISTER_GATEWAYS') {
+      // Register gateway topic to received data updated from many fields
+      winston.log('debug', '[WebSocket] Receive register gateway message: ' + message);
+      cacheConnects.push({
+        ws: ws,
+        clientId: msgObj.clientId,
+        gateways: msgObj.gateways
+      });
+      winston.log('debug', '[WebSocket] Receive new connection. Current connected clients: ' + cacheConnects.length);
+      serviceInjector.shadow.syncGateways(msgObj.gateways);
     } else {
       winston.log('debug', '[WebSocket] Topic not present or not supported yet: ' + message);
     }
@@ -61,15 +72,35 @@ var notifySubcriber = function(gateway, field, value, timestamp) {
   winston.log('debug', `[WebSocket] NotifySubcriber: gateway = ${gateway}, field = ${field}, value = ${value}`);
   winston.log('debug', `[WebSocket] Number of connected sockets: ${cacheConnects.length}`);
   cacheConnects.forEach((cacheConnect) => {
-    let foundDevice = findDevice(cacheConnect, gateway, field);
-    if (foundDevice) {
+    if (typeof cacheConnect.gateways === 'undefined') {
+      let foundDevice = findDevice(cacheConnect, gateway, field);
+      if (foundDevice) {
+        let sentData = JSON.stringify({
+          gateway: gateway,
+          field: field,
+          value: value,
+          timestamp: timestamp
+        });
+        winston.log('debug', `[WebSocket] Prepare to send device data: ${sentData} to clientId: ${cacheConnect.clientId}`);
+        cacheConnect.ws.send(sentData, function(error) {
+            if (error) {
+              winston.log('error', `[WebSocket] Cannot send data to clientId: ${cacheConnect.clientId}`);
+            }
+        });
+      }
+    }
+  });
+}
+
+function notifyGatewaySubscriber(thingName, reported, timestamp) {
+  cacheConnects.forEach((cacheConnect) => {
+    if (cacheConnect.gateways && cacheConnect.gateways.indexOf(thingName) > -1) {
       let sentData = JSON.stringify({
-        gateway: gateway,
-        field: field,
-        value: value,
+        thingName: thingName,
+        reported: reported,
         timestamp: timestamp
       });
-      winston.log('debug', `[WebSocket] Prepare to send device data: ${sentData} to clientId: ${cacheConnect.clientId}`);
+      winston.log('debug', `[WebSocket] Prepare to send gateway data: ${sentData} to clientId: ${cacheConnect.clientId}`);
       cacheConnect.ws.send(sentData, function(error) {
           if (error) {
             winston.log('error', `[WebSocket] Cannot send data to clientId: ${cacheConnect.clientId}`);
@@ -79,4 +110,13 @@ var notifySubcriber = function(gateway, field, value, timestamp) {
   });
 }
 
-module.exports.notifySubcriber = notifySubcriber;
+function init(serviceInjectorParams) {
+  serviceInjector = serviceInjectorParams;
+}
+
+module.exports = {
+  notifySubcriber: notifySubcriber,
+  notifyGatewaySubscriber: notifyGatewaySubscriber,
+  init: init
+}
+

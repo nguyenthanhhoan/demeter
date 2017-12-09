@@ -37,6 +37,10 @@ function registerThing(thingName, thingShadows) {
             cachedThingHash[thingName] = {
                 registered: true
             };
+
+            // After registed, call get method to get current reported state
+            // callback `update` will be triggered
+            thingShadows.get(thingName);
         } else {
             winston.log('error', `[AWS_ThingShadow] Error when register ${thingName} thing shadow`);
         }
@@ -56,13 +60,22 @@ function registerThings(connection) {
  */
 function syncFieldValue(fields, thingName, reported, timestamp) {
     fields.forEach((field) => {
-        // Notify web api via websocket
-        websocket.notifySubcriber(thingName, field, reported[field].value, timestamp);
-
-        // Update to db via webhook
-        // TODO: Need to improve here, cached the previous state
-        restService.update_device_value(thingName, field, reported[field].value, timestamp);
+        if (field === 'connected') {
+            websocket.notifySubcriber(thingName, 'connected', reported['connected'], timestamp);
+        } else {
+            // Notify web api via websocket
+            websocket.notifySubcriber(thingName, field, reported[field].value, timestamp);
+            // Update to db via webhook
+            restService.update_device_value(thingName, field, reported[field].value, timestamp);
+        }
     });
+}
+
+/**
+ * Notify to those subcribe the topic REGISTER_GATEWAY
+ */
+function notifyGatewaySubscriber(thingName, reported, timestamp) {
+    websocket.notifyGatewaySubscriber(thingName, reported, timestamp);
 }
 
 /**
@@ -81,17 +94,13 @@ function processForeignStateChange(thingName, stateObject) {
       },
       "field17": {
         "value": 0
-      }
+      },
+      "connected": 1
     }
   },
   "metadata": {
     "reported": {
       "field1": {
-        "value": {
-          "timestamp": 1503720372
-        }
-      },
-      "field18": {
         "value": {
           "timestamp": 1503720372
         }
@@ -107,10 +116,11 @@ function processForeignStateChange(thingName, stateObject) {
     debugFieldsFn(thingName, reported);
     let fields = Object.keys(reported);
     if (isUndefined(cachedThingHash[thingName]) || isUndefined(cachedThingHash[thingName].reported)) {
-        winston.log('debug', '[AWS_ThingShadow] cachedThingHash is empty, need sync all fieldse');
+        winston.log('debug', '[AWS_ThingShadow] cachedThingHash is empty, need sync all fields');
         syncFieldValue(fields, thingName, reported, timestamp);
         cachedThingHash[thingName] = cachedThingHash[thingName] || {};
         cachedThingHash[thingName].reported = reported;
+        cachedThingHash[thingName].timestamp = timestamp;
     } else {
         let filteredFields = optimizeUpdateFields(fields, thingName, reported);
         if (filteredFields && filteredFields.length > 0) {
@@ -118,6 +128,7 @@ function processForeignStateChange(thingName, stateObject) {
             syncFieldValue(filteredFields, thingName, reported, timestamp);
         }
     }
+    notifyGatewaySubscriber(thingName, reported, timestamp);
 }
 
 /**
@@ -130,6 +141,10 @@ function optimizeUpdateFields(fields, thingName, reported) {
         if (typeof cachedThingReport[field] === 'undefined') {
             cachedThingReport[field] = reported[field];
             return field;
+        } else if (field == 'connected') {
+            if (cachedThingReport['connected'] != reported['connected']) {
+                return field;
+            }
         } else if (cachedThingReport[field].value != reported[field].value) {
             cachedThingReport[field].value = reported[field].value;
             return field;
@@ -147,7 +162,7 @@ function debugFieldsFn(thingName, reported) {
     if (cachedThingHash[thingName] && cachedThingHash[thingName].reported) {
         let cachedThingReport = cachedThingHash[thingName].reported;
         debugFields.forEach(debugField => {
-            if (cachedThingReport[debugField]) {
+            if (cachedThingReport[debugField] && reported[debugField]) {
                 winston.log('debug', 
                     `[AWS_ThingShadow] debugFields ${debugField}: ` +
                     `Cached value: ${cachedThingReport[debugField].value}. ` +
@@ -231,6 +246,19 @@ function checkAndRegisterNewAddedThing() {
     })
 }
 
+function processStatus(thingName, stat, clientToken, stateObject) {
+    if (stateObject.state && stateObject.state.reported) {
+        let {state} = stateObject;
+        let {reported} = state;
+        let {timestamp} = stateObject;
+        cachedThingHash[thingName] = cachedThingHash[thingName] || {};
+        cachedThingHash[thingName].reported = reported;
+        cachedThingHash[thingName].timestamp = timestamp;
+    } else {
+        winston.log('debug', '[AWS_ThingShadow] processStatus received invalid stateObject' + JSON.stringify(stateObject));
+    }
+}
+
 function initThingShadowConnection(connection) {
     winston.log('debug', `[AWS_ThingShadow] initThingShadowConnection with clientId=${connection.clientId} start to connect!`);
     connection.thingShadows = awsIot.thingShadow(Object.assign({}, thingShadowOpts, {clientId: connection.clientId}));
@@ -240,13 +268,13 @@ function initThingShadowConnection(connection) {
         connection.connected = true;
         registerThings(connection);
 
-        thingShadows.on('status',  function(thingName, stat, clientToken, stateObject) {
-            winston.log('debug', '[AWS_ThingShadow] received ' + stat + ' on ' + thingName + ': ' +
-                        JSON.stringify(stateObject));
-        });
+        thingShadows.on('status',  processStatus);
 
         // Emitted when a different client's update or delete operation is accepted on the shadow.
         thingShadows.on('foreignStateChange',  function(thingName, operation, stateObject) {
+            // This log only served for debugging purpose
+            // winston.log('debug', '[AWS_ThingShadow] foreignStateChange ' + ' on ' + thingName + ': ' +
+            // JSON.stringify(stateObject));
             if (stateObject.state.reported) {
                 processForeignStateChange(thingName, stateObject);
             } else {
@@ -261,30 +289,16 @@ function initThingShadowConnection(connection) {
     });
 }
 
-function initThingShadow(thingShadowOpts, clientId) {
-    thingShadows = awsIot.thingShadow(Object.assign({}, thingShadowOpts, {clientId: clientId}));
-    thingShadows.on('connect', function() {
-        winston.log('debug', '[AWS_ThingShadow] connected');
-
-        thingShadows.on('status',  function(thingName, stat, clientToken, stateObject) {
-            winston.log('debug', '[AWS_ThingShadow] received ' + stat + ' on ' + thingName + ': ' +
-                        JSON.stringify(stateObject));
-        });
-
-        // Emitted when a different client's update or delete operation is accepted on the shadow.
-        thingShadows.on('foreignStateChange',  function(thingName, operation, stateObject) {
-            if (stateObject.state.reported) {
-                processForeignStateChange(thingName, stateObject);
-            } else {
-                winston.log('debug', '[AWS_ThingShadow] foreignStateChange received invalid stateObject' + JSON.stringify(stateObject));
+function syncGateways(gateways) {
+    if (gateways && gateways.length > 0) {
+        gateways.forEach(gateway => {
+            if (gateway && gateway.length > 0 && cachedThingHash[gateway] && cachedThingHash[gateway].reported) {
+                const { reported, timestamp } = cachedThingHash[gateway];
+                notifyGatewaySubscriber(gateway, reported, timestamp);
             }
-        });
-
-        thingShadows.on('timeout', function(thingName, clientToken) {
-            winston.log('debug', 'received timeout on '+thingName+
-                        ' with token: '+ clientToken);
-            });
-    });
+        })
+    }
+    
 }
 
 function init(thingShadowOptsObj, appOpts, websocketObj, restServiceObj) {
@@ -295,4 +309,7 @@ function init(thingShadowOptsObj, appOpts, websocketObj, restServiceObj) {
     subcribeGatewaySubject(appOpts);
 }
 
-module.exports.init = init;
+module.exports = {
+    init: init,
+    syncGateways: syncGateways
+}

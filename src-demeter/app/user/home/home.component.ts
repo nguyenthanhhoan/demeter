@@ -1,9 +1,12 @@
+import { state } from '@angular/animations';
 import { NavigationEnd, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AppSettings } from '../../app.settings';
 import { ProjectService } from '../../core/api/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
+import * as _ from 'lodash';
 
 declare var $: any;
 @Component({
@@ -14,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any = {};
   projects: any = [];
   private storeSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
   private projectsLoaded: boolean = false;
   constructor(private store: Store<any>,
               private router: Router,
@@ -31,8 +35,41 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.storeSubscription.unsubscribe();
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
+    if (this.deviceSubscription) {
+      this.deviceSubscription.unsubscribe();
+    }
   }
+
+  updateProjectConnectedStatus(state) {
+    if (state && state.packages && state.packages.length > 0) {
+      for (const singlePackage of state.packages) {
+        if (singlePackage && singlePackage.reported && typeof singlePackage.reported.connected !== 'undefined') {
+
+          const {thingName} = singlePackage;
+          const foundProject = this.findProjectByThingName(thingName);
+          if (foundProject) {
+            foundProject.connected = singlePackage.reported.connected;
+          }
+        }
+      }
+    }
+  }
+
+  findProjectByThingName(thingName) {
+    const foundProject = _.find(this.projects, (project: any) => {
+      if (project && project.package &&
+        project.package.serial_name &&
+        project.package.serial_name.length > 0) {
+
+          return thingName === project.package.serial_name;
+      };
+    });
+    return foundProject;
+  }
+
   loadProjects() {
     // Only getProjects once, since updating the store could lead to reload projects
     if (this.projectsLoaded) return;
@@ -40,6 +77,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.projectService.getProjects()
     .subscribe((projects) => {
       this.projects = projects;
+      this.deviceSubscription = this.store.select('deviceState')
+      .subscribe((state: any) => {
+        this.updateProjectConnectedStatus(state);
+      });
 
       // Waiting for projects rendered
       setTimeout(() => {

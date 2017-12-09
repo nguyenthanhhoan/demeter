@@ -84,7 +84,7 @@ class CacheService
     if sensor_data.present? && lastest_data_outdated?(sensor_data, timestamp_24h_ago)
       sensor_data_parsed = JSON.parse(sensor_data)
     else
-      logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
+      Rails.logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
       sensor_data_parsed = CacheService.new.build_cache_data_lastest(gateway_name)
     end
 

@@ -3,6 +3,14 @@
     (click)="navigateToProject(project.id)"
     class="item project-item">
 
+    <span class="package-status-border"
+      *ngIf="project.connected !== undefined">
+
+      <span class="package-status"
+        [ngClass]="project.connected == 1 ? 'connected' : ''">
+
+      </span>
+    </span>
     <div class="project-img"
       [ngStyle]="{'background-image': 'url(' + project.image?.url + ')'}">
     </div>

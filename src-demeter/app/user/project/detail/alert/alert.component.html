@@ -88,7 +88,7 @@
   <div
     class="div btn-wrap">
     <button
-      *ngIf="alert.rules.length > 0"
+      *ngIf="alert.rules.length >= 0"
       (click)="saveAlert()"
       class="dmt-btn btn-primary btn-sm">Save</button>
     <button

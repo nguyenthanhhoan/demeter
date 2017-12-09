@@ -1,6 +1,7 @@
 $border-color: rgb(194, 204, 189);
 $background-color: rgb(210, 210, 210);
 $danger-color: #e51400;
+$brand-color: rgb(49, 139, 80);
 .list-item {
   display: flex;
   flex-wrap: wrap;
@@ -15,6 +16,7 @@ $danger-color: #e51400;
     cursor: pointer;
     color: #555;
     overflow: hidden;
+    position: relative;
     .project-img {
       flex: 1;
       margin: 5px;
@@ -44,6 +46,28 @@ $danger-color: #e51400;
         font-size: 20px;
         &:hover {
           color: $danger-color;
+        }
+      }
+    }
+
+    .package-status-border {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid #555;
+      .package-status {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 2px;
+        top: 2px;
+        border-radius: 50%;
+        background-color: #555;
+        &.connected {
+          background-color: $brand-color
         }
       }
     }

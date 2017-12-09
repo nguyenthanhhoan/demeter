@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 // Core providers
 import { CoreModule } from './core/core.module';
 import { appReducer, appStateReducer, agriBookStateReducer } from './core/reducers/reducer';
+import { deviceReducer } from './core/reducers';
 
 import '../styles/main.scss';
 import '../../node_modules/mediaelement/build/mediaelement-flash-video.swf';
@@ -49,7 +50,12 @@ export function HttpLoaderFactory(http: Http) {
       }
     }),
     routing,
-    StoreModule.provideStore({ app: appReducer, appState: appStateReducer, agriBookState: agriBookStateReducer })
+    StoreModule.provideStore({
+      app: appReducer,
+      appState: appStateReducer,
+      agriBookState: agriBookStateReducer,
+      deviceState: deviceReducer
+    })
   ],
   exports: [
   ],
