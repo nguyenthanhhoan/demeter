@@ -91,17 +91,20 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private handleRouteParam(event) {
-    // if (event instanceof NavigationEnd) {
-      if (typeof this.user.username === 'undefined') {
-        // The current_user haven't been fetched yet, need to perform fetching data
-        console.log('Fetching current_user');
-        this.apiService.fetch('current_user')
-        .subscribe((user) => {
-          this.store.dispatch(new LoadedAction(user));
-          this.initFirebase(user);
-          this.initDeviceState();
-        });
-      }
-    // }
+    if (typeof this.user.username === 'undefined') {
+      // The current_user haven't been fetched yet, need to perform fetching data
+      console.log('Fetching current_user');
+      this.apiService.fetch('current_user')
+      .subscribe((user) => {
+        this.store.dispatch(new LoadedAction(user));
+        this.initFirebase(user);
+        this.initDeviceState();
+      });
+    } else {
+      // current_user might be fetched after login (the process of 
+      // checking user role and redirect accordingly)
+      this.initFirebase(this.user);
+      this.initDeviceState();
+    }
   }
 }

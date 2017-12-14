@@ -66,13 +66,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   private positionNotification() {
     const notificationBtn = $('.notification-btn');
-    const offset = notificationBtn.offset();
-    const width = $(window).width() > 786 ? '300px' : '100%';
-    const left = $(window).width() > 786 ? `${offset.left - 300 + notificationBtn.outerWidth()}px` : '0';
-    this.position = {
-      top: `${notificationBtn.outerHeight()}px`,
-      left: left,
-      width: width
-    };
+    if (notificationBtn && notificationBtn.length > 0) {
+      const offset = notificationBtn.offset();
+      const width = $(window).width() > 786 ? '300px' : '100%';
+      const left = $(window).width() > 786 ? `${offset.left - 300 + notificationBtn.outerWidth()}px` : '0';
+      this.position = {
+        top: `${notificationBtn.outerHeight()}px`,
+        left: left,
+        width: width
+      };
+    }
   }
 }
