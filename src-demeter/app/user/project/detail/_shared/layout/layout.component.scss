@@ -123,3 +123,25 @@ $left-nav-background-color: #f3f6e6;
     }
   }
 }
+
+.package-status-border {
+  position: fixed;
+  right: 15px;
+  top: 50px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #555;
+  .package-status {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 2px;
+    top: 2px;
+    border-radius: 50%;
+    background-color: #555;
+    &.connected {
+      background-color: $brand-color
+    }
+  }
+}

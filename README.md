@@ -198,10 +198,10 @@ ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was
     c run db
     ```
     ```
-    docker exec -u postgres demeter_db_run_1 psql -c 'create database demeter_development'
+    docker exec -u postgres demeter_db_1 psql -c 'create database demeter_development'
     ```
     ```
-    docker exec -u postgres demeter_db_run_1 psql -d demeter_development -f /rails/db-2.dump
+    docker exec -u postgres demeter_db_1 psql -d demeter_development -f /rails/db-2.dump
     ```
 6. Memory leaking troubleshooting
 

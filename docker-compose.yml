@@ -17,6 +17,10 @@ db:
 
 dbdata:
   image: postgres:9.5.4
+
+  # This binding is useful to restore the db
+  volumes:
+    - .:/rails
   command: /bin/echo PostgreSQL Data Container
 
 redis:
