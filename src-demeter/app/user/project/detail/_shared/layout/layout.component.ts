@@ -25,7 +25,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   private storeSubscription: ISubscription;
   private appStateSubscription: ISubscription;
-  private deviceSubscription: ISubscription;
   private project: any = {
     setting: {}
   };
@@ -71,43 +70,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.project = project;
     this.initMenu();
     this.findActiveNav();
-    this.deviceSubscription = this.store.select('deviceState')
-    .subscribe((state: any) => {
-      this.updateProjectConnectedStatus(state);
-    });
   }
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
-    this.deviceSubscription.unsubscribe();
     this.appStateSubscription.unsubscribe();
-  }
-
-  findSerialName() {
-    let serial_name = '';
-    const { project } = this;
-    if (project && project.package &&
-      project.package.serial_name &&
-      project.package.serial_name.length > 0) {
-
-        serial_name = project.package.serial_name;
-    };
-    return serial_name;
-  }
-
-  updateProjectConnectedStatus(state) {
-    let serial_name = this.findSerialName();
-    if (state && state.packages && state.packages.length > 0) {
-      for (const singlePackage of state.packages) {
-        if (singlePackage && singlePackage.reported && typeof singlePackage.reported.connected !== 'undefined') {
-
-          const { thingName } = singlePackage;
-          if (thingName === serial_name) {
-            this.project.connected = singlePackage.reported.connected;
-          }
-        }
-      }
-    }
   }
 
   initMenu() {

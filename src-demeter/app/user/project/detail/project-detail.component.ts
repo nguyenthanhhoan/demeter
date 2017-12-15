@@ -14,6 +14,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   project: any = {};
   private storeSubscription: ISubscription;
   private routerSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
   constructor(private store: Store<any>,
               private router: Router,
               private route: ActivatedRoute,
@@ -25,6 +26,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     .subscribe((app: any) => {
       if (app.loaded) {
         this.project = app.project;
+        if (this.project && typeof this.project.connected === 'undefined') {
+          this.subscribeConnectionStatus();
+        }
       }
     });
     // TODO: Remove timeout technique by subcribing event stream
@@ -36,7 +40,44 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
+    if (this.deviceSubscription) {
+      this.deviceSubscription.unsubscribe();
+    }
     this.resetProject();
+  }
+
+  private subscribeConnectionStatus() {
+    this.deviceSubscription = this.store.select('deviceState')
+    .subscribe((state: any) => {
+      this.updateProjectConnectedStatus(state);
+    });
+  }
+
+  private findSerialName(project) {
+    let serial_name = '';
+    if (project && project.package &&
+      project.package.serial_name &&
+      project.package.serial_name.length > 0) {
+
+        serial_name = project.package.serial_name;
+    };
+    return serial_name;
+  }
+
+  private updateProjectConnectedStatus(state) {
+    let serial_name = this.findSerialName(this.project);
+    if (state && state.packages && state.packages.length > 0) {
+      for (const singlePackage of state.packages) {
+        if (singlePackage && singlePackage.reported && typeof singlePackage.reported.connected !== 'undefined') {
+
+          const { thingName } = singlePackage;
+          if (thingName === serial_name) {
+            this.project.connected = singlePackage.reported.connected;
+            this.store.dispatch(new LoadedProjectAction(this.project));
+          }
+        }
+      }
+    }
   }
 
   private resetProject() {
