@@ -1,7 +1,8 @@
 class FamilyDeviceSerializer < ApplicationSerializer
   attributes :uuid, :field_id, :name, :value, :value_updated_at,
     :value_data_type, :field_attribute, :chart_value_suffix, :mode,
-    :timer_start_date, :timer_end_date, :timer_daily_schedule, :events
+    :timer_start_date, :timer_end_date, :timer_daily_schedule, :events,
+    :chart_value_diff
 
   def timer_start_date
     date_to_iso(object.timer_start_date)

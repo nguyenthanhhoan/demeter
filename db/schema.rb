@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102141750) do
+ActiveRecord::Schema.define(version: 20171218143658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20171102141750) do
     t.datetime "timer_end_date"
     t.json     "timer_daily_schedule"
     t.json     "events"
+    t.float    "chart_value_diff"
     t.index ["family_package_id"], name: "index_family_devices_on_family_package_id", using: :btree
   end
 

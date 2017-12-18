@@ -11,6 +11,9 @@
     <div *ngFor="let chart of chartTabs; let i = index">
       <div id="chart-container-{{i}}" class="chart-container" [hidden]="chart != activeChartTab"></div>
     </div>
+    <span
+        class="dmt-error-msg"
+        [hidden]="chartTabs.length != 0">Data is not available.</span>
   </div>
 </div>
 <div *ngIf="!first_loaded">

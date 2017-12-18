@@ -115,10 +115,7 @@ export class SensorDataChartComponent implements OnDestroy {
           console.log('Number of points returned ', data.xAxis.categories.length);
 
           if (data.xAxis.categories.length === 0) {
-            this.notificationService.showErrorMessage({
-              title: 'error',
-              content: 'No data match your filter.'
-            });
+            this.notificationService.showErrorMessage('Chart data is not available.');
           } else {
             // Init chart data with data in the first time request
             this.fields.forEach((field, index) => {
@@ -170,8 +167,8 @@ export class SensorDataChartComponent implements OnDestroy {
         title: {
           text: ''
         },
-        min: Math.round(Math.min(...series.data)) - 1,
-        max: Math.round(Math.max(...series.data)) + 1
+        min: Math.round(Math.min(...series.data)) - series.diff,
+        max: Math.round(Math.max(...series.data)) + series.diff
       },
       tooltip: {
         valueSuffix: series.valueSuffix

@@ -40,7 +40,7 @@ class Admin::FamilyDevicesController < Admin::AdminController
 
     def device_params
       params.require(:device).permit(:field_id, :name, :name_display, :family_package_id,
-        :value, :value_data_type, :field_attribute)
+        :value, :value_data_type, :field_attribute, :chart_value_diff, :chart_value_suffix)
     end
 
     def get_device

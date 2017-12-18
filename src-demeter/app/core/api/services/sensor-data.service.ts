@@ -88,7 +88,13 @@ export class SensorDataService {
       xAxis_cates.push(formated_time);
       timestamps.push(timestamp);
       series.forEach((serie) => {
-        serie.data.push(parseFloat(item.payload.data[serie.field_id]));
+        if (item && item.payload &&
+          item.payload.data &&
+          typeof item.payload.data[serie.field_id] !== 'undefined') {
+          serie.data.push(parseFloat(item.payload.data[serie.field_id]));
+        } else {
+          serie.data.push(null);
+        }
       });
     });
     return {

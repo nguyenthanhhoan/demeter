@@ -57,7 +57,7 @@ class CacheService
       sensor_data_normalized = DynamodbService.new.normalize_data(sensor_data, 300)
       redis.set(cached_key, sensor_data_normalized)
       sensor_data_normalized
-    else 
+    else
       sensor_data = DynamodbService.new.get_data_in(start_timestamp, end_timestamp, gateway_name)
       cached_data += sensor_data
   
@@ -81,17 +81,30 @@ class CacheService
 
     timestamp_24h_ago = Time.new.ago(24 * 3600).to_f * 1000
 
-    if sensor_data.present? && lastest_data_outdated?(sensor_data, timestamp_24h_ago)
+    if data_good_to_parse?(sensor_data)
       sensor_data_parsed = JSON.parse(sensor_data)
-    else
-      Rails.logger.info "Latest data not present in cache for gateway: #{gateway_name}. Prepare to build cache"
+    end
+    unless lastest_data_good_to_go?(sensor_data_parsed, timestamp_24h_ago)
+      Rails.logger.info "Latest data need full update gateway: #{gateway_name}. Prepare to build cache"
       sensor_data_parsed = CacheService.new.build_cache_data_lastest(gateway_name)
     end
 
     sensor_data_parsed = DynamodbService.new.normalize_data(sensor_data_parsed, 300)
   end
 
-  def lastest_data_outdated?(sensor_data, timestamp_24h_ago)
+  def data_good_to_parse?(sensor_data)
+    unless sensor_data.present? 
+      return false
+    end
+    unless sensor_data.length > 0
+      return false
+    end
+  end
+
+  def lastest_data_good_to_go?(sensor_data, timestamp_24h_ago)
+    if sensor_data.length == 0
+      return false
+    end
     oldest_timestamp_in_data = sensor_data[0]['timestamp'].to_f
     oldest_timestamp_in_data < timestamp_24h_ago
   end

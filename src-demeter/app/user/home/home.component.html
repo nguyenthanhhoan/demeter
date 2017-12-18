@@ -16,7 +16,10 @@
     </div>
     <div class="project-detail">
       <span class="project-name">{{project.name}}</span>
-      <span class="date">{{project.package.hash_id}}</span>
+      <span class="date">{{project?.package?.serial_name}}</span>
+      <span
+        class="dmt-error-msg"
+        [hidden]="project?.package?.serial_name.length > 0">Package is missing</span>
       <span class="remove-btn"
         (click)="confirmRemove($event, project)">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
