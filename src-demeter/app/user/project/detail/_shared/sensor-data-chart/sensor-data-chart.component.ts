@@ -111,11 +111,22 @@ export class SensorDataChartComponent implements OnDestroy {
     }).subscribe((fields) => {
       this.fields = fields;
       if (this.fields.length > 0) {
+        this.populateSensorData();
         this.requestChartData();
       } else {
         this.first_loaded = true;
       }
     }, () => { this.isLoading = false; });
+  }
+
+  populateSensorData() {
+    this.fields.forEach((field, index) => {
+      let chartTab: any = {};
+      chartTab.lastest_data = field.value ? field.value : 0;
+      chartTab.name = field.name + `(${field.chart_value_suffix})`;
+      this.chartTabs.push(chartTab);
+    });
+    this.activeChartTab = this.chartTabs[0];
   }
 
   requestChartData() {
@@ -136,7 +147,7 @@ export class SensorDataChartComponent implements OnDestroy {
               let length = data.series[index].data.length;
               chartTab.lastest_data = data.series[index].data[length - 1];
               chartTab.name = field.name + `(${field.chart_value_suffix})`;
-              this.chartTabs.push(chartTab);
+              this.chartTabs[index] = chartTab;
             });
             this.activeChartTab = this.chartTabs[0];
             this.loadHighChart();

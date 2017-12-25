@@ -12,10 +12,6 @@ class Family::DevicesController < AuthorizedController
     devices = Family::Device.where(where_query).order(id: :asc)
 
     device_gateway = @package.serial_name
-
-    # TODO: Optimize this function
-    # By quering only outdate field value
-    DeviceService.new.sync_with_latest_state(devices, device_gateway)
     render json: devices, each_serializer: FamilyDeviceSerializer
   end
 
