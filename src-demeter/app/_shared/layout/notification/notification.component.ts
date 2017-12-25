@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CoreService } from '../../../core/api/services/core.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { ToggleNotificationAction } from '../../../core/actions/actions';
 
 declare var $: any;
 declare var moment: any;
@@ -53,6 +54,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }, () => {
       this.notificationService.showErrorMessage('Cannot mark notification as read!');
     });
+  }
+
+  private onClickedOutside(e) {
+    const isNotiBtn = $(e.target).hasClass('notification-btn')
+      || $(e.target).parents('.notification-btn').length > 0
+    if (!isNotiBtn) {
+      this.store.dispatch(new ToggleNotificationAction(false));
+    }
   }
 
   private transformNotification(notifications) {

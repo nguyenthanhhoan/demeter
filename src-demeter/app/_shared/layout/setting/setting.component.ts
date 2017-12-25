@@ -46,4 +46,13 @@ export class SettingComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  private onClickedOutside(e) {
+    const isSettingBtn = $(e.target).hasClass('setting-btn')
+      || $(e.target).parents('.setting-btn').length > 0
+    if (!isSettingBtn) {
+    if (!$(e.target).parents('.setting-btn').length) {
+      this.store.dispatch(new ToggleSettingAction(false));
+    }
+  }
 }

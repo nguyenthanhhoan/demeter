@@ -44,12 +44,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
 
   toggleSetting() {
-    this.isShowSetting = !this.isShowSetting;
-    this.store.dispatch(new ToggleSettingAction(this.isShowSetting));
+    this.store.dispatch(new ToggleSettingAction(true));
   }
 
   toggleNotification() {
-    this.isShowNotification = !this.isShowNotification;
-    this.store.dispatch(new ToggleNotificationAction(this.isShowNotification));
+    this.store.dispatch(new ToggleNotificationAction(true));
   }
 }

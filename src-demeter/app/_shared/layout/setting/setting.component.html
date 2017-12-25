@@ -1,4 +1,5 @@
-<div class="setting-menu" *ngIf="isShowSetting">
+<div class="setting-menu" *ngIf="isShowSetting"
+  (clickOutside)="onClickedOutside($event)">
   <a class="item" routerLink="/{{user.username}}/agribook">
     <img src="assets/img/demeter/icon/BOOK.png" alt="agribook">
     <span>Agribook</span>

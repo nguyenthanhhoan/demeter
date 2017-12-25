@@ -1,5 +1,6 @@
 <div class="notifications" *ngIf="isShowNotification"
-  [ngStyle]="{'top': position.top, 'left': position.left, 'width': position.width}">
+  [ngStyle]="{'top': position.top, 'left': position.left, 'width': position.width}"
+  (clickOutside)="onClickedOutside($event)">
   <div class="header">
     <span class="header-text">Notification</span>
     <img

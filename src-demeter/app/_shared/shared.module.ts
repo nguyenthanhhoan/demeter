@@ -8,6 +8,7 @@ import { LayoutModule } from './layout/layout.module';
 import { SpinnerModule } from './spinner/spinner.module';
 import { ToggleDirective } from './directives/toggle.directive';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     FormsModule,
     TranslateModule,
     LayoutModule,
-    SpinnerModule
+    SpinnerModule,
+    ClickOutsideModule
   ],
   declarations: [
     ToggleDirective

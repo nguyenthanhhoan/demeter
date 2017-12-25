@@ -6,11 +6,13 @@ import { UserLayoutComponent } from './layout/user-layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SettingComponent } from './setting/setting.component';
 import { NotificationComponent } from './notification/notification.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ClickOutsideModule
   ],
   declarations: [
     HeaderComponent,
