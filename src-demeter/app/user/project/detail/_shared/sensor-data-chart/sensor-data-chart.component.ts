@@ -31,7 +31,7 @@ export class SensorDataChartComponent implements OnDestroy {
   chartTabs: any[] = [];
   activeChartTab = this.chartTabs[0];
   chartInit = false;
-  fields: any[];
+  fields: any[] = [];
 
   // Show last 24 hours data
   timeline = 24 * 60 * 60 * 1000;
@@ -40,7 +40,9 @@ export class SensorDataChartComponent implements OnDestroy {
   period = 5 * 60 * 1000;
 
   // Timer to simulate real-time
-  subscription: ISubscription;
+  private subscription: ISubscription;
+  private storeSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
 
   // Used as fallback method, if cannot update via websocket,
   // we need to user pulling
@@ -57,18 +59,28 @@ export class SensorDataChartComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    this.store.select('app')
+    this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
       if (app.project && app.project.id) {
         this.project = app.project;
         this.initData();
       }
     });
+    this.deviceSubscription = this.store.select('deviceState')
+    .subscribe((state: any) => {
+      this.updateDeviceState(state);
+    });
   }
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
+    if (this.deviceSubscription) {
+      this.deviceSubscription.unsubscribe();
     }
   }
 
@@ -129,9 +141,6 @@ export class SensorDataChartComponent implements OnDestroy {
             this.activeChartTab = this.chartTabs[0];
             this.loadHighChart();
             this.handleDataRealTime();
-
-            // Subcribe websocket to update real-time data
-            this.subscribeWebSocket();
           }
         }
       }, () => { this.isLoading = false; } );
@@ -257,11 +266,6 @@ export class SensorDataChartComponent implements OnDestroy {
               newDataReceiveds.forEach((deltaPoint, point_index) => {
                 chartTab.chart_series.data.push(data.series[index].data[point_index]);
                 chartTab.chart_series.data.splice(0, 1);
-
-                let length = data.series[index].data.length;
-                if (typeof chartTab.lastest_data === 'undefined' || !this.canUpdateViaWebSocket) {
-                  chartTab.lastest_data = data.series[index].data[length - 1];
-                }
               });
             });
           }
@@ -269,46 +273,25 @@ export class SensorDataChartComponent implements OnDestroy {
     });
   }
 
-  subscribeWebSocket() {
-    let ws = new WebSocket(AppSettings.websocketPath);
+  private updateDeviceState(state) {
+    if (state && state.packages && state.packages.length > 0) {
+      for (const singlePackage of state.packages) {
+        if (singlePackage && singlePackage.reported &&
+          singlePackage.thingName === this.package_id) {
 
-    // Client Id for debugging purpose
-    let clientId = (new Date()).getTime();
-    window['socketClientId'] = clientId;
+          const { reported } = singlePackage;
+          this.fields.forEach((field, index) => {
+            if (field.field_id && reported[field.field_id] &&
+              field.value != reported[field.field_id].value) {
+              const newValue = reported[field.field_id].value;
+              console.log(`Received updated value field=${field.field_id}, value=${newValue}`);
 
-    let subscribeDevices = this.fields.map((field) => {
-      return {
-        gateway: this.package_id,
-        fieldId: field.field_id
-      };
-    });
-
-    ws.onopen = () => {
-      ws.send(JSON.stringify({
-        topic: 'REGISTER', clientId: clientId,
-        devices: subscribeDevices
-      }));
-    };
-
-    ws.onmessage = (event) => {
-      let receivedData = JSON.parse(event.data);
-      this.ngZone.run(() => {
-        this.updateDeviceValue(receivedData);
-      });
-    };
-  }
-
-  updateDeviceValue(receivedData) {
-    let newValue = receivedData.value;
-    this.fields.forEach((field, index) => {
-      if (this.package_id === receivedData.gateway && field.field_id === receivedData.field
-        && field.value !== newValue) {
-
-        console.log(`Received updated value field=${field.field_id}, value=${newValue}`);
-        field.value = newValue;
-        this.chartTabs[index].lastest_data = newValue;
-        this.canUpdateViaWebSocket = true;
+              field.value = newValue;
+              this.chartTabs[index].lastest_data = newValue;
+            }
+          });
+        }
       }
-    });
+    }
   }
 }

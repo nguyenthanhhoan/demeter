@@ -34,6 +34,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   selectedDevice: any = {};
   @ViewChild('controlTimer') controlTimer;
   private storeSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
   constructor(private store: Store<any>,
               private ngZone: NgZone,
               private deviceService: DeviceService,
@@ -42,11 +43,15 @@ export class ControlComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
-      if (app.project && app.project.id) {
+      if (app.project && app.project.id && this.project.id !== app.project.id) {
         this.project = app.project;
         this.package_id = app.project.package.serial_name;
         this.loadDevice();
       }
+    });
+    this.deviceSubscription = this.store.select('deviceState')
+    .subscribe((state: any) => {
+      this.updateDeviceState(state);
     });
   }
 
@@ -69,55 +74,12 @@ export class ControlComponent implements OnInit, OnDestroy {
       this.selectedDevice = this.devices[0];
       this.isRequesting = false;
       this.transformDeviceValue(this.devices);
-      this.subscribeWebSocket();
     });
   }
 
   transformDeviceValue(devices) {
     devices.forEach((device, index) => {
       device.value = parseInt(device.value, 10) === 1;
-    });
-  }
-
-  subscribeWebSocket() {
-    let ws = new WebSocket(AppSettings.websocketPath);
-
-    // Client Id for debugging purpose
-    let clientId = (new Date()).getTime();
-    window['socketClientId'] = clientId;
-
-    let subscribeDevices = this.devices.map((device) => {
-      return {
-        gateway: this.package_id,
-        fieldId: device.field_id
-      };
-    });
-
-    ws.onopen = () => {
-      ws.send(JSON.stringify({
-        topic: 'REGISTER', clientId: clientId,
-        devices: subscribeDevices
-      }));
-    };
-
-    ws.onmessage = (event) => {
-      let receivedData = JSON.parse(event.data);
-      this.ngZone.run(() => {
-        this.updateDeviceValue(receivedData);
-      });
-    };
-  }
-
-  updateDeviceValue(receivedData) {
-    let newValue = parseInt(receivedData.value, 10) === 1;
-    this.devices.forEach((device, index) => {
-      if (this.package_id === receivedData.gateway && device.field_id === receivedData.field
-        && device.value !== newValue) {
-
-        console.log(`Received updated value device=${device.field_id}, value=${newValue}`);
-        device.value = newValue;
-        this.isDeviceUpdating = false;
-      }
     });
   }
 
@@ -169,6 +131,9 @@ export class ControlComponent implements OnInit, OnDestroy {
 
   changeValue($event, device) {
     $event.preventDefault();
+    if (this.isDeviceUpdating || !(this.project.connected == 1)) {
+      return;
+    }
     let newValue = !device.value;
     let intValue = newValue ? 1 : 0;
     this.isDeviceUpdating = true;
@@ -184,7 +149,29 @@ export class ControlComponent implements OnInit, OnDestroy {
       this.notificationService.showErrorMessage({
         content: 'Cannot send command!'
       });
-      device.isDeviceUpdating = false;
+      this.isDeviceUpdating = false;
     });
+  }
+
+  private updateDeviceState(state) {
+    if (state && state.packages && state.packages.length > 0) {
+      for (const singlePackage of state.packages) {
+        if (singlePackage && singlePackage.reported &&
+          singlePackage.thingName === this.package_id) {
+
+          const { reported } = singlePackage;
+          this.devices.forEach((device, index) => {
+            if (device.field_id && reported[device.field_id] &&
+              device.value != reported[device.field_id].value) {
+
+              let newValue = reported[device.field_id].value;
+              let intValue = newValue == 1 ? 1 : 0;
+              device.value = intValue;
+              this.isDeviceUpdating = false;
+            }
+          });
+        }
+      }
+    }
   }
 }

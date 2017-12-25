@@ -4,6 +4,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
+import diff from 'deep-diff';
 import { ApiService } from '../core/api/api.service';
 import { ProjectService } from '../core/api/services/project.service';
 import { LoadedAction, LoadedNotificationAction } from '../core/actions/actions';
@@ -17,6 +18,8 @@ export class UserComponent implements OnInit, OnDestroy {
   user: any = {};
   private storeSubscription: ISubscription;
   private routerSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
+  private prevState: any;
   constructor(private store: Store<any>,
               private router: Router,
               private apiService: ApiService,
@@ -35,11 +38,25 @@ export class UserComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.handleRouteParam(null);
     }, 800);
+
+    // This is for debugging purpose
+    this.deviceSubscription = this.store.select('deviceState')
+    .subscribe((state: any) => {
+      this.startDebugState(state);
+    });
   }
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
     // this.routerSubscription.unsubscribe();
+  }
+
+  private startDebugState(state) {
+    if (this.prevState) {
+      let differences = diff(this.prevState, state);
+      console.log('differences in state', JSON.stringify(differences));
+    }
+    this.prevState = Object.assign({}, state);
   }
 
   private initFirebase(user) {

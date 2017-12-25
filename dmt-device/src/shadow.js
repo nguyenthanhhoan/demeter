@@ -4,7 +4,8 @@ const isUndefined = require('./util').isUndefined;
 
 // List fields need to debug
 // let debugFields = ['field11', 'field12'];
-let debugFields = [];
+const debugFields = [];
+const debugThingNames = [];
 
 /**
  * List of thingShadows connection.
@@ -12,7 +13,12 @@ let debugFields = [];
  * Need to group 5 thing into a connection to overcome limitation of AWS IoT
  * that can only allow maximum number of subscriptions per session is 50
  * See more: https://github.com/aws/aws-iot-device-sdk-js/issues/43
- * [{ thingShadow: {}, clientId: 'group1', thingNames: [] }]
+ * [{
+     connected: false,
+     thingShadow: {},
+     clientId: 'group1',
+     thingNames: []
+    }]
  **/
 let thingShadowConnections = [];
 const maxThingPerGroup = 5;
@@ -159,8 +165,15 @@ function optimizeUpdateFields(fields, thingName, reported) {
  * @param {*} reported 
  */
 function debugFieldsFn(thingName, reported) {
+    if (debugThingNames.indexOf(thingName) == -1) {
+        return;
+    }
     if (cachedThingHash[thingName] && cachedThingHash[thingName].reported) {
         let cachedThingReport = cachedThingHash[thingName].reported;
+        winston.log('debug', 
+            `[AWS_ThingShadow] debugThing ${thingName}: ` +
+            `Cached value: ${JSON.stringify(cachedThingReport)}` +
+            `Received value: ${JSON.stringify(reported)}`);
         debugFields.forEach(debugField => {
             if (cachedThingReport[debugField] && reported[debugField]) {
                 winston.log('debug', 
@@ -267,25 +280,25 @@ function initThingShadowConnection(connection) {
         winston.log('debug', `[AWS_ThingShadow] with clientId=${connection.clientId} connected`);
         connection.connected = true;
         registerThings(connection);
+    });
 
-        thingShadows.on('status',  processStatus);
+    thingShadows.on('status',  processStatus);
 
-        // Emitted when a different client's update or delete operation is accepted on the shadow.
-        thingShadows.on('foreignStateChange',  function(thingName, operation, stateObject) {
-            // This log only served for debugging purpose
-            // winston.log('debug', '[AWS_ThingShadow] foreignStateChange ' + ' on ' + thingName + ': ' +
-            // JSON.stringify(stateObject));
-            if (stateObject.state.reported) {
-                processForeignStateChange(thingName, stateObject);
-            } else {
-                winston.log('debug', '[AWS_ThingShadow] foreignStateChange received invalid stateObject' + JSON.stringify(stateObject));
-            }
-        });
+    // Emitted when a different client's update or delete operation is accepted on the shadow.
+    thingShadows.on('foreignStateChange',  function(thingName, operation, stateObject) {
+        // This log only served for debugging purpose
+        // winston.log('debug', '[AWS_ThingShadow] foreignStateChange ' + ' on ' + thingName + ': ' +
+        // JSON.stringify(stateObject));
+        if (stateObject.state.reported) {
+            processForeignStateChange(thingName, stateObject);
+        } else {
+            winston.log('debug', '[AWS_ThingShadow] foreignStateChange received invalid stateObject' + JSON.stringify(stateObject));
+        }
+    });
 
-        thingShadows.on('timeout', function(thingName, clientToken) {
-            winston.log('debug', 'received timeout on '+thingName+
-                        ' with token: '+ clientToken);
-            });
+    thingShadows.on('timeout', function(thingName, clientToken) {
+        winston.log('debug', 'received timeout on '+thingName+
+                    ' with token: '+ clientToken);
     });
 }
 

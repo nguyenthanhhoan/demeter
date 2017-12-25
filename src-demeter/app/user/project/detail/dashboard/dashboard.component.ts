@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private project: any = {};
   private package_id: string;
   private storeSubscription: ISubscription;
+  private deviceSubscription: ISubscription;
 
   constructor(private store: Store<any>,
               private ngZone: NgZone,
@@ -28,17 +29,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storeSubscription = this.store.select('app')
     .subscribe((app: any) => {
-      if (app.project && app.project.id) {
+      if (app.project && app.project.id && this.project.id !== app.project.id) {
         this.project = app.project;
         this.package_id = app.project.package.serial_name;
         this.filterMainCameras();
         this.loadDevice();
       }
     });
+    this.deviceSubscription = this.store.select('deviceState')
+    .subscribe((state: any) => {
+      this.updateDeviceState(state);
+    });
   }
 
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
+    this.deviceSubscription.unsubscribe();
   }
 
   filterMainCameras() {
@@ -59,7 +65,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.devices = devices;
       this.isRequesting = false;
       this.transformDeviceValue(this.devices);
-      this.subscribeWebSocket();
     }, () => this.isRequesting = false );
   }
 
@@ -68,35 +73,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       device.value = parseInt(device.value, 10) === 1;
       device.isRunning = false;
     });
-  }
-
-  subscribeWebSocket() {
-    let ws = new WebSocket(AppSettings.websocketPath);
-
-    // Client Id for debugging purpose
-    let clientId = (new Date()).getTime();
-    window['socketClientId'] = clientId;
-
-    let subscribeDevices = this.devices.map((device) => {
-      return {
-        gateway: this.package_id,
-        fieldId: device.field_id
-      };
-    });
-
-    ws.onopen = () => {
-      ws.send(JSON.stringify({
-        topic: 'REGISTER', clientId: clientId,
-        devices: subscribeDevices
-      }));
-    };
-
-    ws.onmessage = (event) => {
-      let receivedData = JSON.parse(event.data);
-      this.ngZone.run(() => {
-        this.updateDeviceValue(receivedData);
-      });
-    };
   }
 
   updateDeviceValue(receivedData) {
@@ -139,4 +115,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  private updateDeviceState(state) {
+    if (state && state.packages && state.packages.length > 0) {
+      for (const singlePackage of state.packages) {
+        if (singlePackage && singlePackage.reported &&
+          singlePackage.thingName === this.package_id) {
+
+          const { reported } = singlePackage;
+          this.devices.forEach((device, index) => {
+            if (device.field_id && reported[device.field_id] &&
+              device.value != reported[device.field_id].value) {
+
+              let newValue = reported[device.field_id].value;
+              let intValue = newValue == 1 ? 1 : 0;
+              device.value = intValue;
+              device.isRunning = false;
+            }
+          });
+        }
+      }
+    }
+  }
 }

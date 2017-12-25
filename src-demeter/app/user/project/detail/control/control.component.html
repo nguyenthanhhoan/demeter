@@ -61,10 +61,10 @@
     <div class="toggle">
       <label class="dmt-toggle"
         (click)="changeValue($event, selectedDevice)"
-        [class.state-disabled]="isDeviceUpdating">
+        [class.state-disabled]="isDeviceUpdating || !(project.connected == 1)">
         <input type="checkbox"
           [ngModel]="selectedDevice.value"
-          [disabled]="isDeviceUpdating">
+          [disabled]="isDeviceUpdating || !(project.connected == 1)">
         <i data-swchoff-text="OFF" data-swchon-text="ON"></i>
       </label>
     </div>
