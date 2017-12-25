@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   changeValue($event, device) {
-    if (device.mode !== 'manual' || device.isRunning) {
+    if (device.mode !== 'manual' || device.isRunning || this.project.connected != 1) {
       return;
     }
     $event.preventDefault();

@@ -149,6 +149,7 @@ function optimizeUpdateFields(fields, thingName, reported) {
             return field;
         } else if (field == 'connected') {
             if (cachedThingReport['connected'] != reported['connected']) {
+                cachedThingReport['connected'] = reported['connected'];
                 return field;
             }
         } else if (cachedThingReport[field].value != reported[field].value) {
