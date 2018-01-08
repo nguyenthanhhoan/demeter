@@ -11,5 +11,7 @@
   "member_zone_admin": "Zone Admin",
   "member_project_user": "Project User",
   "member_zone_user": "Zone User",
-  "pending_invitation": "Pending Invitation(s)"
+  "pending_invitation": "Pending Invitation(s)",
+
+  "create_brand": "Create Brand",
 }

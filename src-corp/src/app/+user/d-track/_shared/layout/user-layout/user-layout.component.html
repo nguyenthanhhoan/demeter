@@ -1,0 +1,19 @@
+<style>
+  .user-side {
+    background: none;
+    background-color: #DBDBCC;
+  }
+</style>
+<div class="user-side">
+  <demeter-user-header [hasSidebar]="true"></demeter-user-header>
+
+  <div class="user-main">
+    <div class="container-fluid">
+      <d-track-sidebar></d-track-sidebar>
+
+      <div class="user-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
