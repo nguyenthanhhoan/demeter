@@ -4,6 +4,7 @@ import { UserLayoutComponent } from './_shared/layout/user-layout/user-layout.co
 import { DTrackComponent } from './d-track.component';
 import { BrandNewComponent } from './brand-new/brand-new.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
+import { BrandDetailComponent } from './brand-detail/brand-detail.component';
 
 export const routes: Routes = [{
   path: '',
@@ -18,9 +19,9 @@ export const routes: Routes = [{
     path: ':id',
     component: DTrackComponent,
     children: [{
-      path: '', redirectTo: 'summary', pathMatch: 'full'
+      path: '', redirectTo: 'detail', pathMatch: 'full'
       }, {
-        path: 'summary', component: BrandListComponent
+        path: 'detail', component: BrandDetailComponent
       }
     ]
   }]

@@ -12,4 +12,7 @@ export class BrandListComponent {
   goToCreate() {
     this.router.navigate(['/user/d-track/new']);
   }
+  goToDetail(brandId) {
+    this.router.navigate([`/user/${brandId}/detail`]);
+  }
 }

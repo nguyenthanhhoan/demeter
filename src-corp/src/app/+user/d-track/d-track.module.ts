@@ -4,6 +4,7 @@ import { routing } from './d-track.routing';
 import { DTrackComponent } from './d-track.component';
 import { BrandNewComponent } from './brand-new/brand-new.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
+import { BrandDetailComponent } from './brand-detail/brand-detail.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { BrandListComponent } from './brand-list/brand-list.component';
   declarations: [
     DTrackComponent,
     BrandNewComponent,
-    BrandListComponent
+    BrandListComponent,
+    BrandDetailComponent
   ]
 })
 export class DTrackModule { }
