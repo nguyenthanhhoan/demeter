@@ -18,6 +18,7 @@ export class ContactInfoFormComponent {
 
   open(harvesting) {
     this.lgModal.show();
+    this.mode = 'edit';
     // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
     // if (harvesting) {
     //   this.mode = 'edit';
@@ -25,6 +26,10 @@ export class ContactInfoFormComponent {
     // } else {
     //   this.mode = 'add';
     // }
+  }
+
+  onClose(event) {
+    this.lgModal.hide();
   }
 
   saveOrUpdate() {

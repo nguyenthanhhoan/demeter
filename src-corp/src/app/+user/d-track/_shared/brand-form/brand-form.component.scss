@@ -51,3 +51,8 @@
   padding-left: 0;
   padding-right: 0;
 }
+
+//  Fix not show dialog location
+.pac-container {
+  z-index: 10000!important;
+}

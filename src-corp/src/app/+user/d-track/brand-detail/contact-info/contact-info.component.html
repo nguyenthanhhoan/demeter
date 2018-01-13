@@ -42,15 +42,15 @@
   <header>Company Images</header>
   <fieldset>
     <section>
-      <button class="demeter-btn create-btn primary pull-right">Add</button>
+      <button class="demeter-btn create-btn primary pull-right" (click)="imageForm.open()">Add</button>
       <div class="company-image-container">
         <div class="image-content" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
           <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
           <div class="image-actions">
-            <a>
+            <a (click)="imageForm.open(fakeInage)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <a class="delete-action">
+            <a class="delete-action" (click)="onRemove(fakeInage)">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
             </a>
           </div>
@@ -61,3 +61,4 @@
 </form>
 
 <contact-info-form #contactInfoForm></contact-info-form>
+<image-form #imageForm></image-form>

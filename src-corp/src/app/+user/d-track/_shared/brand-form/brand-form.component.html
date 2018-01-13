@@ -1,8 +1,13 @@
+  <style>
+  .pac-container {
+  z-index: 10000!important;
+}
+  </style>
   <form class="form-horizontal" novalidate="novalidate">
     <fieldset>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="col-md-5 control-label">Brand Name <span class="req-field">*</span></label>
+          <label class="col-md-5 control-label">Brand Name {{typex}} <span class="req-field">*</span></label>
           <div class="col-md-7">
             <input class="form-control" type="text" name="name" />
           </div>
@@ -59,15 +64,27 @@
       </div>
       <div class="col-md-12">
         <div class="button-group">
-          <div class="button-group-right">
-            <button class="demeter-btn create-btn" type="submit">
-              Create
-            </button>
-            <button class="demeter-btn danger">
+          <div class="button-group-right">              
+              <span *ngIf="mode == 'edit'; then edit else create"></span>
+              <ng-template #edit>
+                  <button class="demeter-btn create-btn" type="submit">
+                      Edit
+                    </button>
+              </ng-template>
+            
+              <ng-template #create>
+                  <button class="demeter-btn create-btn" type="submit">
+                      Create
+                    </button>
+              </ng-template>
+              
+            <button class="demeter-btn danger" (click)="closeModal.emit()">
               Cancel
             </button>
           </div>
         </div>
       </div>
+      
+      
     </fieldset>
   </form>
