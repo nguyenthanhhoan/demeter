@@ -1,0 +1,43 @@
+<form class="smart-form">
+  <header>From Media</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right"
+      (click)="mediaFeedbackForm.open()">Add</button>
+      <table class="table table-hover table-bordered demeter-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Media Unit Name</th>
+              <th>Link</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of [1, 2, 3, 4, 5, 6]; let i = index;" class="demeter-pane">
+              <td>{{i + 1}}</td>
+              <td>Unit {{i + 1}}</td>
+              <td>Link {{i + 1}}</td>
+              <td class="col-actions">
+                <a (click)="mediaFeedbackForm.open()">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a class="delete-action" (click)="remove(1, 1)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </section>
+  </fieldset>
+</form>
+<form class="smart-form">
+  <header>From Personal</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right">Add</button>
+    </section>
+  </fieldset>
+</form>
+<media-feedback-form #mediaFeedbackForm></media-feedback-form>

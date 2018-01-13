@@ -2,21 +2,21 @@ import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 
 @Component({
-  selector: 'contact-info-form',
-  templateUrl: './contact-info-form.component.html'
+  selector: 'media-feedback-form',
+  templateUrl: './media-feedback-form.component.html'
 })
-export class ContactInfoFormComponent {
+export class MediaFeedbackFormComponent {
 
   @ViewChild('lgModal') public lgModal: ModalDirective;
   @Output() resolve = new EventEmitter();
 
-  harvesting: any = {};
+  mediaFeedback: any = {};
   mode: string;
 
   constructor() {
   }
 
-  open(harvesting) {
+  open(mediaFeedback) {
     this.lgModal.show();
     // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
     // if (harvesting) {
