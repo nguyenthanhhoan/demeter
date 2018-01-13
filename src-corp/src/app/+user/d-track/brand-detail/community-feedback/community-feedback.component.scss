@@ -10,3 +10,43 @@
   margin-top: -30px;
   padding: 3px 10px;
 }
+
+.feedback-personals {
+  display: flex;
+  flex-direction: column;
+
+  .info-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+    height: 200px;
+  
+    .brand-logo {
+      width: 200px;
+      height: 200px;
+      position: relative;
+  
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .info-rows {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin-left: 20px;
+  
+      .info-row {
+        .info-label {
+          width: 100px;
+        }
+    
+        .info-value {
+          font-weight: bold;
+        }
+      }
+    }
+  }  
+}

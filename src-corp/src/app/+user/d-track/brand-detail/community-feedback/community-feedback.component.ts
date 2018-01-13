@@ -16,7 +16,7 @@ export class CommunityFeedbackComponent {
 
   remove(item, type) {
     this.notificationService.confirmBox({
-      content: `Do you want to remove this ${type}?`
+      content: `Do you want to remove this ${type} ?`
     });
   }
 }
