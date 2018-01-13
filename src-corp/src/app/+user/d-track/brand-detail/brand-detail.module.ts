@@ -7,6 +7,9 @@ import { BrandDetailComponent } from './brand-detail.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CommunityFeedbackComponent } from './community-feedback/community-feedback.component';
 import { MediaFeedbackFormComponent } from './community-feedback/media-feedback-form/media-feedback-form.component';
+import { HistoryVisionMissionComponent } from './history-vision-mission/history-vision-mission.component';
+import { HistoryVisionMissionFormComponent } from './history-vision-mission/history-vision-mission-form/history-vision-mission-form.component';
+
 @NgModule({
   imports: [
     routing,
@@ -18,7 +21,9 @@ import { MediaFeedbackFormComponent } from './community-feedback/media-feedback-
     ContactInfoFormComponent,
     CertificatesComponent,
     CommunityFeedbackComponent,
-    MediaFeedbackFormComponent
+    MediaFeedbackFormComponent,
+    HistoryVisionMissionComponent,
+    HistoryVisionMissionFormComponent
   ],
   providers: [
   ]
