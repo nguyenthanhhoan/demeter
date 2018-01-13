@@ -21,4 +21,4 @@ export class BrandDetailComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private brandService: BrandService) {
   }
-} 
+}
