@@ -17,11 +17,9 @@ export const routes: Routes = [{
       component: BrandNewComponent
   }, {
     path: ':id',
-    component: DTrackComponent,
     children: [{
-      path: '', redirectTo: 'detail', pathMatch: 'full'
-      }, {
-        path: 'detail', component: BrandDetailComponent
+        path: 'detail',
+        loadChildren: 'app/+user/d-track/brand-detail/brand-detail.module#BrandDetailModule'
       }
     ]
   }]

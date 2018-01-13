@@ -1,0 +1,64 @@
+<form class="smart-form">
+  <header>Contact Information</header>
+  <fieldset>
+    <section>
+      <button
+        class="demeter-btn create-btn primary pull-right"
+        (onclick)="contactInfoForm.open()">Edit</button>
+      <div class="info-container">
+        <div class="brand-logo">
+            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+            <div class="brand-qr-code">
+                <img src="https://www.qrstuff.com/images/sample.png" />
+            </div>
+        </div>
+        <div class="info-rows">
+          <div class="info-row">
+            <label class="info-label">Brand Name</label>
+            <label class="info-value">Brand 1</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Model</label>
+            <label class="info-value">Trồng trọt</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Phone Number</label>
+            <label class="info-value">+84 1214 542 102</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Email</label>
+            <label class="info-value">khoatran121294@gmail.com</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Location</label>
+            <label class="info-value">abc 123</label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+
+<form class="smart-form">
+  <header>Company Images</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right">Add</button>
+      <div class="company-image-container">
+        <div class="image-content" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+          <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+          <div class="image-actions">
+            <a>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="delete-action">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+
+<contact-info-form #contactInfoForm></contact-info-form>

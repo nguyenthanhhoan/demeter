@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./brand-detail.scss']
 })
 export class BrandDetailComponent {
+  state = {
+    tabs: {
+      activeTab: 0
+    }
+  };
   constructor(private router: Router) {
   }
 } 

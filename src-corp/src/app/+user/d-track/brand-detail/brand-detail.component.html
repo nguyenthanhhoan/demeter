@@ -1,6 +1,38 @@
 <div class="content-header">
-    <div class="demeter-title">Brand List</div>
+    <div class="demeter-title">Brand Detail</div>
 </div>
 <div class="brand-detail">
-    <h1>BRAND DETAIL LOAD HERE</h1>
+    <div class="demeter-pane">
+        <ul class="nav nav-tabs bordered">
+            <li [class.active]="state.tabs.activeTab == 0">
+                <a (click)="state.tabs.activeTab = 0">Contact Information</a>
+            </li>
+            <li [class.active]="state.tabs.activeTab == 1">
+                <a (click)="state.tabs.activeTab = 1">Certificate</a>
+            </li>
+            <li [class.active]="state.tabs.activeTab == 2">
+                <a (click)="state.tabs.activeTab = 2">Feedback From Community</a>
+            </li>
+            <li [class.active]="state.tabs.activeTab == 3">
+                <a (click)="state.tabs.activeTab = 3">History / Vision / Mission</a>
+            </li>
+        </ul>
+
+        <div class="demeter-pane-content">
+            <tabset class="padding-10">
+                    <tab [active]="state.tabs.activeTab == 0">
+                        <contact-info></contact-info>
+                    </tab>
+                    <tab [active]="state.tabs.activeTab == 1">
+                        tab 2
+                    </tab>
+                    <tab [active]="state.tabs.activeTab == 2">
+                        tab 3
+                    </tab>
+                    <tab [active]="state.tabs.activeTab == 3">
+                        tab 4
+                    </tab>
+            </tabset>
+        </div>
+    </div>
 </div>
