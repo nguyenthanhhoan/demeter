@@ -75,10 +75,39 @@
     .image-actions {
       display: flex;
       justify-content: flex-end;
+      opacity: 0;
+      margin: 5px;
       
       a {
-        margin: 5px;
-      }
+        padding: 0 5px;
+      }      
     }
   }
+  .image-single {
+   
+    img {
+      cursor: pointer;
+    } 
+    &:hover {
+      .image-actions{
+        opacity: 1;
+      }
+    }       
+  }
+
 }
+
+// .image-actions {
+//   opacity: 0;
+//   position: absolute;
+//   right: 20px;
+//   bottom: 0px;
+// }
+
+// .image-single img {
+//   cursor: pointer;
+// }
+
+// .image-single:hover .image-actions {
+//   opacity: 1;
+// }

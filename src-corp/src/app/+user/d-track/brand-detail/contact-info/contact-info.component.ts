@@ -14,9 +14,11 @@ declare var moment: any;
 export class ContactInfoComponent {
 
   fakeInage: any = {path: 'path' };
+
   typeModal: string;
 
-  constructor(private router: Router, private notificationService: NotificationService) {
+  constructor(private router: Router,
+              private notificationService: NotificationService) {
   }
 
   onRemove(item) {

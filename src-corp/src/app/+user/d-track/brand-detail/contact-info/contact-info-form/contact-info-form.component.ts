@@ -29,7 +29,9 @@ export class ContactInfoFormComponent {
   }
 
   onClose(event) {
-    this.lgModal.hide();
+    if (event === 'close') {
+      this.lgModal.hide();
+    }
   }
 
   saveOrUpdate() {

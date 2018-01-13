@@ -34,3 +34,21 @@
     }
   }
 }
+
+.image-actions {
+  opacity: 0;
+  right: 20px;
+  bottom: 0px;
+}
+
+.image-single img {
+  cursor: pointer;
+}
+
+.image-single:hover .image-actions {
+  opacity: 1;
+}
+
+.image-actions a {
+  padding: 0 3px;
+}
