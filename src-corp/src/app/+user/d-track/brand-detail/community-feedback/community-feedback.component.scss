@@ -30,6 +30,21 @@
         width: 100%;
         height: 100%;
       }
+      .image-actions {
+        display: flex;
+        justify-content: flex-end;
+        opacity: 0;
+        
+        a {
+          margin: 5px;
+        }
+      }
+
+      &:hover {
+        .image-actions {
+          opacity: 1;
+        }
+      }
     }
 
     .info-rows {

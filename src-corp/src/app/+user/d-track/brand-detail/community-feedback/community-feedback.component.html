@@ -36,32 +36,38 @@
   <header>From Personal</header>
   <fieldset>
     <section>
-      <button class="demeter-btn create-btn primary pull-right">Add</button>
+      <button class="demeter-btn create-btn primary pull-right" (click)="personalFeedbackForm.open()">Add</button>
       <div class="feedback-personals">
         <div class="info-container">
           <div class="brand-logo">
-              <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+              <img src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+              <div class="image-actions">
+                <a>
+                  <i class="fa fa-pencil" aria-hidden="true" (click)="personalFeedbackForm.open()"></i>
+                </a>
+                <a class="delete-action">
+                  <i class="fa fa-trash-o" aria-hidden="true" (click)="remove(1, 'User')"></i>
+                </a>
+              </div>
           </div>
           <div class="info-rows">
             <div class="info-row">
-              <label class="info-label">Brand Name</label>
-              <label class="info-value">Brand 1</label>
-            </div>
-            <div class="info-row">
-              <label class="info-label">Model</label>
-              <label class="info-value">Trồng trọt</label>
-            </div>
-            <div class="info-row">
-              <label class="info-label">Phone Number</label>
-              <label class="info-value">+84 1214 542 102</label>
+              <label class="info-label">Full Name</label>
+              <label class="info-value">Trần Anh Khoa</label>
             </div>
             <div class="info-row">
               <label class="info-label">Email</label>
               <label class="info-value">khoatran121294@gmail.com</label>
             </div>
             <div class="info-row">
-              <label class="info-label">Location</label>
-              <label class="info-value">abc 123</label>
+              <label class="info-label">Phone Number</label>
+              <label class="info-value">+84 1214 542 102</label>
+            </div>
+            <div class="info-row">
+              <label class="info-label">Feedback</label>
+              <label class="info-value">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+              </label>
             </div>
           </div>
         </div>
@@ -70,3 +76,4 @@
   </fieldset>
 </form>
 <media-feedback-form #mediaFeedbackForm></media-feedback-form>
+<personal-feedback-form #personalFeedbackForm></personal-feedback-form>

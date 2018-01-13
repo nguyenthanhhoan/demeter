@@ -11,14 +11,19 @@ declare var moment: any;
   templateUrl: './contact-info.component.html',
   styleUrls: ['./contact-info.component.scss']
 })
-export class ContactInfoComponent {
+export class ContactInfoComponent implements OnInit {
 
   fakeInage: any = {path: 'path' };
 
   typeModal: string;
 
-  constructor(private router: Router,
-              private notificationService: NotificationService) {
+  @Input()
+  brand: any;
+
+  constructor(private router: Router, private notificationService: NotificationService) {
+  }
+
+  ngOnInit() {
   }
 
   onRemove(item) {

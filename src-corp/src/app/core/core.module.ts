@@ -32,6 +32,7 @@ import { AlertRuleService } from './services/alert-rule.service';
 import { AlertService } from './services/alert.service';
 import { InvitationService } from './services/invitation.service';
 import { ProfileService } from './services/profile.service';
+import { BrandService } from './services/brand.service';
 
 // TODO: It's better to have app services seperated with api services
 import { AuthService } from './services/auth.service';
@@ -70,7 +71,8 @@ import { AuthService } from './services/auth.service';
     AlertService,
     InvitationService,
     ProfileService,
-    AuthService
+    AuthService,
+    BrandService
   ]
 })
 export class CoreModule {

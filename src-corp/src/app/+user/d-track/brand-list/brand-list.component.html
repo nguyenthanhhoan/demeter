@@ -9,45 +9,15 @@
     <div class="demeter-title">Brand List</div>
 </div>
 <div class="brands-list-container">
-    <div class="brand-card" (click)="goToDetail('abc')">
+    <div class="brand-card" routerLink="/user/d-track/{{brand.id}}/detail" *ngFor="let brand of brands">
         <div class="brand-logo">
-            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+            <img [src]="brand.logo ? brand.logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
             <div class="brand-qr-code">
                 <img src="https://www.qrstuff.com/images/sample.png" />
             </div>
         </div>
-        <span class="brand-name">Branch Name</span>
-        <span class="brand-code">Code000001</span>
-    </div>
-    <div class="brand-card">
-        <div class="brand-logo">
-            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
-            <div class="brand-qr-code">
-                <img src="https://www.qrstuff.com/images/sample.png" />
-            </div>
-        </div>
-        <span class="brand-name">Branch Name</span>
-        <span class="brand-code">Code000001</span>
-    </div>
-    <div class="brand-card">
-        <div class="brand-logo">
-            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
-            <div class="brand-qr-code">
-                <img src="https://www.qrstuff.com/images/sample.png" />
-            </div>
-        </div>
-        <span class="brand-name">Branch Name</span>
-        <span class="brand-code">Code000001</span>
-    </div>
-    <div class="brand-card">
-        <div class="brand-logo">
-            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
-            <div class="brand-qr-code">
-                <img src="https://www.qrstuff.com/images/sample.png" />
-            </div>
-        </div>
-        <span class="brand-name">Branch Name</span>
-        <span class="brand-code">Code000001</span>
+        <span class="brand-name">{{ brand.name }}</span>
+        <span class="brand-code">{{ brand.code }}</span>
     </div>
     <div class="add-new-brand" (click)="goToCreate()">
         <div class="upload-plus-icon"></div>

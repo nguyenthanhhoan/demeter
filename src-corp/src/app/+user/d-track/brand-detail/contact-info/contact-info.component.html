@@ -6,7 +6,7 @@
         class="demeter-btn create-btn primary pull-right" (click)="contactInfoForm.open()">Edit</button>
       <div class="info-container">
         <div class="brand-logo">
-            <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+            <img [src]="brand.logo" />
             <div class="brand-qr-code">
                 <img src="https://www.qrstuff.com/images/sample.png" />
             </div>
@@ -14,23 +14,23 @@
         <div class="info-rows">
           <div class="info-row">
             <label class="info-label">Brand Name</label>
-            <label class="info-value">Brand 1</label>
+            <label class="info-value">{{ brand.name }}</label>
           </div>
           <div class="info-row">
             <label class="info-label">Model</label>
-            <label class="info-value">Trồng trọt</label>
+            <label class="info-value">{{ brand.kind }}</label>
           </div>
           <div class="info-row">
             <label class="info-label">Phone Number</label>
-            <label class="info-value">+84 1214 542 102</label>
+            <label class="info-value">Unknown</label>
           </div>
           <div class="info-row">
             <label class="info-label">Email</label>
-            <label class="info-value">khoatran121294@gmail.com</label>
+            <label class="info-value">{{ brand.email }}</label>
           </div>
           <div class="info-row">
             <label class="info-label">Location</label>
-            <label class="info-value">abc 123</label>
+            <label class="info-value">{{ brand.location }}</label>
           </div>
         </div>
       </div>
