@@ -20,9 +20,13 @@ export const routes: Routes = [{
     children: [{
         path: 'detail',
         loadChildren: 'app/+user/d-track/brand-detail/brand-detail.module#BrandDetailModule'
+      },
+      {
+        path: 'products',
+        loadChildren: 'app/+user/d-track/product/product.module#ProductModule'
       }
     ]
   }]
 }];
-   
+
 export const routing = RouterModule.forChild(routes);

@@ -10,7 +10,7 @@
 </div>
 <div class="brands-list-container">
     <div class="brand-card" *ngFor="let brand of brands">
-        <div class="brand-logo">
+        <div class="brand-logo" routerLink="/user/d-track/{{brand.id}}/products">
             <img [src]="brand.logo ? brand.logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
             <div class="brand-qr-code">
                 <img src="https://www.qrstuff.com/images/sample.png" />

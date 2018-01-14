@@ -1,0 +1,102 @@
+.project-summary {
+    background-color: #F5F3EB;
+    height: 200px;
+    padding: 25px;
+    margin-top: 2.5rem;
+  
+    display: flex;
+    align-items: center;
+  
+    .project-img {
+      width: 150px;
+    }
+  }
+  
+  .project-info {
+    flex: 1;
+    padding-left: 15px;
+    width: 15%;
+  }
+  
+  .project-img img {
+    width: 100%;
+    max-height: 150px;
+  }
+  
+  .project-name {
+    color: #006837;
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-bottom: 0px;
+    width: 150px;
+    display: inline-block;
+  }
+  
+  .weather-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .project-data {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  .project-data .icon-wrap {
+    display: inline-block;
+    width: 16px;
+  }
+  
+  .project-title,
+  .project-data p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .project-data p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .seperator {
+    border-left: 2px dashed #ccc;
+    height: 150px;
+    margin: 0 0 0 50px;
+  }
+  
+  .weather-chart {
+    float: right;
+    width: 45%;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    .weather-forecast {
+      display: none;
+    }
+  }
+  
+  @media only screen and (min-width: 1000px) {
+    .weather-forecast {
+      width: 66%;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .project-summary {
+      padding: 15px;
+      height: auto;
+      flex-flow: row-reverse;
+  
+      .project-img {
+        width: 110px;
+        align-self: flex-end;
+      }
+    }
+    .project-info {
+      flex: 1;
+      padding-left: 0;
+    }
+  }
+  

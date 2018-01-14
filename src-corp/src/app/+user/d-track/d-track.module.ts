@@ -15,7 +15,7 @@ import { BrandListComponent } from './brand-list/brand-list.component';
     DTrackComponent,
     BrandNewComponent,
     BrandListComponent,
-    //BrandDetailComponent
+    // BrandDetailComponent
   ]
 })
 export class DTrackModule { }

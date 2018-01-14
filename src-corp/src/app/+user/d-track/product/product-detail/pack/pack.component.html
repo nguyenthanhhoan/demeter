@@ -1,0 +1,38 @@
+<form class="smart-form">
+    <header>List of packs</header>
+    <fieldset>
+      <section>
+        <button class="demeter-btn create-btn primary pull-right" (click)="packForm.open()">Add</button>
+        <div class="distributions">
+          <div class="info-container" *ngFor="let item of packs">
+            <div class="brand-logo">
+                <img [src]="item.image" />
+                <div class="image-actions">
+                  <a>
+                    <i class="fa fa-pencil" aria-hidden="true" (click)="packForm.open(item)"></i>
+                  </a>
+                  <a class="delete-action">
+                    <i class="fa fa-trash-o" aria-hidden="true" (click)="onRemove(1, 'User')"></i>
+                  </a>
+                </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row">
+                <label class="info-label">Packing Unit</label>
+                <label class="info-value">{{ item.packingUnit }}</label>
+              </div>
+              <div class="info-row">
+                <label class="info-label">Address</label>
+                <label class="info-value">{{ item.address }}</label>
+              </div>
+              <div class="info-row">
+                <label class="info-label">Description</label>
+                <label class="info-value">{{ item.description }}</label>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </section>
+    </fieldset>
+  </form>
+  <pack-form #packForm></pack-form>
