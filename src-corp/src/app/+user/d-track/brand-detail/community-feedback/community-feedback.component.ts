@@ -14,6 +14,9 @@ export class CommunityFeedbackComponent {
   constructor(private router: Router, private notificationService: NotificationService) {
   }
 
+  @Input()
+  brand: any;
+
   remove(item, type) {
     this.notificationService.confirmBox({
       content: `Do you want to remove this ${type} ?`

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'history-vision-mission',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-vision-mission.component.scss']
 })
 export class HistoryVisionMissionComponent implements OnInit {
+
+  @Input()
+  brand: any;
 
   constructor() { }
 

@@ -21,7 +21,42 @@ export class BrandService {
                 location: '14 Phan Chu Trinh , Đà Lạt',
                 location_geometry: 'map\'s location',
                 email: 'info@agrievovle.com',
-                logo: 'assets/img/brands/brand_1.jpg'
+                logo: 'assets/img/brands/brand_1.jpg',
+                certificates: [
+                    {
+                        id: 1,
+                        imageUrl: 'assets/img/brands/certs/b1_cert1.png'
+                    },
+                    {
+                        id: 2,
+                        imageUrl: 'assets/img/brands/certs/b1_cert2.png'
+                    }
+                ],
+                medias: [
+                    {
+                        id: 1,
+                        name: 'Tuổi trẻ',
+                        linkUrl: 'https://tuoitre.vn/traicay-cao-cap-20180109145333248.htm'
+                    }
+                ],
+                feedbackFromPersonal: [
+                    {
+                        id: 1,
+                        name: 'Tran Anh Khoa',
+                        email: 'khoatran121294@gmail.com',
+                        phone: '01214 542 102',
+                        content: 'Sản phẩm ở đây oke lắm',
+                        avatar: 'assets/img/brands/personals/person_1.png'
+                    },
+                    {
+                        id: 2,
+                        name: 'Đoàn Ngọc Hải',
+                        email: 'doan.ngochai@gmail.com',
+                        phone: '0905 113 113',
+                        content: 'Sản phẩm này rất tốt',
+                        avatar: 'assets/img/brands/personals/person_2.png'
+                    }
+                ]
             },
             {
                 id: 2,
@@ -32,7 +67,38 @@ export class BrandService {
                 location: 'Lâm Đồng , Việt Nam',
                 location_geometry: 'map\'s location',
                 email: 'salel@kenko.com',
-                logo: null
+                logo: null,
+                certificates: [
+                    {
+                        id: 3,
+                        imageUrl: 'assets/img/brands/certs/b2_cert1.jpg'
+                    },
+                    {
+                        id: 4,
+                        imageUrl: 'assets/img/brands/certs/b2_cert2.png'
+                    },
+                    {
+                        id: 5,
+                        imageUrl: 'assets/img/brands/certs/b2_cert3.jpg'
+                    }
+                ],
+                medias: [
+                    {
+                        id: 1,
+                        name: 'Matcha review',
+                        linkUrl: 'http://www.matchareviews.com/review/kenko-tea-matcha-organic-ceremonial/'
+                    }
+                ],
+                feedbackFromPersonal: [
+                    {
+                        id: 3,
+                        name: 'Lê Thị Mến',
+                        email: 'lethi.men@gmail.com',
+                        phone: 'None',
+                        content: 'Tôi rất thích sản phẩm ở đây, chất lượng rất là chuẩn ISO',
+                        avatar: 'assets/img/brands/personals/person_1.png'
+                    }
+                ]
             },
             {
                 id: 3,
@@ -43,7 +109,34 @@ export class BrandService {
                 location: '14 Lý Thường Kiệt , Quãng Nam ',
                 location_geometry: 'map\'s location',
                 email: '"info@crispy.com',
-                logo: 'assets/img/brands/brand_3.png'
+                logo: 'assets/img/brands/brand_3.png',
+                certificates: [
+                    {
+                        id: 6,
+                        imageUrl: 'assets/img/brands/certs/b3_cert1.png'
+                    },
+                    {
+                        id: 7,
+                        imageUrl: 'assets/img/brands/certs/b3_cert2.png'
+                    }
+                ],
+                medias: [
+                    {
+                        id: 1,
+                        name: 'Tuổi trẻ',
+                        linkUrl: 'https://tuoitre.vn/traicay-cao-cap-20180109145333248.htm'
+                    }
+                ],
+                feedbackFromPersonal: [
+                    {
+                        id: 4,
+                        name: 'Đoàn Văn Kí',
+                        email: 'doan.van.ki@gmail.com',
+                        phone: 'None',
+                        content: 'Nên tin vào sản phẩm ở đây',
+                        avatar: 'assets/img/brands/personals/person_2.png'
+                    }
+                ]
             },
             {
                 id: 4,
@@ -54,7 +147,24 @@ export class BrandService {
                 location: '12  Phan Chu Trinh , Cà Mau',
                 location_geometry: 'map\'s location',
                 email: 'info@honeybee.com',
-                logo: 'assets/img/brands/brand_4.jpg'
+                logo: 'assets/img/brands/brand_4.jpg',
+                certificates: [
+                    {
+                        id: 8,
+                        imageUrl: 'assets/img/brands/certs/b4_cert1.png'
+                    },
+                    {
+                        id: 9,
+                        imageUrl: 'assets/img/brands/certs/b5_cert2.png'
+                    }
+                ],
+                medias: [
+                    {
+                        id: 1,
+                        name: 'Tuổi trẻ',
+                        linkUrl: 'https://tuoitre.vn/traicay-cao-cap-20180109145333248.htm'
+                    }
+                ]
             }
         ]
      }

@@ -9,7 +9,7 @@
     <div class="demeter-title">Brand List</div>
 </div>
 <div class="brands-list-container">
-    <div class="brand-card" routerLink="/user/d-track/{{brand.id}}/detail" *ngFor="let brand of brands">
+    <div class="brand-card" *ngFor="let brand of brands">
         <div class="brand-logo">
             <img [src]="brand.logo ? brand.logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
             <div class="brand-qr-code">
@@ -18,6 +18,9 @@
         </div>
         <span class="brand-name">{{ brand.name }}</span>
         <span class="brand-code">{{ brand.code }}</span>
+        <button 
+            routerLink="/user/d-track/{{brand.id}}/detail"
+            class="demeter-btn detail-btn primary">Detail</button>
     </div>
     <div class="add-new-brand" (click)="goToCreate()">
         <div class="upload-plus-icon"></div>

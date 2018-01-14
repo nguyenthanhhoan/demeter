@@ -14,6 +14,8 @@ declare var moment: any;
 export class CertificatesComponent {
 
   fakeInage: any = {path: 'path' };
+  @Input()
+  brand: any;
 
   constructor(private router: Router,
               private notificationService: NotificationService) {

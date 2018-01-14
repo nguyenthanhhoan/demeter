@@ -18,12 +18,14 @@
   .info-container {
     display: flex;
     justify-content: flex-start;
-    margin-left: 20px;
-    height: 200px;
+    margin: 5px;
+    padding: 10px;
+    height: 120px;
+    border: 0.5px solid #CCC;
   
     .brand-logo {
-      width: 200px;
-      height: 200px;
+      width: 120px;
+      height: 120px;
       position: relative;
   
       img {
