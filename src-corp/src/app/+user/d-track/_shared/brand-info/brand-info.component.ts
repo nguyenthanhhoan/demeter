@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'brand-info',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./brand-info.component.scss']
 })
 export class BrandInfoComponent implements OnInit {
+
+  @Input()
+  brand: any;
 
   constructor() { }
 

@@ -37,16 +37,9 @@
       .image-actions {
         display: flex;
         justify-content: flex-end;
-        opacity: 1;
         
         a {
           margin: 5px;
-        }
-      }
-
-      &:hover {
-        .image-actions {
-          opacity: 1;
         }
       }
     }
@@ -56,7 +49,6 @@
       flex-direction: column;
       flex: 1;
       margin-left: 20px;
-      justify-content: center;
   
       .info-row {
         .info-label {

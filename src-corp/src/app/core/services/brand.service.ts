@@ -56,6 +56,20 @@ export class BrandService {
                         content: 'Sản phẩm này rất tốt',
                         avatar: 'assets/img/brands/personals/person_2.png'
                     }
+                ],
+                products: [
+                    {
+                        id: '1',
+                        code: 'PRO-00001',
+                        name: 'Xoài tứ quý hữu cơ',
+                        imageUrl: 'assets/img/brands/products/brand1_product1.jpg'
+                    },
+                    {
+                        id: '2',
+                        code: 'PRO-00002',
+                        name: 'Sầu riêng ri 6 chín cây',
+                        imageUrl: 'assets/img/brands/products/brand1_product2.jpg'
+                    }
                 ]
             },
             {
@@ -85,6 +99,7 @@ export class BrandService {
                 medias: [
                     {
                         id: 1,
+                        code: 'PRO-00003',
                         name: 'Matcha review',
                         linkUrl: 'http://www.matchareviews.com/review/kenko-tea-matcha-organic-ceremonial/'
                     }
@@ -97,6 +112,14 @@ export class BrandService {
                         phone: 'None',
                         content: 'Tôi rất thích sản phẩm ở đây, chất lượng rất là chuẩn ISO',
                         avatar: 'assets/img/brands/personals/person_1.png'
+                    }
+                ],
+                products: [
+                    {
+                        id: '3',
+                        code: 'PRO-00003',
+                        name: 'Matcha hữu cơ cao cấp',
+                        imageUrl: 'assets/img/brands/products/brand2_product1.jpg'
                     }
                 ]
             },
@@ -136,6 +159,20 @@ export class BrandService {
                         content: 'Nên tin vào sản phẩm ở đây',
                         avatar: 'assets/img/brands/personals/person_2.png'
                     }
+                ],
+                products: [
+                    {
+                        id: '4',
+                        code: 'PRO-00004',
+                        name: 'LÊ SẤY THĂNG HOA',
+                        imageUrl: 'assets/img/brands/products/brand3_product1.jpg'
+                    },
+                    {
+                        id: '5',
+                        code: 'PRO-00005',
+                        name: 'CAM SẤY THĂNG HOA',
+                        imageUrl: 'assets/img/brands/products/brand3_product2.jpg'
+                    }
                 ]
             },
             {
@@ -163,6 +200,14 @@ export class BrandService {
                         id: 1,
                         name: 'Tuổi trẻ',
                         linkUrl: 'https://tuoitre.vn/traicay-cao-cap-20180109145333248.htm'
+                    }
+                ],
+                products: [
+                    {
+                        id: '6',
+                        code: 'PRO-00006',
+                        name: 'Mật ong Cao cấp',
+                        imageUrl: 'assets/img/brands/products/brand4_product1.jpg'
                     }
                 ]
             }

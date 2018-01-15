@@ -15,7 +15,7 @@
               <a (click)="state.tabs.activeTab = 2">Manufacturer</a>
           </li>
           <li [class.active]="state.tabs.activeTab == 3">
-              <a (click)="state.tabs.activeTab = 3">Pack</a>
+              <a (click)="state.tabs.activeTab = 3">Packing</a>
           </li>
           <li [class.active]="state.tabs.activeTab == 4">
               <a (click)="state.tabs.activeTab = 4">Distribution</a>
@@ -25,7 +25,7 @@
       <div class="demeter-pane-content">
           <tabset class="padding-10">
                   <tab [active]="state.tabs.activeTab == 0">
-                      <product-info></product-info>
+                      <product-info [product]="product"></product-info>
                   </tab>
                   <tab [active]="state.tabs.activeTab == 1">
                       <materials></materials>

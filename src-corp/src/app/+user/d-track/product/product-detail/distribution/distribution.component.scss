@@ -20,7 +20,7 @@
       justify-content: flex-start;
       margin: 5px;
       padding: 10px;
-      height: 120px;
+      height: 140px;
       border: 0.5px solid #CCC;
     
       .brand-logo {
@@ -35,16 +35,9 @@
         .image-actions {
           display: flex;
           justify-content: flex-end;
-          opacity: 0;
           
           a {
             margin: 5px;
-          }
-        }
-  
-        &:hover {
-          .image-actions {
-            opacity: 1;
           }
         }
       }

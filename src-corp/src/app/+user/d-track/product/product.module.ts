@@ -14,6 +14,7 @@ import { DistributionComponent } from './product-detail/distribution/distributio
 import { MaterialsFormComponent } from './product-detail/materials/materials-form/materials-form.component';
 import { DistributionFromComponent } from './product-detail/distribution/distribution-from/distribution-from.component';
 import { PackFormComponent } from './product-detail/pack/pack-form/pack-form.component';
+import { ProductFormComponent } from './product-form/product-form.component';
 import { ManufacturerFormComponent } from './product-detail/manufacturer/manufacturer-form/manufacturer-form.component';
 import { ManufacturingProcessesFormComponent } from './product-detail/manufacturer/manufacturing-processes-form/manufacturing-processes-form.component';
 
@@ -35,7 +36,9 @@ import { ManufacturingProcessesFormComponent } from './product-detail/manufactur
     DistributionFromComponent,
     PackFormComponent,
     ManufacturerFormComponent,
-    ManufacturingProcessesFormComponent
+    ManufacturingProcessesFormComponent,
+    PackFormComponent,
+    ProductFormComponent
   ],
   providers: [
   ]

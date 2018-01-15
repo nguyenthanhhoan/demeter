@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { BrandService } from '../../../core/services/brand.service';
 
 @Component({
   selector: 'product',
@@ -6,19 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
+  
+  private brand: any;
 
-  products: any[] = [];
-
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute, private brandService: BrandService) { }
 
   ngOnInit() {
-    this.products = [
-      {name: 'product1'},
-      {name: 'product2'},
-      {name: 'product3'},
-      {name: 'product4'},
-      {name: 'product5'}
-    ];
+    let brandId = this.route.snapshot.params['id'];
+    this.brand = this.brandService.getOne(brandId);
   }
 
 }

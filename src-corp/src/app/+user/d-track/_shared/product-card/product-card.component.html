@@ -1,15 +1,15 @@
-<div class="products-list-container">
-  <div class="product-card" *ngFor="let product of products">
-      <div class="product-logo">
-          <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
-          <div class="product-qr-code">
-              <img src="https://www.qrstuff.com/images/sample.png" />
-          </div>
-      </div>
-      <span class="product-name">Name</span>
-      <span class="product-code">Code</span>
-      <button 
-          routerLink="/user/d-track/1/products/1"
-          class="demeter-btn detail-btn primary">Detail</button>
-  </div>    
+<div class="products-list-container row">
+    <div class="col-lg-3 col-md-4 col-xs-6" *ngFor="let product of products">
+        <div class="product-card">
+            <div class="product-logo">
+                <img [src]="product.imageUrl ? product.imageUrl : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
+                <div class="product-qr-code">
+                    <img src="https://www.qrstuff.com/images/sample.png" />
+                </div>
+            </div>
+            <span class="product-name">{{ product.name }}</span>
+            <span class="product-code">{{ product.code }}</span>
+            <button routerLink="/user/d-track/1/products/1" class="demeter-btn detail-btn primary">Detail</button>
+        </div>
+    </div>
 </div>

@@ -1,3 +1,74 @@
-<p>
-  product-info works!
-</p>
+<form class="smart-form">
+  <header>Product Information</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right" (click)="productForm.open(true)">Edit</button>
+      <div class="info-container">
+        <div class="brand-logo">
+          <img [src]="product.imageUrl ? product.imageUrl  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
+          <div class="brand-qr-code">
+            <img src="https://www.qrstuff.com/images/sample.png" />
+          </div>
+        </div>
+        <div class="info-rows">
+          <div class="info-row">
+            <label class="info-label">Product Name</label>
+            <label class="info-value">{{ product.name }}</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Product Code</label>
+            <label class="info-value">{{ product.code }}</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Description</label>
+            <label class="info-value">{{ product.description }}</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Price</label>
+            <label class="info-value">{{ product.price }}</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label">Distribution Channels</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label secondary-label">Agency</label>
+            <label class="info-value">Anh Khoa Co.</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label secondary-label">Address</label>
+            <label class="info-value">123 Nguyễn Chí Thanh, TP Đà Nẵng</label>
+          </div>
+          <div class="info-row">
+            <label class="info-label secondary-label">Contact</label>
+            <label class="info-value">01214 542 102</label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+
+<form class="smart-form">
+  <header>Product Images</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right" (click)="imageForm.open()">Add</button>
+      <div class="company-image-container">
+        <div class="image-content image-single" *ngFor="let i of [1, 2, 3]">
+          <img src="http://www.bdchronicle.com/records/news/201511/25827_1.jpg" />
+          <div class="image-actions">
+            <a (click)="imageForm.open(1)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="delete-action" (click)="onRemove(fakeInage)">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+
+<product-form #productForm></product-form>
+<image-form #imageForm></image-form>

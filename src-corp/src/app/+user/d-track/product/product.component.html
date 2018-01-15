@@ -1,8 +1,9 @@
-<brand-info></brand-info>
+<brand-info [brand]="brand"></brand-info>
 <div class="section-separator"></div>
 <div class="content-header">
     <div class="demeter-title">List of Products</div>
-    <button class="demeter-btn create-btn primary pull-right" routerLink="product/new">Create Product</button>
+    <button class="demeter-btn create-btn primary pull-right" (click)="productForm.open()">Create Product</button>
 </div>
 
-<product-card [products]="products"></product-card>
+<product-card [products]="brand.products"></product-card>
+<product-form #productForm></product-form>

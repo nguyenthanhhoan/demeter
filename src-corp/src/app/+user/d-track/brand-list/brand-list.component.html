@@ -8,21 +8,27 @@
 <div class="content-header">
     <div class="demeter-title">Brand List</div>
 </div>
-<div class="brands-list-container">
-    <div class="brand-card" *ngFor="let brand of brands">
-        <div class="brand-logo" routerLink="/user/d-track/{{brand.id}}/products">
-            <img [src]="brand.logo ? brand.logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
-            <div class="brand-qr-code">
-                <img src="https://www.qrstuff.com/images/sample.png" />
+<div class="brands-list-container row">
+    <div class="col-md-4" *ngFor="let brand of brands">
+        <div class="brand-card">
+            <div class="card-top">
+                <div class="brand-logo" routerLink="/user/d-track/{{brand.id}}/products">
+                    <img [src]="brand.logo ? brand.logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />
+                    <div class="brand-qr-code">
+                        <img src="https://www.qrstuff.com/images/sample.png" />
+                    </div>
+                </div>
+                <span class="brand-name">{{ brand.name }}</span>
+                <span class="brand-code">{{ brand.code }}</span>
             </div>
+            <button 
+                routerLink="/user/d-track/{{brand.id}}/detail"
+                class="demeter-btn detail-btn primary">Detail</button>
         </div>
-        <span class="brand-name">{{ brand.name }}</span>
-        <span class="brand-code">{{ brand.code }}</span>
-        <button 
-            routerLink="/user/d-track/{{brand.id}}/detail"
-            class="demeter-btn detail-btn primary">Detail</button>
     </div>
-    <div class="add-new-brand" (click)="goToCreate()">
-        <div class="upload-plus-icon"></div>
+    <div class="col-md-4" (click)="goToCreate()">
+        <div class=" add-new-brand">
+            <div class="upload-plus-icon"></div>
+        </div>
     </div>
 </div>
