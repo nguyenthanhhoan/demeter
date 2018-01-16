@@ -1,0 +1,69 @@
+<form class="smart-form">
+  <header>List of manufacturers</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right" (click)="manufacturerForm.open()">Add</button>
+      <div class="distributions">
+        <div class="info-container" *ngFor="let item of manufacturers">
+          <div class="brand-logo">
+              <img [src]="item.image" />
+              <div class="image-actions">
+                <a>
+                  <i class="fa fa-pencil" aria-hidden="true" (click)="manufacturerForm.open(item)"></i>
+                </a>
+                <a class="delete-action">
+                  <i class="fa fa-trash-o" aria-hidden="true" (click)="onRemove(1, 'User')"></i>
+                </a>
+              </div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row">
+              <label class="info-label">Adress</label>
+              <label class="info-value">{{ item.address }}</label>
+            </div>
+            <div class="info-row">
+              <label class="info-label">Manufacturer Place</label>
+              <label class="info-value">{{ item.manufacturerPlace }}</label>
+            </div>                      
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+
+<form class="smart-form">
+  <header>List of manufacturing processes</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right" (click)="manufacturingProcessesForm.open()">Add</button>
+      <div class="distributions">
+        <div class="info-container" *ngFor="let item of manufacturingProcesses">
+          <div class="brand-logo">
+              <img [src]="item.image" />
+              <div class="image-actions">
+                <a>
+                  <i class="fa fa-pencil" aria-hidden="true" (click)="manufacturingProcessesForm.open(item)"></i>
+                </a>
+                <a class="delete-action">
+                  <i class="fa fa-trash-o" aria-hidden="true" (click)="onRemove(1, 'User')"></i>
+                </a>
+              </div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row">
+              <label class="info-label">Manufacturing Processes Name</label>
+              <label class="info-value">{{ item.manufacturingProcessesName }}</label>
+            </div>
+            <div class="info-row">
+              <label class="info-label">Description</label>
+              <label class="info-value">{{ item.description }}</label>
+            </div>                      
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+<manufacturer-form #manufacturerForm></manufacturer-form>
+'<manufacturing-processes-form #manufacturingProcessesForm></manufacturing-processes-form>

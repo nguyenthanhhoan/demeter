@@ -1,0 +1,104 @@
+.create-btn {
+    position: absolute;
+    right: 0;
+    top: -66px;
+  }
+  
+  .point-button {
+    position: absolute;
+    right: 0;
+    margin-top: -30px;
+    padding: 3px 10px;
+  }
+  
+  .info-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+    height: 200px;
+  
+    .brand-logo {
+      width: 200px;
+      height: 200px;
+      position: relative;
+  
+      img {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .brand-qr-code {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+  
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  
+    .info-rows {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-left: 20px;
+  
+        .info-row {
+            .info-label {
+                width: 150px;
+
+                &.secondary-label {
+                    width: 130px;
+                    padding-left: 20px;
+                }
+            }
+    
+        .info-value {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  
+  .company-image-container {
+    display: flex;
+    flex-flow: row wrap;
+  
+    .image-content {
+      display: flex;
+      flex-direction: column;
+      width: 120px;
+      margin-right: 20px;
+      img {
+        width: 120px;
+        height: 120px;
+      }
+      .image-actions {
+        display: flex;
+        justify-content: flex-end;
+        opacity: 0;
+        margin: 5px;
+        
+        a {
+          padding: 0 5px;
+        }      
+      }
+    }
+    .image-single {
+     
+      img {
+        cursor: pointer;
+      } 
+      &:hover {
+        .image-actions{
+          opacity: 1;
+        }
+      }       
+    }
+  
+  }
+  

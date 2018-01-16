@@ -16,6 +16,10 @@ export const routes: Routes = [
       path: '',
       component: ProfileComponent,
     }]
+  }, {
+    path: 'd-track',
+    loadChildren:
+    'app/+user/d-track/d-track.module#DTrackModule',
   }
 ];
 

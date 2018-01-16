@@ -1,0 +1,45 @@
+<div class="content-header">
+  <div class="demeter-title">Product Detail</div>
+</div>
+<div class="brand-detail">
+  <div class="demeter-pane">
+      <ul class="nav nav-tabs bordered">
+          <li [class.active]="state.tabs.activeTab == 0">
+              <a (click)="state.tabs.activeTab = 0">Product Infomation</a>
+          </li>
+
+          <li [class.active]="state.tabs.activeTab == 1">
+              <a (click)="state.tabs.activeTab = 1">Materials</a>
+          </li>
+          <li [class.active]="state.tabs.activeTab == 2">
+              <a (click)="state.tabs.activeTab = 2">Manufacturer</a>
+          </li>
+          <li [class.active]="state.tabs.activeTab == 3">
+              <a (click)="state.tabs.activeTab = 3">Packing</a>
+          </li>
+          <li [class.active]="state.tabs.activeTab == 4">
+              <a (click)="state.tabs.activeTab = 4">Distribution</a>
+          </li>
+      </ul>
+
+      <div class="demeter-pane-content">
+          <tabset class="padding-10">
+                  <tab [active]="state.tabs.activeTab == 0">
+                      <product-info [product]="product"></product-info>
+                  </tab>
+                  <tab [active]="state.tabs.activeTab == 1">
+                      <materials></materials>
+                  </tab>
+                  <tab [active]="state.tabs.activeTab == 2">
+                      <manufacturer></manufacturer>
+                  </tab>
+                  <tab [active]="state.tabs.activeTab == 3">
+                      <pack></pack>
+                  </tab>
+                  <tab [active]="state.tabs.activeTab == 4">
+                      <distribution></distribution>
+                    </tab>
+          </tabset>
+      </div>
+  </div>
+</div>

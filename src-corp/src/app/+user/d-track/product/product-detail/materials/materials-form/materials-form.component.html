@@ -1,0 +1,56 @@
+<div bsModal #lgModal="bs-modal" class="modal fade">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" *ngIf="mode == 'add'">Add new material</h4>
+          <h4 class="modal-title" *ngIf="mode == 'edit'">Edit material</h4>
+        </div>
+        <div class="modal-body">
+          <form class="smart-form" #mediaFeedbackForm="ngForm">
+            <section>
+              <div class="row">
+                <label class="col col-4 label">Material Name</label>
+                <div class="col col-8">
+                  <label class="input">
+                    <input name="name" />
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="row">
+                <label class="col col-4 label">Origin</label>
+                <div class="col col-8">
+                  <label class="input">
+                    <input name="type" />
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section>
+                <div class="row">
+                  <label class="col col-4 label">Block Code</label>
+                  <div class="col col-8">
+                    <label class="input">
+                      <input name="type" />
+                    </label>
+                  </div>
+                </div>
+              </section>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            Cancel
+          </button>
+          <button type="button" 
+            class="btn btn-primary">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

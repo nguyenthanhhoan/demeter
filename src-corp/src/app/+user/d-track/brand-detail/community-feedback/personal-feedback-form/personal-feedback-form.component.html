@@ -1,0 +1,80 @@
+<div bsModal #lgModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <h4 class="modal-title" *ngIf="mode == 'add'">Add harvesting</h4>
+        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit harvesting</h4> -->
+        <h4 class="modal-title">Add New Feedback From Personal</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form" #mediaFeedbackForm="ngForm">
+          <div class="info-container">
+            <div class="brand-logo">
+              <div class="project-image-holder">
+                <div *ngIf="type == 'edit'">
+                  <div class="img-wrap" (click)="openSelectFile()" placement="bottom" tooltip="Change">
+
+                    <img class="img-responsive" src="{{zone.image?.thumb?.url}}" />
+                  </div>
+                </div>
+
+                <div *ngIf="type != 'edit'">
+                  <a (click)="openSelectFile()">
+                    <div class="upload-plus-icon upload-preview"></div>
+                  </a>
+                  <p class="image-label help-block">Image</p>
+                </div>
+                <input type="file" class="file-input hiddenfile" (change)="fileChange($event)" accept="image/*" />
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="row">
+                <label class="col col-4 label">Full Name</label>
+                <div class="col col-8">
+                  <label class="input">
+                    <input name="name" />
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col col-4 label">Email</label>
+                <div class="col col-8">
+                  <label class="input">
+                    <input name="email" />
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col col-4 label">Phone Number</label>
+                <div class="col col-8">
+                  <label class="input">
+                    <input name="phone" />
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col col-4 label">Feedback</label>
+                <div class="col col-8">
+                  <label class="textarea">
+                    <textarea class="txa-feedback"></textarea>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<form class="smart-form">
+  <header>Certificates</header>
+  <fieldset>
+    <section>
+      <button class="demeter-btn create-btn primary pull-right" (click)="imageForm.open()">Add</button>
+      <div class="certificates-container">
+        <div class="image-content image-single" *ngFor="let item of brand.certificates">
+          <img [src]="item.imageUrl" />
+          <div class="image-actions">
+            <a (click)="imageForm.open(fakeInage)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="delete-action" (click)="onRemove(fakeInage)">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+</form>
+<image-form #imageForm></image-form>

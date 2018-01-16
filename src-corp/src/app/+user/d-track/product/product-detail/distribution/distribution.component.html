@@ -1,0 +1,44 @@
+<form class="smart-form">
+    <header>List of distributions</header>
+    <fieldset>
+      <section>
+        <button class="demeter-btn create-btn primary pull-right" (click)="distributionForm.open()">Add</button>
+        <div class="distributions">
+          <div class="info-container" *ngFor="let item of distributions">
+            <div class="brand-logo">
+                <img [src]="item.logo" />
+                <div class="image-actions">
+                  <a>
+                    <i class="fa fa-pencil" aria-hidden="true" (click)="distributionForm.open(item)"></i>
+                  </a>
+                  <a class="delete-action">
+                    <i class="fa fa-trash-o" aria-hidden="true" (click)="onRemove(1, 'User')"></i>
+                  </a>
+                </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row">
+                <label class="info-label">Name</label>
+                <label class="info-value">{{ item.name }}</label>
+              </div>
+              <div class="info-row">
+                <label class="info-label">Email</label>
+                <label class="info-value">{{ item.email }}</label>
+              </div>
+              <div class="info-row">
+                <label class="info-label">Phone Number</label>
+                <label class="info-value">{{ item.phone }}</label>
+              </div>
+              <div class="info-row">
+                <label class="info-label">Address</label>
+                <label class="info-value">
+                  {{ item.address }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </fieldset>
+  </form>
+  <distribution-from #distributionForm></distribution-from>

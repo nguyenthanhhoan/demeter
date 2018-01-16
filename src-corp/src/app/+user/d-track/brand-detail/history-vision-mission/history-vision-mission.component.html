@@ -1,0 +1,15 @@
+<form class="smart-form">
+    <header>History/Vision/Mission</header>
+    <fieldset>
+        <section>
+          <button class="demeter-btn create-btn primary pull-right" (click)="historyForm.open()">Edit</button>
+          <div class="container-fluid">
+            <p>
+                {{ brand.description }}
+            </p>
+          </div>
+        </section>
+      </fieldset>
+  </form>
+
+  <history-vision-mission-form #historyForm></history-vision-mission-form>

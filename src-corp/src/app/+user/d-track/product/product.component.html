@@ -1,0 +1,9 @@
+<brand-info [brand]="brand"></brand-info>
+<div class="section-separator"></div>
+<div class="content-header">
+    <div class="demeter-title">List of Products</div>
+    <button class="demeter-btn create-btn primary pull-right" (click)="productForm.open()">Create Product</button>
+</div>
+
+<product-card [products]="brand.products"></product-card>
+<product-form #productForm></product-form>
