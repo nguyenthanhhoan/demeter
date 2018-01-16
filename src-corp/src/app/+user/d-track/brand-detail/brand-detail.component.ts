@@ -12,7 +12,7 @@ export class BrandDetailComponent implements OnInit {
       activeTab: 0
     }
   };
-  private brand: any;
+  brand: any;
 
   ngOnInit() {
     let brandId = this.route.snapshot.params['id'];

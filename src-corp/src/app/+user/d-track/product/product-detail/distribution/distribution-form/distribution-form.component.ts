@@ -1,46 +1,46 @@
-import { Component, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 
+declare var $: any;
 @Component({
-  selector: 'product-form',
-  templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  selector: 'distribution-form',
+  templateUrl: './distribution-form.component.html',
+  styleUrls: ['./distribution-form.component.scss']
 })
-export class ProductFormComponent {
+export class DistributionFormComponent implements OnInit {
 
   @ViewChild('lgModal') public lgModal: ModalDirective;
-  @Output() resolve = new EventEmitter();
+
+  distributor: any = {};
+  mode: string;
 
   @Input()
   type: any;
 
-  product: any = {};
-  mode: string;
+  constructor(private el: ElementRef) { }
 
-  constructor() {
+  ngOnInit() {
   }
 
-  open(product) {
+  open(distributor) {
     this.lgModal.show();
-    this.mode = 'edit';
     // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
-    if (product) {
+    if (distributor) {
       this.mode = 'edit';
-      Object.assign(this.product, product);
+      // Object.assign(this.harvesting, harvesting);
     } else {
       this.mode = 'add';
-    }
-  }
-
-  onClose(event) {
-    if (event === 'close') {
-      this.lgModal.hide();
     }
   }
 
   saveOrUpdate() {
     this.lgModal.hide();
     // this.resolve.emit(this.harvesting);
+  }
+
+  openSelectFile() {
+    let file = $(this.el.nativeElement).find('.file-input');
+    file.trigger('click');
   }
 
   fileChange(event) {
@@ -62,5 +62,4 @@ export class ProductFormComponent {
     //   this.readURL(event.target);
     // }
   }
-
 }

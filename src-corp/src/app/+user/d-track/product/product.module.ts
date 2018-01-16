@@ -12,7 +12,7 @@ import { ManufacturerComponent } from './product-detail/manufacturer/manufacture
 import { PackComponent } from './product-detail/pack/pack.component';
 import { DistributionComponent } from './product-detail/distribution/distribution.component';
 import { MaterialsFormComponent } from './product-detail/materials/materials-form/materials-form.component';
-import { DistributionFromComponent } from './product-detail/distribution/distribution-from/distribution-from.component';
+import { DistributionFormComponent } from './product-detail/distribution/distribution-form/distribution-form.component';
 import { PackFormComponent } from './product-detail/pack/pack-form/pack-form.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ManufacturerFormComponent } from './product-detail/manufacturer/manufacturer-form/manufacturer-form.component';
@@ -33,7 +33,7 @@ import { ManufacturingProcessesFormComponent } from './product-detail/manufactur
     PackComponent,
     DistributionComponent,
     MaterialsFormComponent,
-    DistributionFromComponent,
+    DistributionFormComponent,
     PackFormComponent,
     ManufacturerFormComponent,
     ManufacturingProcessesFormComponent,
