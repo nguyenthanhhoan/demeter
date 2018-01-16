@@ -9,7 +9,7 @@ import { BrandService } from '../../../core/services/brand.service';
 })
 export class ProductComponent implements OnInit {
   
-  private brand: any;
+  brand: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private brandService: BrandService) { }
 
