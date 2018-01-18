@@ -1,4 +1,4 @@
-import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 
 @Component({
@@ -9,23 +9,23 @@ export class ContactInfoFormComponent {
 
   @ViewChild('lgModal') public lgModal: ModalDirective;
   @Output() resolve = new EventEmitter();
+  @Input('brand') brandModel: any = {};
 
-  harvesting: any = {};
+  // harvesting: any = {};
   mode: string;
 
   constructor() {
   }
 
-  open(harvesting) {
+  open(brand) {
     this.lgModal.show();
-    this.mode = 'edit';
-    // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
-    // if (harvesting) {
-    //   this.mode = 'edit';
-    //   Object.assign(this.harvesting, harvesting);
-    // } else {
-    //   this.mode = 'add';
-    // }
+    Object.keys(this.brandModel).forEach((key) => { delete this.brandModel[key]; });
+    if (brand) {
+      this.mode = 'edit';
+      Object.assign(this.brandModel, brand);
+    } else {
+      this.mode = 'add';
+    }
   }
 
   onClose(event) {

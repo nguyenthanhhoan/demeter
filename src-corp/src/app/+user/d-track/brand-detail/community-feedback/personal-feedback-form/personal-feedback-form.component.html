@@ -6,22 +6,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title" *ngIf="mode == 'add'">Add New Feedback From Personal</h4>
-        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit Feedback From Personal</h4>
-        <h4 class="modal-title">Add New Feedback From Personal</h4>
+        <h4 class="modal-title" *ngIf="mode == 'edit'">Edit Feedback From Personal</h4>        
       </div>
       <div class="modal-body">
         <form class="smart-form" #mediaFeedbackForm="ngForm">
           <div class="info-container">
             <div class="brand-logo">
               <div class="project-image-holder">
-                <div *ngIf="type == 'edit'">
+                <div *ngIf="mode == 'edit'">
                   <div class="img-wrap" (click)="openSelectFile()" placement="bottom" tooltip="Change">
 
-                    <img class="img-responsive" src="{{zone.image?.thumb?.url}}" />
+                    <img class="img-responsive" src="{{mediaFeedback.avatar}}" />
                   </div>
                 </div>
 
-                <div *ngIf="type != 'edit'">
+                <div *ngIf="mode != 'edit'">
                   <a (click)="openSelectFile()">
                     <div class="upload-plus-icon upload-preview"></div>
                   </a>

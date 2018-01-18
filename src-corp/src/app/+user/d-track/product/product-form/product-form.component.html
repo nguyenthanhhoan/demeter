@@ -13,16 +13,16 @@
             <div class="info-container">
               <div class="brand-logo">
                   <div class="project-image-holder">
-                      <div *ngIf="type == 'edit'">
+                      <div *ngIf="mode == 'edit'">
                         <div class="img-wrap" 
                           (click)="openSelectFile()"
                           placement="bottom" tooltip="Change">
             
-                          <img class="img-responsive" src="{{zone.image?.thumb?.url}}" />
+                          <img class="img-responsive" src="{{product.imageUrl}}" />
                         </div>
                       </div>
             
-                      <div *ngIf="type != 'edit'">
+                      <div *ngIf="mode != 'edit'">
                         <a (click)="openSelectFile()">
                           <div class="upload-plus-icon upload-preview"></div>
                         </a>

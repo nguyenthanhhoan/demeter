@@ -43,7 +43,7 @@
               <img [src]="item.avatar" />
               <div class="image-actions">
                 <a>
-                  <i class="fa fa-pencil" aria-hidden="true" (click)="personalFeedbackForm.open()"></i>
+                  <i class="fa fa-pencil" aria-hidden="true" (click)="personalFeedbackForm.open(item)"></i>
                 </a>
                 <a class="delete-action">
                   <i class="fa fa-trash-o" aria-hidden="true" (click)="remove(1, 'User')"></i>

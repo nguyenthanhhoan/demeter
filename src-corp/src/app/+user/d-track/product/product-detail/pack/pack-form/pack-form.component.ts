@@ -24,10 +24,10 @@ export class PackFormComponent implements OnInit {
 
   open(pack) {
     this.lgModal.show();
-    // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
+     Object.keys(this.pack).forEach((key) => { delete this.pack[key]; });
     if (pack) {
       this.mode = 'edit';
-      // Object.assign(this.harvesting, harvesting);
+       Object.assign(this.pack, pack);
     } else {
       this.mode = 'add';
     }
@@ -45,21 +45,33 @@ export class PackFormComponent implements OnInit {
 
   fileChange(event) {
     let fileList: FileList = event.target.files;
-    // if (this.mode === 'edit') {
-    //   let submitImage: any;
-    //   if (fileList.length > 0) {
-    //     submitImage = fileList[0];
-    //   }
-    //   this.projectService.updateImage(this.project.id, submitImage)
-    //   .subscribe((res) => {
-    //     this.project.image = res.image;
-    //     this.notificationService.showMessage('Change image successfully!');
-    //   });
-    // } else {
-    //   if (fileList.length > 0) {
-    //     this.project.image = fileList[0];
-    //   }
-    //   this.readURL(event.target);
-    // }
+    if (this.mode === 'edit') {
+      let submitImage: any;
+      if (fileList.length > 0) {
+        submitImage = fileList[0];
+      }
+      // this.projectService.updateImage(this.project.id, submitImage)
+      // .subscribe((res) => {
+        // this.project.image = res.image;
+        // this.notificationService.showMessage('Change image successfully!');
+      // });
+    } else {
+      if (fileList.length > 0) {
+        this.pack.image = fileList[0];
+      }
+      this.readURL(event.target);
+    }
+  }
+
+  readURL(input) {
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.upload-preview').css('background-image', 'url(' + e.target['result'] + ')');
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 }

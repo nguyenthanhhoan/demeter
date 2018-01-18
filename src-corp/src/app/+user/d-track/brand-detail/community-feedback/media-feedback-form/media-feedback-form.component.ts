@@ -1,6 +1,7 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 
+
 @Component({
   selector: 'media-feedback-form',
   templateUrl: './media-feedback-form.component.html'
@@ -18,13 +19,13 @@ export class MediaFeedbackFormComponent {
 
   open(mediaFeedback) {
     this.lgModal.show();
-    // Object.keys(this.harvesting).forEach((key) => { delete this.harvesting[key]; });
-    // if (harvesting) {
-    //   this.mode = 'edit';
-    //   Object.assign(this.harvesting, harvesting);
-    // } else {
-    //   this.mode = 'add';
-    // }
+    Object.keys(this.mediaFeedback).forEach((key) => { delete this.mediaFeedback[key]; });
+    if (mediaFeedback) {
+      this.mode = 'edit';
+      Object.assign(this.mediaFeedback, mediaFeedback);
+    } else {
+      this.mode = 'add';
+    }
   }
 
   saveOrUpdate() {

@@ -8,7 +8,7 @@
         <h4 class="modal-title">Edit Brand</h4>
       </div>
       <div class="modal-body">
-       <brand-form [mode]="mode" (closeModal)="onClose($event)"></brand-form>
+       <brand-form [mode]="mode" [brand]="brandModel" (closeModal)="onClose($event)"></brand-form>
       </div>
      <!--  <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="lgModal.hide()">

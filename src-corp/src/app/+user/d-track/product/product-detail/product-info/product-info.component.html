@@ -2,7 +2,7 @@
   <header>Product Information</header>
   <fieldset>
     <section>
-      <button class="demeter-btn create-btn primary pull-right" (click)="productForm.open(true)">Edit</button>
+      <button class="demeter-btn create-btn primary pull-right" (click)="productForm.open(product)">Edit</button>
       <div class="info-container">
         <div class="brand-logo">
           <img [src]="product.imageUrl ? product.imageUrl  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'" />

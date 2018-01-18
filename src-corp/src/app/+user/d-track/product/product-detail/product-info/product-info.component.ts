@@ -10,7 +10,7 @@ import { NotificationService } from 'app/shared/utils/notification.service';
 export class ProductInfoComponent implements OnInit {
 
   @Input()
-  product: any
+  product: any;
 
   constructor(private router: Router, private notificationService: NotificationService) { }
 
