@@ -98,6 +98,8 @@ Rails.application.routes.draw do
     get '/sensor_data/timestamp/:start_timestamp/:end_timestamp' => 'sensor_data#query_in_timestamp'
     get '/sensor_data/date/:date/zone/:zone_id' => 'sensor_data#query_in_date'
     get '/sensor_data/latest' => 'sensor_data#query_lastest'
+    put '/profile' => 'profile#update'
+    put '/profile/update_password' => 'profile#update_password'
   end
 
   require 'sidekiq/web'

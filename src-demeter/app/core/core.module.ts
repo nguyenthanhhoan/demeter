@@ -12,10 +12,11 @@ import { ProjectAlertService } from './api/services/project-alert.service';
 import { CameraService } from './api/services/camera.service';
 import { PostService } from './api/services/post.service';
 import { TopicService } from './api/services/topic.service';
+import { ProfileService } from './api/services/profile.service';
 
 @NgModule({
   imports: [
-  ],
+],
   declarations: [],
   providers: [
     JsonApiService,
@@ -23,6 +24,7 @@ import { TopicService } from './api/services/topic.service';
     CoreService,
     AuthGuard,
     AuthService,
+    ProfileService,
     NotificationService,
     ProjectService,
     SensorDataService,

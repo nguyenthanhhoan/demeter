@@ -19,6 +19,9 @@ export const routes: Routes = [{
       path: 'about',
       loadChildren: 'app/user/about/about.module#AboutModule'
     }, {
+      path: 'profile',
+      loadChildren: 'app/user/profile/profile.module#ProfileModule'
+    }, {
       path: 'agribook',
       loadChildren: 'app/user/agribook/agribook.module#AgribookModule'
     }, {

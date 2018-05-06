@@ -1,0 +1,95 @@
+<div class="user-form">
+  <h4>Edit Profile</h4>
+  <form class="form-horizontal dmt-form">
+    <fieldset [disabled]="fetching">
+      <div class="form-group">
+        <span class="control-label col-xs-4 col-sm-5">First Name</span>
+        <div class="col-xs-7 col-sm-5">
+          <input
+            [(ngModel)]="user.first_name"
+            maxlength="20"
+            name="name"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="control-label col-xs-4 col-sm-5">Last Name</span>
+        <div class="col-xs-7 col-sm-5">
+          <input
+            [(ngModel)]="user.last_name"
+            name="last_name"
+            maxlength="20"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+          <span class="control-label col-xs-4 col-sm-5">Email</span>
+          <div class="col-xs-7 col-sm-5">
+            <input
+              [(ngModel)]="user.email"
+              name="email"
+              maxlength="20"
+              disabled
+              type="text"
+              class="form-control">
+          </div>
+        </div>
+      <div class="dmt-button-group">
+        <span class="col-xs-4 col-sm-5"></span>
+        <button 
+          (click)="update()"
+          class="dmt-btn btn btn-primary">
+          Update Profile
+        </button>
+      </div>
+    </fieldset>
+  </form>
+  <h4>Change Password</h4>
+  <form class="form-horizontal dmt-form">
+    <fieldset [disabled]="fetching">
+      <div class="form-group">
+        <span class="control-label col-xs-4 col-sm-5">Current Password</span>
+        <div class="col-xs-7 col-sm-5">
+          <input
+            [(ngModel)]="password.current_password"
+            maxlength="20"
+            name="current_password"
+            type="password"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="control-label col-xs-4 col-sm-5">New Password</span>
+        <div class="col-xs-7 col-sm-5">
+          <input
+            [(ngModel)]="password.password"
+            name="password"
+            maxlength="20"
+            type="password"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+          <span class="control-label col-xs-4 col-sm-5">Re-enter New Password</span>
+          <div class="col-xs-7 col-sm-5">
+            <input
+              [(ngModel)]="password.password_confirmation"
+              name="password_confirmation"
+              maxlength="20"
+              type="password"
+              class="form-control">
+          </div>
+        </div>
+      <div class="dmt-button-group">
+        <span class="col-xs-4 col-sm-5"></span>
+          <button 
+            (click)="changePassword()"
+            class="dmt-btn btn btn-primary">
+            Change Password
+          </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
